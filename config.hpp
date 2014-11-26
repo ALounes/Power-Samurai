@@ -22,4 +22,11 @@ enum power {FireBoll = 0, None};
 #define E_SPRITE_END_X getAnimationWidth ()*2
 #define E_SPRITE_END_Y getAnimationHeight()*2
 
+/* MAP */
+#define X_MAX_MAP 1000
+#define X_MIN_MAP 0
+
+#define Y_MAX_MAP 1000
+#define Y_MIN_MAP 0
+
 #endif

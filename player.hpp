@@ -13,9 +13,9 @@ class Player : public Entity
 
 	void move(Key::Code keyPressed);
 
-	String getName();
-	int getLife();
-	int getMana();
+	String getName() const;
+	int getLife() const;
+	int getMana() const;
 
 	void setName(String name);
 	void setLife(int life);

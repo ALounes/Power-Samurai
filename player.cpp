@@ -75,19 +75,19 @@ Player::move(Key::Code keyPressed)
 }
 
 String 
-Player::getName()
+Player::getName() const
 {
 	return name_;
 }
 
 int 
-Player::getLife()
+Player::getLife() const
 {
 	return life_;
 }
 
 int 
-Player::getMana()
+Player::getMana() const
 {
 	return mana_;
 }

@@ -1,0 +1,8 @@
+powersamurai.o: powersamurai.cpp powersamurai.hpp entity.hpp \
+ animation.hpp config.hpp bot.hpp player.hpp
+main.o: main.cpp powersamurai.hpp entity.hpp animation.hpp config.hpp \
+ bot.hpp player.hpp
+animation.o: animation.cpp animation.hpp config.hpp
+entity.o: entity.cpp entity.hpp animation.hpp config.hpp
+bot.o: bot.cpp bot.hpp config.hpp entity.hpp animation.hpp
+player.o: player.cpp player.hpp entity.hpp animation.hpp config.hpp

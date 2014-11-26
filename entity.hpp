@@ -2,7 +2,6 @@
 #define ENTITY_HPP
 
 #include "animation.hpp"
-#include "map.hpp"
 #include "config.hpp"
 
 class Entity : public Animation

@@ -1,9 +1,8 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <iostream>
 #include "powersamurai.hpp"
-#include "animation.hpp"
-#include "eventmanagement.cpp"
-#include <SFML/Audio.hpp>
+
 #define speed 3
 
 enum direction direction_prec;
