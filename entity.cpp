@@ -1,19 +1,13 @@
 #include "entity.hpp"
 
-Entity::Entity(RenderWindow *win, Image& image, Vector2i nbrOfAnim, int moveSpeed)
+Entity::Entity(RenderWindow *win, Image& image, Vector2i nbrOfAnim)
 : Animation(win,image,nbrOfAnim)
-, moveSpeed_(moveSpeed)
 {
-	// A FAIRE
+	setDefaultSprite();
+	setSpeed(DEFAULT_SPEED);
 }
 
 Entity::~Entity() {}
-
-void 
-Entity::init()
-{
-	// A FAIRE 
-}
 
 void 
 Entity::setSpeed(int speed)

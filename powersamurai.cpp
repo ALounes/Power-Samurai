@@ -57,7 +57,7 @@ PowerSamurai::run ()
 	Vector2i ve(3,4);
 	String st("Bot");
  
-	player_fartas = new Player(win_,fartas,ve,st,1,10,10,None);
+	player_fartas = new Player(win_,fartas,ve,st,10,10,None);
 
 	if(!perso.LoadFromFile("sprite/gris.png"))
 		cout << "erreur " << endl ;

@@ -11,7 +11,8 @@ class Bot: public Entity
 {
 	public :
 	
-	Bot(RenderWindow *win, Image& image, Vector2i& nbrOfAnim, String& name, int moveSpeed, int life, int mana, enum power power);
+	Bot(RenderWindow *win, Image& image, Vector2i& nbrOfAnim, String& name,
+		 int life, int mana, enum power power);
 	~Bot();
 
 	void move();

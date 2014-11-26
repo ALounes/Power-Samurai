@@ -11,10 +11,8 @@ class Entity : public Animation
 
 	enum direction {DOWN = 0, LEFT, RIGHT, UP};
 
-	Entity(RenderWindow *win, Image& image, Vector2i nbrOfAnim, int moveSpeed = DEFAULT_SPEED);
+	Entity(RenderWindow *win, Image& image, Vector2i nbrOfAnim);
 	~Entity();
-
-	void init();	
 
 	void moveUp();
 	void moveDown();
@@ -26,8 +24,7 @@ class Entity : public Animation
 	void moveDownLeft();
 	void moveDownRight();
 
-	bool legalDeplacement(int x, int y) const;
-
+	virtual bool legalDeplacement(int x, int y) const;
 	virtual void setDefaultSprite();
 
 	int  getSpeed() const;

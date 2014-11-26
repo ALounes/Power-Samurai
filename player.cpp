@@ -2,8 +2,8 @@
 
 
 Player::Player(RenderWindow *win, Image& image, Vector2i& nbrOfAnim, String& name,
-					 int moveSpeed, int life, int mana, enum power power)
-:Entity(win,image,nbrOfAnim,moveSpeed)
+					int life, int mana, enum power power)
+:Entity(win,image,nbrOfAnim)
 ,name_(name)
 ,life_(life)
 ,mana_(mana)
@@ -74,4 +74,39 @@ Player::move(Key::Code keyPressed)
 	animationRight();
 }
 
+String 
+Player::getName()
+{
+	return name_;
+}
+
+int 
+Player::getLife()
+{
+	return life_;
+}
+
+int 
+Player::getMana()
+{
+	return mana_;
+}
+
+void 
+Player::setName(String name)
+{
+	name_ = name;
+}
+
+void 
+Player::setLife(int life)
+{
+	life_ = life;
+}
+
+void 
+Player::setMana(int mana)
+{
+	mana_ = mana;
+}
 
