@@ -25,12 +25,22 @@ class Entity : public Animation
 
 	virtual bool legalDeplacement(int x, int y) const;
 	virtual void setDefaultSprite();
+	virtual void update();
+
+	virtual void play();
+	virtual void pause();
+
+	void runMove();
+	void stopMove();
+	bool isMoving() const;
 
 	int  getSpeed() const;
 	void setSpeed(int speed);
 
 	private:
-	int moveSpeed_;
+	bool moving_;
+	int  moveSpeed_;
+
 };
 
 #endif

@@ -2,6 +2,7 @@
 
 Entity::Entity(RenderWindow *win, Image& image, Vector2i nbrOfAnim)
 : Animation(win,image,nbrOfAnim)
+,moving_(false)
 {
 	setDefaultSprite();
 	setSpeed(DEFAULT_SPEED);
@@ -21,10 +22,43 @@ Entity::getSpeed() const
 	return moveSpeed_;
 }
 
+void 
+Entity::runMove()
+{
+	moving_ = true;
+}
+
+void 
+Entity::stopMove()
+{
+	moving_ = false;
+}
+
+bool 
+Entity::isMoving() const
+{
+	return (moving_ && paused_);
+}
+
+void 
+Entity::play()
+{  
+	paused_ = true;
+}
+
+void 
+Entity::pause()
+{
+	paused_ = false;
+	moving_ = false;
+}
+
 bool 
 Entity::legalDeplacement(int x, int y) const
 {
-	if((x > X_MAX_MAP)&&(x < X_MIN_MAP)&&(y > Y_MAX_MAP)&&(y < Y_MIN_MAP))
+	if (!isMoving())
+		return false;
+	else if((x > X_MAX_MAP)&&(x < X_MIN_MAP)&&(y > Y_MAX_MAP)&&(y < Y_MIN_MAP))
 		return false;
 	else 
 		return true;
@@ -109,4 +143,8 @@ Entity::setDefaultSprite()
 	mySprite_->SetSubRect(IntRect(E_SPRITE_BEGIN_X,E_SPRITE_BEGIN_Y,E_SPRITE_END_X,E_SPRITE_END_Y));
 }
 
-
+void 
+Entity::update()
+{
+		updateSprite();
+}

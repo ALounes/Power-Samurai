@@ -22,6 +22,7 @@ public:
 	void run ();
 	void addEntity(Entity *entity);
 	void removeEntity(Entity *entity);		
+	void displayEntity(Clock &time);
 
 	void eventManagement(Event &event);
 	void keyPressedManagement (sf::Key::Code keyPressed);
