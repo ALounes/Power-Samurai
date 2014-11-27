@@ -45,6 +45,8 @@ PowerSamurai::run ()
 	Event event;
 	Clock time;
 	Vector2f position(win_->GetWidth()/2,win_->GetHeight()/2);
+	Clock clock;
+
 
 	Shape rect1   = Shape::Rectangle(10,10,20,20,Color(100,0,0));
 	Shape rect2   = Shape::Rectangle(350,210,360,220,Color(100,0,0));
@@ -128,9 +130,8 @@ PowerSamurai::run ()
 		win_->Draw(rect3);
 		win_->Draw(sprite_plan);
 
-		for (auto s : entitys) {
-      	s->display();
-    	}
+		// Mise a jours des sprites et affichage
+		displayEntity(clock);
 
 		win_->Draw(rect1);
 		win_->Draw(rect2);
@@ -294,5 +295,24 @@ void
 PowerSamurai::removeEntity(Entity *entity)
 {
 	// A FAIRE
+}
+
+void 
+PowerSamurai::displayEntity(Clock &time)
+{
+	bool refresh = false;
+
+	if (time.GetElapsedTime() > ENTITY_FPS_RATE) 
+		refresh = true;
+
+	for(auto s : entitys){
+		if(refresh && s->isPlaying()){
+			s->update();
+		}
+		s->display();
+	}
+
+	if(refresh)
+		time.Reset();
 }
 

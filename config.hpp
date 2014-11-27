@@ -6,6 +6,9 @@
 
 enum power {FireBoll = 0, None};
 
+/* POWERSAMURAI */
+#define ENTITY_FPS_RATE 0.20
+
 /* BOT */
 #define random_minimum 0
 #define random_maximum 1000

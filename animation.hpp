@@ -22,9 +22,10 @@ class Animation
 	
 	void setPosition(Vector2f &position);
 	
-	void play();
-	void pause();
-	bool isPlaying();
+	virtual void play();
+	virtual void pause();
+	bool isPlaying() const;
+
 	void SetAnimFps(int &fps);
 	int  getAnimFps() const;
 	void updateSprite();
@@ -46,6 +47,7 @@ class Animation
 	protected:
 	Sprite    *mySprite_;
 	RenderWindow *win_;
+	bool	paused_;
 
 	private:
 	Image     &myImage_;
@@ -53,9 +55,9 @@ class Animation
 	Vector2i  sizeSprite_;
 	Vector2i  &numberOfAnim_;
 
-	int	  animationFps_;
+	int	animationFps_;
 	Vector2i  anim_;
-	bool	  moving_;
+
 
 };
 

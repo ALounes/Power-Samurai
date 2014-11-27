@@ -9,7 +9,7 @@ Player::Player(RenderWindow *win, Image& image, Vector2i& nbrOfAnim, String& nam
 ,mana_(mana)
 ,power_(power)
 {
-
+	play();
 }
 
 Player::~Player()
@@ -25,7 +25,7 @@ Player::move(Key::Code keyPressed)
 	switch (keyPressed) 
 	{
 	case sf::Key::Z :
-
+		runMove();
 		if( input.IsKeyDown(Key::D))
 			moveUpRight();
 		else if( input.IsKeyDown(Key::Q))
@@ -35,7 +35,7 @@ Player::move(Key::Code keyPressed)
 		break;
 
 	case sf::Key::S :
-
+		runMove();
 		if( input.IsKeyDown(Key::D))
 			moveDownRight();
 		else if( input.IsKeyDown(Key::Q))
@@ -45,7 +45,7 @@ Player::move(Key::Code keyPressed)
 		break;
 
 	case sf::Key::Q :
-
+		runMove();
 		if( input.IsKeyDown(Key::Z))
 			moveUpLeft();
 		else if( input.IsKeyDown(Key::S))
@@ -55,7 +55,7 @@ Player::move(Key::Code keyPressed)
 		break;
 
 	case sf::Key::D :
-
+		runMove();
 		if( input.IsKeyDown(Key::Z))
 			moveUpRight();
 		else if( input.IsKeyDown(Key::S))
@@ -65,13 +65,30 @@ Player::move(Key::Code keyPressed)
 		break;
 
 	case sf::Key::Space :
+		// A FAIRE 
 		break;
-	
+
+	case sf::Key::Escape :
+		if(isPlaying())
+			pause();
+		else
+			play();
+		break;
+
 	default: 
 		break;
   }
-	updateSprite();
-	animationRight();
+}
+
+void 
+Player::update()
+{
+	if (isMoving())
+	{
+		updateSprite();
+		animationRight();
+		stopMove();
+	}
 }
 
 String 

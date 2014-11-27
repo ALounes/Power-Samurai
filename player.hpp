@@ -21,6 +21,7 @@ class Player : public Entity
 	void setLife(int life);
 	void setMana(int mana);
 
+	void update();
 
 	private:
 	

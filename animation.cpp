@@ -2,11 +2,11 @@
 
 Animation::Animation(RenderWindow *win, Image &image, Vector2i nbrOfAnim)
 : win_(win)
+, paused_(false)
 , myImage_(image)
 , numberOfAnim_(nbrOfAnim)
 , animationFps_(DEFAULT_ANIM_FPS)
-, anim_(1,0)
-, moving_(false) 
+, anim_(1,0) 
 {
 	mySprite_ = new Sprite();
 	mySprite_->SetImage(image); 
@@ -128,19 +128,19 @@ Animation::getAnimationY() const
 void 
 Animation::play()
 {  
-	moving_ = true;
+	paused_ = true;
 }
 
 void 
 Animation::pause()
 {
-	moving_ = false;
+	paused_ = false;
 }
 
 bool
-Animation::isPlaying()
+Animation::isPlaying() const
 {
-	return moving_;
+	return paused_;
 }
 
 void
