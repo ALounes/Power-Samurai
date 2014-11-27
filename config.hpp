@@ -7,7 +7,7 @@
 enum power {FireBoll = 0, None};
 
 /* POWERSAMURAI */
-#define ENTITY_FPS_RATE 0.20
+#define ENTITY_FPS_RATE 0.1
 
 /* BOT */
 #define random_minimum 0
@@ -31,5 +31,9 @@ enum power {FireBoll = 0, None};
 
 #define Y_MAX_MAP 1000
 #define Y_MIN_MAP 0
+
+/* PLAYER */
+#define PLAYER_LIFE_MAX 100
+#define PLAYER_MANA_MAX 100
 
 #endif

@@ -173,7 +173,7 @@ PowerSamurai::eventManagement(Event &event)
 			break;
 
 		case Event::KeyPressed :
-			player_fartas->move(event.Key.Code);
+			player_fartas->actionKey(event.Key.Code);
 			keyPressedManagement(event.Key.Code);
 			break;
 

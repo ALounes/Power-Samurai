@@ -7,6 +7,8 @@ Player::Player(RenderWindow *win, Image& image, Vector2i& nbrOfAnim, String& nam
 ,name_(name)
 ,life_(life)
 ,mana_(mana)
+,lifeMax_(PLAYER_LIFE_MAX)
+,manaMax_(PLAYER_MANA_MAX)
 ,power_(power)
 {
 	play();
@@ -18,7 +20,7 @@ Player::~Player()
 }
 
 void
-Player::move(Key::Code keyPressed)
+Player::actionKey(Key::Code keyPressed)
 {
 	const sf::Input &input = win_->GetInput();
 
@@ -127,3 +129,96 @@ Player::setMana(int mana)
 	mana_ = mana;
 }
 
+void 
+Player::lifePenalty(int penalty)
+{
+	life_ -= penalty;
+
+	if(life_ < ZERO)
+	{
+		life_ = ZERO;
+	}
+}
+
+void 
+Player::lifeGain(int gain)
+{
+ 	life_ += gain;
+
+	if(life_ > lifeMax_)
+	{
+		life_ = lifeMax_;
+	}
+}
+
+void 
+Player::manaPenalty(int penalty)
+{
+	mana_ -= penalty;
+
+	if(mana_ < ZERO)
+	{
+		mana_ = ZERO;
+	}
+}
+
+void 
+Player::manaGain(int gain)
+{
+ 	mana_ += gain;
+
+	if(mana_ > manaMax_)
+	{
+		mana_ = manaMax_;
+	}
+}
+
+bool 
+Player::isAlive() const
+{
+	return (life_ > ZERO);
+}
+
+bool 
+Player::haveMana() const
+{
+	return (mana_ > ZERO);
+}
+
+
+int  
+Player::getLifeMax() const
+{
+	return lifeMax_;
+}
+
+int  
+Player::getManaMax() const
+{
+	return manaMax_;
+}
+
+void  
+Player::setLifeMax(int life)
+{
+	lifeMax_ = life;
+}
+
+void  
+Player::setManaMax(int mana)
+{
+	manaMax_ = mana;
+}
+
+
+void 
+Player::bonusLifeMax(int life)
+{
+	lifeMax_ += life;
+}
+
+void 
+Player::bonusManaMac(int mana)
+{
+	manaMax_ += mana;
+}
