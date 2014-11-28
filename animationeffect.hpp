@@ -17,7 +17,9 @@ class AnimationEffect: public Animation
 
 	private:
 	Clock time_;
-	int PIPI = 0;
+	int numberOfEffect_;
+	int iAnim_;
+
 };
 
 #endif

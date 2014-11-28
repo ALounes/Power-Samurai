@@ -103,9 +103,22 @@ PowerSamurai::run ()
 		while (win_->GetEvent(event))
 		{
 			// Gestion des evenements 
-			eventManagement(event);
-		}
+		switch (event.Type)
+		{
+			case Event::Closed :
+				win_->Close();
+				break;
 
+			case Event::KeyPressed :
+				player_fartas->actionKey(event.Key.Code);
+				keyPressedManagement(event.Key.Code);
+				effect.play(clock2, false);
+				break;
+
+			default: 
+				break;
+			}
+		}
 		if((time.GetElapsedTime() > 0.25) && (moving)){
 			anim.x++; 
 			if(unsigned (anim.x * 32) >= perso.GetWidth())
@@ -133,7 +146,7 @@ PowerSamurai::run ()
 		view.SetHalfSize(400, 300);
 
 		// Efface le contenu de la fenetre 
-		win_->Clear();
+		//win_->Clear();
 	
 		win_->SetView(view);
 
@@ -150,13 +163,13 @@ PowerSamurai::run ()
 		win_->Draw(sprite_perso);
       
 		//	wistiki.display();
-   	effect.play(clock2, false);
+   	
 
 		// Affichage du contenu de la fenêtre à l'écran
 		win_->Display();
 
 		// Efface le contenu de la fenetre 
-		//win_->Clear();
+		win_->Clear();
    }
 }
 
@@ -319,6 +332,38 @@ PowerSamurai::displayEntity(Clock &time)
 	for(auto s : entitys){
 		if(refresh && s->isPlaying()){
 			s->update();
+		}
+		s->display();
+	}
+
+	if(refresh)
+		time.Reset();
+}
+
+
+void 
+PowerSamurai::addEffect(AnimationEffect *effect)
+{
+	effects.push_back(effect);
+}
+
+void 
+PowerSamurai::removeEffect(AnimationEffect *effect)
+{
+	// A FAIRE
+}
+
+void 
+PowerSamurai::displayEffect(Clock &time)
+{
+	bool refresh = false;
+
+	if (time.GetElapsedTime() > EFFECT_FPS_RATE) 
+		refresh = true;
+
+	for(auto s : effects){
+		if(refresh && s->isPlaying()){
+			//s->play();
 		}
 		s->display();
 	}

@@ -3,8 +3,10 @@ int PIPI = 0;
 
 AnimationEffect::AnimationEffect(RenderWindow *win, Image& image, const Vector2i nbrOfAnim)
 : Animation(win,image,nbrOfAnim)
+,numberOfEffect_(nbrOfAnim.x * nbrOfAnim.y)
+,iAnim_(ZERO)
 {
-	//setDefaultSprite();
+	setDefaultSprite();
 }
 
 AnimationEffect::
@@ -13,12 +15,19 @@ AnimationEffect::
 void 
 AnimationEffect::play(Clock time, bool loop) 
 {
-	if (time.GetElapsedTime() > EFFECT_FPS_RATE) 
+	if(iAnim_ < numberOfEffect_)
 	{
-		setAnimation( ++PIPI % 25);
-		time.Reset();
-		display();
+		if (time.GetElapsedTime() > EFFECT_FPS_RATE) 
+		{
+			setAnimation(iAnim_++);
+			time.Reset();
+			display();
+		}
 	}
+	else
+	{
+		iAnim_= 0;
+	}	
 }
 
 void 

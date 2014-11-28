@@ -21,9 +21,14 @@ public:
 	~PowerSamurai();
 
 	void run ();
+
 	void addEntity(Entity *entity);
 	void removeEntity(Entity *entity);		
 	void displayEntity(Clock &time);
+
+	void addEffect(AnimationEffect *effect);
+	void removeEffect(AnimationEffect *effect);		
+	void displayEffect(Clock &time);
 
 	void eventManagement(Event &event);
 	void keyPressedManagement (sf::Key::Code keyPressed);
@@ -32,6 +37,7 @@ public:
 private:
 	RenderWindow *win_;
 	list<Entity*> entitys;
+	list<AnimationEffect*> effects;
 };
 
 #endif 
