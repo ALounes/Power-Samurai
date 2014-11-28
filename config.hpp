@@ -19,6 +19,14 @@ enum power {FireBoll = 0, None};
 #define A_SPRITE_END_X getAnimationWidth ()
 #define A_SPRITE_END_Y getAnimationHeight()
 
+/* EFFECT ANIMATION */
+#define EFFECT_FPS_RATE 0.25
+
+#define EFFECT_SPRITE_BEGIN_X 0
+#define EFFECT_SPRITE_BEGIN_Y 0
+#define EFFECT_SPRITE_END_X getAnimationWidth ()
+#define EFFECT_SPRITE_END_Y getAnimationHeight()
+
 /* ENTITY */
 #define E_SPRITE_BEGIN_X getAnimationWidth ()
 #define E_SPRITE_BEGIN_Y getAnimationHeight()

@@ -13,6 +13,7 @@ using namespace sf;
 Image fartas;
 Image plan;
 Image perso;
+Image effect_003;
 Sprite sprite_plan;
 Sprite sprite_perso;
 Image feux;
@@ -44,8 +45,11 @@ PowerSamurai::run ()
 {
 	Event event;
 	Clock time;
+	Clock clock2;
 	Vector2f position(win_->GetWidth()/2,win_->GetHeight()/2);
 	Clock clock;
+	Vector2i test_effect(5,5);
+
 
 
 	Shape rect1   = Shape::Rectangle(10,10,20,20,Color(100,0,0));
@@ -56,6 +60,7 @@ PowerSamurai::run ()
 		cout << "erreur " << endl ;
 
 	Vector2i ve(3,4);
+
 	String st("Bot");
  
 	player_fartas = new Player(win_,fartas,ve,st,10,10,None);
@@ -74,9 +79,14 @@ PowerSamurai::run ()
 		cout << "erreur " << endl ;
 
 
+	if (!effect_003.LoadFromFile("sprite/effect_003.png"))
+		cout << "erreur " << endl ;
+
+	AnimationEffect effect(win_,effect_003,test_effect);
+
 	son.SetBuffer(buffer_son);
 	son.SetLoop(true);
- 	son.Play();
+ 	//son.Play();
 
 	sprite_perso.SetImage(perso);
 	sprite_feux.SetImage(feux);	
@@ -140,6 +150,7 @@ PowerSamurai::run ()
 		win_->Draw(sprite_perso);
       
 		//	wistiki.display();
+   	effect.play(clock2, false);
 
 		// Affichage du contenu de la fenêtre à l'écran
 		win_->Display();

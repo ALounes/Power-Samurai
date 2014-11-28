@@ -6,6 +6,7 @@
 #include "entity.hpp"
 #include "bot.hpp"
 #include "player.hpp"
+#include "animationeffect.hpp"
 
 using  namespace sf;
 using  namespace std;

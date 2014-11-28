@@ -140,7 +140,10 @@ Entity::moveDownLeft()
 void 
 Entity::setDefaultSprite()
 {
-	mySprite_->SetSubRect(IntRect(E_SPRITE_BEGIN_X,E_SPRITE_BEGIN_Y,E_SPRITE_END_X,E_SPRITE_END_Y));
+	mySprite_->SetSubRect(IntRect(E_SPRITE_BEGIN_X,
+											E_SPRITE_BEGIN_Y,
+											E_SPRITE_END_X,
+											E_SPRITE_END_Y));
 }
 
 void 

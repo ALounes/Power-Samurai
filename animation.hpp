@@ -7,12 +7,13 @@
 #include "config.hpp"
 
 using namespace sf;
+using namespace std;
 
 class Animation 
 {
 	public :
 
-	Animation(RenderWindow *win, Image& image, Vector2i nbrOfAnim);
+	Animation(RenderWindow *win, Image& image,const Vector2i &nbrOfAnim);
 	~Animation();
 
 	int  getWidth () const;
@@ -35,6 +36,7 @@ class Animation
 	void animationLeft();
 	void animationRight();
 
+	void setAnimation(int i);
 	void setAnimationX(int x);
 	void setAnimationY(int y);
 	int  getAnimationX() const;
@@ -53,7 +55,7 @@ class Animation
 	Image     &myImage_;
 	Vector2i  sizeImage_; 
 	Vector2i  sizeSprite_;
-	Vector2i  &numberOfAnim_;
+	const Vector2i numberOfAnim_;
 
 	int	animationFps_;
 	Vector2i  anim_;

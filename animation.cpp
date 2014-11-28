@@ -1,6 +1,6 @@
 #include "animation.hpp"
 
-Animation::Animation(RenderWindow *win, Image &image, Vector2i nbrOfAnim)
+Animation::Animation(RenderWindow *win, Image &image, const Vector2i& nbrOfAnim)
 : win_(win)
 , paused_(false)
 , myImage_(image)
@@ -23,6 +23,20 @@ Animation::~Animation()
 {
 	 delete mySprite_;
 }
+ 
+void
+Animation::setAnimation(int i)
+{
+	int x ,y ;
+ 
+	x = i % numberOfAnim_.x;
+	y = i / numberOfAnim_.x;
+
+	setAnimationX(x);
+	setAnimationY(y);
+	updateSprite();
+}
+
 
 int  
 Animation::getWidth () const
@@ -164,7 +178,10 @@ Animation::display()
 void 
 Animation::setDefaultSprite()
 {
-	mySprite_->SetSubRect(IntRect(A_SPRITE_BEGIN_X,A_SPRITE_BEGIN_Y,A_SPRITE_END_X,A_SPRITE_END_Y));
+	mySprite_->SetSubRect(IntRect(A_SPRITE_BEGIN_X,
+											A_SPRITE_BEGIN_Y,		
+											A_SPRITE_END_X,
+											A_SPRITE_END_Y));
 }
 
 
