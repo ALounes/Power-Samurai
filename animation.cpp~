@@ -38,7 +38,7 @@ Animation::setAnimation(int i)
 }
 
 void 
-Animation::setImage(const string imageName)
+Animation::setImage(const String imageName)
 {
 	myImage_.LoadFromFile(imageName);
 }

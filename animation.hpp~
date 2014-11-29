@@ -16,7 +16,7 @@ class Animation
 	Animation(RenderWindow *win, Image& image,const Vector2i &nbrOfAnim);
 	~Animation();
 
-	void setImage(const string imageName);
+	void setImage(const String imageName);
 
 	int  getWidth () const;
 	int  getHeight() const;
