@@ -151,3 +151,17 @@ Entity::update()
 {
 		updateSprite();
 }
+
+int* 
+Entity::soclePosition()
+{
+	int *tab = new int[4];
+	Vector2f socle= mySprite_->GetCenter();
+
+	tab[0] = (socle.x - getAnimationWidth()/2) / getAnimationWidth();
+	tab[1] = (socle.x + getAnimationWidth()/2) / getAnimationWidth();
+	tab[2] = (socle.y - getAnimationHeight()/2) / getAnimationHeight();
+	tab[3] = (socle.y + getAnimationHeight()/2) / getAnimationHeight();
+
+	return tab;
+}
