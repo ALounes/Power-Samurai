@@ -14,7 +14,8 @@ class LinusTorvalds : public Player
 {
 	public :
 
-	LinusTorvalds(RenderWindow *win);
+	LinusTorvalds(RenderWindow *win, Image &image);
+
 	~LinusTorvalds();
 
 	private:

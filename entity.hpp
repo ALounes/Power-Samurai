@@ -10,7 +10,7 @@ class Entity : public Animation
 
 	enum direction {DOWN = 0, LEFT, RIGHT, UP};
 
-	Entity(RenderWindow *win, Image& image, Vector2i nbrOfAnim);
+	Entity(RenderWindow *win, Image& image,const Vector2i& nbrOfAnim);
 	~Entity();
 
 	void moveUp();

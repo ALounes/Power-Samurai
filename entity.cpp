@@ -1,6 +1,6 @@
 #include "entity.hpp"
 
-Entity::Entity(RenderWindow *win, Image& image, Vector2i nbrOfAnim)
+Entity::Entity(RenderWindow *win, Image& image, const Vector2i& nbrOfAnim)
 : Animation(win,image,nbrOfAnim)
 ,moving_(false)
 {

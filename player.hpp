@@ -8,8 +8,8 @@ class Player : public Entity
 {
 	public :
 	
-	Player(RenderWindow *win, Image& image, Vector2i& nbrOfAnim, String& name,
-			 int life, int mana, enum power power);
+	Player(RenderWindow *win, Image &image,const Vector2i nbrOfAnim, String name,
+					int life, int mana, enum power power);
 	~Player();
 
 	void actionKey(Key::Code keyPressed);

@@ -1,7 +1,7 @@
 #include "player.hpp"
 
 
-Player::Player(RenderWindow *win, Image& image, Vector2i& nbrOfAnim, String& name,
+Player::Player(RenderWindow *win, Image &image, const Vector2i nbrOfAnim, String name,
 					int life, int mana, enum power power)
 :Entity(win,image,nbrOfAnim)
 ,name_(name)

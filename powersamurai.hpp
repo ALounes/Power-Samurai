@@ -7,6 +7,7 @@
 #include "bot.hpp"
 #include "player.hpp"
 #include "animationeffect.hpp"
+#include "linustorvalds.hpp"
 
 using  namespace sf;
 using  namespace std;

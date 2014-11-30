@@ -1,8 +1,8 @@
 #include "linustorvalds.hpp"
 
-LinusTorvalds::LinusTorvalds(RenderWindow *win)
-:Player( win, 
-			Image(), 
+LinusTorvalds::LinusTorvalds(RenderWindow *win, Image &image)
+:Player( win,
+			image, 
 			Vector2i(LINUS_TORVALDS_X,LINUS_TORVALDS_Y), 
 			String("Linus Torvalds"),
 			LINUS_TORVALDS_LIFE,
@@ -10,7 +10,11 @@ LinusTorvalds::LinusTorvalds(RenderWindow *win)
 			LINUS_TORVALDS_POWER
 			)
 {
-	setImage(String("sprite/LinusTorvalds.png"))
+	//setImage(string("sprite/LinusTorvalds.png"));
 }
 
-LinusTorvalds::~linusTorvalds() {}
+
+LinusTorvalds::~LinusTorvalds()
+{}
+
+

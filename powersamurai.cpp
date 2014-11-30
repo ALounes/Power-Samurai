@@ -10,9 +10,9 @@ enum direction direction_prec;
 using namespace std;
 using namespace sf;
 
-Image fartas;
-Image plan;
+Image image_linus;
 Image perso;
+Image plan;
 Image effect_003;
 Sprite sprite_plan;
 Sprite sprite_perso;
@@ -20,7 +20,6 @@ Image feux;
 Sprite sprite_feux;
 View view;
 
-Player *player_fartas;
 Vector2i anim(1,DOWN);
 	bool moving = false;
 
@@ -56,14 +55,9 @@ PowerSamurai::run ()
 	Shape rect2   = Shape::Rectangle(350,210,360,220,Color(100,0,0));
 	Shape rect3   = Shape::Rectangle(5,5,995,995,Color(0,50,50));
 
-	if(!fartas.LoadFromFile("sprite/fartas.png"))
+	if(!image_linus.LoadFromFile("sprite/LinusTorvalds.png"))
 		cout << "erreur " << endl ;
 
-	Vector2i ve(3,4);
-
-	String st("Bot");
- 
-	player_fartas = new Player(win_,fartas,ve,st,10,10,None);
 
 	if(!perso.LoadFromFile("sprite/gris.png"))
 		cout << "erreur " << endl ;
@@ -94,7 +88,9 @@ PowerSamurai::run ()
 	
 	Animation wistiki(win_, perso, Vector2i(32,32));
 
-	entitys.push_front(player_fartas);
+	LinusTorvalds *linus = new LinusTorvalds(win_,image_linus);
+
+	entitys.push_front(linus);
 	//boule.push_front(sprite_plan);
 
    // Exécution de la boucle principale
@@ -110,7 +106,7 @@ PowerSamurai::run ()
 				break;
 
 			case Event::KeyPressed :
-				player_fartas->actionKey(event.Key.Code);
+				linus->actionKey(event.Key.Code);
 				keyPressedManagement(event.Key.Code);
 				effect.play(clock2, false);
 				break;
@@ -197,7 +193,7 @@ PowerSamurai::eventManagement(Event &event)
 			break;
 
 		case Event::KeyPressed :
-			player_fartas->actionKey(event.Key.Code);
+			//player_fartas->actionKey(event.Key.Code);
 			keyPressedManagement(event.Key.Code);
 			break;
 
