@@ -74,7 +74,10 @@ PowerSamurai::run ()
 	if (!effect_003.LoadFromFile("sprite/effect_003.png"))
 		cout << "erreur " << endl ;
 
-	AnimationEffect effect(win_,effect_003,test_effect);
+	// ANIMATION EFFECT
+	AnimationEffect *effect = new AnimationEffect(win_,effect_003,test_effect);
+
+	addEffect(effect);
 
 	son.SetBuffer(buffer_son);
 	son.SetLoop(true);
@@ -107,7 +110,7 @@ PowerSamurai::run ()
 			case Event::KeyPressed :
 				linus->actionKey(event.Key.Code);
 				keyPressedManagement(event.Key.Code);
-				effect.play(clock2, false);
+				//effect.play(false);
 				break;
 
 			default: 
@@ -151,6 +154,7 @@ PowerSamurai::run ()
 
 		// Mise a jours des sprites et affichage
 		displayEntity(clock);
+		
 
 		win_->Draw(rect1);
 		win_->Draw(rect2);
@@ -158,8 +162,8 @@ PowerSamurai::run ()
 		// ajoute le perso
 		win_->Draw(sprite_perso);
       
-		//	wistiki.display();
-   	
+		//displayEffect(clock2);
+   	effect->play(true);
 
 		// Affichage du contenu de la fenêtre à l'écran
 		win_->Display();
@@ -352,19 +356,16 @@ PowerSamurai::removeEffect(AnimationEffect *effect)
 void 
 PowerSamurai::displayEffect(Clock &time)
 {
-	bool refresh = false;
-
 	if (time.GetElapsedTime() > EFFECT_FPS_RATE) 
-		refresh = true;
-
-	for(auto s : effects){
-		if(refresh && s->isPlaying()){
-			//s->play();
+	{
+		
+		for(auto s : effects){
+			if(s->isPlaying()){
+				s->play(true);
+			}
+			s->display();
 		}
-		s->display();
-	}
-
-	if(refresh)
 		time.Reset();
+	}
 }
 

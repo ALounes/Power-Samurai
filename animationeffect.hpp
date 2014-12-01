@@ -10,14 +10,14 @@ class AnimationEffect: public Animation
 	AnimationEffect(RenderWindow *win, Image& image, const Vector2i nbrOfAnim);
 	~AnimationEffect();
 
-	void play(Clock time, bool loop);
+	void play(bool loop);
 	void stop() const;
 
 	virtual void setDefaultSprite();
 
 	private:
-	Clock time_;
-	int numberOfEffect_;
+
+	const int numberOfEffect_;
 	int iAnim_;
 
 };

@@ -26,7 +26,7 @@ enum power {FireBoll = 0, None};
 #define A_SPRITE_END_Y getAnimationHeight()
 
 /* EFFECT ANIMATION */
-#define EFFECT_FPS_RATE 0.25
+#define EFFECT_FPS_RATE 0.5
 
 #define EFFECT_SPRITE_BEGIN_X 0
 #define EFFECT_SPRITE_BEGIN_Y 0
@@ -40,7 +40,7 @@ enum power {FireBoll = 0, None};
 #define E_SPRITE_END_Y getAnimationHeight()*2
 
 /* MAP */
-#define X_MAX_MAP 1000
+#define X_MAX_MAP 3000
 #define X_MIN_MAP 0
 
 #define Y_MAX_MAP 2000

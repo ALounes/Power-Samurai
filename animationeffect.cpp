@@ -13,16 +13,12 @@ AnimationEffect::
 ~AnimationEffect() {}
 
 void 
-AnimationEffect::play(Clock time, bool loop) 
+AnimationEffect::play(bool loop) 
 {
 	if(iAnim_ < numberOfEffect_)
 	{
-		if (time.GetElapsedTime() > EFFECT_FPS_RATE) 
-		{
 			setAnimation(iAnim_++);
-			time.Reset();
 			display();
-		}
 	}
 	else
 	{
