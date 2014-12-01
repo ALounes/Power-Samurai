@@ -74,11 +74,40 @@ Animation::getAnimationHeight() const
 	return sizeSprite_.y;
 }
 
+Vector2f 
+Animation::getCenter()
+{
+	Vector2f new_position , position = getPosition();
+	
+	new_position.x = position.x + getAnimationWidth()  / 2; 
+	new_position.y = position.y + getAnimationHeight() / 2;
+	
+	return new_position;
+}
+
 void 
-Animation::setPosition(Vector2f &position)
+Animation::setPosition(Vector2f position)
 {
 	mySprite_->SetPosition(position);
 }
+
+void 
+Animation::setCenter(Vector2f position)
+{
+	Vector2f new_position;
+	new_position.x = position.x - getAnimationWidth() / 2; 
+	new_position.y = position.y - getAnimationHeight() / 2;
+	
+	mySprite_->SetPosition(new_position);
+}
+
+
+Vector2f 
+Animation::getPosition()
+{
+	return mySprite_->GetPosition();
+}
+
 
 void 
 Animation::updateSprite()

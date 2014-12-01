@@ -5,6 +5,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "config.hpp"
+#include <iostream>
 
 using namespace sf;
 using namespace std;
@@ -24,7 +25,11 @@ class Animation
 	int  getAnimationHeight() const;
 	Sprite* getSprite() const;
 	
-	void setPosition(Vector2f &position);
+	void setPosition(Vector2f position);
+	void setCenter  (Vector2f position);
+
+	Vector2f getPosition();	
+	Vector2f getCenter();	
 	
 	virtual void play();
 	virtual void pause();

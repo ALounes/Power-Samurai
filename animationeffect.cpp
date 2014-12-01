@@ -1,8 +1,9 @@
 #include "animationeffect.hpp"
 int PIPI = 0;
 
-AnimationEffect::AnimationEffect(RenderWindow *win, Image& image, const Vector2i nbrOfAnim)
+AnimationEffect::AnimationEffect(RenderWindow *win, Image& image, const Vector2i nbrOfAnim, Entity *entity)
 : Animation(win,image,nbrOfAnim)
+,entity_(entity)
 ,numberOfEffect_(nbrOfAnim.x * nbrOfAnim.y)
 ,iAnim_(-1)
 ,playing_(false)
@@ -18,6 +19,7 @@ AnimationEffect::run()
 {
 	if(playing_)
 	{
+		setCenter(entity_->getCenter());
 		if(iAnim_ < numberOfEffect_)
 		{
 				setAnimation(++iAnim_);

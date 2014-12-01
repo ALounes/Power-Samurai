@@ -47,7 +47,7 @@ PowerSamurai::run ()
 	Clock clock2;
 	Vector2f position(win_->GetWidth()/2,win_->GetHeight()/2);
 	Clock clock;
-	Vector2i test_effect(5,5);
+	Vector2i test_effect(5,8);
 
 	Shape rect1   = Shape::Rectangle(10,10,20,20,Color(100,0,0));
 	Shape rect2   = Shape::Rectangle(350,210,360,220,Color(100,0,0));
@@ -71,13 +71,8 @@ PowerSamurai::run ()
 		cout << "erreur " << endl ;
 
 
-	if (!effect_003.LoadFromFile("sprite/effect_003.png"))
+	if (!effect_003.LoadFromFile("sprite/effect_010.png"))
 		cout << "erreur " << endl ;
-
-	// ANIMATION EFFECT
-	AnimationEffect *effect = new AnimationEffect(win_,effect_003,test_effect);
-
-	addEffect(effect);
 
 	son.SetBuffer(buffer_son);
 	son.SetLoop(true);
@@ -94,6 +89,13 @@ PowerSamurai::run ()
 	Camera camera(win_,linus);
 
 	entitys.push_front(linus);
+
+	linus->setPosition(Vector2f(90,90));
+
+	// ANIMATION EFFECT
+	AnimationEffect *effect = new AnimationEffect(win_,effect_003,test_effect,linus);
+	addEffect(effect);
+	effect->setPosition(Vector2f(300,300));
 
    // Exécution de la boucle principale
    while (win_->IsOpened())
@@ -318,7 +320,7 @@ PowerSamurai::addEntity(Entity *entity)
 void 
 PowerSamurai::removeEntity(Entity *entity)
 {
-	// A FAIRE
+	entitys.remove(entity);
 }
 
 void 
@@ -350,22 +352,12 @@ PowerSamurai::addEffect(AnimationEffect *effect)
 void 
 PowerSamurai::removeEffect(AnimationEffect *effect)
 {
-	// A FAIRE
+	effects.remove(effect);
 }
 
 void 
 PowerSamurai::displayEffect(Clock &time)
 {
-	if (time.GetElapsedTime() > EFFECT_FPS_RATE) 
-	{
-		
-		for(auto s : effects){
-			if(s->isPlaying()){
-				s->run();
-			}
-			s->display();
-		}
-		time.Reset();
-	}
+	// a faire
 }
 
