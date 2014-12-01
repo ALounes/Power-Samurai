@@ -40,10 +40,10 @@ enum power {FireBoll = 0, None};
 #define E_SPRITE_END_Y getAnimationHeight()*2
 
 /* MAP */
-#define X_MAX_MAP 3000
+#define X_MAX_MAP 1500
 #define X_MIN_MAP 0
 
-#define Y_MAX_MAP 2000
+#define Y_MAX_MAP 1500
 #define Y_MIN_MAP 0
 
 /* CAMERA */

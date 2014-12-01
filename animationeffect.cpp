@@ -4,7 +4,8 @@ int PIPI = 0;
 AnimationEffect::AnimationEffect(RenderWindow *win, Image& image, const Vector2i nbrOfAnim)
 : Animation(win,image,nbrOfAnim)
 ,numberOfEffect_(nbrOfAnim.x * nbrOfAnim.y)
-,iAnim_(ZERO)
+,iAnim_(-1)
+,playing_(false)
 {
 	setDefaultSprite();
 }
@@ -13,25 +14,41 @@ AnimationEffect::
 ~AnimationEffect() {}
 
 void 
-AnimationEffect::play(bool loop) 
+AnimationEffect::run() 
 {
-	if(iAnim_ < numberOfEffect_)
+	if(playing_)
 	{
-			setAnimation(iAnim_++);
-			display();
+		if(iAnim_ < numberOfEffect_)
+		{
+				setAnimation(++iAnim_);
+				display();
+		}
+		else
+		{
+			iAnim_= -1;
+		}	
+		if(playing_ && (iAnim_ == -1))
+			stop();
 	}
-	else
-	{
-		iAnim_= 0;
-	}	
 }
 
 void 
-AnimationEffect::stop() const
+AnimationEffect::stop() 
 {	
-	// A FAIRE
+	playing_ = false;
 }
 
+void 
+AnimationEffect::play()
+{	
+	playing_ = true;
+}
+
+bool 
+AnimationEffect::isPlaying() const
+{
+	return playing_;
+}
 
 void 
 AnimationEffect::setDefaultSprite()

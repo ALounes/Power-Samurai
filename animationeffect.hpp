@@ -10,15 +10,19 @@ class AnimationEffect: public Animation
 	AnimationEffect(RenderWindow *win, Image& image, const Vector2i nbrOfAnim);
 	~AnimationEffect();
 
-	void play(bool loop);
-	void stop() const;
+	void play();
+	void stop();
+	void run ();
+
+	bool isPlaying() const;
 
 	virtual void setDefaultSprite();
 
 	private:
 
 	const int numberOfEffect_;
-	int iAnim_;
+	int  iAnim_;
+	bool playing_;
 
 };
 

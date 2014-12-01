@@ -63,7 +63,7 @@ PowerSamurai::run ()
 	if(!feux.LoadFromFile("sprite/feux.png"))
 		cout << "erreur " << endl ;
 	feux.SetSmooth(true);
-	if(!plan.LoadFromFile("sprite/map.png"))
+	if(!plan.LoadFromFile("sprite/ruines1.png"))
 		cout << "erreur " << endl ;
 	plan.SetSmooth(true);
 
@@ -110,7 +110,7 @@ PowerSamurai::run ()
 			case Event::KeyPressed :
 				linus->actionKey(event.Key.Code);
 				keyPressedManagement(event.Key.Code);
-				//effect.play(false);
+				effect->play();
 				break;
 
 			default: 
@@ -163,7 +163,7 @@ PowerSamurai::run ()
 		win_->Draw(sprite_perso);
       
 		//displayEffect(clock2);
-   	effect->play(true);
+   	effect->run();
 
 		// Affichage du contenu de la fenêtre à l'écran
 		win_->Display();
@@ -361,7 +361,7 @@ PowerSamurai::displayEffect(Clock &time)
 		
 		for(auto s : effects){
 			if(s->isPlaying()){
-				s->play(true);
+				s->run();
 			}
 			s->display();
 		}
