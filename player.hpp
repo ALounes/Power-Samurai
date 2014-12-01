@@ -45,6 +45,7 @@ class Player : public Entity
 	int lifeMax_;
 	int manaMax_;
 	enum power power_;
+
 };
 
 #endif

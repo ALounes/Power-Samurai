@@ -49,8 +49,6 @@ PowerSamurai::run ()
 	Clock clock;
 	Vector2i test_effect(5,5);
 
-
-
 	Shape rect1   = Shape::Rectangle(10,10,20,20,Color(100,0,0));
 	Shape rect2   = Shape::Rectangle(350,210,360,220,Color(100,0,0));
 	Shape rect3   = Shape::Rectangle(5,5,995,995,Color(0,50,50));
@@ -90,8 +88,9 @@ PowerSamurai::run ()
 
 	LinusTorvalds *linus = new LinusTorvalds(win_,image_linus);
 
+	Camera camera(win_,linus);
+
 	entitys.push_front(linus);
-	//boule.push_front(sprite_plan);
 
    // Exécution de la boucle principale
    while (win_->IsOpened())
@@ -144,8 +143,9 @@ PowerSamurai::run ()
 		// Efface le contenu de la fenetre 
 		//win_->Clear();
 	
-		win_->SetView(view);
-
+		//win_->SetView(view);
+		camera.run();	
+	
 		win_->Draw(rect3);
 		win_->Draw(sprite_plan);
 

@@ -1,11 +1,14 @@
 #ifndef FIREBALL_HPP
 #define FIREBALL_HPP
 
-class Fireball{
-public :
+#include "projectile.hpp"
+
+class Fireball : Projectile
+{
+	public :
 
 
-private:
+	private:
 
 };
 

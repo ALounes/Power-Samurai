@@ -24,6 +24,12 @@ Animation::~Animation()
 	 delete mySprite_;
 }
  
+Sprite* 
+Animation::getSprite() const
+{
+	return mySprite_;
+}
+
 void
 Animation::setAnimation(int i)
 {

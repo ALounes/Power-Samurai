@@ -22,6 +22,7 @@ class Animation
 	int  getHeight() const;
 	int  getAnimationWidth () const;
 	int  getAnimationHeight() const;
+	Sprite* getSprite() const;
 	
 	void setPosition(Vector2f &position);
 	
@@ -61,7 +62,6 @@ class Animation
 
 	int	animationFps_;
 	Vector2i  anim_;
-
 
 };
 

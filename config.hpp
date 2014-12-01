@@ -1,7 +1,13 @@
 #ifndef CONFIG_HPP
 #define CONFIG_HPP
 
-#define DEFAULT_SPEED 1
+#include <SFML/Graphics.hpp>
+#include <iostream>
+
+using namespace std;
+using namespace sf;
+
+#define DEFAULT_SPEED 10
 #define ZERO 0
 
 enum power {FireBoll = 0, None};
@@ -37,8 +43,12 @@ enum power {FireBoll = 0, None};
 #define X_MAX_MAP 1000
 #define X_MIN_MAP 0
 
-#define Y_MAX_MAP 1000
+#define Y_MAX_MAP 2000
 #define Y_MIN_MAP 0
+
+/* CAMERA */
+#define CAM_WIDTH  400
+#define CAM_HEIGHT 300
 
 /* PLAYER */
 #define PLAYER_LIFE_MAX 100
