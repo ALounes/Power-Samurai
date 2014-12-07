@@ -1,11 +1,19 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <iostream>
+
 #include "powersamurai.hpp"
 
-#define speed 3
+#define speed 1
 
-enum direction direction_prec;
+#define WIDTH 800
+#define HEIGHT 600
+
+#define MAP_1_HEIGHT 26
+#define MAP_1_WIDTH 31
+
+#define MAP_2_HEIGHT 47
+#define MAP_2_WIDTH 47
 
 using namespace std;
 using namespace sf;
@@ -20,6 +28,7 @@ Image feux;
 Sprite sprite_feux;
 View view;
 
+
 Vector2i anim(1,DOWN);
 	bool moving = false;
 
@@ -29,9 +38,15 @@ SoundBuffer buffer_son;
 Sound son;
 
 
+
+enum direction direction_prec;
+
 PowerSamurai::PowerSamurai()
 {
-	win_ = new RenderWindow(VideoMode(800, 600), "POWER SAMURAI");
+	win_ = new RenderWindow(VideoMode(WIDTH, HEIGHT), "POWER SAMURAI",sf::Style::Close);
+
+   win_->SetPosition((VideoMode::GetDesktopMode().Width)/2 - WIDTH/2, (VideoMode::GetDesktopMode().Height - HEIGHT)/2);
+   win_->ShowMouseCursor(false);
 }
 
 PowerSamurai::~PowerSamurai()
@@ -42,6 +57,11 @@ PowerSamurai::~PowerSamurai()
 void 
 PowerSamurai::run ()
 {
+  
+
+  _map_courante = _map_1;
+
+
 	Event event;
 	Clock time;
 	Clock clock2;
@@ -80,7 +100,9 @@ PowerSamurai::run ()
 
 	sprite_perso.SetImage(perso);
 	sprite_feux.SetImage(feux);	
-	sprite_plan.SetImage(plan);
+	//sprite_plan.SetImage(plan);
+	
+	sprite_plan = *(_map_courante->sprite_map);
 	
 	Animation wistiki(win_, perso, Vector2i(32,32));
 
@@ -110,8 +132,10 @@ PowerSamurai::run ()
 				break;
 
 			case Event::KeyPressed :
+			   keyPressedManagement(event.Key.Code);
 				linus->actionKey(event.Key.Code);
-				keyPressedManagement(event.Key.Code);
+				linus->soclePosition();
+				//keyPressedManagement(event.Key.Code);
 				effect->play();
 				break;
 
@@ -242,7 +266,18 @@ void
 PowerSamurai::keyPressedManagement (sf::Key::Code keyPressed)
 {
   //const sf::Input &input = win_->GetInput();
+  
+  
   switch (keyPressed) {
+   case  sf::Key::Escape :
+      launchingPause();
+		
+	 	break;
+   case  sf::Key::P :
+      _map_courante = _map_courante->link_map_1;
+		sprite_plan = *(_map_courante->sprite_map);
+		
+		break;
 	case sf::Key::Up :
 		moving = true;
 		anim.y = UP;
@@ -359,5 +394,54 @@ void
 PowerSamurai::displayEffect(Clock &time)
 {
 	// a faire
+}
+
+void PowerSamurai::launchingPause() {
+   bool Ispause = true;
+   Shape grey_screen   = Shape::Rectangle(0,0,WIDTH/2,HEIGHT/2,Color(0,0,0));
+   
+   
+	String texte = String ("               Le jeu est en pause.\n\n(P) : Continuer    (Q) : Menu principal", Font::GetDefaultFont(), 40.f);
+	texte.SetPosition(2*32,6*32);
+	texte.SetStyle(11);
+	texte.SetColor(Color::White);
+	
+   
+   win_->Draw(grey_screen);
+   win_->Draw(texte);
+   win_->Display();
+   while (Ispause == true) {
+     Event event2;
+     
+     while (win_->GetEvent(event2))
+		{
+			// Gestion des evenements 
+		switch (event2.Type)
+		{
+			case Event::KeyPressed :
+     
+            switch (event2.Key.Code) {
+               case  sf::Key::Escape :
+                  Ispause = false;
+		            break;
+               case  sf::Key::P :
+                  Ispause = false;
+		
+	               break; 
+               case  sf::Key::Q :
+                  Ispause = false;
+		
+	        	      break;
+	            default :
+	               break;
+	         }
+	         
+	         break;
+	      default :
+	         break;
+	   }
+    }
+   }
+
 }
 

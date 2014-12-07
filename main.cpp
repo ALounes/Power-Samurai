@@ -1,12 +1,13 @@
-#include "powersamurai.hpp"
+#include "main.hpp"
 
 int main(int argc, char *argv[])
 {
-  PowerSamurai *game = new PowerSamurai;
-
-  game->run();
-
-  delete game;
+  Game * jeu = new Game;
+ 
+  jeu->Map_Load();
+  jeu->Start();
+  
+  delete jeu;
   
   return 0;
 }

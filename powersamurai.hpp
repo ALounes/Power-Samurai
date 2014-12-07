@@ -9,6 +9,7 @@
 #include "animationeffect.hpp"
 #include "linustorvalds.hpp"
 #include "camera.hpp"
+#include "statusbar.hpp"
 
 using  namespace sf;
 using  namespace std;
