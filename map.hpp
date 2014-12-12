@@ -31,12 +31,26 @@ public:
 	Image *image_map;
 	Sprite *sprite_map;
 	
+<<<<<<< HEAD
 
    Map *link_map_1;
    Map *link_map_2;
    Map *link_map_3;
    int **Vector_map;
 private:
+=======
+	int ** Vector_map;
+      
+   
+   int getSocleMap(int i,int j) const;
+   Map * getLink(int i) const;
+
+private:
+
+   Map * link_map_1;
+   Map * link_map_2;
+   Map * link_map_3;
+>>>>>>> c6ae03011cb1dcfb633e8962fa894653349d5242
 
 
    int *Hauteur;
