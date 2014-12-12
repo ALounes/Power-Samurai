@@ -26,7 +26,6 @@ public:
 	//void Free_Map();
 	void set_links(Map *map_1, Map *map_2, Map *map_3);
 
-	int getSocleMap(int i,int j) const;
   
 	Image *image_map;
 	Sprite *sprite_map;
