@@ -15,20 +15,18 @@
 #include "animationeffect.hpp"
 #include "linustorvalds.hpp"
 #include "camera.hpp"
+#include "config.hpp"
 
 
-
-   
 enum direction {DOWN,LEFT,RIGHT,UP};
 
 class Game
 {
 public:
 
-  Game ();
-  ~Game ();
-  
-  
+  	Game ();
+  	~Game ();
+
    void Map_Load();
 	void Start();
 
@@ -41,13 +39,9 @@ public:
 	void displayEffect(Clock &time);
 
 	void eventManagement(Event &event);
-	void keyPressedManagement (sf::Key::Code keyPressed);
-	void fire(enum direction dir);
+	void keyPressedManagement (Key::Code keyPressed);
 	void launchingPause();
   
-   
-	
-
 private:
 	 bool IsExiting();
 	 void GameLoop();
@@ -61,22 +55,18 @@ private:
 	enum GameState { Uninitialized, ShowingSplash, Paused, 
 					ShowingMainMenu, ShowingPlayersMenu, ShowingDifficultyMenu, Playing, Exiting };
 
-	GameState * _gameState;
-   MainMenu * _mainMenu;
-   DifficultyMenu * _difficultyMenu;
-   PlayersMenu * _playersMenu;
-   
+	GameState * gameState_;
+   MainMenu * mainMenu_;
+   DifficultyMenu * difficultyMenu_;
+   PlayersMenu * playersMenu_;
 	list<Entity*> entitys;
 	list<AnimationEffect*> effects;
-   
-   Map * _map_1;
-   Map * _map_2;
-   Map * _map_3;
-   Map * _map_4;
-   
-   Map *_map_courante;
-	
-	 sf::RenderWindow  * _mainWindow;
+   Map * map_1;
+   Map * map_2;
+   Map * map_3;
+   Map * map_4;
+   Map *map_courante;
+	RenderWindow  * mainWindow_;
 };
 
 

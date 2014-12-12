@@ -38,19 +38,19 @@ enum direction direction_prec;
 Game::Game ()
 {
    cout << "CONSTRUCTEUR game()" << endl;
-  _mainMenu = new MainMenu;
+  mainMenu_ = new MainMenu;
 
-  _gameState = new GameState;
-  *_gameState = Uninitialized;
-  _mainWindow = new sf::RenderWindow(sf::VideoMode(GAME_WIDTH, GAME_HEIGHT), "Power Samurai!!!");
-  _mainWindow->SetPosition((VideoMode::GetDesktopMode().Width - GAME_WIDTH)/2, (VideoMode::GetDesktopMode().Height - GAME_HEIGHT)/2);
+  gameState_ = new GameState;
+  *gameState_ = Uninitialized;
+  mainWindow_ = new sf::RenderWindow(sf::VideoMode(GAME_WIDTH, GAME_HEIGHT), "Power Samurai!!!");
+  mainWindow_->SetPosition((VideoMode::GetDesktopMode().Width - GAME_WIDTH)/2, (VideoMode::GetDesktopMode().Height - GAME_HEIGHT)/2);
 
-  _map_1 = new Map;
-  cout << "_map_1 créé" << endl;
-  _map_2 = new Map;
-  _map_3 = new Map;
-  _map_4 = new Map;
-  _map_courante = new Map;
+  map_1 = new Map;
+  cout << "map_1 créé" << endl;
+  map_2 = new Map;
+  map_3 = new Map;
+  map_4 = new Map;
+  map_courante = new Map;
   
   cout << "game() terminé" << endl;
 }
@@ -58,24 +58,24 @@ Game::Game ()
 
 Game::~Game ()
 {
-  delete _map_1;
-  delete _map_2;
-  delete _map_3;
-  delete _map_4;
-  delete _mainMenu;
-  delete _gameState;
-  delete _mainWindow;
-  delete _difficultyMenu;
-  //delete _playersMenu;
+  delete map_1;
+  delete map_2;
+  delete map_3;
+  delete map_4;
+  delete mainMenu_;
+  delete gameState_;
+  delete mainWindow_;
+  delete difficultyMenu_;
+  //delete playersMenu_;
 }
 void Game::Map_Load(void)
 {
   cout << "Map_load()" << endl;
   // Creation map 1
   
-  _map_1->map_create(MAP_1_HEIGHT,MAP_1_WIDTH);
+  map_1->map_create(MAP_1_HEIGHT,MAP_1_WIDTH);
   cout << "creation terminée()" << endl;
-  int static_map_1[MAP_1_HEIGHT][MAP_1_WIDTH] = 
+  int staticmap_1[MAP_1_HEIGHT][MAP_1_WIDTH] = 
 { {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -108,19 +108,19 @@ void Game::Map_Load(void)
   
   for (int i=0; i < MAP_1_HEIGHT; i++) {
     for (int j=0; j < MAP_1_WIDTH; j++) {
-      (_map_1->Vector_map)[i][j] = static_map_1[i][j]; 
+      (map_1->Vector_map)[i][j] = staticmap_1[i][j]; 
     }
   }
   cout << "dynamique terminé()" << endl;
-  _map_1->image_map->LoadFromFile("images/Maps/map.png");
-	_map_1->sprite_map->SetImage(*(_map_1->image_map));
+  map_1->image_map->LoadFromFile("images/Maps/map.png");
+	map_1->sprite_map->SetImage(*(map_1->image_map));
 	
-	_map_1->set_links(_map_2,_map_3,_map_4);
+	map_1->set_links(map_2,map_3,map_4);
 	
 	// Creation map 2
   
-  _map_2->map_create(MAP_2_HEIGHT,MAP_2_WIDTH);
-  int static_map_2[MAP_2_HEIGHT][MAP_2_WIDTH] = { {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+  map_2->map_create(MAP_2_HEIGHT,MAP_2_WIDTH);
+  int staticmap_2[MAP_2_HEIGHT][MAP_2_WIDTH] = { {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
   {0,1,1,0,0,1,1,1,1,1,2,0,0,0,0,0,0,1,1,1,0,1,1,0,1,1,1,0,1,0,0,0,0,0,0,0,2,1,1,1,1,1,1,1,1,1,0},
@@ -150,14 +150,14 @@ void Game::Map_Load(void)
   
   for (int i=0; i < MAP_2_HEIGHT; i++) {
     for (int j=0; j < MAP_2_WIDTH; j++) {
-      (_map_2->Vector_map)[i][j] = static_map_2[i][j]; 
+      (map_2->Vector_map)[i][j] = staticmap_2[i][j]; 
     }
   }
   
-  _map_2->image_map->LoadFromFile("images/Maps/ruines1.png");
-	_map_2->sprite_map->SetImage(*(_map_2->image_map));
+  map_2->image_map->LoadFromFile("images/Maps/ruines1.png");
+	map_2->sprite_map->SetImage(*(map_2->image_map));
 	
-	_map_2->set_links(_map_1,_map_3,NULL);
+	map_2->set_links(map_1,map_3,NULL);
 	
 	cout << "Map chargées" << endl;
 	
@@ -165,12 +165,12 @@ void Game::Map_Load(void)
 
 void Game::Start(void)
 {
-	if(*_gameState != Uninitialized) {
+	if(*gameState_ != Uninitialized) {
 	   cout << "Bug, jeu déjà initialisé" << endl;
 		return;
 	}
 	
-	*_gameState = Game::ShowingSplash;
+	*gameState_ = Game::ShowingSplash;
 	
 
 	while(!IsExiting())
@@ -178,12 +178,12 @@ void Game::Start(void)
 		GameLoop();
 	}
    cout << "fermeture" << endl;
-	_mainWindow->Close();
+	mainWindow_->Close();
 }
 
 bool Game::IsExiting()
 {
-	if(*_gameState == Game::Exiting) 
+	if(*gameState_ == Game::Exiting) 
 		return true;
 	else 
 		return false;
@@ -191,7 +191,7 @@ bool Game::IsExiting()
 
 void Game::GameLoop()
 {
-	switch(*_gameState)
+	switch(*gameState_)
 	{
 	  case Game::ShowingSplash:
 			{
@@ -207,38 +207,38 @@ void Game::GameLoop()
 			}
 		case Game::ShowingDifficultyMenu:
 			{
-			  _difficultyMenu = new DifficultyMenu;
-			  _difficultyMenu->Load(_mainWindow);
+			  difficultyMenu_ = new DifficultyMenu;
+			  difficultyMenu_->Load(mainWindow_);
 				ShowDifficultyMenu();
-            delete _difficultyMenu;
+            delete difficultyMenu_;
 				break;
 			}
 			
 		case Game::ShowingPlayersMenu:
 			{
-			  _playersMenu = new PlayersMenu;
-			  _playersMenu->Load(_mainWindow);
+			  playersMenu_ = new PlayersMenu;
+			  playersMenu_->Load(mainWindow_);
 				ShowPlayersMenu();
-            delete _playersMenu;
+            delete playersMenu_;
 				break;
 			}
 			
 		case Game::Playing:
 			{
-            //delete _mainMenu;
-            _map_courante = _map_1;
+            //delete mainMenu_;
+            map_courante = map_1;
             
-            _mainWindow->SetSize(PLAYING_WIDTH, PLAYING_HEIGHT);
-            _mainWindow->SetPosition((VideoMode::GetDesktopMode().Width - PLAYING_WIDTH)/2, (VideoMode::GetDesktopMode().Height - PLAYING_HEIGHT)/2);
-            _mainWindow->Clear();
+            mainWindow_->SetSize(PLAYING_WIDTH, PLAYING_HEIGHT);
+            mainWindow_->SetPosition((VideoMode::GetDesktopMode().Width - PLAYING_WIDTH)/2, (VideoMode::GetDesktopMode().Height - PLAYING_HEIGHT)/2);
+            mainWindow_->Clear();
             cout << "Rungame()" << endl;
             RunGame();
             
-            _mainWindow->SetSize(GAME_WIDTH, GAME_HEIGHT);
-            _mainWindow->SetPosition((VideoMode::GetDesktopMode().Width - GAME_WIDTH)/2, (VideoMode::GetDesktopMode().Height - GAME_HEIGHT)/2);
+            mainWindow_->SetSize(GAME_WIDTH, GAME_HEIGHT);
+            mainWindow_->SetPosition((VideoMode::GetDesktopMode().Width - GAME_WIDTH)/2, (VideoMode::GetDesktopMode().Height - GAME_HEIGHT)/2);
             
-            //_mainMenu = new MainMenu;
-            //_mainMenu->Load(_mainWindow);
+            //mainMenu_ = new MainMenu;
+            //mainMenu_->Load(mainWindow_);
             //ShowMainMenu();
 				break;
 			}
@@ -253,37 +253,37 @@ void Game::GameLoop()
 void Game::ShowSplashScreen()
 {
 	SplashScreen *_splashScreen = new SplashScreen;
-	_splashScreen->Show(_mainWindow);
+	_splashScreen->Show(mainWindow_);
 	
-	*_gameState = Game::ShowingMainMenu;
+	*gameState_ = Game::ShowingMainMenu;
 	
 	delete _splashScreen;
 }
 
 void Game::ShowMainMenu()
 {
-   _mainMenu->Load(_mainWindow);
+   mainMenu_->Load(mainWindow_);
 	cout << "mainMenu loaded" << endl;
 	
 	cout << "Début ShowMainMenu" << endl;
-	MainMenu::MenuResult result = _mainMenu->Show(_mainWindow);
+	MainMenu::MenuResult result = mainMenu_->Show(mainWindow_);
 	cout << "result obtenu" << endl;
 	switch(result)
 	{
 	case MainMenu::Exit:
-			*_gameState = Game::Exiting;
+			*gameState_ = Game::Exiting;
 			cout << "result = Exit" << endl;
 			
 			break;
 	case MainMenu::Play:
-			*_gameState = Game::Playing;
+			*gameState_ = Game::Playing;
 			break;
 	case MainMenu::Difficulty:
-			*_gameState = Game::ShowingDifficultyMenu;
+			*gameState_ = Game::ShowingDifficultyMenu;
 			
 			break;
 	case MainMenu::Players:
-			*_gameState = Game::ShowingPlayersMenu;
+			*gameState_ = Game::ShowingPlayersMenu;
 			break;
 	default:
 			break;	
@@ -293,24 +293,24 @@ void Game::ShowMainMenu()
 
 void Game::ShowDifficultyMenu()
 {
-  DifficultyMenu::DifficultyResult resultat = _difficultyMenu->Show(_mainWindow);
+  DifficultyMenu::DifficultyResult resultat = difficultyMenu_->Show(mainWindow_);
 
 	switch(resultat)
 	{
 	case DifficultyMenu::Escape:
-			*_gameState = Game::ShowingMainMenu;
+			*gameState_ = Game::ShowingMainMenu;
 
 			break;
 	case DifficultyMenu::Easy:
-			*_gameState = Game::ShowingMainMenu;
+			*gameState_ = Game::ShowingMainMenu;
 
 			break;
 	case DifficultyMenu::Intermediate:
-			*_gameState = Game::ShowingMainMenu;
+			*gameState_ = Game::ShowingMainMenu;
 
 			break;
 	case DifficultyMenu::Hard:
-			*_gameState = Game::ShowingMainMenu;
+			*gameState_ = Game::ShowingMainMenu;
 
 			break;
 	default:    
@@ -320,25 +320,25 @@ void Game::ShowDifficultyMenu()
 
 void Game::ShowPlayersMenu()
 {
-  _mainWindow->ShowMouseCursor(false);
-  PlayersMenu::PlayersResult resultat = _playersMenu->Show(_mainWindow);
+  mainWindow_->ShowMouseCursor(false);
+  PlayersMenu::PlayersResult resultat = playersMenu_->Show(mainWindow_);
   while (resultat != PlayersMenu::Escape && resultat != PlayersMenu::Return) {
-	  resultat = _playersMenu->Show(_mainWindow);
+	  resultat = playersMenu_->Show(mainWindow_);
 	}
 	
 	switch(resultat)
 	 {
 	 case PlayersMenu::Escape:
 	  cout << "cas échap" << endl;
-			*_gameState = Game::ShowingMainMenu;	
+			*gameState_ = Game::ShowingMainMenu;	
 			break;
 	 case PlayersMenu::Return:
-			*_gameState = Game::ShowingMainMenu;			
+			*gameState_ = Game::ShowingMainMenu;			
 			break;
 	 default:    
 			break;	
 	 }
-  _mainWindow->ShowMouseCursor(true);
+  mainWindow_->ShowMouseCursor(true);
   cout << "delete players terminé" << endl;
 }
 
@@ -348,7 +348,7 @@ void Game::RunGame()
 	Event event;
 	Clock time;
 	Clock clock2;
-	Vector2f position(_mainWindow->GetWidth()/2,_mainWindow->GetHeight()/2);
+	Vector2f position(mainWindow_->GetWidth()/2,mainWindow_->GetHeight()/2);
 	Clock clock;
 	Vector2i test_effect(5,8);
 
@@ -357,7 +357,6 @@ void Game::RunGame()
 
 	if (!buffer_son.LoadFromFile("Musique/BinB.ogg"))
 		cout << "erreur " << endl ;
-
 
 	if (!effect_003.LoadFromFile("sprite/effect_010.png"))
 		cout << "erreur " << endl ;
@@ -369,34 +368,34 @@ void Game::RunGame()
 	sprite_perso.SetImage(perso);
 	sprite_feux.SetImage(feux);	
 	
-	sprite_plan = *(_map_courante->sprite_map);
+	sprite_plan = *(map_courante->sprite_map);
 	
 
-	LinusTorvalds *linus = new LinusTorvalds(_mainWindow,image_linus);
+	LinusTorvalds *linus = new LinusTorvalds(mainWindow_,image_linus);
 
-	Camera camera(_mainWindow,linus);
+	Camera camera(mainWindow_,linus);
 
 	entitys.push_front(linus);
 
 	linus->setPosition(Vector2f(90,90));
 
 	// ANIMATION EFFECT
-	AnimationEffect *effect = new AnimationEffect(_mainWindow,effect_003,test_effect,linus);
+	AnimationEffect *effect = new AnimationEffect(mainWindow_,effect_003,test_effect,linus);
 	addEffect(effect);
 	effect->setPosition(Vector2f(300,300));
 
    // Exécution de la boucle principale
    bool fin_de_boucle = false;
-   while (_mainWindow->IsOpened() && !(fin_de_boucle))
+   while (mainWindow_->IsOpened() && !(fin_de_boucle))
    {
-		while (_mainWindow->GetEvent(event))
+		while (mainWindow_->GetEvent(event))
 		{
 			// Gestion des evenements 
 		switch (event.Type)
 		{
 			case Event::Closed :
 			   fin_de_boucle = true;
-				*_gameState = Game::ShowingMainMenu;
+				*gameState_ = Game::ShowingMainMenu;
 				break;
 
 			case Event::KeyPressed :
@@ -415,7 +414,7 @@ void Game::RunGame()
 
 		camera.run();	
 
-		_mainWindow->Draw(sprite_plan);
+		mainWindow_->Draw(sprite_plan);
 
 		// Mise a jours des sprites et affichage
 		displayEntity(clock);
@@ -423,68 +422,24 @@ void Game::RunGame()
    	effect->run();
 
 		// Affichage du contenu de la fenêtre à l'écran
-		_mainWindow->Display();
+		mainWindow_->Display();
 
 		// Efface le contenu de la fenetre 
-		_mainWindow->Clear();
+		mainWindow_->Clear();
 }
 }
 
 void
 Game::eventManagement(Event &event)
 {
-
 	switch (event.Type)
 	{
 		case Event::Closed :
-			_mainWindow->Close();
-			break;
-
-		case Event::Resized :
-			//_mainWindow->SetView(View(FloatRect(0, 0, _mainWindow->GetWidth(), _mainWindow->GetHeight())));
-			break;
-
-		case Event::LostFocus :
-			break;
-
-		case Event::GainedFocus :
-			break;
-
-		case Event::TextEntered :
+			mainWindow_->Close();
 			break;
 
 		case Event::KeyPressed :
 			keyPressedManagement(event.Key.Code);
-			break;
-
-		case Event::KeyReleased :
-			break;
-
-		case Event::MouseWheelMoved :
-			break;
-
-		case Event::MouseButtonPressed :
-			break;
-
-		case Event::MouseButtonReleased :
-			break;
-
-		case Event::MouseMoved :
-			break;
-
-		case Event::MouseEntered :
-			break;
-
-		case Event::MouseLeft :
-			break;
-
-		case Event::JoyButtonPressed :
-			break;
-
-		case Event::JoyButtonReleased :
-			break;
-
-		case Event::JoyMoved :
 			break;
 
 		default:
@@ -493,30 +448,23 @@ Game::eventManagement(Event &event)
 }
 
 void 
-Game::keyPressedManagement (sf::Key::Code keyPressed)
+Game::keyPressedManagement (Key::Code keyPressed)
 {
-  switch (keyPressed) {
-   case  sf::Key::Escape :
-      launchingPause();
-		
-	 	break;
-   case  sf::Key::P :
-      _map_courante = _map_courante->link_map_1;
-		sprite_plan = *(_map_courante->sprite_map);
-		
-		break;
+	switch (keyPressed) 
+	{
+		case  sf::Key::Escape :
+		   launchingPause();
+		 	break;
 
-	default: 
-		break;
+		case  sf::Key::P :
+		   map_courante = map_courante->link_map_1;
+			sprite_plan = *(map_courante->sprite_map);		
+			break;
+
+		default: 
+			break;
   }
 	
-}
-
-void 
-Game::fire(enum direction dir)
-{
-// à faire
-
 }
 
 void 
@@ -580,13 +528,13 @@ void Game::launchingPause() {
 	texte.SetColor(Color::White);
 	
    
-   _mainWindow->Draw(grey_screen);
-   _mainWindow->Draw(texte);
-   _mainWindow->Display();
+   mainWindow_->Draw(grey_screen);
+   mainWindow_->Draw(texte);
+   mainWindow_->Display();
    while (Ispause == true) {
      Event event2;
      
-     while (_mainWindow->GetEvent(event2))
+     while (mainWindow_->GetEvent(event2))
 		{
 			// Gestion des evenements 
 		switch (event2.Type)
