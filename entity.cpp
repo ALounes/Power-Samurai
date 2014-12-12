@@ -56,15 +56,18 @@ Entity::pause()
 
 bool 
 Entity::legalDeplacement(int x, int y) const
-{
-	//getSocleMap();
-	
+{	
+	int *socle = soclePosition();
+	int i = socle[1];
+	int j = socle[3];
+
 	if (!isMoving())
 		return false;
-	else if((x > X_MAX_MAP)&&(x < X_MIN_MAP)&&(y > Y_MAX_MAP)&&(y < Y_MIN_MAP))
+	else if (myMap_->getSocleMap(i,j) == 0)
 		return false;
 	else 
 		return true;
+
 }
 
 void 
@@ -156,7 +159,7 @@ Entity::update()
 }
 
 int* 
-Entity::soclePosition()
+Entity::soclePosition() const
 {
 	int *tab = new int[4];
 	Vector2f socle= mySprite_->GetCenter();

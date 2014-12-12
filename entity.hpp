@@ -38,13 +38,12 @@ class Entity : public Animation
 	int  getSpeed() const;
 	void setSpeed(int speed);
 
-	int* soclePosition();
+	int* soclePosition() const;
 
 	private:
-	Map  *myMap_;
 	bool moving_;
 	int  moveSpeed_;
-
+	Map  *myMap_;
 };
 
 #endif
