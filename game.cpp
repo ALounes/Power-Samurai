@@ -501,7 +501,7 @@ Game::keyPressedManagement (sf::Key::Code keyPressed)
 		
 	 	break;
    case  sf::Key::P :
-      _map_courante = _map_courante->link_map_1;
+      _map_courante = _map_courante->getLink(1);
 		sprite_plan = *(_map_courante->sprite_map);
 		
 		break;

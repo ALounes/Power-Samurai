@@ -30,11 +30,15 @@ public:
 	
 	int ** Vector_map;
       
+   
+   int getSocleMap(int i,int j) const;
+   Map * getLink(int i) const;
+
+private:
+
    Map * link_map_1;
    Map * link_map_2;
    Map * link_map_3;
-   
-private:
 
    int * Hauteur;
    int * Largeur;

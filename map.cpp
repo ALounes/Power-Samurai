@@ -50,6 +50,35 @@ void Map::set_links(Map * map_1, Map * map_2, Map * map_3) {
    link_map_3 = map_3;
 }
  
+int Map::getSocleMap(int i,int j) const {
+return Vector_map[i][j];
+}
+
+Map* Map::getLink(int i) const {
+   switch (i) {
+      case 1 :
+         {
+            return link_map_1;
+            break;
+         }
+      case 2 :
+         {
+            return link_map_2;
+            break;
+         }
+      case 3 :
+         {
+            return link_map_3;
+            break;
+         }
+      default :
+            return NULL;
+         break;
+   }
+   
+}
+
+ 
 /*void Free_Map(){
  
   
