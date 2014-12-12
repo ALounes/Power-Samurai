@@ -24,9 +24,9 @@ Map::~Map()
    delete link_map_3;
 }
  
-void Map::map_create(int hauteur, int largeur) {
-
- 
+void 
+Map::map_create(int hauteur, int largeur) 
+{ 
   // Allocation dynamique 
   
   *Hauteur = hauteur;
@@ -39,8 +39,9 @@ void Map::map_create(int hauteur, int largeur) {
 
 }
 
-void Map::set_links(Map * map_1, Map * map_2, Map * map_3) {
-
+void 
+Map::set_links(Map * map_1, Map * map_2, Map * map_3) 
+{
    link_map_1 = new Map;
    link_map_2 = new Map;
    link_map_3 = new Map;
@@ -54,3 +55,11 @@ void Map::set_links(Map * map_1, Map * map_2, Map * map_3) {
  
   
 }*/
+
+
+int 
+Map::getSocleMap(int i,int j) const
+{
+	return Vector_map[i][j];
+}
+  

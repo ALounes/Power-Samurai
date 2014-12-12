@@ -12,7 +12,7 @@ class Bot: public Entity
 	public :
 	
 	Bot(RenderWindow *win, Image& image, Vector2i& nbrOfAnim, String& name,
-		 int life, int mana, enum power power);
+		 int life, int mana, enum power power, Map *myMap);
 	~Bot();
 
 	void move();

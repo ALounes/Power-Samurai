@@ -61,10 +61,10 @@ private:
    PlayersMenu * playersMenu_;
 	list<Entity*> entitys;
 	list<AnimationEffect*> effects;
-   Map * map_1;
-   Map * map_2;
-   Map * map_3;
-   Map * map_4;
+   Map *map_1;
+   Map *map_2;
+   Map *map_3;
+   Map *map_4;
    Map *map_courante;
 	RenderWindow  * mainWindow_;
 };

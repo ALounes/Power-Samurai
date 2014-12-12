@@ -1,8 +1,9 @@
 #include "entity.hpp"
 
-Entity::Entity(RenderWindow *win, Image& image, const Vector2i& nbrOfAnim)
+Entity::Entity(RenderWindow *win, Image& image, const Vector2i& nbrOfAnim, Map *myMap)
 : Animation(win,image,nbrOfAnim)
 ,moving_(false)
+,myMap_(myMap)
 {
 	setDefaultSprite();
 	setSpeed(DEFAULT_SPEED);
@@ -56,6 +57,8 @@ Entity::pause()
 bool 
 Entity::legalDeplacement(int x, int y) const
 {
+	//getSocleMap();
+	
 	if (!isMoving())
 		return false;
 	else if((x > X_MAX_MAP)&&(x < X_MIN_MAP)&&(y > Y_MAX_MAP)&&(y < Y_MIN_MAP))

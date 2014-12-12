@@ -13,7 +13,7 @@
 class BjarneStroustrup : public Player
 {
 	public :
-	BjarneStroustrup(RenderWindow *win, Image &image);
+	BjarneStroustrup(RenderWindow *win, Image &image, Map *myMap);
 	~BjarneStroustrup();
 
 	private:

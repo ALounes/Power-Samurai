@@ -1,6 +1,7 @@
 #ifndef MAP_HPP
 #define MAP_HPP
 
+#include "config.hpp"
 #include "stdafx.hpp"
 
 #define DECOR 0 
@@ -21,23 +22,25 @@ public:
   Map ();
   ~Map ();
   
-  void map_create(int,int);
+	void map_create(int hauteur, int largeur);
 	//void Free_Map();
-	void set_links(Map * map_1, Map * map_2, Map * map_3);
+	void set_links(Map *map_1, Map *map_2, Map *map_3);
+
+	int getSocleMap(int i,int j) const;
   
-  sf::Image *image_map;
-	sf::Sprite *sprite_map;
+	Image *image_map;
+	Sprite *sprite_map;
 	
-	int ** Vector_map;
-      
-   Map * link_map_1;
-   Map * link_map_2;
-   Map * link_map_3;
-   
+
+   Map *link_map_1;
+   Map *link_map_2;
+   Map *link_map_3;
+   int **Vector_map;
 private:
 
-   int * Hauteur;
-   int * Largeur;
+
+   int *Hauteur;
+   int *Largeur;
 
    
 };

@@ -371,7 +371,7 @@ void Game::RunGame()
 	sprite_plan = *(map_courante->sprite_map);
 	
 
-	LinusTorvalds *linus = new LinusTorvalds(mainWindow_,image_linus);
+	LinusTorvalds *linus = new LinusTorvalds(mainWindow_,image_linus,map_courante);
 
 	Camera camera(mainWindow_,linus);
 

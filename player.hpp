@@ -9,7 +9,7 @@ class Player : public Entity
 	public :
 	
 	Player(RenderWindow *win, Image &image,const Vector2i nbrOfAnim, String name,
-					int life, int mana, enum power power);
+					int life, int mana, enum power power, Map *myMap);
 	~Player();
 
 	void actionKey(Key::Code keyPressed);

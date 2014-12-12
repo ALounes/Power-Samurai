@@ -3,6 +3,7 @@
 
 #include "animation.hpp"
 #include "config.hpp"
+#include "map.hpp"
 
 class Entity : public Animation
 {
@@ -10,7 +11,7 @@ class Entity : public Animation
 
 	enum direction {DOWN = 0, LEFT, RIGHT, UP};
 
-	Entity(RenderWindow *win, Image& image,const Vector2i& nbrOfAnim);
+	Entity(RenderWindow *win, Image& image,const Vector2i& nbrOfAnim, Map *myMap);
 	~Entity();
 
 	void moveUp();
@@ -40,6 +41,7 @@ class Entity : public Animation
 	int* soclePosition();
 
 	private:
+	Map  *myMap_;
 	bool moving_;
 	int  moveSpeed_;
 
