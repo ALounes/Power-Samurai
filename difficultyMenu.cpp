@@ -1,4 +1,4 @@
-#include "DifficultyMenu.hpp"
+#include "difficultyMenu.hpp"
 
 #define EASYTOP 435
 #define EASYBOTTOM 498

@@ -1,4 +1,4 @@
-#include "Game.hpp"
+#include "game.hpp"
 
 
 #define GAME_WIDTH  1024
@@ -75,7 +75,8 @@ void Game::Map_Load(void)
   
   _map_1->map_create(MAP_1_HEIGHT,MAP_1_WIDTH);
   cout << "creation terminée()" << endl;
-  int static_map_1[MAP_1_HEIGHT][MAP_1_WIDTH] = { {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+  int static_map_1[MAP_1_HEIGHT][MAP_1_WIDTH] = 
+{ {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
   {0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -221,9 +222,7 @@ void Game::GameLoop()
             delete _playersMenu;
 				break;
 			}
-		
-		
-		
+			
 		case Game::Playing:
 			{
             //delete _mainMenu;
@@ -413,8 +412,6 @@ void Game::RunGame()
 		}
 		
 		view.SetHalfSize(400, 300);
-
-
 
 		camera.run();	
 

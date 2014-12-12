@@ -1,8 +1,8 @@
 CC = g++
 CFLAGS  := -std=c++11 -Wall -Wfatal-errors -c -ggdb
 LDFLAGS := -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
-BIN = menu
-OBJ = main.o DifficultyMenu.o MainMenu.o Map.o SplashScreen.o Game.o PlayersMenu.o  main.o animation.o animationeffect.o entity.o player.o bot.o linustorvalds.o alanturing.o bjarnestroustrup.o camera.o Map.o
+BIN = PowerSamurai
+OBJ = main.o difficultyMenu.o mainMenu.o map.o splashScreen.o game.o playersMenu.o main.o animation.o animationeffect.o entity.o player.o bot.o linustorvalds.o alanturing.o bjarnestroustrup.o camera.o map.o
 
 all: .depend $(BIN)
 

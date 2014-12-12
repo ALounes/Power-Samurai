@@ -1,4 +1,4 @@
-#include "PlayersMenu.hpp"
+#include "playersMenu.hpp"
 
 #define NB_PERSO 4
 

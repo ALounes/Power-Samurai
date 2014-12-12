@@ -1,4 +1,4 @@
-#include "MainMenu.hpp"
+#include "mainMenu.hpp"
 
 #define PLAYTOP 664
 #define PLAYBOTTOM 749
@@ -20,7 +20,6 @@
 #define PLAYERSLEFT 25
 #define PLAYERSRIGHT 330
 
-//azeazeze
 
 MainMenu::MainMenu ()
 {

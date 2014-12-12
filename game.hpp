@@ -4,11 +4,11 @@
 #include <SFML/Audio.hpp>
 #include <list>
 #include "stdafx.hpp"
-#include "MainMenu.hpp"
-#include "SplashScreen.hpp"
-#include "DifficultyMenu.hpp"
-#include "PlayersMenu.hpp"
-#include "Map.hpp"
+#include "mainMenu.hpp"
+#include "splashScreen.hpp"
+#include "difficultyMenu.hpp"
+#include "playersMenu.hpp"
+#include "map.hpp"
 #include "entity.hpp"
 #include "bot.hpp"
 #include "player.hpp"

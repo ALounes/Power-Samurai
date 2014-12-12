@@ -1,4 +1,4 @@
-#include "Map.hpp"
+#include "map.hpp"
 
 Map::Map () 
 {
