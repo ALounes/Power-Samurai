@@ -450,29 +450,18 @@ Game::eventManagement(Event &event)
 void 
 Game::keyPressedManagement (Key::Code keyPressed)
 {
-<<<<<<< HEAD
-	switch (keyPressed) 
-	{
-		case  sf::Key::Escape :
-		   launchingPause();
-		 	break;
-=======
+
   switch (keyPressed) {
    case  sf::Key::Escape :
       launchingPause();
 		
 	 	break;
    case  sf::Key::P :
-      _map_courante = _map_courante->getLink(1);
-		sprite_plan = *(_map_courante->sprite_map);
+      map_courante = map_courante->getLink(1);
+		sprite_plan = *(map_courante->sprite_map);
 		
 		break;
->>>>>>> c6ae03011cb1dcfb633e8962fa894653349d5242
 
-		case  sf::Key::P :
-		   map_courante = map_courante->link_map_1;
-			sprite_plan = *(map_courante->sprite_map);		
-			break;
 
 		default: 
 			break;
