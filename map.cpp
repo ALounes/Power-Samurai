@@ -85,10 +85,3 @@ Map* Map::getLink(int i) const {
   
 }*/
 
-
-int 
-Map::getSocleMap(int i,int j) const
-{
-	return Vector_map[i][j];
-}
-  
