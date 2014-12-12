@@ -20,7 +20,7 @@
 #define PLAYERSLEFT 25
 #define PLAYERSRIGHT 330
 
-
+//azeazeze
 
 MainMenu::MainMenu ()
 {
@@ -29,11 +29,11 @@ MainMenu::MainMenu ()
   
 	//Load images from files
 	
-	cout << "charger les images" << endl;
+	cout << "CONSTRUCTEUR MainMenu()" << endl;
 	
 	image_main = new sf::Image();
 	image_main->LoadFromFile("images/MainMenu/MainMenu.png");
-	sprite_main_all->SetImage(*image_main);
+	sprite_main_all->SetImage(*image_main);		
 	
 	image_play = new sf::Image();
 	image_play->LoadFromFile("images/MainMenu/Play.png");
@@ -51,7 +51,8 @@ MainMenu::MainMenu ()
 	sprite_difficulty->SetImage(*image_difficulty);
 	
 	image_players = new sf::Image();
-	image_players->LoadFromFile("images/MainMenu/Players.png");
+	if (!image_players->LoadFromFile("images/MainMenu/Players.png"))
+		cout << "erreur " << endl ;
 	sf::Sprite * sprite_players = new sf::Sprite();
 	sprite_players->SetImage(*image_players);
 
@@ -119,9 +120,9 @@ MainMenu::MainMenu ()
 
 MainMenu::~MainMenu ()
 {
-
+  cout << "DESTRUCTEUR MainMenu()" << endl;
+  _menuItems->clear();
   delete _menuItems;
-
   delete sprite_main_all;
 
 	delete image_main;
@@ -134,7 +135,6 @@ MainMenu::~MainMenu ()
 void MainMenu::Load(sf::RenderWindow *window)
 { 
   window->Clear(sf::Color::White);
-
 	window->Draw(*sprite_main_all);
 	window->Display();
 

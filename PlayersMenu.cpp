@@ -12,12 +12,7 @@ PlayersMenu::PlayersMenu ()
   *position_fleche = 0;
 
 	//Load images from files
-	
-	sf::Image *image_p1;
-	sf::Image *image_p2;
-	sf::Image *image_p3;
-	sf::Image *image_p4;
-	sf::Image *image_arrow;
+
 	
 	//sprite_perso.SetSubRect(IntRect(0,0,32,32));
 	
@@ -105,11 +100,8 @@ PlayersMenu::PlayersMenu ()
 
 PlayersMenu::~PlayersMenu () 
 {
-  
-  /*for (auto b : *_playersItems) {
-	  delete b.sprite;
-    
-  }*/
+  cout << "Destructeur PlayersMenu()" << endl;
+  _playersItems->clear();
    
   delete _playersItems;
 
@@ -117,11 +109,11 @@ PlayersMenu::~PlayersMenu ()
   delete position_fleche;
   delete sprite_main_players;
 
-	/*delete image_p1;
+	delete image_p1;
 	delete image_p2;
 	delete image_p3;
 	delete image_p4;
-	delete image_arrow;*/
+	delete image_arrow;
 }
 void PlayersMenu::Load(sf::RenderWindow *window)
 { 
@@ -199,11 +191,16 @@ PlayersMenu::PlayersResult PlayersMenu::HandleKey(int position, sf::RenderWindow
   }
  
   cout << *position_fleche << endl;
+  
   sprite_arrow->SetPosition(12*32 - 20 + (*position_fleche)*64, 5 + 12*32);
+    cout << "unga1" << endl;
   window->Clear();
   window->Draw(*sprite_main_players);
+    cout << "unga2" << endl;
 	for (auto b : *_playersItems) {
+	    cout << "unga3" << endl;
 	  window->Draw(*(b.sprite));
+	  cout << "unga4" << endl;
 	  //window->Draw(b.texte);
    }
    cout << "iterator :" << endl;

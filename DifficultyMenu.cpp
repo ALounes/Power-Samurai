@@ -29,18 +29,18 @@ DifficultyMenu::DifficultyMenu ()
 	
 	image_easy = new sf::Image();
 	image_easy->LoadFromFile("images/DifficultyMenu/Easy.png");
-	sf::Sprite * sprite_easy = new sf::Sprite();
-	sprite_easy->SetImage(*image_easy);
+	sf::Sprite sprite_easy;
+	sprite_easy.SetImage(*image_easy);
 	
 	image_intermediate = new sf::Image();
 	image_intermediate->LoadFromFile("images/DifficultyMenu/Intermediate.png");
-	sf::Sprite * sprite_intermediate = new sf::Sprite();
-	sprite_intermediate->SetImage(*image_intermediate);
+	sf::Sprite sprite_intermediate;
+	sprite_intermediate.SetImage(*image_intermediate);
 	
 	image_hard = new sf::Image();
 	image_hard->LoadFromFile("images/DifficultyMenu/Hard.png");
-	sf::Sprite * sprite_hard = new sf::Sprite();
-	sprite_hard->SetImage(*image_hard);
+	sf::Sprite sprite_hard;
+	sprite_hard.SetImage(*image_hard);
 
 	//Setup clickable regions
 	
@@ -88,14 +88,16 @@ DifficultyMenu::DifficultyMenu ()
 
 DifficultyMenu::~DifficultyMenu () 
 {
-  delete _difficultyItems;
+   _difficultyItems->clear();
+   delete _difficultyItems;
 
-  delete sprite_main_difficulty;
+   delete sprite_main_difficulty;
 
 	delete image_main;
 	delete image_easy;
 	delete image_intermediate;
 	delete image_hard;
+	cout << "delete Difficulty Menu terminé" << endl;
 }
 void DifficultyMenu::Load(sf::RenderWindow *window)
 { 
@@ -161,7 +163,7 @@ void DifficultyMenu::HandleMove(int x, int y, sf::RenderWindow *window)
       on_button = true;
       window->Clear(sf::Color::White);
 	    window->Draw(*sprite_main_difficulty);
-	    window->Draw( *(b.sprite) );
+	    window->Draw( b.sprite);
     }
   }
 	

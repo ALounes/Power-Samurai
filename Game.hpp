@@ -74,7 +74,7 @@ private:
    Map * _map_3;
    Map * _map_4;
    
-   Map *_map_courante = new Map;
+   Map *_map_courante;
 	
 	 sf::RenderWindow  * _mainWindow;
 };

@@ -37,7 +37,7 @@ enum direction direction_prec;
 
 Game::Game ()
 {
-
+   cout << "CONSTRUCTEUR game()" << endl;
   _mainMenu = new MainMenu;
 
   _gameState = new GameState;
@@ -50,6 +50,7 @@ Game::Game ()
   _map_2 = new Map;
   _map_3 = new Map;
   _map_4 = new Map;
+  _map_courante = new Map;
   
   cout << "game() terminé" << endl;
 }
@@ -201,7 +202,6 @@ void Game::GameLoop()
 			{
 			  cout << "MainMenu" << endl;
 				ShowMainMenu();
-			  delete _mainMenu;
 				break;
 			}
 		case Game::ShowingDifficultyMenu:
@@ -226,17 +226,21 @@ void Game::GameLoop()
 		
 		case Game::Playing:
 			{
-            
+            //delete _mainMenu;
             _map_courante = _map_1;
             
             _mainWindow->SetSize(PLAYING_WIDTH, PLAYING_HEIGHT);
             _mainWindow->SetPosition((VideoMode::GetDesktopMode().Width - PLAYING_WIDTH)/2, (VideoMode::GetDesktopMode().Height - PLAYING_HEIGHT)/2);
             _mainWindow->Clear();
+            cout << "Rungame()" << endl;
             RunGame();
             
             _mainWindow->SetSize(GAME_WIDTH, GAME_HEIGHT);
             _mainWindow->SetPosition((VideoMode::GetDesktopMode().Width - GAME_WIDTH)/2, (VideoMode::GetDesktopMode().Height - GAME_HEIGHT)/2);
-
+            
+            //_mainMenu = new MainMenu;
+            //_mainMenu->Load(_mainWindow);
+            //ShowMainMenu();
 				break;
 			}
 			
@@ -393,7 +397,6 @@ void Game::RunGame()
 		{
 			case Event::Closed :
 			   fin_de_boucle = true;
-			   _mainMenu = new MainMenu;
 				*_gameState = Game::ShowingMainMenu;
 				break;
 

@@ -18,7 +18,7 @@ public:
 		public:
 			sf::Rect<int> rect;
 			DifficultyResult action;
-			sf::Sprite *sprite;
+			sf::Sprite sprite;
 		};
 	
 	void Load(sf::RenderWindow *window);
