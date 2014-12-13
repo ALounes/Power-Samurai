@@ -28,14 +28,14 @@ private:
 	DifficultyResult GetDifficultyResponse(sf::RenderWindow *window);
 	DifficultyResult HandleClick(int x, int y);
 	void HandleMove(int x, int y,sf::RenderWindow *window);
-	std::list<DifficultyItem> *_difficultyItems;
+	std::list<DifficultyItem> *difficultyItems_;
 	
-	sf::Image *image_main;
-	sf::Image *image_easy;
-	sf::Image *image_intermediate;
-	sf::Image *image_hard;
+	sf::Image *image_main_;
+	sf::Image *image_easy_;
+	sf::Image *image_intermediate_;
+	sf::Image *image_hard_;
 	
-	sf::Sprite *sprite_main_difficulty;
+	sf::Sprite *sprite_main_difficulty_;
 	
 };
 

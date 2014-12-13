@@ -108,14 +108,14 @@ void Game::Map_Load(void)
   
   for (int i=0; i < MAP_1_HEIGHT; i++) {
     for (int j=0; j < MAP_1_WIDTH; j++) {
-      (map_1->Vector_map)[i][j] = staticmap_1[i][j]; 
+      map_1->set_tableau(i, j, staticmap_1[i][j]);
     }
   }
   cout << "dynamique terminé()" << endl;
-  map_1->image_map->LoadFromFile("images/Maps/map.png");
-	map_1->sprite_map->SetImage(*(map_1->image_map));
+  map_1->image_map_->LoadFromFile("images/Maps/map.png");
+  map_1->sprite_map_->SetImage(*(map_1->image_map_));
 	
-	map_1->set_links(map_2,map_3,map_4);
+  map_1->set_links(map_2,map_3,map_4);
 	
 	// Creation map 2
   
@@ -150,12 +150,13 @@ void Game::Map_Load(void)
   
   for (int i=0; i < MAP_2_HEIGHT; i++) {
     for (int j=0; j < MAP_2_WIDTH; j++) {
-      (map_2->Vector_map)[i][j] = staticmap_2[i][j]; 
+      //(map_2->Vector_map)[i][j] = staticmap_2[i][j]; 
+      map_2->set_tableau(i, j, staticmap_2[i][j]);
     }
   }
   
-  map_2->image_map->LoadFromFile("images/Maps/ruines1.png");
-	map_2->sprite_map->SetImage(*(map_2->image_map));
+   map_2->image_map_->LoadFromFile("images/Maps/ruines1.png");
+	map_2->sprite_map_->SetImage(*(map_2->image_map_));
 	
 	map_2->set_links(map_1,map_3,NULL);
 	
@@ -227,16 +228,29 @@ void Game::GameLoop()
 			{
             //delete mainMenu_;
             map_courante = map_1;
-            
-            mainWindow_->SetSize(PLAYING_WIDTH, PLAYING_HEIGHT);
+            delete mainWindow_;
+            mainWindow_ = new sf::RenderWindow(sf::VideoMode(PLAYING_WIDTH, PLAYING_HEIGHT), "Kill them all, and get the BOSS");
+            //mainWindow_->SetSize(PLAYING_WIDTH, PLAYING_HEIGHT);
             mainWindow_->SetPosition((VideoMode::GetDesktopMode().Width - PLAYING_WIDTH)/2, (VideoMode::GetDesktopMode().Height - PLAYING_HEIGHT)/2);
             mainWindow_->Clear();
             cout << "Rungame()" << endl;
             RunGame();
+            delete mainWindow_;
+            //mainWindow_->SetSize(GAME_WIDTH, GAME_HEIGHT);
+            //mainWindow_->SetPosition((VideoMode::GetDesktopMode().Width - GAME_WIDTH)/2, (VideoMode::GetDesktopMode().Height - GAME_HEIGHT)/2);
             
-            mainWindow_->SetSize(GAME_WIDTH, GAME_HEIGHT);
+            mainWindow_ = new sf::RenderWindow(sf::VideoMode(GAME_WIDTH, GAME_HEIGHT), "Power Samurai!!!");
             mainWindow_->SetPosition((VideoMode::GetDesktopMode().Width - GAME_WIDTH)/2, (VideoMode::GetDesktopMode().Height - GAME_HEIGHT)/2);
             
+            /*Image * image_main = new sf::Image();
+            Sprite * sprite_main_all = new Sprite();
+	         image_main->LoadFromFile("images/MainMenu/MainMenu.png");
+	         sprite_main_all->SetImage(*image_main);
+	         
+	         mainWindow_->Clear(sf::Color::White);
+	         mainWindow_->Draw(*sprite_main_all);
+	         mainWindow_->Display();*/
+	         
             //mainMenu_ = new MainMenu;
             //mainMenu_->Load(mainWindow_);
             //ShowMainMenu();
@@ -368,7 +382,7 @@ void Game::RunGame()
 	sprite_perso.SetImage(perso);
 	sprite_feux.SetImage(feux);	
 	
-	sprite_plan = *(map_courante->sprite_map);
+	sprite_plan = *(map_courante->sprite_map_);
 	
 
 	LinusTorvalds *linus = new LinusTorvalds(mainWindow_,image_linus,map_courante);
@@ -458,7 +472,7 @@ Game::keyPressedManagement (Key::Code keyPressed)
 	 	break;
    case  sf::Key::P :
       map_courante = map_courante->getLink(1);
-		sprite_plan = *(map_courante->sprite_map);
+		sprite_plan = *(map_courante->sprite_map_);
 		
 		break;
 

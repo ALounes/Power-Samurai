@@ -21,7 +21,7 @@ public:
 		public:
 			String texte;
 			PlayersResult action;
-			sf::Sprite *sprite;
+			sf::Sprite sprite;
 		};
 	
 	void Load(sf::RenderWindow *window);
@@ -31,19 +31,19 @@ private:
 	PlayersResult GetPlayersResponse(sf::RenderWindow *window);
 	PlayersResult HandleKey(int position, sf::RenderWindow *window);
 	
-	std::list<PlayersItem> *_playersItems;
+	std::list<PlayersItem> *playersItems_;
 	
-	sf::Image *image_p1;
-	sf::Image *image_p2;
-	sf::Image *image_p3;
-	sf::Image *image_p4;
-	sf::Image *image_arrow;
-	sf::Image *image_main_players;
+	sf::Image *image_p1_;
+	sf::Image *image_p2_;
+	sf::Image *image_p3_;
+	sf::Image *image_p4_;
+	sf::Image *image_arrow_;
+	sf::Image *image_main_players_;
 	
-	sf::Sprite *sprite_main_players;
-	sf::Sprite *sprite_arrow;
+	sf::Sprite *sprite_main_players_;
+	sf::Sprite *sprite_arrow_;
 	
-	int * position_fleche;
+	int * position_fleche_;
 	
 };
 

@@ -23,37 +23,37 @@
 
 MainMenu::MainMenu ()
 {
-  _menuItems = new std::list<MenuItem>;
-  sprite_main_all = new	sf::Sprite;     
+  menuItems_ = new std::list<MenuItem>;
+  sprite_main_all_ = new	sf::Sprite;     
   
 	//Load images from files
 	
 	cout << "CONSTRUCTEUR MainMenu()" << endl;
 	
-	image_main = new sf::Image();
-	image_main->LoadFromFile("images/MainMenu/MainMenu.png");
-	sprite_main_all->SetImage(*image_main);		
+	image_main_ = new sf::Image();
+	image_main_->LoadFromFile("images/MainMenu/MainMenu.png");
+	sprite_main_all_->SetImage(*image_main_);		
 	
-	image_play = new sf::Image();
-	image_play->LoadFromFile("images/MainMenu/Play.png");
-	sf::Sprite * sprite_play = new sf::Sprite();
-	sprite_play->SetImage(*image_play);
+	image_play_ = new sf::Image();
+	image_play_->LoadFromFile("images/MainMenu/Play.png");
+	sf::Sprite sprite_play;
+	sprite_play.SetImage(*image_play_);
 	
-	image_exit = new sf::Image();
-	image_exit->LoadFromFile("images/MainMenu/Exit.png");
-	sf::Sprite * sprite_exit = new sf::Sprite();
-	sprite_exit->SetImage(*image_exit);
+	image_exit_ = new sf::Image();
+	image_exit_->LoadFromFile("images/MainMenu/Exit.png");
+	sf::Sprite sprite_exit;
+	sprite_exit.SetImage(*image_exit_);
 	
-	image_difficulty = new sf::Image();
-	image_difficulty->LoadFromFile("images/MainMenu/Difficulty.png");
-	sf::Sprite * sprite_difficulty = new sf::Sprite();
-	sprite_difficulty->SetImage(*image_difficulty);
+	image_difficulty_ = new sf::Image();
+	image_difficulty_->LoadFromFile("images/MainMenu/Difficulty.png");
+	sf::Sprite sprite_difficulty;
+	sprite_difficulty.SetImage(*image_difficulty_);
 	
-	image_players = new sf::Image();
-	if (!image_players->LoadFromFile("images/MainMenu/Players.png"))
+	image_players_ = new sf::Image();
+	if (!image_players_->LoadFromFile("images/MainMenu/Players.png"))
 		cout << "erreur " << endl ;
-	sf::Sprite * sprite_players = new sf::Sprite();
-	sprite_players->SetImage(*image_players);
+	sf::Sprite sprite_players;
+	sprite_players.SetImage(*image_players_);
 
 	//Setup clickable regions
 	
@@ -108,10 +108,10 @@ MainMenu::MainMenu ()
 	playersButton.sprite = sprite_players;
   
 
-	_menuItems->push_back(playButton);
-	_menuItems->push_back(exitButton);
-	_menuItems->push_back(difficultyButton);
-	_menuItems->push_back(playersButton);
+	menuItems_->push_back(playButton);
+	menuItems_->push_back(exitButton);
+	menuItems_->push_back(difficultyButton);
+	menuItems_->push_back(playersButton);
 
 
 }
@@ -120,21 +120,23 @@ MainMenu::MainMenu ()
 MainMenu::~MainMenu ()
 {
   cout << "DESTRUCTEUR MainMenu()" << endl;
-  _menuItems->clear();
-  delete _menuItems;
-  delete sprite_main_all;
+  menuItems_->clear();
+  delete menuItems_;
+  delete sprite_main_all_;
 
-	delete image_main;
-	delete image_play;
-	delete image_exit;
-	delete image_difficulty;
-	delete image_players;
+	delete image_main_;
+	delete image_play_;
+	delete image_exit_;
+	delete image_difficulty_;
+	delete image_players_;
 }
 
 void MainMenu::Load(sf::RenderWindow *window)
 { 
+   
+
   window->Clear(sf::Color::White);
-	window->Draw(*sprite_main_all);
+	window->Draw(*sprite_main_all_);
 	window->Display();
 
 }
@@ -182,7 +184,7 @@ MainMenu::MenuResult MainMenu::GetMenuResponse(sf::RenderWindow * window)
 
 MainMenu::MenuResult MainMenu::HandleClick(int x, int y)
 {
-	for (auto b : *_menuItems) {
+	for (auto b : *menuItems_) {
     if (b.rect.Contains(x, y)) {
       return b.action;
       
@@ -197,19 +199,19 @@ void MainMenu::HandleMove(int x, int y, sf::RenderWindow *window)
 
 	bool on_button = false;
 	
-	for (auto b : *_menuItems) {
+	for (auto b : *menuItems_) {
     if (b.rect.Contains(x, y)) {
       on_button = true;
       window->Clear(sf::Color::White);
-	    window->Draw(*sprite_main_all);
-	    window->Draw( *(b.sprite) );
+	    window->Draw(*sprite_main_all_);
+	    window->Draw( b.sprite );
       
     }
   }
 	
 	if (!on_button) {
 		    window->Clear(sf::Color::White);
-	      window->Draw(*sprite_main_all);
+	      window->Draw(*sprite_main_all_);
   }
   
   window->Display();

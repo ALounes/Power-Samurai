@@ -25,27 +25,33 @@ public:
 	void map_create(int hauteur, int largeur);
 	//void Free_Map();
 	void set_links(Map *map_1, Map *map_2, Map *map_3);
+	void set_image(Image img);
+	void set_sprite(Sprite sprt);
+	void set_tableau(int i, int j, int val);
 
-  
-	Image *image_map;
-	Sprite *sprite_map;
-	
-
-	int ** Vector_map;
-      
    
    int getSocleMap(int i,int j) const;
    Map * getLink(int i) const;
+   
+   Image * getImage() const;  
+   Sprite * getSprite() const;  
+   
+   Image *image_map_;
+	Sprite *sprite_map_;  
 
 private:
 
-   Map * link_map_1;
-   Map * link_map_2;
-   Map * link_map_3;
+   
+
+   int ** Vector_map_;
+
+   Map * link_map_1_;
+   Map * link_map_2_;
+   Map * link_map_3_;
 
 
-   int *Hauteur;
-   int *Largeur;
+   int *Hauteur_;
+   int *Largeur_;
 
    
 };

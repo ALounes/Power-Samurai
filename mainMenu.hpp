@@ -19,7 +19,7 @@ public:
 		public:
 			sf::Rect<int> rect;
 			MenuResult action;
-			sf::Sprite * sprite;
+			sf::Sprite sprite;
 		};
 	
 	void Load(sf::RenderWindow *window);
@@ -30,15 +30,15 @@ private:
 	MenuResult HandleClick(int x, int y);
 	void HandleMove(int x, int y,sf::RenderWindow *window);
 	
-	std::list<MenuItem> *_menuItems;
+	std::list<MenuItem> *menuItems_;
 	
-	sf::Image *image_main;
-	sf::Image *image_play;
-	sf::Image *image_exit;
-	sf::Image *image_difficulty;
-	sf::Image *image_players;
+	sf::Image *image_main_;
+	sf::Image *image_play_;
+	sf::Image *image_exit_;
+	sf::Image *image_difficulty_;
+	sf::Image *image_players_;
 	
-	sf::Sprite *sprite_main_all; 
+	sf::Sprite *sprite_main_all_; 
 };
 
 #endif 

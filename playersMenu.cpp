@@ -7,9 +7,9 @@
 PlayersMenu::PlayersMenu () 
 {
 
-  _playersItems = new std::list<PlayersItem>;
-  position_fleche = new int;
-  *position_fleche = 0;
+  playersItems_ = new std::list<PlayersItem>;
+  position_fleche_ = new int;
+  *position_fleche_ = 0;
 
 	//Load images from files
 
@@ -17,43 +17,43 @@ PlayersMenu::PlayersMenu ()
 	//sprite_perso.SetSubRect(IntRect(0,0,32,32));
 	
 	
-	image_p1 = new sf::Image();
-	image_p1->LoadFromFile("images/Sprite_perso/blonde.png");
-	sf::Sprite * sprite_p1 = new sf::Sprite();
-	sprite_p1->SetImage(*image_p1);
-	sprite_p1->SetSubRect(IntRect(0,0,32,32));
-	sprite_p1->SetPosition(12*32,12*32);
+	image_p1_ = new sf::Image();
+	image_p1_->LoadFromFile("images/Sprite_perso/blonde.png");
+	sf::Sprite sprite_p1;
+	sprite_p1.SetImage(*image_p1_);
+	sprite_p1.SetSubRect(IntRect(0,0,32,32));
+	sprite_p1.SetPosition(12*32,12*32);
 	
-	image_p2 = new sf::Image();
-	image_p2->LoadFromFile("images/Sprite_perso/fartas.png");
-	sf::Sprite * sprite_p2 = new sf::Sprite();
-	sprite_p2->SetImage(*image_p2);
-	sprite_p2->SetSubRect(IntRect(0,0,32,32));
-	sprite_p2->SetPosition(12*32 + 64,12*32);
+	image_p2_ = new sf::Image();
+	image_p2_->LoadFromFile("images/Sprite_perso/fartas.png");
+	sf::Sprite sprite_p2;
+	sprite_p2.SetImage(*image_p2_);
+	sprite_p2.SetSubRect(IntRect(0,0,32,32));
+	sprite_p2.SetPosition(12*32 + 64,12*32);
 	
-	image_p3 = new sf::Image();
-	image_p3->LoadFromFile("images/Sprite_perso/gris.png");
-	sf::Sprite * sprite_p3 = new sf::Sprite();
-	sprite_p3->SetImage(*image_p3);
-	sprite_p3->SetSubRect(IntRect(0,0,32,32));
-	sprite_p3->SetPosition(12*32 + 128,12*32);
+	image_p3_ = new sf::Image();
+	image_p3_->LoadFromFile("images/Sprite_perso/gris.png");
+	sf::Sprite sprite_p3;
+	sprite_p3.SetImage(*image_p3_);
+	sprite_p3.SetSubRect(IntRect(0,0,32,32));
+	sprite_p3.SetPosition(12*32 + 128,12*32);
 	
-	image_p4 = new sf::Image();
-	image_p4->LoadFromFile("images/Sprite_perso/LinusTorvalds.png");
-	sf::Sprite * sprite_p4 = new sf::Sprite();
-	sprite_p4->SetImage(*image_p4);
-	sprite_p4->SetSubRect(IntRect(0,0,32,32));
-	sprite_p4->SetPosition(12*32 + 192,12*32);
+	image_p4_ = new sf::Image();
+	image_p4_->LoadFromFile("images/Sprite_perso/LinusTorvalds.png");
+	sf::Sprite sprite_p4;
+	sprite_p4.SetImage(*image_p4_);
+	sprite_p4.SetSubRect(IntRect(0,0,32,32));
+	sprite_p4.SetPosition(12*32 + 192,12*32);
 	
-	image_arrow = new sf::Image();
-	image_arrow->LoadFromFile("images/Sprite_perso/fleche.png");
-	sprite_arrow = new sf::Sprite();
-	sprite_arrow->SetImage(*image_arrow);
+	image_arrow_ = new sf::Image();
+	image_arrow_->LoadFromFile("images/Sprite_perso/fleche.png");
+	sprite_arrow_ = new sf::Sprite();
+	sprite_arrow_->SetImage(*image_arrow_);
 	
-	image_main_players = new sf::Image();
-	image_main_players->LoadFromFile("images/PlayersMenu/PlayersMenu.png");
-	sprite_main_players = new	sf::Sprite;
-	sprite_main_players->SetImage(*image_main_players);
+	image_main_players_ = new sf::Image();
+	image_main_players_->LoadFromFile("images/PlayersMenu/PlayersMenu.png");
+	sprite_main_players_ = new	sf::Sprite;
+	sprite_main_players_->SetImage(*image_main_players_);
 	
 
 	//Setup Players Items
@@ -92,44 +92,44 @@ PlayersMenu::PlayersMenu ()
 	player4.texte.SetStyle(11);
 	player4.texte.SetColor(Color::White);
 
-	_playersItems->push_back(player1);
-	_playersItems->push_back(player2);
-	_playersItems->push_back(player3);
-	_playersItems->push_back(player4);
+	playersItems_->push_back(player1);
+	playersItems_->push_back(player2);
+	playersItems_->push_back(player3);
+	playersItems_->push_back(player4);
 }
 
 PlayersMenu::~PlayersMenu () 
 {
   cout << "Destructeur PlayersMenu()" << endl;
-  _playersItems->clear();
+  playersItems_->clear();
    
-  delete _playersItems;
+  delete playersItems_;
 
-  delete sprite_arrow;
-  delete position_fleche;
-  delete sprite_main_players;
+  delete sprite_arrow_;
+  delete position_fleche_;
+  delete sprite_main_players_;
 
-	delete image_p1;
-	delete image_p2;
-	delete image_p3;
-	delete image_p4;
-	delete image_arrow;
+	delete image_p1_;
+	delete image_p2_;
+	delete image_p3_;
+	delete image_p4_;
+	delete image_arrow_;
 }
 void PlayersMenu::Load(sf::RenderWindow *window)
 { 
 cout << "Load Players menu" << endl;
   window->Clear(Color::White);
-	window->Draw(*sprite_main_players);
-	sprite_arrow->SetPosition(12*32 - 20 + (*position_fleche)*64, 5 + 12*32);
-	for (auto b : *_playersItems) {
-	  window->Draw(*(b.sprite));
+	window->Draw(*sprite_main_players_);
+	sprite_arrow_->SetPosition(12*32 - 20 + (*position_fleche_)*64, 5 + 12*32);
+	for (auto b : *playersItems_) {
+	  window->Draw(b.sprite);
 	  //window->Draw(b.texte);
     
   }
   
-   window->Draw((_playersItems->begin())->texte);
+   window->Draw((playersItems_->begin())->texte);
   
-  window->Draw(*sprite_arrow);
+  window->Draw(*sprite_arrow_);
   window->Display();
 
 }
@@ -173,41 +173,41 @@ PlayersMenu::PlayersResult  PlayersMenu::GetPlayersResponse(sf::RenderWindow *wi
 PlayersMenu::PlayersResult PlayersMenu::HandleKey(int position, sf::RenderWindow *window)
 {
   if (position == -1) {
-     if (*position_fleche == 0) {
-      *position_fleche = NB_PERSO - 1;
+     if (*position_fleche_ == 0) {
+      *position_fleche_ = NB_PERSO - 1;
      }
      else {
-      --(*position_fleche);
+      --(*position_fleche_);
      }
   }
  
   if (position == 1) {
-     if (*position_fleche == NB_PERSO - 1) {
-      *position_fleche = 0;
+     if (*position_fleche_ == NB_PERSO - 1) {
+      *position_fleche_ = 0;
      }
      else {
-      ++(*position_fleche);
+      ++(*position_fleche_);
      }
   }
  
-  cout << *position_fleche << endl;
+  cout << *position_fleche_ << endl;
   
-  sprite_arrow->SetPosition(12*32 - 20 + (*position_fleche)*64, 5 + 12*32);
+  sprite_arrow_->SetPosition(12*32 - 20 + (*position_fleche_)*64, 5 + 12*32);
     cout << "unga1" << endl;
   window->Clear();
-  window->Draw(*sprite_main_players);
+  window->Draw(*sprite_main_players_);
     cout << "unga2" << endl;
-	for (auto b : *_playersItems) {
+	for (auto b : *playersItems_) {
 	    cout << "unga3" << endl;
-	  window->Draw(*(b.sprite));
+	  window->Draw(b.sprite);
 	  cout << "unga4" << endl;
 	  //window->Draw(b.texte);
    }
    cout << "iterator :" << endl;
-   std::list<PlayersItem>::iterator iter = _playersItems->begin();
+   std::list<PlayersItem>::iterator iter = playersItems_->begin();
    cout << "iterator créé" << endl;
    int ind = 0;
-   while (ind < *position_fleche) {
+   while (ind < *position_fleche_) {
       ++iter;
       ++ind;
    }
@@ -215,10 +215,10 @@ PlayersMenu::PlayersResult PlayersMenu::HandleKey(int position, sf::RenderWindow
    cout << "Sortie du for" << endl;
    window->Draw(iter->texte);
    
-   cout << *position_fleche << endl;
+   cout << *position_fleche_ << endl;
    
    
-   window->Draw(*sprite_arrow);
+   window->Draw(*sprite_arrow_);
    window->Display();
    cout << "finHandleKey" << endl;
 	return Nothing;
