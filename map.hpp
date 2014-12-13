@@ -30,7 +30,7 @@ public:
 	void set_tableau(int i, int j, int val);
 
    
-   int getSocleMap(int i,int j) const;
+   int getSocleMap(int x,int y) const;
    Map * getLink(int i) const;
    
    Image * getImage() const;  

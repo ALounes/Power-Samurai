@@ -12,8 +12,8 @@ Map::Map ()
 
 Map::~Map()
 {
-   for (int i=0; i < *Hauteur_; i++) {
-    delete[] Vector_map_[i];
+   for (int x=0; x < *Hauteur_; x++) {
+    delete[] Vector_map_[x];
    }
    delete[] Vector_map_;
 
@@ -33,8 +33,8 @@ Map::map_create(int hauteur, int largeur)
   *Largeur_ = largeur;
   
   Vector_map_ = new int * [hauteur];
-  for (int i = 0; i < hauteur; i++) {
-    Vector_map_[i] = new int [largeur];
+  for (int x = 0; x < hauteur; x++) {
+    Vector_map_[x] = new int [largeur];
   }
 
 }
@@ -51,8 +51,8 @@ Map::set_links(Map * map_1, Map * map_2, Map * map_3)
    link_map_3_ = map_3;
 }
  
-int Map::getSocleMap(int i,int j) const {
-return Vector_map_[i][j];
+int Map::getSocleMap(int x,int y) const {
+return Vector_map_[x][y];
 }
 
 Map* Map::getLink(int i) const {
@@ -88,8 +88,8 @@ void Map::set_sprite(Sprite sprt) {
 
 }
 
-void Map::set_tableau(int i, int j, int val) {
-   Vector_map_[i][j] = val;
+void Map::set_tableau(int x, int y, int val) {
+   Vector_map_[x][y] = val;
 
 }
 

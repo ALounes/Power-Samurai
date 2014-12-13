@@ -7,7 +7,7 @@
 #define PLAYING_WIDTH 800
 #define PLAYING_HEIGHT 600
 
-#define MAP_1_HEIGHT 26
+#define MAP_1_HEIGHT 27
 #define MAP_1_WIDTH 31
 
 #define MAP_2_HEIGHT 47
@@ -77,16 +77,16 @@ void Game::Map_Load(void)
   cout << "creation terminée()" << endl;
   int staticmap_1[MAP_1_HEIGHT][MAP_1_WIDTH] = 
 { {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+  {0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+  {0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
   {0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0},
   {0,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0},
   {0,1,1,1,1,0,0,0,0,0,1,1,0,0,0,0,0,1,1,0,1,1,1,1,1,1,1,1,1,1,0},
-  {0,1,1,1,1,0,0,0,0,1,1,1,0,0,2,0,0,1,1,0,0,0,0,0,0,0,0,0,1,1,0},
-  {0,1,1,1,1,1,1,1,0,1,1,1,0,0,2,0,0,1,1,0,0,0,0,0,0,0,0,0,1,0,0},
+  {0,1,1,1,1,0,0,0,0,1,1,1,0,0,3,0,0,1,1,0,0,0,0,0,0,0,0,0,1,1,0},
+  {0,1,1,1,1,1,1,1,0,1,1,1,0,0,3,0,0,1,1,0,0,0,0,0,0,0,0,0,1,0,0},
   {0,1,1,1,1,1,1,1,0,1,1,1,0,1,1,1,0,0,1,1,1,1,1,1,1,1,1,0,1,1,0},
-  {0,0,1,0,0,1,1,1,0,1,1,1,0,1,1,1,0,0,1,1,1,1,1,1,0,0,0,0,0,1,0},
-  {0,0,1,0,0,1,0,0,0,0,0,1,0,1,1,1,0,0,0,1,1,1,1,0,0,0,0,0,1,1,0},
+  {0,1,1,0,0,1,1,1,0,1,1,1,0,1,1,1,0,0,1,1,1,1,1,1,0,0,0,0,0,1,0},
+  {2,1,1,0,0,1,0,0,0,0,0,1,0,1,1,1,0,0,0,1,1,1,1,0,0,0,0,0,1,1,0},
   {0,1,1,0,0,1,0,0,0,0,0,0,0,1,1,1,0,0,0,1,1,1,0,0,0,0,0,0,1,1,0},
   {0,1,1,0,0,1,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1,1,0},
   {0,1,1,0,0,1,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0},
@@ -101,17 +101,23 @@ void Game::Map_Load(void)
   {0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
   {0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,1,1,0,0,0,0,1,1,1,0,0,0,0,0,0},
   {0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+  {0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
   {0,0,0,0,0,0,0,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
   };
   
-  cout << "static terminé()" << endl;
+  cout << "static terminé() (3,1) = " << staticmap_1[3][1] << endl;
   
-  for (int i=0; i < MAP_1_HEIGHT; i++) {
-    for (int j=0; j < MAP_1_WIDTH; j++) {
-      map_1->set_tableau(i, j, staticmap_1[i][j]);
+  for (int x = 0; x < MAP_1_HEIGHT; x++) {
+    for (int y = 0; y < MAP_1_WIDTH; y++) {
+      map_1->set_tableau(x, y, staticmap_1[x][y]);
     }
   }
+  
+  
   cout << "dynamique terminé()" << endl;
+  
+  cout << "dynamique(3,1) = " << map_1->getSocleMap(3,1) << endl; 
+   
   map_1->image_map_->LoadFromFile("images/Maps/map.png");
   map_1->sprite_map_->SetImage(*(map_1->image_map_));
 	
@@ -151,7 +157,7 @@ void Game::Map_Load(void)
   for (int i=0; i < MAP_2_HEIGHT; i++) {
     for (int j=0; j < MAP_2_WIDTH; j++) {
       //(map_2->Vector_map)[i][j] = staticmap_2[i][j]; 
-      map_2->set_tableau(i, j, staticmap_2[i][j]);
+      map_2->set_tableau(i, j, staticmap_2[j][i]);
     }
   }
   
@@ -226,7 +232,7 @@ void Game::GameLoop()
 			
 		case Game::Playing:
 			{
-            //delete mainMenu_;
+            delete mainMenu_;
             map_courante = map_1;
             delete mainWindow_;
             mainWindow_ = new sf::RenderWindow(sf::VideoMode(PLAYING_WIDTH, PLAYING_HEIGHT), "Kill them all, and get the BOSS");
@@ -251,7 +257,7 @@ void Game::GameLoop()
 	         mainWindow_->Draw(*sprite_main_all);
 	         mainWindow_->Display();*/
 	         
-            //mainMenu_ = new MainMenu;
+            mainMenu_ = new MainMenu;
             //mainMenu_->Load(mainWindow_);
             //ShowMainMenu();
 				break;
@@ -409,14 +415,19 @@ void Game::RunGame()
 		{
 			case Event::Closed :
 			   fin_de_boucle = true;
+			   entitys.clear();
+			   effects.clear();
+			   //delete linus;
+			   //delete effect;
 				*gameState_ = Game::ShowingMainMenu;
 				break;
 
 			case Event::KeyPressed :
 				linus->actionKey(event.Key.Code);
 				linus->soclePosition();
-				keyPressedManagement(event.Key.Code);
 				effect->play();
+				keyPressedManagement(event.Key.Code);
+				
 				break;
 
 			default: 

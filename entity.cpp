@@ -59,10 +59,10 @@ Entity::legalDeplacement(int x, int y) const
 {	
 		cout << " x et y : " << x << y << endl;
 
-	int *socle = getSocle(x,y);
+	int *socle = getSocle(y,x); // CAR HAUTEUR DU TABLEAU = X !!!
 	int i = socle[1];
 	int j = socle[3];
-	cout << " socle i : " << i << " socle j : " << j << " socle map :" << myMap_->getSocleMap(i,j) << endl;
+	cout << " socle x : " << x << " socle y : " << y << " socle map :" << myMap_->getSocleMap(i,j) << endl;
 	//int i = getCenter().x / 32;
 	//int j = getCenter().y / 32;
 		
@@ -188,7 +188,7 @@ Entity::getSocle(int x, int y) const
 	tab[2] = y / getAnimationHeight();
 	tab[3] = y / getAnimationHeight();
 	
-	cout << " tab soble : "<< tab[0] <<tab[1] <<tab[2] <<tab[3] <<  endl;
+	cout << " tab socle : "<< tab[0] << " " << tab[1] << " "  << tab[2] << " "  << tab[3] <<  endl;
 
 	return tab;
 }
