@@ -26,6 +26,7 @@ public:
 	
 	void Load(sf::RenderWindow *window);
 	PlayersResult Show(sf::RenderWindow *window);
+	int * getposition() const;
 
 private:
 	PlayersResult GetPlayersResponse(sf::RenderWindow *window);

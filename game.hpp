@@ -51,6 +51,7 @@ private:
 	 void ShowDifficultyMenu();
 	 void ShowMainMenu();
 	 void RunGame();
+	 Player * setPlayer(PlayersMenu * pm);
 
 	enum GameState { Uninitialized, ShowingSplash, Paused, 
 					ShowingMainMenu, ShowingPlayersMenu, ShowingDifficultyMenu, Playing, Exiting };

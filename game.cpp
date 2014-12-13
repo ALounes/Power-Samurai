@@ -22,6 +22,7 @@ Sprite sprite_perso;
 Image feux;
 Sprite sprite_feux;
 View view;
+//Player * joueur;
 
 Vector2i anim(1,DOWN);
 bool moving = false;
@@ -59,13 +60,15 @@ Game::Game ()
 Game::~Game ()
 {
   delete map_1;
+    cout << "map 1 détruite" << endl;
   delete map_2;
-  delete map_3;
-  delete map_4;
+  //delete map_3;
+  //delete map_4;
+  cout << "maps détruites" << endl;
   delete mainMenu_;
   delete gameState_;
   delete mainWindow_;
-  delete difficultyMenu_;
+  //delete difficultyMenu_;
   //delete playersMenu_;
 }
 void Game::Map_Load(void)
@@ -77,8 +80,8 @@ void Game::Map_Load(void)
   cout << "creation terminée()" << endl;
   int staticmap_1[MAP_1_HEIGHT][MAP_1_WIDTH] = 
 { {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+  {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+  {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
   {0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0},
   {0,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0},
   {0,1,1,1,1,0,0,0,0,0,1,1,0,0,0,0,0,1,1,0,1,1,1,1,1,1,1,1,1,1,0},
@@ -86,8 +89,8 @@ void Game::Map_Load(void)
   {0,1,1,1,1,1,1,1,0,1,1,1,0,0,3,0,0,1,1,0,0,0,0,0,0,0,0,0,1,0,0},
   {0,1,1,1,1,1,1,1,0,1,1,1,0,1,1,1,0,0,1,1,1,1,1,1,1,1,1,0,1,1,0},
   {0,1,1,1,1,1,1,1,0,1,1,1,0,1,1,1,0,0,1,1,1,1,1,1,0,0,0,0,0,1,0},
-  {2,1,1,0,0,1,0,0,0,0,0,1,0,1,1,1,0,0,0,1,1,1,1,0,0,0,0,0,1,1,0},
-  {0,1,1,0,0,1,0,0,0,0,0,0,0,1,1,1,0,0,0,1,1,1,0,0,0,0,0,0,1,1,0},
+  {0,0,1,0,0,1,0,0,0,0,0,1,0,1,1,1,0,0,0,1,1,1,1,0,0,0,0,0,1,1,0},
+  {0,0,1,0,0,1,0,0,0,0,0,0,0,1,1,1,0,0,0,1,1,1,0,0,0,0,0,0,1,1,0},
   {0,1,1,0,0,1,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1,1,0},
   {0,1,1,0,0,1,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0},
   {0,1,1,0,1,1,1,1,1,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,1,1,1,0,1,0},
@@ -121,7 +124,7 @@ void Game::Map_Load(void)
   map_1->image_map_->LoadFromFile("images/Maps/map.png");
   map_1->sprite_map_->SetImage(*(map_1->image_map_));
 	
-  map_1->set_links(map_2,map_3,map_4);
+  map_1->set_links(map_2,NULL,NULL);
 	
 	// Creation map 2
   
@@ -130,24 +133,24 @@ void Game::Map_Load(void)
   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-  {0,1,1,0,0,1,1,1,1,1,2,0,0,0,0,0,0,1,1,1,0,1,1,0,1,1,1,0,1,0,0,0,0,0,0,0,2,1,1,1,1,1,1,1,1,1,0},
-  {0,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,1,2,0,2,1,1,1,1,1,1,0,0,0,0,0,1,1,1,1,0,0,0,0,0,1,0},
-  {0,1,1,1,0,0,0,0,0,1,1,0,0,0,0,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,0,0,0,0,0,0,1,0},
+  {0,1,1,0,0,1,1,1,1,1,2,0,0,0,0,0,0,1,1,1,0,1,1,0,1,1,1,0,1,1,1,1,1,0,1,0,2,1,1,1,1,1,1,1,1,1,0},
+  {0,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,1,2,0,2,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,0,0,0,0,0,1,0},
+  {0,1,1,1,0,0,0,0,0,1,1,0,0,0,0,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,0,0,0,0,0,0,1,0},
   {0,1,1,0,0,0,0,0,0,0,1,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,1,1,0,0,0,0,0,0,1,0},
   {0,1,0,0,0,0,0,0,0,0,1,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,1,1,0,0,0,0,0,0,0,1,0},
   {0,1,0,0,0,0,0,0,0,1,1,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,1,1,0,0,0,0,0,0,1,1,0},
   {0,1,1,1,0,0,0,0,1,1,1,0,0,1,1,0,0,0,1,0,1,0,0,0,1,0,1,0,1,0,1,0,1,1,1,0,1,1,0,0,0,1,1,0,1,1,0},
   {0,1,1,1,1,1,1,1,1,1,1,0,0,1,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,1,1,0,1,1,1,1,1,1,1,1,1,1,0},
-  {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+  {0,0,1,1,0,0,0,0,0,0,0,0,0,1,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+  {0,0,1,1,0,0,0,0,0,0,0,0,0,1,0,0,1,1,1,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+  {0,0,1,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+  {0,1,1,0,0,0,1,0,1,1,1,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+  {0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0},
+  {0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,1,1,1,0,1,1,1,0,0,0,1,1,1,0,0,0,0,0,0,0},
+  {0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1,1,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0},
+  {0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,1,0,1,1,1,1,0,0,0,0,0,0,0},
+  {0,1,1,1,1,1,1,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+  {0,1,1,1,1,1,1,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -165,7 +168,7 @@ void Game::Map_Load(void)
    map_2->image_map_->LoadFromFile("images/Maps/ruines1.png");
 	map_2->sprite_map_->SetImage(*(map_2->image_map_));
 	
-	map_2->set_links(map_1,map_3,NULL);
+	map_2->set_links(map_1,NULL,NULL);
 	
 	cout << "Map chargées" << endl;
 	
@@ -185,8 +188,9 @@ void Game::Start(void)
 	{
 		GameLoop();
 	}
-   cout << "fermeture" << endl;
+   
 	mainWindow_->Close();
+	cout << "fermeture effectuee" << endl;
 }
 
 bool Game::IsExiting()
@@ -234,33 +238,25 @@ void Game::GameLoop()
 		case Game::Playing:
 			{
             delete mainMenu_;
-            map_courante = map_1;
             delete mainWindow_;
+            
+            map_courante = map_1;
+            
             mainWindow_ = new sf::RenderWindow(sf::VideoMode(PLAYING_WIDTH, PLAYING_HEIGHT), "Kill them all, and get the BOSS");
-            //mainWindow_->SetSize(PLAYING_WIDTH, PLAYING_HEIGHT);
             mainWindow_->SetPosition((VideoMode::GetDesktopMode().Width - PLAYING_WIDTH)/2, (VideoMode::GetDesktopMode().Height - PLAYING_HEIGHT)/2);
             mainWindow_->Clear();
-            cout << "Rungame()" << endl;
-            RunGame();
-            delete mainWindow_;
-            //mainWindow_->SetSize(GAME_WIDTH, GAME_HEIGHT);
-            //mainWindow_->SetPosition((VideoMode::GetDesktopMode().Width - GAME_WIDTH)/2, (VideoMode::GetDesktopMode().Height - GAME_HEIGHT)/2);
             
+            cout << "Rungame()" << endl;
+            
+            RunGame();
+            
+            delete mainWindow_;
+           
             mainWindow_ = new sf::RenderWindow(sf::VideoMode(GAME_WIDTH, GAME_HEIGHT), "Power Samurai!!!");
             mainWindow_->SetPosition((VideoMode::GetDesktopMode().Width - GAME_WIDTH)/2, (VideoMode::GetDesktopMode().Height - GAME_HEIGHT)/2);
-            
-            /*Image * image_main = new sf::Image();
-            Sprite * sprite_main_all = new Sprite();
-	         image_main->LoadFromFile("images/MainMenu/MainMenu.png");
-	         sprite_main_all->SetImage(*image_main);
-	         
-	         mainWindow_->Clear(sf::Color::White);
-	         mainWindow_->Draw(*sprite_main_all);
-	         mainWindow_->Display();*/
 	         
             mainMenu_ = new MainMenu;
-            //mainMenu_->Load(mainWindow_);
-            //ShowMainMenu();
+
 				break;
 			}
 			
@@ -359,6 +355,8 @@ void Game::ShowPlayersMenu()
 	 default:    
 			break;	
 	 }
+	 
+	 //joueur = setPlayer(playersMenu_);
   mainWindow_->ShowMouseCursor(true);
   cout << "delete players terminé" << endl;
 }
@@ -374,7 +372,7 @@ void Game::RunGame()
 	Vector2i test_effect(5,8);
 
 	if(!image_linus.LoadFromFile("sprite/LinusTorvalds.png"))
-		cout << "erreur " << endl ;
+		//cout << "erreur " << endl ;
 
 	if (!buffer_son.LoadFromFile("Musique/BinB.ogg"))
 		cout << "erreur " << endl ;
@@ -384,10 +382,7 @@ void Game::RunGame()
 
 	son.SetBuffer(buffer_son);
 	son.SetLoop(true);
- 	//son.Play();
-
-	sprite_perso.SetImage(perso);
-	sprite_feux.SetImage(feux);	
+ 	//son.Play();	
 	
 	sprite_plan = *(map_courante->sprite_map_);
 	
@@ -395,15 +390,18 @@ void Game::RunGame()
 	LinusTorvalds *linus = new LinusTorvalds(mainWindow_,image_linus,map_courante);
 
 	Camera camera(mainWindow_,linus);
+	
+	//Camera camera(mainWindow_,joueur);
 
 	entitys.push_front(linus);
 
 	linus->setPosition(Vector2f(90,90));
 
 	// ANIMATION EFFECT
-	AnimationEffect *effect = new AnimationEffect(mainWindow_,effect_003,test_effect,linus);
-	addEffect(effect);
-	effect->setPosition(Vector2f(300,300));
+	
+	//AnimationEffect *effect = new AnimationEffect(mainWindow_,effect_003,test_effect,linus);
+	//addEffect(effect);
+	//effect->setPosition(Vector2f(300,300));
 
    // Exécution de la boucle principale
    bool fin_de_boucle = false;
@@ -425,10 +423,15 @@ void Game::RunGame()
 
 			case Event::KeyPressed :
 				linus->soclePosition();
-				effect->play();
+				//joueur->soclePosition();
+				//effect->play();
+				
 				keyPressedManagement(event.Key.Code);
+				
+				//joueur->actionKey(event.Key.Code, map_courante);
+
 				linus->actionKey(event.Key.Code, map_courante);
-				linus->actionKey(event.Key.Code, map_courante);
+				//linus->actionKey(event.Key.Code, map_courante);
 				
 				break;
 
@@ -446,7 +449,7 @@ void Game::RunGame()
 		// Mise a jours des sprites et affichage
 		displayEntity(clock);
 	
-   	effect->run();
+   	//effect->run();
 
 		// Affichage du contenu de la fenêtre à l'écran
 		mainWindow_->Display();
@@ -545,6 +548,44 @@ Game::displayEffect(Clock &time)
 {
 	// a faire
 }
+
+// à compléter
+Player * Game::setPlayer(PlayersMenu * pm) {
+   entitys.clear();
+   switch(*(pm->getposition())) {
+      case 0 :
+         
+         break;
+      case 1 :
+         
+         break;
+      case 2 :
+         break;
+      case 3 : {
+         if(!image_linus.LoadFromFile("sprite/LinusTorvalds.png"))
+		      cout << "erreur " << endl ;
+		      
+      	LinusTorvalds *linus = new LinusTorvalds(mainWindow_,image_linus,map_courante);
+
+	      
+
+	      entitys.push_front(linus);
+
+	      linus->setPosition(Vector2f(90,90));
+      
+            return linus;
+         break;
+      } 
+      default :
+         break;
+   
+   
+   }
+   
+
+
+}
+
 
 void Game::launchingPause() {
    bool Ispause = true;

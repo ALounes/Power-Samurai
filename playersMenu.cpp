@@ -193,26 +193,26 @@ PlayersMenu::PlayersResult PlayersMenu::HandleKey(int position, sf::RenderWindow
   cout << *position_fleche_ << endl;
   
   sprite_arrow_->SetPosition(12*32 - 20 + (*position_fleche_)*64, 5 + 12*32);
-    cout << "unga1" << endl;
+
   window->Clear();
   window->Draw(*sprite_main_players_);
-    cout << "unga2" << endl;
+
 	for (auto b : *playersItems_) {
-	    cout << "unga3" << endl;
+
 	  window->Draw(b.sprite);
-	  cout << "unga4" << endl;
-	  //window->Draw(b.texte);
+
+
    }
-   cout << "iterator :" << endl;
+
    std::list<PlayersItem>::iterator iter = playersItems_->begin();
-   cout << "iterator créé" << endl;
+
    int ind = 0;
    while (ind < *position_fleche_) {
       ++iter;
       ++ind;
    }
    
-   cout << "Sortie du for" << endl;
+
    window->Draw(iter->texte);
    
    cout << *position_fleche_ << endl;
@@ -222,4 +222,10 @@ PlayersMenu::PlayersResult PlayersMenu::HandleKey(int position, sf::RenderWindow
    window->Display();
    cout << "finHandleKey" << endl;
 	return Nothing;
+}
+
+
+int * PlayersMenu::getposition() const {
+   return position_fleche_;
+
 }

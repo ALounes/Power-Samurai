@@ -17,11 +17,19 @@ Map::~Map()
    }
    delete[] Vector_map_;
 
+   cout << "Vector_map deleted" << endl;
+
    delete sprite_map_;
    delete image_map_;
-   delete link_map_1_;
+   /*if ( link_map_1_ != NULL) {
+      delete link_map_1_;
+   }
+   if ( link_map_2_ != NULL) {
    delete link_map_2_;
+   }
+   if ( link_map_3_ != NULL) {
    delete link_map_3_;
+   }*/
 }
  
 void 

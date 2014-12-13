@@ -45,10 +45,10 @@ class Entity : public Animation
 	int* getSocle(int x, int y) const;
 
 	private:
-	Map  *myMap_;
+	
 	bool moving_;
 	int  moveSpeed_;
-	
+	Map  *myMap_;
 };
 
 #endif
