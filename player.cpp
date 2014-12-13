@@ -20,7 +20,7 @@ Player::~Player()
 }
 
 void
-Player::actionKey(Key::Code keyPressed)
+Player::actionKey(Key::Code keyPressed,Map * map)
 {
 	const sf::Input &input = win_->GetInput();
 
@@ -68,6 +68,10 @@ Player::actionKey(Key::Code keyPressed)
 
 	case sf::Key::Space :
 		// A FAIRE 
+		break;
+		
+	case sf::Key::P :
+		   setMap(map); 
 		break;
 
 	case sf::Key::Escape :

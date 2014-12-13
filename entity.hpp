@@ -30,7 +30,10 @@ class Entity : public Animation
 
 	virtual void play();
 	virtual void pause();
-
+	
+	void setMap(Map * map);
+   Map * getMap() const;
+   
 	void runMove();
 	void stopMove();
 	bool isMoving() const;
@@ -42,9 +45,10 @@ class Entity : public Animation
 	int* getSocle(int x, int y) const;
 
 	private:
+	Map  *myMap_;
 	bool moving_;
 	int  moveSpeed_;
-	Map  *myMap_;
+	
 };
 
 #endif

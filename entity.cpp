@@ -69,10 +69,43 @@ Entity::legalDeplacement(int x, int y) const
 
 	if (!isMoving())
 		return false;
-	else if (myMap_->getSocleMap(i,j) == 0)
+	else 
+	   switch ( myMap_->getSocleMap(i,j) ) {
+	   
+	      case 0 : 
+	         
+	         return false;
+	         break;
+	      case 1 :
+	         return true;
+	         break;
+	      case 2 :
+
+	         //linkmap1
+
+	         //setMap(getMap()->getLink(1));
+	         return false;
+	         break;
+	      case 3 :
+	         //linkmap2
+	         //setMap(getMap()->getLink(2));
+	         return false;
+	         break;
+	      case 4 :
+	         //linkmap3
+	         //setMap(getMap()->getLink(3));
+	         return false;
+	         break;
+	      default :
+	         break;
+	         
+	   }
+	
+	return false;
+	/*if (myMap_->getSocleMap(i,j) == 0)
 		return false;
 	else 
-		return true;
+		return true;*/
 
 }
 
@@ -191,4 +224,13 @@ Entity::getSocle(int x, int y) const
 	cout << " tab socle : "<< tab[0] << " " << tab[1] << " "  << tab[2] << " "  << tab[3] <<  endl;
 
 	return tab;
+}
+
+
+void Entity::setMap(Map * map) {
+   myMap_ = map;
+}
+
+Map * Entity::getMap() const {
+   return myMap_;
 }
