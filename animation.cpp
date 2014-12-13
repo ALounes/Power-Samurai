@@ -75,7 +75,7 @@ Animation::getAnimationHeight() const
 }
 
 Vector2f 
-Animation::getCenter()
+Animation::getCenter() const
 {
 	Vector2f new_position , position = getPosition();
 	
@@ -103,7 +103,7 @@ Animation::setCenter(Vector2f position)
 
 
 Vector2f 
-Animation::getPosition()
+Animation::getPosition() const
 {
 	return mySprite_->GetPosition();
 }

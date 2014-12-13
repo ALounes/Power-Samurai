@@ -28,8 +28,8 @@ class Animation
 	void setPosition(Vector2f position);
 	void setCenter  (Vector2f position);
 
-	Vector2f getPosition();	
-	Vector2f getCenter();	
+	Vector2f getPosition() const;	
+	Vector2f getCenter() const;	
 	
 	virtual void play();
 	virtual void pause();

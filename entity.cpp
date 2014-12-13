@@ -57,9 +57,15 @@ Entity::pause()
 bool 
 Entity::legalDeplacement(int x, int y) const
 {	
-	int *socle = soclePosition();
+		cout << " x et y : " << x << y << endl;
+
+	int *socle = getSocle(x,y);
 	int i = socle[1];
 	int j = socle[3];
+	cout << " socle i : " << i << " socle j : " << j << " socle map :" << myMap_->getSocleMap(i,j) << endl;
+	//int i = getCenter().x / 32;
+	//int j = getCenter().y / 32;
+		
 
 	if (!isMoving())
 		return false;
@@ -73,7 +79,7 @@ Entity::legalDeplacement(int x, int y) const
 void 
 Entity::moveUp()
 {
-	if(legalDeplacement(mySprite_->GetCenter().x,mySprite_->GetCenter().y - getSpeed())){
+	if(legalDeplacement(getCenter().x,getCenter().y - getSpeed())){
 		mySprite_->Move(ZERO,-getSpeed());
 		setAnimationY(UP);
 	}
@@ -82,7 +88,7 @@ Entity::moveUp()
 void 
 Entity::moveDown()
 {
-	if(legalDeplacement(mySprite_->GetCenter().x,mySprite_->GetCenter().y + getSpeed())){
+	if(legalDeplacement(getCenter().x,getCenter().y + getSpeed())){
 		mySprite_->Move(ZERO,getSpeed());
 		setAnimationY(DOWN);
 	}
@@ -91,7 +97,7 @@ Entity::moveDown()
 void 
 Entity::moveLeft()
 {
-	if(legalDeplacement(mySprite_->GetCenter().x - getSpeed(),mySprite_->GetCenter().y)){
+	if(legalDeplacement(getCenter().x - getSpeed(),getCenter().y)){
 		mySprite_->Move(-getSpeed(),ZERO);
 		setAnimationY(LEFT);
 	}
@@ -100,7 +106,7 @@ Entity::moveLeft()
 void 
 Entity::moveRight()
 {
-	if(legalDeplacement(mySprite_->GetCenter().x + getSpeed(),mySprite_->GetCenter().y)){
+	if(legalDeplacement(getCenter().x + getSpeed(),getCenter().y)){
 		mySprite_->Move(getSpeed(),ZERO);
 		setAnimationY(RIGHT);
 	}
@@ -110,7 +116,7 @@ Entity::moveRight()
 void 
 Entity::moveUpRight()
 {
-	if(legalDeplacement(mySprite_->GetCenter().x + getSpeed(),mySprite_->GetCenter().y - getSpeed())){
+	if(legalDeplacement(getCenter().x + getSpeed(),getCenter().y - getSpeed())){
 		mySprite_->Move(getSpeed(),-getSpeed());
 		setAnimationY(RIGHT);
 	}
@@ -119,7 +125,7 @@ Entity::moveUpRight()
 void 
 Entity::moveDownRight()
 {
-	if(legalDeplacement(mySprite_->GetCenter().x + getSpeed(),mySprite_->GetCenter().y + getSpeed())){
+	if(legalDeplacement(getCenter().x + getSpeed(),getCenter().y + getSpeed())){
 		mySprite_->Move(getSpeed(),getSpeed());
 		setAnimationY(RIGHT);
 	}
@@ -128,7 +134,7 @@ Entity::moveDownRight()
 void 
 Entity::moveUpLeft()
 {
-	if(legalDeplacement(mySprite_->GetCenter().x - getSpeed(),mySprite_->GetCenter().y - getSpeed())){
+	if(legalDeplacement(getCenter().x - getSpeed(),getCenter().y - getSpeed())){
 		mySprite_->Move(-getSpeed(),-getSpeed());
 		setAnimationY(LEFT);
 	}
@@ -137,7 +143,7 @@ Entity::moveUpLeft()
 void 
 Entity::moveDownLeft()
 {
-	if(legalDeplacement(mySprite_->GetCenter().x - getSpeed(),mySprite_->GetCenter().y + getSpeed())){
+	if(legalDeplacement(getCenter().x - getSpeed(),getCenter().y + getSpeed())){
 		mySprite_->Move(-getSpeed(),getSpeed());
 		setAnimationY(LEFT);
 	}
@@ -162,12 +168,27 @@ int*
 Entity::soclePosition() const
 {
 	int *tab = new int[4];
-	Vector2f socle= mySprite_->GetCenter();
+	Vector2f socle= getCenter();
 
 	tab[0] = (socle.x - getAnimationWidth()/2) / getAnimationWidth();
 	tab[1] = (socle.x + getAnimationWidth()/2) / getAnimationWidth();
 	tab[2] = (socle.y - getAnimationHeight()/2) / getAnimationHeight();
 	tab[3] = (socle.y + getAnimationHeight()/2) / getAnimationHeight();
+
+	return tab;
+}
+
+int* 
+Entity::getSocle(int x, int y) const
+{	
+	int *tab = new int[4];
+
+	tab[0] = x / getAnimationWidth();
+	tab[1] = x / getAnimationWidth();
+	tab[2] = y / getAnimationHeight();
+	tab[3] = y / getAnimationHeight();
+	
+	cout << " tab soble : "<< tab[0] <<tab[1] <<tab[2] <<tab[3] <<  endl;
 
 	return tab;
 }

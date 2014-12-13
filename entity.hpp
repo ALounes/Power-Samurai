@@ -39,6 +39,7 @@ class Entity : public Animation
 	void setSpeed(int speed);
 
 	int* soclePosition() const;
+	int* getSocle(int x, int y) const;
 
 	private:
 	bool moving_;
