@@ -52,6 +52,7 @@ private:
 	 void ShowMainMenu();
 	 void RunGame();
 	 Player * setPlayer(PlayersMenu * pm);
+	 //void setMap();
 
 	enum GameState { Uninitialized, ShowingSplash, Paused, 
 					ShowingMainMenu, ShowingPlayersMenu, ShowingDifficultyMenu, Playing, Exiting };

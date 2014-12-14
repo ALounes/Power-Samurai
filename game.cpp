@@ -85,8 +85,8 @@ void Game::Map_Load(void)
   {0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0},
   {0,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0},
   {0,1,1,1,1,0,0,0,0,0,1,1,0,0,0,0,0,1,1,0,1,1,1,1,1,1,1,1,1,1,0},
-  {0,1,1,1,1,0,0,0,0,1,1,1,0,0,3,0,0,1,1,0,0,0,0,0,0,0,0,0,1,1,0},
-  {0,1,1,1,1,1,1,1,0,1,1,1,0,0,3,0,0,1,1,0,0,0,0,0,0,0,0,0,1,0,0},
+  {0,1,1,1,1,0,0,0,0,1,1,1,0,0,2,0,0,1,1,0,0,0,0,0,0,0,0,0,1,1,0},
+  {0,1,1,1,1,1,1,1,0,1,1,1,0,0,2,0,0,1,1,0,0,0,0,0,0,0,0,0,1,0,0},
   {0,1,1,1,1,1,1,1,0,1,1,1,0,1,1,1,0,0,1,1,1,1,1,1,1,1,1,0,1,1,0},
   {0,1,1,1,1,1,1,1,0,1,1,1,0,1,1,1,0,0,1,1,1,1,1,1,0,0,0,0,0,1,0},
   {0,0,1,0,0,1,0,0,0,0,0,1,0,1,1,1,0,0,0,1,1,1,1,0,0,0,0,0,1,1,0},
@@ -431,6 +431,9 @@ void Game::RunGame()
 				//joueur->actionKey(event.Key.Code, map_courante);
 
 				linus->actionKey(event.Key.Code, map_courante);
+				
+				map_courante = linus->getMap();
+				sprite_plan = *(map_courante->sprite_map_);
 				//linus->actionKey(event.Key.Code, map_courante);
 				
 				break;
@@ -637,4 +640,41 @@ void Game::launchingPause() {
 }
 
 
+/*void setMap() {
+
+switch ( map_courante->getSocleMap(i,j) ) {
+	   
+	      case 0 : 
+	         
+	         return false;
+	         break;
+	      case 1 :
+	         return true;
+	         break;
+	      case 2 : {
+
+	         //linkmap1
+
+	         setMap(getMap()->getLink(1));
+	         return false;
+	         break;
+	         }
+	      case 3 : {
+	         //linkmap2
+	         setMap(getMap()->getLink(2));
+	         return false;
+	         break;
+	        } 
+	      case 4 : {
+	         //linkmap3
+	         setMap(getMap()->getLink(3));
+	         return false;
+	         break;
+	      }
+	      default :
+	      return false;
+	         break;
+
+}
+*/
 

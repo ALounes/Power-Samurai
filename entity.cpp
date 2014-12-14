@@ -55,7 +55,7 @@ Entity::pause()
 }
 
 bool 
-Entity::legalDeplacement(int x, int y) const
+Entity::legalDeplacement(int x, int y) 
 {	
 		cout << " x et y : " << x << y << endl;
 
@@ -69,7 +69,7 @@ Entity::legalDeplacement(int x, int y) const
 
 	if (!isMoving())
 		return false;
-	else 
+	else {
 	   switch ( myMap_->getSocleMap(i,j) ) {
 	   
 	      case 0 : 
@@ -79,27 +79,32 @@ Entity::legalDeplacement(int x, int y) const
 	      case 1 :
 	         return true;
 	         break;
-	      case 2 :
+	      case 2 : {
 
 	         //linkmap1
 
-	         //setMap(getMap()->getLink(1));
+	         setMap(getMap()->getLink(1));
 	         return false;
 	         break;
-	      case 3 :
+	         }
+	      case 3 : {
 	         //linkmap2
-	         //setMap(getMap()->getLink(2));
+	         setMap(getMap()->getLink(2));
 	         return false;
 	         break;
-	      case 4 :
+	        } 
+	      case 4 : {
 	         //linkmap3
-	         //setMap(getMap()->getLink(3));
+	         setMap(getMap()->getLink(3));
 	         return false;
 	         break;
+	      }
 	      default :
+	      return false;
 	         break;
 	         
 	   }
+	}
 	
 	return false;
 	/*if (myMap_->getSocleMap(i,j) == 0)

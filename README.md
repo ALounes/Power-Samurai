@@ -3,6 +3,12 @@ Power-Samurai
 C++ 2D Rpg Game Project using STL &amp; SFML library.
 Consigne Groupe :
 =================
+Travail fait :
+----------------------------------
+-> Fonctions de changement de maps effectuées. Début d'implémentation des coordonnées d'arrivées après changement de map.
+-> Déplacement fonctionnel, 
+
+
 Travail a faire pour les Modules :
 ----------------------------------
 -> Module Game
@@ -11,11 +17,12 @@ Travail a faire pour les Modules :
 -> Module PlayerMenu
 -> module DifficultyMenu
 -> Module MainMenu
--: Correction des Noms des champs (variables) avec un "_nom" et remplacer par "nom_"
+-: Adapter les largeurs des animations pour plus de cohérence visuelle
+-: Correction des Noms des champs (variables) avec un "_nom" et remplacer par "nom_"     DONE
 -: a l'instanciation des Class ne pas faire de "new Class" mais plutot "new Class()"
 -: les champs doivent tous etre en private et avoir des acceceur GET et SET
 -: aucune fonction ne doit deplacer les 20 lignes grand max , (27 est le max dans la norme AINSI)
--: rectification du tableau pour la map ( il ne marche pas faire un test la fonction de deplacement teste la mapcourante )
+-: rectification du tableau pour la map ( il ne marche pas faire un test la fonction de deplacement teste la mapcourante ) RECTIFICATION FAITE, MARCHE
 TRAVAIL A FAIRE POUR LE RESTE DU PROJET :
 -----------------------------------------
 -> Realisation d'un arbre complet des class et sous class pour un devlopement plus rapide
@@ -29,3 +36,4 @@ Liste des Realisation:
 Note Importante :
 =================
 -: Vive L'algerie , Vive La Kabylie . et Vive Lounes =D .
+-: Vive la Corse, Vive la Bretagne. et Vive Maxime =P .

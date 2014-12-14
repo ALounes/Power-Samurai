@@ -24,7 +24,7 @@ class Entity : public Animation
 	void moveDownLeft();
 	void moveDownRight();
 
-	virtual bool legalDeplacement(int x, int y) const;
+	virtual bool legalDeplacement(int x, int y);
 	virtual void setDefaultSprite();
 	virtual void update();
 
