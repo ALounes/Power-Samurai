@@ -83,18 +83,24 @@ Entity::legalDeplacement(int x, int y)
 
 	         //linkmap1
 
+	         
+	         setPosition(Vector2f(getMap()->get_tpPoints(1),getMap()->get_tpPoints(0)));   //(Y, X)
 	         setMap(getMap()->getLink(1));
+	         
+
 	         return false;
 	         break;
 	         }
 	      case 3 : {
 	         //linkmap2
+	         setPosition(Vector2f(getMap()->get_tpPoints(3),getMap()->get_tpPoints(2)));   //(Y, X)
 	         setMap(getMap()->getLink(2));
 	         return false;
 	         break;
 	        } 
 	      case 4 : {
 	         //linkmap3
+	         setPosition(Vector2f(getMap()->get_tpPoints(5),getMap()->get_tpPoints(4)));   //(Y, X)
 	         setMap(getMap()->getLink(3));
 	         return false;
 	         break;

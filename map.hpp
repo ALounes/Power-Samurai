@@ -25,6 +25,8 @@ public:
 	void map_create(int hauteur, int largeur);
 	//void Free_Map();
 	void set_links(Map *map_1, Map *map_2, Map *map_3);
+	void set_tpPoints(int x1, int y1, int x2, int y2, int x3, int y3);
+	int get_tpPoints(int pos);
 	void set_image(Image img);
 	void set_sprite(Sprite sprt);
 	void set_tableau(int i, int j, int val);
@@ -48,6 +50,15 @@ private:
    Map * link_map_1_;
    Map * link_map_2_;
    Map * link_map_3_;
+   
+   int * x_link_1;
+   int * y_link_1;
+   
+   int * x_link_2;
+   int * y_link_2;
+   
+   int * x_link_3;
+   int * y_link_3;
 
 
    int *Hauteur_;

@@ -8,6 +8,15 @@ Map::Map ()
    
    Hauteur_ = new int;
    Largeur_ = new int;
+   
+   x_link_1 = new int;
+   y_link_1 = new int;
+   
+   x_link_2 = new int;
+   y_link_2 = new int;
+   
+   x_link_3 = new int;
+   y_link_3 = new int;
 }
 
 Map::~Map()
@@ -21,15 +30,14 @@ Map::~Map()
 
    delete sprite_map_;
    delete image_map_;
-   /*if ( link_map_1_ != NULL) {
-      delete link_map_1_;
-   }
-   if ( link_map_2_ != NULL) {
-   delete link_map_2_;
-   }
-   if ( link_map_3_ != NULL) {
-   delete link_map_3_;
-   }*/
+   
+   delete x_link_1;
+   delete y_link_1;
+   delete x_link_2;
+   delete y_link_2;
+   delete x_link_3;
+   delete y_link_3;
+   
 }
  
 void 
@@ -108,4 +116,62 @@ Image * Map::getImage() const {
 
 Sprite * Map::getSprite() const {
    return sprite_map_;
+}
+
+void Map::set_tpPoints(int x1, int y1, int x2, int y2, int x3, int y3) {
+   *x_link_1 = x1;
+   *y_link_1 = y1;
+   
+   *x_link_2 = x2;
+   *y_link_2 = y2;
+   
+   *x_link_3 = x3;
+   *y_link_3 = y3;
+}
+
+int Map::get_tpPoints(int pos) {
+   switch (pos) {
+   
+      case 0 : {
+         
+         return *x_link_1 * 32;
+         break;
+         }
+      case 1 : {
+         return *y_link_1 * 32;
+         break;
+         }
+      case 2 : {
+
+         //linkmap1
+         return *x_link_2 * 32;
+         break;
+         }
+      case 3 : {
+         //linkmap2
+
+         return *y_link_2 * 32;
+         break;
+        } 
+      case 4 : {
+
+
+         return *x_link_3 * 32;
+         break;
+      }
+      case 5 : {
+
+
+         return *y_link_3 * 32;
+         break;
+      }
+      default :
+      return -1;
+         break;
+   
+   
+   
+   
+   }
+
 }
