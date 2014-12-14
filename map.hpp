@@ -26,19 +26,19 @@ public:
 	//void Free_Map();
 	void set_links(Map *map_1, Map *map_2, Map *map_3);
 	void set_tpPoints(int x1, int y1, int x2, int y2, int x3, int y3);
-	int get_tpPoints(int pos);
+	int  Sget_tpPoints(int pos);
 	void set_image(Image img);
 	void set_sprite(Sprite sprt);
 	void set_tableau(int i, int j, int val);
 
    
    int getSocleMap(int x,int y) const;
-   Map * getLink(int i) const;
+   Map* getLink(int i) const;
    
-   Image * getImage() const;  
-   Sprite * getSprite() const;  
+   Image*  getImage() const;  
+   Sprite* getSprite() const;  
    
-   Image *image_map_;
+   Image  *image_map_;
 	Sprite *sprite_map_;  
 
 private:
