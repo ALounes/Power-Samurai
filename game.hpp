@@ -51,21 +51,22 @@ private:
 	 void ShowDifficultyMenu();
 	 void ShowMainMenu();
 	 void RunGame();
-	 Player * setPlayer(PlayersMenu * pm);
-	 //void setMap();
+	 void setPlayer(PlayersMenu * pm);
 
-	enum GameState { Uninitialized, ShowingSplash, Paused, 
+
+  enum GameState { Uninitialized, ShowingSplash, Paused, 
 					ShowingMainMenu, ShowingPlayersMenu, ShowingDifficultyMenu, Playing, Exiting };
 
-	GameState * gameState_;
+	 GameState * gameState_;
    MainMenu * mainMenu_;
    DifficultyMenu * difficultyMenu_;
    PlayersMenu * playersMenu_;
-	list<Entity*> entitys;
-	list<AnimationEffect*> effects;
-	
-	Camera * camera;
-	View * view;
+	 list<Entity*> entitys;
+	 list<AnimationEffect*> effects;
+	 
+	 Player * joueur;
+	 Camera * camera;
+	 View * view;
    Map *map_1;
    Map *map_2;
    Map *map_3;

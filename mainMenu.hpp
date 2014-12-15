@@ -17,18 +17,18 @@ public:
 	struct MenuItem
 		{
 		public:
-			sf::Rect<int> rect;
+			Rect<int> rect;
 			MenuResult action;
-			sf::Sprite sprite;
+			Sprite sprite;
 		};
 	
-	void Load(sf::RenderWindow *window);
-	MenuResult Show(sf::RenderWindow *window);
+	void Load(RenderWindow *window);
+	MenuResult Show(RenderWindow *window);
 
 private:
-	MenuResult GetMenuResponse(sf::RenderWindow *window);
+	MenuResult GetMenuResponse(RenderWindow *window);
 	MenuResult HandleClick(int x, int y);
-	void HandleMove(int x, int y,sf::RenderWindow *window);
+	void HandleMove(int x, int y,RenderWindow *window);
 	
 	std::list<MenuItem> *menuItems_;
 	

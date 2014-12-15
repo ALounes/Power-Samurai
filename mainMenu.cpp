@@ -23,8 +23,8 @@
 
 MainMenu::MainMenu ()
 {
-  menuItems_ = new std::list<MenuItem>;
-  sprite_main_all_ = new	sf::Sprite;     
+  menuItems_ = new list<MenuItem>;
+  sprite_main_all_ = new	Sprite();     
   
 	//Load images from files
 	
@@ -36,23 +36,23 @@ MainMenu::MainMenu ()
 	
 	image_play_ = new sf::Image();
 	image_play_->LoadFromFile("images/MainMenu/Play.png");
-	sf::Sprite sprite_play;
+	Sprite sprite_play;
 	sprite_play.SetImage(*image_play_);
 	
 	image_exit_ = new sf::Image();
 	image_exit_->LoadFromFile("images/MainMenu/Exit.png");
-	sf::Sprite sprite_exit;
+	Sprite sprite_exit;
 	sprite_exit.SetImage(*image_exit_);
 	
 	image_difficulty_ = new sf::Image();
 	image_difficulty_->LoadFromFile("images/MainMenu/Difficulty.png");
-	sf::Sprite sprite_difficulty;
+	Sprite sprite_difficulty;
 	sprite_difficulty.SetImage(*image_difficulty_);
 	
 	image_players_ = new sf::Image();
 	if (!image_players_->LoadFromFile("images/MainMenu/Players.png"))
 		cout << "erreur " << endl ;
-	sf::Sprite sprite_players;
+	Sprite sprite_players;
 	sprite_players.SetImage(*image_players_);
 
 	//Setup clickable regions
@@ -131,23 +131,23 @@ MainMenu::~MainMenu ()
 	delete image_players_;
 }
 
-void MainMenu::Load(sf::RenderWindow *window)
+void MainMenu::Load(RenderWindow *window)
 { 
    
 
-  window->Clear(sf::Color::White);
+  window->Clear(Color::White);
 	window->Draw(*sprite_main_all_);
 	window->Display();
 
 }
 
-MainMenu::MenuResult MainMenu::Show(sf::RenderWindow * window)
+MainMenu::MenuResult MainMenu::Show(RenderWindow * window)
 {
 
 	return GetMenuResponse(window);
 }
 
-MainMenu::MenuResult MainMenu::GetMenuResponse(sf::RenderWindow * window)
+MainMenu::MenuResult MainMenu::GetMenuResponse(RenderWindow * window)
 {
 	sf::Event menuEvent;
 
@@ -194,7 +194,7 @@ MainMenu::MenuResult MainMenu::HandleClick(int x, int y)
 	return Nothing;
 }
 
-void MainMenu::HandleMove(int x, int y, sf::RenderWindow *window)
+void MainMenu::HandleMove(int x, int y, RenderWindow *window)
 {	
 
 	bool on_button = false;
@@ -202,7 +202,7 @@ void MainMenu::HandleMove(int x, int y, sf::RenderWindow *window)
 	for (auto b : *menuItems_) {
     if (b.rect.Contains(x, y)) {
       on_button = true;
-      window->Clear(sf::Color::White);
+      window->Clear(Color::White);
 	    window->Draw(*sprite_main_all_);
 	    window->Draw( b.sprite );
       
@@ -210,7 +210,7 @@ void MainMenu::HandleMove(int x, int y, sf::RenderWindow *window)
   }
 	
 	if (!on_button) {
-		    window->Clear(sf::Color::White);
+		    window->Clear(Color::White);
 	      window->Draw(*sprite_main_all_);
   }
   

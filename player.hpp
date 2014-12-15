@@ -12,7 +12,7 @@ class Player : public Entity
 					int life, int mana, enum power power, Map *myMap);
 	~Player();
 
-	void actionKey(Key::Code keyPressed,Map * map);
+	void actionKey(Map * map);
 
 	String getName() const;
 	int getLifeMax() const;

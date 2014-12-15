@@ -12,7 +12,7 @@ Travail fait :
 -> Déplacement fonctionnel
 -> Menu pause modifié, il suit caméra. "Q to quit" fonctionnel
 -> Camera dépendant de la map effectuée.
-
+-> Déplacements fluides du personnage.
 
 Travail a faire pour les Modules :
 ----------------------------------

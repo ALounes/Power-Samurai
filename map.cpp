@@ -3,8 +3,8 @@
 Map::Map () 
 {
    cout << "Map()" << endl;
-   sprite_map_ = new	sf::Sprite;
-   image_map_ = new sf::Image;
+   sprite_map_ = new Sprite();
+   image_map_ = new Image();
    
    Hauteur_ = new int;
    Largeur_ = new int;
@@ -58,9 +58,9 @@ Map::map_create(int hauteur, int largeur)
 void 
 Map::set_links(Map * map_1, Map * map_2, Map * map_3) 
 {
-   link_map_1_ = new Map;
-   link_map_2_ = new Map;
-   link_map_3_ = new Map;
+   link_map_1_ = new Map();
+   link_map_2_ = new Map();
+   link_map_3_ = new Map();
    
    link_map_1_ = map_1;
    link_map_2_ = map_2;
@@ -153,36 +153,25 @@ int Map::get_tpPoints(int pos) {
          break;
          }
       case 2 : {
-
          //linkmap1
          return *x_link_2 * 32;
          break;
          }
       case 3 : {
          //linkmap2
-
          return *y_link_2 * 32;
          break;
         } 
       case 4 : {
-
-
          return *x_link_3 * 32;
          break;
       }
       case 5 : {
-
-
          return *y_link_3 * 32;
          break;
       }
       default :
       return -1;
          break;
-   
-   
-   
-   
    }
-
 }

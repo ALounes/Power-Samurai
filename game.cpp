@@ -1,5 +1,5 @@
 #include "game.hpp"
-
+#include "config.hpp"
 
 #define GAME_WIDTH  1024
 #define GAME_HEIGHT 768
@@ -7,21 +7,27 @@
 #define PLAYING_WIDTH 800
 #define PLAYING_HEIGHT 600
 
+#define BASE_SPRITE 32
+#define PLAYER_X_START 8
+#define PLAYER_Y_START 25
+
 #define MAP_1_HEIGHT 27
 #define MAP_1_WIDTH 31
 
 #define MAP_2_HEIGHT 47
 #define MAP_2_WIDTH 47
 
+
+
 Image image_linus;
 Image perso;
 Image plan;
 Image effect_003;
-//Sprite sprite_plan;
+
 Sprite sprite_perso;
-Image feux;
-Sprite sprite_feux;
-//View view;
+//Image feux;
+//Sprite sprite_feux;
+
 //Player * joueur;
 
 Vector2i anim(1,DOWN);
@@ -43,7 +49,7 @@ Game::Game ()
 
   gameState_ = new GameState;
   *gameState_ = Uninitialized;
-  mainWindow_ = new sf::RenderWindow(sf::VideoMode(GAME_WIDTH, GAME_HEIGHT), "Power Samurai!!!");
+  mainWindow_ = new RenderWindow(VideoMode(GAME_WIDTH, GAME_HEIGHT), "Power Samurai!!!");
   mainWindow_->SetPosition((VideoMode::GetDesktopMode().Width - GAME_WIDTH)/2, (VideoMode::GetDesktopMode().Height - GAME_HEIGHT)/2);
 
   map_1 = new Map();
@@ -52,6 +58,7 @@ Game::Game ()
   map_3 = new Map();
   map_4 = new Map();
   map_courante = new Map();
+ 
   
   
   cout << "game() terminé" << endl;
@@ -69,6 +76,7 @@ Game::~Game ()
   delete mainMenu_;
   delete gameState_;
   delete mainWindow_;
+  //delete joueur;
   
   //delete difficultyMenu_;
   //delete playersMenu_;
@@ -244,19 +252,20 @@ void Game::GameLoop()
 			}
 		case Game::ShowingDifficultyMenu:
 			{
-			  difficultyMenu_ = new DifficultyMenu;
+			  difficultyMenu_ = new DifficultyMenu();
 			  difficultyMenu_->Load(mainWindow_);
 				ShowDifficultyMenu();
-            delete difficultyMenu_;
+        delete difficultyMenu_;
+        
 				break;
 			}
 			
 		case Game::ShowingPlayersMenu:
 			{
-			  playersMenu_ = new PlayersMenu;
+			  playersMenu_ = new PlayersMenu();
 			  playersMenu_->Load(mainWindow_);
 				ShowPlayersMenu();
-            delete playersMenu_;
+        delete playersMenu_;
 				break;
 			}
 			
@@ -267,7 +276,7 @@ void Game::GameLoop()
             
             map_courante = map_1;
             
-            mainWindow_ = new sf::RenderWindow(sf::VideoMode(PLAYING_WIDTH, PLAYING_HEIGHT), "     Kill them all, and get the BOSS");
+            mainWindow_ = new RenderWindow(VideoMode(PLAYING_WIDTH, PLAYING_HEIGHT), "     Kill them all, and get the BOSS");
             mainWindow_->SetPosition((VideoMode::GetDesktopMode().Width - PLAYING_WIDTH)/2, (VideoMode::GetDesktopMode().Height - PLAYING_HEIGHT)/2);
             mainWindow_->Clear();
             
@@ -277,10 +286,10 @@ void Game::GameLoop()
             
             delete mainWindow_;
            
-            mainWindow_ = new sf::RenderWindow(sf::VideoMode(GAME_WIDTH, GAME_HEIGHT), "  Power Samurai!!!");
+            mainWindow_ = new RenderWindow(VideoMode(GAME_WIDTH, GAME_HEIGHT), "  Power Samurai!!!");
             mainWindow_->SetPosition((VideoMode::GetDesktopMode().Width - GAME_WIDTH)/2, (VideoMode::GetDesktopMode().Height - GAME_HEIGHT)/2);
 	         
-            mainMenu_ = new MainMenu;
+            mainMenu_ = new MainMenu();
 
 				break;
 			}
@@ -294,12 +303,12 @@ void Game::GameLoop()
 
 void Game::ShowSplashScreen()
 {
-	SplashScreen *_splashScreen = new SplashScreen;
-	_splashScreen->Show(mainWindow_);
+	SplashScreen *splashScreen_ = new SplashScreen();
+	splashScreen_->Show(mainWindow_);
 	
 	*gameState_ = Game::ShowingMainMenu;
 	
-	delete _splashScreen;
+	delete splashScreen_;
 }
 
 void Game::ShowMainMenu()
@@ -364,6 +373,7 @@ void Game::ShowPlayersMenu()
 {
   mainWindow_->ShowMouseCursor(false);
   PlayersMenu::PlayersResult resultat = playersMenu_->Show(mainWindow_);
+  
   while (resultat != PlayersMenu::Escape && resultat != PlayersMenu::Return) {
 	  resultat = playersMenu_->Show(mainWindow_);
 	}
@@ -381,7 +391,7 @@ void Game::ShowPlayersMenu()
 			break;	
 	 }
 	 
-	 //joueur = setPlayer(playersMenu_);
+	 setPlayer(playersMenu_);
   mainWindow_->ShowMouseCursor(true);
   cout << "delete players terminé" << endl;
 }
@@ -397,7 +407,7 @@ void Game::RunGame()
 	Vector2i test_effect(5,8);
 
 	if(!image_linus.LoadFromFile("sprite/LinusTorvalds.png"))
-		//cout << "erreur " << endl ;
+		cout << "erreur " << endl ;
 
 	if (!buffer_son.LoadFromFile("Musique/BinB.ogg"))
 		cout << "erreur " << endl ;
@@ -412,16 +422,16 @@ void Game::RunGame()
 
 	LinusTorvalds *linus = new LinusTorvalds(mainWindow_,image_linus,map_courante);
 
-	//camera = new Camera(mainWindow_,linus);
 	camera = new Camera(mainWindow_,linus);
+	//camera = new Camera(mainWindow_,joueur);
 	view = new View();
-	camera->setCameraXY(32 * MAP_1_WIDTH,32 * MAP_1_HEIGHT);
+	camera->setCameraXY(BASE_SPRITE * MAP_1_WIDTH,BASE_SPRITE * MAP_1_HEIGHT);
 	
-	//Camera camera(mainWindow_,joueur);
+
 
 	entitys.push_front(linus);
 
-	linus->setPosition(Vector2f(90,90));
+	linus->setPosition(Vector2f(PLAYER_X_START*BASE_SPRITE ,PLAYER_Y_START*BASE_SPRITE));
 
 	// ANIMATION EFFECT
 	
@@ -431,8 +441,30 @@ void Game::RunGame()
 
    // Exécution de la boucle principale
    bool fin_de_boucle = false;
+   const Input &input = mainWindow_->GetInput();
    while (mainWindow_->IsOpened() && !(fin_de_boucle) && *gameState_ == Playing)
    {
+    mainWindow_->SetFramerateLimit(30);
+
+    if (input.IsKeyDown(Key::Z) ||input.IsKeyDown(Key::Q) || input.IsKeyDown(Key::D) || input.IsKeyDown(Key::S) ) {
+    
+        linus->soclePosition();
+				//joueur->soclePosition();
+				//effect->play();
+				
+				cout << "soclePosition" << endl;
+				
+				keyPressedManagement(event.Key.Code);
+				
+				//joueur->actionKey(event.Key.Code, map_courante);
+
+				linus->actionKey(/*event.Key.Code,*/ map_courante);
+				
+				map_courante = linus->getMap();
+				//map_courante = joueur->getMap();
+				
+		}
+   
 		while (mainWindow_->GetEvent(event) )
 		{
 		
@@ -444,25 +476,11 @@ void Game::RunGame()
 				*gameState_ = Game::ShowingMainMenu;
 				break;
 
-			case Event::KeyPressed :
-				linus->soclePosition();
-				//joueur->soclePosition();
-				//effect->play();
-				
-				keyPressedManagement(event.Key.Code);
-				
-				//joueur->actionKey(event.Key.Code, map_courante);
-
-				linus->actionKey(event.Key.Code, map_courante);
-				
-				map_courante = linus->getMap();
-				
-				break;
 
 			default: 
 				break;
 			}
-			camera->setCameraXY(*(map_courante->get_Largeur()) * 32,*(map_courante->get_Hauteur()) * 32);
+			camera->setCameraXY(*(map_courante->get_Largeur()) * BASE_SPRITE,*(map_courante->get_Hauteur()) * BASE_SPRITE);
 		}
 		
 		view->SetHalfSize(400, 300);
@@ -482,6 +500,7 @@ void Game::RunGame()
 
 		// Efface le contenu de la fenetre 
 		mainWindow_->Clear();
+   
    }
 entitys.clear();
 effects.clear();
@@ -512,11 +531,11 @@ Game::keyPressedManagement (Key::Code keyPressed)
 {
 
   switch (keyPressed) {
-   case  sf::Key::Escape :
+   case  Key::Escape :
       launchingPause();
 		
 	 	break;
-   case  sf::Key::P :
+   case  Key::P :
       map_courante = map_courante->getLink(1);
 
 		
@@ -579,41 +598,73 @@ Game::displayEffect(Clock &time)
 	// a faire
 }
 
-// à compléter
-Player * Game::setPlayer(PlayersMenu * pm) {
+
+void Game::setPlayer(PlayersMenu * pm) {
    entitys.clear();
+   /*
    switch(*(pm->getposition())) {
       case 0 :
-         
+      {
+        
+        
+        if(!image_linus.LoadFromFile("sprite/LinusTorvalds.png"))
+		      cout << "erreur " << endl ; 
+		    joueur = new Player( mainWindow_,image_linus, Vector2i(LINUS_TORVALDS_X,LINUS_TORVALDS_Y), String("Linus Torvalds"),LINUS_TORVALDS_LIFE,LINUS_TORVALDS_MANA, LINUS_TORVALDS_POWER, map_courante);
+        //LinusTorvalds *linus = new LinusTorvalds(mainWindow_,image_linus,map_courante);
+        entitys.push_front(joueur);
+        joueur->setPosition(Vector2f(90,90));
+
+        break;
+      }
+      case 1 : 
+      {
+        if(!image_linus.LoadFromFile("sprite/LinusTorvalds.png"))
+		      cout << "erreur " << endl ; 
+		    joueur =  new LinusTorvalds(mainWindow_,image_linus,map_courante);
+        //LinusTorvalds *linus = new LinusTorvalds(mainWindow_,image_linus,map_courante);
+        entitys.push_front(joueur);
+        joueur->setPosition(Vector2f(90,90));
+        cout << "Choix effectué : linus" << endl;
+        
          break;
-      case 1 :
-         
-         break;
-      case 2 :
-         break;
-      case 3 : {
-         if(!image_linus.LoadFromFile("sprite/LinusTorvalds.png"))
-		      cout << "erreur " << endl ;
+      }
+      case 2 : 
+      {
+          if(!image_linus.LoadFromFile("sprite/LinusTorvalds.png"))
+		      cout << "erreur " << endl ; 
 		      
+          LinusTorvalds *linus = new LinusTorvalds(mainWindow_,image_linus,map_courante);
+          entitys.push_front(linus);
+          linus->setPosition(Vector2f(90,90));
+          joueur = linus;
+          
+         break;
+      }
+      case 3 : 
+      {
+         if(!image_linus.LoadFromFile("sprite/LinusTorvalds.png"))
+		      cout << "erreur " << endl ;  
+		          
       	LinusTorvalds *linus = new LinusTorvalds(mainWindow_,image_linus,map_courante);
-
-	      
-
 	      entitys.push_front(linus);
-
 	      linus->setPosition(Vector2f(90,90));
-      
-            return linus;
-         break;
+	      joueur = linus;
+
+        break;
       } 
-      default :
-         break;
-   
-   
-   }
-   
+      default : 
+      {
+        if(!image_linus.LoadFromFile("sprite/LinusTorvalds.png"))
+		      cout << "erreur " << endl ; 
+        LinusTorvalds *linus = new LinusTorvalds(mainWindow_,image_linus,map_courante);
+        entitys.push_front(linus);
+        linus->setPosition(Vector2f(90,90));
+        joueur = linus;
 
+        break;
+      }
 
+   }*/
 }
 
 
@@ -645,14 +696,14 @@ void Game::launchingPause() {
 			case Event::KeyPressed :
      
             switch (event2.Key.Code) {
-               case  sf::Key::Escape :
+               case  Key::Escape :
                   Ispause = false;
 		            break;
-               case  sf::Key::P :
+               case  Key::P :
                   Ispause = false;
 		
 	               break; 
-               case  sf::Key::Q :
+               case  Key::Q :
                   *gameState_ = ShowingMainMenu;
                   Ispause = false;
 		
@@ -671,41 +722,4 @@ void Game::launchingPause() {
 }
 
 
-/*void setMap() {
-
-switch ( map_courante->getSocleMap(i,j) ) {
-	   
-	      case 0 : 
-	         
-	         return false;
-	         break;
-	      case 1 :
-	         return true;
-	         break;
-	      case 2 : {
-
-	         //linkmap1
-
-	         setMap(getMap()->getLink(1));
-	         return false;
-	         break;
-	         }
-	      case 3 : {
-	         //linkmap2
-	         setMap(getMap()->getLink(2));
-	         return false;
-	         break;
-	        } 
-	      case 4 : {
-	         //linkmap3
-	         setMap(getMap()->getLink(3));
-	         return false;
-	         break;
-	      }
-	      default :
-	      return false;
-	         break;
-
-}
-*/
 

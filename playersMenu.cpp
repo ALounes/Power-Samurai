@@ -52,7 +52,7 @@ PlayersMenu::PlayersMenu ()
 	
 	image_main_players_ = new sf::Image();
 	image_main_players_->LoadFromFile("images/PlayersMenu/PlayersMenu.png");
-	sprite_main_players_ = new	sf::Sprite;
+	sprite_main_players_ = new	sf::Sprite();
 	sprite_main_players_->SetImage(*image_main_players_);
 	
 
@@ -60,18 +60,15 @@ PlayersMenu::PlayersMenu ()
 	PlayersItem player1;
 	player1.action = p1;
 	player1.sprite = sprite_p1;
-	player1.texte = String ("Name : Blonde\nHP : \nMana : ", Font::GetDefaultFont(), 20.f);
+	player1.texte = String ("Name : Athena\nHP : 100\nMana : 200", Font::GetDefaultFont(), 20.f);
 	player1.texte.SetStyle(11);
 	player1.texte.SetColor(Color::White);
-	//zone = text.GetRect();
-	
-	//text_.SetPosition(1024/2 - (zone.Right - zone.Left)/2,GAME_HEIGHT/2 + 10 + (position * 40) + (zone_.Top -  zone_.Bottom)/2);
 	player1.texte.SetPosition(12*32 - 10,12*32 + 40);
 	
 	PlayersItem player2;
 	player2.action = p2;
 	player2.sprite = sprite_p2;
-	player2.texte = String ("Name : p2\nHP : \nMana : ", Font::GetDefaultFont(), 20.f);
+	player2.texte = String ("Name : Fartas\nHP : 200\nMana : 100", Font::GetDefaultFont(), 20.f);
 	player2.texte.SetPosition(12*32 - 10,12*32 + 40);
 	player2.texte.SetStyle(11);
 	player2.texte.SetColor(Color::White);
@@ -79,7 +76,7 @@ PlayersMenu::PlayersMenu ()
 	PlayersItem player3;
 	player3.action = p3;
 	player3.sprite = sprite_p3;
-	player3.texte = String ("Name : p3\nHP : \nMana : ", Font::GetDefaultFont(), 20.f);
+	player3.texte = String ("Name : Bjarne\nHP : 150\nMana : 150", Font::GetDefaultFont(), 20.f);
 	player3.texte.SetPosition(12*32 - 10,12*32 + 40);
 	player3.texte.SetStyle(11);
 	player3.texte.SetColor(Color::White);
@@ -87,7 +84,7 @@ PlayersMenu::PlayersMenu ()
 	PlayersItem player4;
 	player4.action = p4;
 	player4.sprite = sprite_p4;
-	player4.texte = String ("Name : p4\nHP : \nMana : ", Font::GetDefaultFont(), 20.f);
+	player4.texte = String ("Name : Linus\nHP : 100\nMana : 200", Font::GetDefaultFont(), 20.f);
 	player4.texte.SetPosition(12*32 - 10,12*32 + 40);
 	player4.texte.SetStyle(11);
 	player4.texte.SetColor(Color::White);
@@ -121,10 +118,9 @@ cout << "Load Players menu" << endl;
   window->Clear(Color::White);
 	window->Draw(*sprite_main_players_);
 	sprite_arrow_->SetPosition(12*32 - 20 + (*position_fleche_)*64, 5 + 12*32);
+	
 	for (auto b : *playersItems_) {
 	  window->Draw(b.sprite);
-	  //window->Draw(b.texte);
-    
   }
   
    window->Draw((playersItems_->begin())->texte);

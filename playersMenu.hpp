@@ -9,8 +9,6 @@ class PlayersMenu
 public:
 
 
-  
-
   PlayersMenu ();
   ~PlayersMenu ();
 

@@ -20,70 +20,78 @@ Player::~Player()
 }
 
 void
-Player::actionKey(Key::Code keyPressed,Map * map)
+Player::actionKey(Map * map)
 {
 	const sf::Input &input = win_->GetInput();
-
-	switch (keyPressed) 
+	int compteur_deplacement = 0;
+	
+	if ( input.IsKeyDown(Key::D)) {
+	  compteur_deplacement +=1;
+	}
+	if ( input.IsKeyDown(Key::Q)) {
+	  compteur_deplacement -=1;
+	}
+	if ( input.IsKeyDown(Key::S)) {
+	  compteur_deplacement +=3;
+	}
+	if ( input.IsKeyDown(Key::Z)) {
+	  compteur_deplacement -=3;
+	}
+	
+	switch (compteur_deplacement) 
 	{
-	case sf::Key::Z :
+	  case 1 :
+	  {
 		runMove();
-		if( input.IsKeyDown(Key::D))
-			moveUpRight();
-		else if( input.IsKeyDown(Key::Q))
-			moveUpLeft();
-		else
-			moveUp();
-		break;
-
-	case sf::Key::S :
+		moveRight();
+		  break;
+	  }
+	  case -1 :
+	  {
 		runMove();
-		if( input.IsKeyDown(Key::D))
-			moveDownRight();
-		else if( input.IsKeyDown(Key::Q))
-			moveDownLeft();
-		else
-			moveDown();
-		break;
-
-	case sf::Key::Q :
+		moveLeft();
+		  break;
+	  }
+	  case 3 :
+	  {
 		runMove();
-		if( input.IsKeyDown(Key::Z))
-			moveUpLeft();
-		else if( input.IsKeyDown(Key::S))
-			moveDownLeft();
-		else
-			moveLeft();
-		break;
-
-	case sf::Key::D :
+		moveDown();
+		  break;
+	  }
+	  case -3 :
+	  {
 		runMove();
-		if( input.IsKeyDown(Key::Z))
-			moveUpRight();
-		else if( input.IsKeyDown(Key::S))
-			moveDownRight();
-		else
-			moveRight();
-		break;
+		moveUp();
+		  break;
+	  }
+	  case 2 :
+	  {
+		runMove();
+		moveDownLeft();
+		  break;
+	  }
+	  case 4 :
+	  {
+		runMove();
+		moveDownRight();
+		  break;
+	  }
+	  case -2 :
+	  {
+		runMove();
+		moveUpRight();
+		  break;
+	  }
+	  case -4 :
+	  {
+		runMove();
+		moveUpLeft();
+		  break;
+	  }
+	  default :
+	    break;
+	}
 
-	case sf::Key::Space :
-		// A FAIRE 
-		break;
-		
-	case sf::Key::P :
-		   setMap(map); 
-		break;
-
-	/*case sf::Key::Escape :
-		if(isPlaying())
-			pause();
-		else
-			play();
-		break;*/
-
-	default: 
-		break;
-  }
 }
 
 void 

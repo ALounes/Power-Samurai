@@ -19,29 +19,26 @@ class Map
 {
 public:
 
-  Map ();
-  ~Map ();
+   Map ();
+   ~Map ();
   
-	void map_create(int hauteur, int largeur);
-	//void Free_Map();
-	void set_links(Map *map_1, Map *map_2, Map *map_3);
-	void set_tpPoints(int x1, int y1, int x2, int y2, int x3, int y3);
-	int  get_tpPoints(int pos);
-	void set_image(Image img);
-	void set_sprite(Sprite sprt);
-	void set_tableau(int i, int j, int val);
+	 void map_create(int hauteur, int largeur);
+	 void set_links(Map *map_1, Map *map_2, Map *map_3);
+	 void set_tpPoints(int x1, int y1, int x2, int y2, int x3, int y3);
+	 void set_image(Image img);
+	 void set_sprite(Sprite sprt);
+	 void set_tableau(int i, int j, int val);
 
    int * get_Hauteur();
    int * get_Largeur();
-   
-   int getSocleMap(int x,int y) const;
    Map* getLink(int i) const;
-   
+   int  get_tpPoints(int pos);
    Image*  getImage() const;  
-   Sprite* getSprite() const;  
-   
+   Sprite* getSprite() const;
+   int getSocleMap(int x,int y) const;
+
    Image  *image_map_;
-	Sprite *sprite_map_;  
+	 Sprite *sprite_map_;  
 
 private:
 
