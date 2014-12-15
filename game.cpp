@@ -441,8 +441,6 @@ void Game::RunGame()
 		{
 			case Event::Closed :
 			   fin_de_boucle = true;
-			   entitys.clear();
-			   effects.clear();
 				*gameState_ = Game::ShowingMainMenu;
 				break;
 
@@ -485,6 +483,8 @@ void Game::RunGame()
 		// Efface le contenu de la fenetre 
 		mainWindow_->Clear();
    }
+entitys.clear();
+effects.clear();
 delete view;
 delete camera;
 }
