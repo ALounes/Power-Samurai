@@ -444,10 +444,10 @@ void Game::RunGame()
    const Input &input = mainWindow_->GetInput();
    while (mainWindow_->IsOpened() && !(fin_de_boucle) && *gameState_ == Playing)
    {
-    mainWindow_->SetFramerateLimit(30);
+   mainWindow_->SetFramerateLimit(30);
 
-    if (input.IsKeyDown(Key::Z) ||input.IsKeyDown(Key::Q) || input.IsKeyDown(Key::D) || input.IsKeyDown(Key::S) ) {
-    
+   if (input.IsKeyDown(Key::Z) ||input.IsKeyDown(Key::Q) || input.IsKeyDown(Key::D) || input.IsKeyDown(Key::S) ) {
+   
         linus->soclePosition();
 				//joueur->soclePosition();
 				//effect->play();
@@ -476,6 +476,11 @@ void Game::RunGame()
 				*gameState_ = Game::ShowingMainMenu;
 				break;
 
+			case Event::KeyPressed :
+				
+				keyPressedManagement(event.Key.Code);
+
+				break;
 
 			default: 
 				break;
