@@ -9,7 +9,9 @@ Consigne Groupe :
 Travail fait :
 ----------------------------------
 -> Fonctions de changement de maps effectuées. Début d'implémentation des coordonnées d'arrivées après changement de map.
--> Déplacement fonctionnel, 
+-> Déplacement fonctionnel
+-> Menu pause modifié, il suit caméra. "Q to quit" fonctionnel
+-> Camera dépendant de la map effectuée.
 
 
 Travail a faire pour les Modules :
@@ -21,11 +23,11 @@ Travail a faire pour les Modules :
 -> module DifficultyMenu
 -> Module MainMenu
 -: Adapter les largeurs des animations pour plus de cohérence visuelle
--: Correction des Noms des champs (variables) avec un "_nom" et remplacer par "nom_"     DONE
+
 -: a l'instanciation des Class ne pas faire de "new Class" mais plutot "new Class()"
 -: les champs doivent tous etre en private et avoir des acceceur GET et SET
 -: aucune fonction ne doit deplacer les 20 lignes grand max , (27 est le max dans la norme AINSI)
--: rectification du tableau pour la map ( il ne marche pas faire un test la fonction de deplacement teste la mapcourante ) RECTIFICATION FAITE, MARCHE
+-: Commencer à créer un projectile fonctionnel 
 
 TRAVAIL A FAIRE POUR LE RESTE DU PROJET :
 -----------------------------------------

@@ -17,11 +17,11 @@ Image image_linus;
 Image perso;
 Image plan;
 Image effect_003;
-Sprite sprite_plan;
+//Sprite sprite_plan;
 Sprite sprite_perso;
 Image feux;
 Sprite sprite_feux;
-View view;
+//View view;
 //Player * joueur;
 
 Vector2i anim(1,DOWN);
@@ -46,12 +46,13 @@ Game::Game ()
   mainWindow_ = new sf::RenderWindow(sf::VideoMode(GAME_WIDTH, GAME_HEIGHT), "Power Samurai!!!");
   mainWindow_->SetPosition((VideoMode::GetDesktopMode().Width - GAME_WIDTH)/2, (VideoMode::GetDesktopMode().Height - GAME_HEIGHT)/2);
 
-  map_1 = new Map;
+  map_1 = new Map();
   cout << "map_1 créé" << endl;
-  map_2 = new Map;
-  map_3 = new Map;
-  map_4 = new Map;
-  map_courante = new Map;
+  map_2 = new Map();
+  map_3 = new Map();
+  map_4 = new Map();
+  map_courante = new Map();
+  
   
   cout << "game() terminé" << endl;
 }
@@ -68,6 +69,7 @@ Game::~Game ()
   delete mainMenu_;
   delete gameState_;
   delete mainWindow_;
+  
   //delete difficultyMenu_;
   //delete playersMenu_;
 }
@@ -265,7 +267,7 @@ void Game::GameLoop()
             
             map_courante = map_1;
             
-            mainWindow_ = new sf::RenderWindow(sf::VideoMode(PLAYING_WIDTH, PLAYING_HEIGHT), "Kill them all, and get the BOSS");
+            mainWindow_ = new sf::RenderWindow(sf::VideoMode(PLAYING_WIDTH, PLAYING_HEIGHT), "     Kill them all, and get the BOSS");
             mainWindow_->SetPosition((VideoMode::GetDesktopMode().Width - PLAYING_WIDTH)/2, (VideoMode::GetDesktopMode().Height - PLAYING_HEIGHT)/2);
             mainWindow_->Clear();
             
@@ -275,7 +277,7 @@ void Game::GameLoop()
             
             delete mainWindow_;
            
-            mainWindow_ = new sf::RenderWindow(sf::VideoMode(GAME_WIDTH, GAME_HEIGHT), "Power Samurai!!!");
+            mainWindow_ = new sf::RenderWindow(sf::VideoMode(GAME_WIDTH, GAME_HEIGHT), "  Power Samurai!!!");
             mainWindow_->SetPosition((VideoMode::GetDesktopMode().Width - GAME_WIDTH)/2, (VideoMode::GetDesktopMode().Height - GAME_HEIGHT)/2);
 	         
             mainMenu_ = new MainMenu;
@@ -407,12 +409,13 @@ void Game::RunGame()
 	son.SetLoop(true);
  	//son.Play();	
 	
-	sprite_plan = *(map_courante->sprite_map_);
-	
 
 	LinusTorvalds *linus = new LinusTorvalds(mainWindow_,image_linus,map_courante);
 
-	Camera camera(mainWindow_,linus);
+	//camera = new Camera(mainWindow_,linus);
+	camera = new Camera(mainWindow_,linus);
+	view = new View();
+	camera->setCameraXY(32 * MAP_1_WIDTH,32 * MAP_1_HEIGHT);
 	
 	//Camera camera(mainWindow_,joueur);
 
@@ -428,10 +431,11 @@ void Game::RunGame()
 
    // Exécution de la boucle principale
    bool fin_de_boucle = false;
-   while (mainWindow_->IsOpened() && !(fin_de_boucle))
+   while (mainWindow_->IsOpened() && !(fin_de_boucle) && *gameState_ == Playing)
    {
-		while (mainWindow_->GetEvent(event))
+		while (mainWindow_->GetEvent(event) )
 		{
+		
 			// Gestion des evenements 
 		switch (event.Type)
 		{
@@ -454,20 +458,21 @@ void Game::RunGame()
 				linus->actionKey(event.Key.Code, map_courante);
 				
 				map_courante = linus->getMap();
-				sprite_plan = *(map_courante->sprite_map_);
 				
 				break;
 
 			default: 
 				break;
 			}
+			camera->setCameraXY(*(map_courante->get_Largeur()) * 32,*(map_courante->get_Hauteur()) * 32);
 		}
 		
-		view.SetHalfSize(400, 300);
+		view->SetHalfSize(400, 300);
+      
+      
+		camera->run();	
 
-		camera.run();	
-
-		mainWindow_->Draw(sprite_plan);
+		mainWindow_->Draw(*(map_courante->sprite_map_));
 
 		// Mise a jours des sprites et affichage
 		displayEntity(clock);
@@ -479,7 +484,9 @@ void Game::RunGame()
 
 		// Efface le contenu de la fenetre 
 		mainWindow_->Clear();
-}
+   }
+delete view;
+delete camera;
 }
 
 void
@@ -511,7 +518,7 @@ Game::keyPressedManagement (Key::Code keyPressed)
 	 	break;
    case  sf::Key::P :
       map_courante = map_courante->getLink(1);
-		sprite_plan = *(map_courante->sprite_map_);
+
 		
 		break;
 
@@ -612,11 +619,13 @@ Player * Game::setPlayer(PlayersMenu * pm) {
 
 void Game::launchingPause() {
    bool Ispause = true;
+   
    Shape grey_screen   = Shape::Rectangle(0,0,PLAYING_WIDTH/2,PLAYING_HEIGHT/2,Color(0,0,0));
    
    
 	String texte = String ("               Le jeu est en pause.\n\n(P) : Continuer    (Q) : Menu principal", Font::GetDefaultFont(), 40.f);
-	texte.SetPosition(2*32,6*32);
+
+	texte.SetPosition( camera->position_->x - 320, camera->position_->y - 100);
 	texte.SetStyle(11);
 	texte.SetColor(Color::White);
 	
@@ -625,6 +634,7 @@ void Game::launchingPause() {
    mainWindow_->Draw(texte);
    mainWindow_->Display();
    while (Ispause == true) {
+
      Event event2;
      
      while (mainWindow_->GetEvent(event2))
@@ -643,6 +653,7 @@ void Game::launchingPause() {
 		
 	               break; 
                case  sf::Key::Q :
+                  *gameState_ = ShowingMainMenu;
                   Ispause = false;
 		
 	        	      break;

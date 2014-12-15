@@ -63,6 +63,9 @@ private:
    PlayersMenu * playersMenu_;
 	list<Entity*> entitys;
 	list<AnimationEffect*> effects;
+	
+	Camera * camera;
+	View * view;
    Map *map_1;
    Map *map_2;
    Map *map_3;

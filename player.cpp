@@ -74,12 +74,12 @@ Player::actionKey(Key::Code keyPressed,Map * map)
 		   setMap(map); 
 		break;
 
-	case sf::Key::Escape :
+	/*case sf::Key::Escape :
 		if(isPlaying())
 			pause();
 		else
 			play();
-		break;
+		break;*/
 
 	default: 
 		break;

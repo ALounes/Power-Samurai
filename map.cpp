@@ -95,6 +95,8 @@ Map* Map::getLink(int i) const {
    
 }
 
+
+
 void Map::set_image(Image img) {
     *image_map_ = img;
 }
@@ -108,6 +110,15 @@ void Map::set_tableau(int x, int y, int val) {
    Vector_map_[x][y] = val;
 
 }
+
+int * Map::get_Hauteur() {
+   return Hauteur_;
+}
+
+int * Map::get_Largeur() {
+   return Largeur_;
+}
+
 
 Image * Map::getImage() const {
    return image_map_;
