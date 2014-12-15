@@ -240,6 +240,7 @@ void Game::GameLoop()
 	{
 	  case Game::ShowingSplash:
 			{
+			  map_courante = map_1;
         cout << "Showingsplash" << endl;
 				ShowSplashScreen();
 				break;
@@ -274,7 +275,7 @@ void Game::GameLoop()
             delete mainMenu_;
             delete mainWindow_;
             
-            map_courante = map_1;
+            
             
             mainWindow_ = new RenderWindow(VideoMode(PLAYING_WIDTH, PLAYING_HEIGHT), "     Kill them all, and get the BOSS");
             mainWindow_->SetPosition((VideoMode::GetDesktopMode().Width - PLAYING_WIDTH)/2, (VideoMode::GetDesktopMode().Height - PLAYING_HEIGHT)/2);
@@ -427,7 +428,7 @@ void Game::RunGame()
 	view = new View();
 	camera->setCameraXY(BASE_SPRITE * MAP_1_WIDTH,BASE_SPRITE * MAP_1_HEIGHT);
 	
-
+  cout << "Camera created" << endl;
 
 	entitys.push_front(linus);
 
@@ -450,13 +451,12 @@ void Game::RunGame()
    
         linus->soclePosition();
 				//joueur->soclePosition();
+
 				//effect->play();
 				
-				cout << "soclePosition" << endl;
+				//cout << "soclePosition" << endl;
 				
-				keyPressedManagement(event.Key.Code);
-				
-				//joueur->actionKey(event.Key.Code, map_courante);
+				//joueur->actionKey(map_courante);
 
 				linus->actionKey(/*event.Key.Code,*/ map_courante);
 				
@@ -606,7 +606,7 @@ Game::displayEffect(Clock &time)
 
 void Game::setPlayer(PlayersMenu * pm) {
    entitys.clear();
-   /*
+   
    switch(*(pm->getposition())) {
       case 0 :
       {
@@ -627,8 +627,9 @@ void Game::setPlayer(PlayersMenu * pm) {
 		      cout << "erreur " << endl ; 
 		    joueur =  new LinusTorvalds(mainWindow_,image_linus,map_courante);
         //LinusTorvalds *linus = new LinusTorvalds(mainWindow_,image_linus,map_courante);
+
+        joueur->setPosition(Vector2f(PLAYER_X_START*BASE_SPRITE ,PLAYER_Y_START*BASE_SPRITE));
         entitys.push_front(joueur);
-        joueur->setPosition(Vector2f(90,90));
         cout << "Choix effectué : linus" << endl;
         
          break;
@@ -669,7 +670,7 @@ void Game::setPlayer(PlayersMenu * pm) {
         break;
       }
 
-   }*/
+   }
 }
 
 
