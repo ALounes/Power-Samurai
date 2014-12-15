@@ -19,7 +19,7 @@ class LinusTorvalds : public Player
 	~LinusTorvalds();
 
 	private:
-	
+
 };
 
 #endif

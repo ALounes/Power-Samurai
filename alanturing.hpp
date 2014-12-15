@@ -19,6 +19,7 @@ class AlanTuring : public Player
 
 	private:
 	
+	
 };
 
 #endif

@@ -9,7 +9,7 @@ class Entity : public Animation
 {
 	public :
 
-	enum direction {DOWN = 0, LEFT, RIGHT, UP};
+	enum direction {DOWN = 0, LEFT, RIGHT, UP, UPLEFT, UPRIGHT, DOWNLEFT, DOWNRIGHT};
 
 	Entity(RenderWindow *win, Image& image,const Vector2i& nbrOfAnim, Map *myMap);
 	~Entity();

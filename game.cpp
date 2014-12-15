@@ -28,7 +28,7 @@ Sprite sprite_perso;
 //Image feux;
 //Sprite sprite_feux;
 
-//Player * joueur;
+//Player *joueur;
 
 Vector2i anim(1,DOWN);
 bool moving = false;
