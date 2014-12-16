@@ -404,7 +404,7 @@ void Game::ShowPlayersMenu()
 
 void Game::RunGame()
 {
-
+  mainWindow_->ShowMouseCursor(false);
 	Event event;
 	Clock time;
 	Clock clock2;
@@ -452,7 +452,9 @@ void Game::RunGame()
    while (mainWindow_->IsOpened() && !(fin_de_boucle) && *gameState_ == Playing)
    {
    mainWindow_->SetFramerateLimit(30);
-
+      camera->setCameraXY(*(map_courante->get_Largeur()) * BASE_SPRITE,*(map_courante->get_Hauteur()) * BASE_SPRITE);
+			mainWindow_->Draw(*(map_courante->sprite_map_));
+			
       if (input.IsKeyDown(Key::Z) ||input.IsKeyDown(Key::Q) || input.IsKeyDown(Key::D) || input.IsKeyDown(Key::S) ) {
    
             /*linus->soclePosition();
@@ -484,7 +486,7 @@ void Game::RunGame()
 			default: 
 				break;
 		}
-			camera->setCameraXY(*(map_courante->get_Largeur()) * BASE_SPRITE,*(map_courante->get_Hauteur()) * BASE_SPRITE);
+			
 		}
 
 		view->SetHalfSize(400, 300);
@@ -492,7 +494,7 @@ void Game::RunGame()
       
 		camera->run();	
 
-		mainWindow_->Draw(*(map_courante->sprite_map_));
+		
 
 		// Mise a jours des sprites et affichage
 		displayEntity(clock);
@@ -506,6 +508,7 @@ void Game::RunGame()
 		mainWindow_->Clear();
    
    }
+mainWindow_->ShowMouseCursor(true);
 entitys.clear();
 effects.clear();
 delete view;
@@ -614,7 +617,7 @@ void Game::setPlayer(RenderWindow  * mainwin,Image * image) {
 		      cout << "erreur " << endl ; 
         joueur = new AlanTuring(mainwin,*image_joueur,map_courante);
         mainwin->Draw(*(joueur->getSprite()));
-        joueur->setPosition(Vector2f(90,90));
+        joueur->setPosition(Vector2f(PLAYER_X_START*BASE_SPRITE ,PLAYER_Y_START*BASE_SPRITE));
         entitys.push_front(joueur);
         break;
       }
@@ -625,7 +628,7 @@ void Game::setPlayer(RenderWindow  * mainwin,Image * image) {
 		      cout << "erreur " << endl ; 
         joueur = new AlanTuring(mainwin,*image_joueur,map_courante);
         mainwin->Draw(*(joueur->getSprite()));
-        joueur->setPosition(Vector2f(90,90));
+        joueur->setPosition(Vector2f(PLAYER_X_START*BASE_SPRITE ,PLAYER_Y_START*BASE_SPRITE));
         entitys.push_front(joueur);
         break;
       }
@@ -636,7 +639,7 @@ void Game::setPlayer(RenderWindow  * mainwin,Image * image) {
 		      cout << "erreur " << endl ; 
         joueur = new BjarneStroustrup(mainwin,*image_joueur,map_courante);
         mainwin->Draw(*(joueur->getSprite()));
-        joueur->setPosition(Vector2f(90,90));
+        joueur->setPosition(Vector2f(PLAYER_X_START*BASE_SPRITE ,PLAYER_Y_START*BASE_SPRITE));
         entitys.push_front(joueur);
         break;
       }
@@ -645,23 +648,23 @@ void Game::setPlayer(RenderWindow  * mainwin,Image * image) {
 
       {
 
-        if(!image_joueur.LoadFromFile("sprite/LinusTorvalds.png"))
+        if(!image_joueur->LoadFromFile("sprite/LinusTorvalds.png"))
 
 		      cout << "erreur " << endl ; 
         joueur = new LinusTorvalds(mainwin,*image_joueur,map_courante);
         mainwin->Draw(*(joueur->getSprite()));
-        joueur->setPosition(Vector2f(90,90));
+        joueur->setPosition(Vector2f(PLAYER_X_START*BASE_SPRITE ,PLAYER_Y_START*BASE_SPRITE));
         entitys.push_front(joueur);
         break;
       }
       
       default : 
       {
-        if(!image_joueur.LoadFromFile("sprite/LinusTorvalds.png"))
+        if(!image_joueur->LoadFromFile("sprite/LinusTorvalds.png"))
 		      cout << "erreur " << endl ; 
         joueur = new LinusTorvalds(mainwin,*image_joueur,map_courante);
         mainwin->Draw(*(joueur->getSprite()));
-        joueur->setPosition(Vector2f(90,90));
+        joueur->setPosition(Vector2f(PLAYER_X_START*BASE_SPRITE ,PLAYER_Y_START*BASE_SPRITE));
         entitys.push_front(joueur);
         break;
       }
