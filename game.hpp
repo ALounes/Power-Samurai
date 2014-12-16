@@ -16,6 +16,8 @@
 #include "linustorvalds.hpp"
 #include "camera.hpp"
 #include "config.hpp"
+#include "bjarnestroustrup.hpp"
+#include "alanturing.hpp"
 
 
 enum direction {DOWN,LEFT,RIGHT,UP};
@@ -51,7 +53,7 @@ private:
 	 void ShowDifficultyMenu();
 	 void ShowMainMenu();
 	 void RunGame();
-	 void setPlayer(PlayersMenu * pm);
+	 void setPlayer(RenderWindow  * mainwin,Image * image_joueur);
 
 
   enum GameState { Uninitialized, ShowingSplash, Paused, 
@@ -64,9 +66,11 @@ private:
 	 list<Entity*> entitys;
 	 list<AnimationEffect*> effects;
 	 
-	 Player * joueur;
-	 Camera * camera;
-	 View * view;
+	Player * joueur;
+	Image * image_joueur;
+	Camera * camera;
+	int * player_choice;
+	View * view;
    Map *map_1;
    Map *map_2;
    Map *map_3;

@@ -7,7 +7,7 @@
 using namespace std;
 using namespace sf;
 
-#define DEFAULT_SPEED 1
+#define DEFAULT_SPEED 3
 #define ZERO 0
 
 enum power {FireBoll = 0, None};

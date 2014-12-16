@@ -58,6 +58,8 @@ Game::Game ()
   map_3 = new Map();
   map_4 = new Map();
   map_courante = new Map();
+  player_choice = new int;
+  image_joueur = new Image;
  
   
   
@@ -76,6 +78,8 @@ Game::~Game ()
   delete mainMenu_;
   delete gameState_;
   delete mainWindow_;
+  delete player_choice;
+  delete image_joueur;
   //delete joueur;
   
   //delete difficultyMenu_;
@@ -392,7 +396,8 @@ void Game::ShowPlayersMenu()
 			break;	
 	 }
 	 
-	 setPlayer(playersMenu_);
+	 *player_choice = *(playersMenu_->getposition());
+	 cout << "CHOIX JOUEUR : " << *player_choice << endl;
   mainWindow_->ShowMouseCursor(true);
   cout << "delete players terminé" << endl;
 }
@@ -407,9 +412,7 @@ void Game::RunGame()
 	Clock clock;
 	Vector2i test_effect(5,8);
 
-	if(!image_linus.LoadFromFile("sprite/LinusTorvalds.png"))
-		cout << "erreur " << endl ;
-
+	
 	if (!buffer_son.LoadFromFile("Musique/BinB.ogg"))
 		cout << "erreur " << endl ;
 
@@ -419,21 +422,24 @@ void Game::RunGame()
 	son.SetBuffer(buffer_son);
 	son.SetLoop(true);
  	//son.Play();	
-	
+ 	
+	//if(!image_joueur->LoadFromFile("sprite/LinusTorvalds.png"))
+		//cout << "erreur " << endl ;
+	//Player *linus = new LinusTorvalds(mainWindow_,image_linus,map_courante);
+	//camera = new Camera(mainWindow_,linus);
+	//entitys.push_front(linus);
+	//linus->setPosition(Vector2f(PLAYER_X_START*BASE_SPRITE ,PLAYER_Y_START*BASE_SPRITE));
 
-	LinusTorvalds *linus = new LinusTorvalds(mainWindow_,image_linus,map_courante);
 
-	camera = new Camera(mainWindow_,linus);
-	//camera = new Camera(mainWindow_,joueur);
+   setPlayer(mainWindow_,image_joueur);
+	camera = new Camera(mainWindow_,joueur);
 	view = new View();
-	camera->setCameraXY(BASE_SPRITE * MAP_1_WIDTH,BASE_SPRITE * MAP_1_HEIGHT);
+	//camera->setCameraXY(BASE_SPRITE * MAP_1_WIDTH,BASE_SPRITE * MAP_1_HEIGHT);
 	
-  cout << "Camera created" << endl;
+   cout << "Camera created" << endl;
 
-	entitys.push_front(linus);
 
-	linus->setPosition(Vector2f(PLAYER_X_START*BASE_SPRITE ,PLAYER_Y_START*BASE_SPRITE));
-
+	
 	// ANIMATION EFFECT
 	
 	//AnimationEffect *effect = new AnimationEffect(mainWindow_,effect_003,test_effect,linus);
@@ -447,21 +453,14 @@ void Game::RunGame()
    {
    mainWindow_->SetFramerateLimit(30);
 
-   if (input.IsKeyDown(Key::Z) ||input.IsKeyDown(Key::Q) || input.IsKeyDown(Key::D) || input.IsKeyDown(Key::S) ) {
+      if (input.IsKeyDown(Key::Z) ||input.IsKeyDown(Key::Q) || input.IsKeyDown(Key::D) || input.IsKeyDown(Key::S) ) {
    
-        linus->soclePosition();
-				//joueur->soclePosition();
-
-				//effect->play();
-				
-				//cout << "soclePosition" << endl;
-				
-				//joueur->actionKey(map_courante);
-
-				linus->actionKey(/*event.Key.Code,*/ map_courante);
-				
-				map_courante = linus->getMap();
-				//map_courante = joueur->getMap();
+            /*linus->soclePosition();
+				linus->actionKey(map_courante);
+				map_courante = linus->getMap();*/
+				joueur->soclePosition();
+				joueur->actionKey(map_courante);
+				map_courante = joueur->getMap();
 				
 		}
    
@@ -484,10 +483,10 @@ void Game::RunGame()
 
 			default: 
 				break;
-			}
+		}
 			camera->setCameraXY(*(map_courante->get_Largeur()) * BASE_SPRITE,*(map_courante->get_Hauteur()) * BASE_SPRITE);
 		}
-		
+
 		view->SetHalfSize(400, 300);
       
       
@@ -604,69 +603,66 @@ Game::displayEffect(Clock &time)
 }
 
 
-void Game::setPlayer(PlayersMenu * pm) {
+void Game::setPlayer(RenderWindow  * mainwin,Image * image) {
    entitys.clear();
-   
-   switch(*(pm->getposition())) {
-      case 0 :
-      {
-        
-        
-        if(!image_linus.LoadFromFile("sprite/LinusTorvalds.png"))
-		      cout << "erreur " << endl ; 
-		    joueur = new Player( mainWindow_,image_linus, Vector2i(LINUS_TORVALDS_X,LINUS_TORVALDS_Y), String("Linus Torvalds"),LINUS_TORVALDS_LIFE,LINUS_TORVALDS_MANA, LINUS_TORVALDS_POWER, map_courante);
-        //LinusTorvalds *linus = new LinusTorvalds(mainWindow_,image_linus,map_courante);
-        entitys.push_front(joueur);
-        joueur->setPosition(Vector2f(90,90));
+   switch(*player_choice) {
+      case 0 : 
 
+      {
+        if(!image_joueur->LoadFromFile("sprite/blonde.png"))
+
+		      cout << "erreur " << endl ; 
+        joueur = new AlanTuring(mainwin,*image_joueur,map_courante);
+        mainwin->Draw(*(joueur->getSprite()));
+        joueur->setPosition(Vector2f(90,90));
+        entitys.push_front(joueur);
         break;
       }
+      
       case 1 : 
       {
-        if(!image_linus.LoadFromFile("sprite/LinusTorvalds.png"))
+        if(!image_joueur->LoadFromFile("sprite/fartas.png"))
 		      cout << "erreur " << endl ; 
-		    joueur =  new LinusTorvalds(mainWindow_,image_linus,map_courante);
-        //LinusTorvalds *linus = new LinusTorvalds(mainWindow_,image_linus,map_courante);
-
-        joueur->setPosition(Vector2f(PLAYER_X_START*BASE_SPRITE ,PLAYER_Y_START*BASE_SPRITE));
+        joueur = new AlanTuring(mainwin,*image_joueur,map_courante);
+        mainwin->Draw(*(joueur->getSprite()));
+        joueur->setPosition(Vector2f(90,90));
         entitys.push_front(joueur);
-        cout << "Choix effectué : linus" << endl;
-        
-         break;
+        break;
       }
+      
       case 2 : 
       {
-          if(!image_linus.LoadFromFile("sprite/LinusTorvalds.png"))
+        if(!image_joueur->LoadFromFile("sprite/gris.png"))
 		      cout << "erreur " << endl ; 
-		      
-          LinusTorvalds *linus = new LinusTorvalds(mainWindow_,image_linus,map_courante);
-          entitys.push_front(linus);
-          linus->setPosition(Vector2f(90,90));
-          joueur = linus;
-          
-         break;
-      }
-      case 3 : 
-      {
-         if(!image_linus.LoadFromFile("sprite/LinusTorvalds.png"))
-		      cout << "erreur " << endl ;  
-		          
-      	LinusTorvalds *linus = new LinusTorvalds(mainWindow_,image_linus,map_courante);
-	      entitys.push_front(linus);
-	      linus->setPosition(Vector2f(90,90));
-	      joueur = linus;
-
+        joueur = new BjarneStroustrup(mainwin,*image_joueur,map_courante);
+        mainwin->Draw(*(joueur->getSprite()));
+        joueur->setPosition(Vector2f(90,90));
+        entitys.push_front(joueur);
         break;
-      } 
+      }
+      
+      case 3 : 
+
+      {
+
+        if(!image_linus.LoadFromFile("sprite/LinusTorvalds.png"))
+
+		      cout << "erreur " << endl ; 
+        joueur = new LinusTorvalds(mainwin,*image_joueur,map_courante);
+        mainwin->Draw(*(joueur->getSprite()));
+        joueur->setPosition(Vector2f(90,90));
+        entitys.push_front(joueur);
+        break;
+      }
+      
       default : 
       {
         if(!image_linus.LoadFromFile("sprite/LinusTorvalds.png"))
 		      cout << "erreur " << endl ; 
-        LinusTorvalds *linus = new LinusTorvalds(mainWindow_,image_linus,map_courante);
-        entitys.push_front(linus);
-        linus->setPosition(Vector2f(90,90));
-        joueur = linus;
-
+        joueur = new LinusTorvalds(mainwin,*image_joueur,map_courante);
+        mainwin->Draw(*(joueur->getSprite()));
+        joueur->setPosition(Vector2f(90,90));
+        entitys.push_front(joueur);
         break;
       }
 

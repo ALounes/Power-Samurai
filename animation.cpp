@@ -213,7 +213,10 @@ Animation::getAnimFps() const
 void 
 Animation::display()
 {
+   if (mySprite_ != NULL)
 	win_->Draw(*mySprite_);
+	  else
+	   cout << "erreur pointeur sur null " << endl ;
 }
 
 void 
