@@ -645,7 +645,7 @@ void Game::setPlayer(RenderWindow  * mainwin,Image * image) {
 
       {
 
-        if(!image_linus.LoadFromFile("sprite/LinusTorvalds.png"))
+        if(!image_joueur.LoadFromFile("sprite/LinusTorvalds.png"))
 
 		      cout << "erreur " << endl ; 
         joueur = new LinusTorvalds(mainwin,*image_joueur,map_courante);
@@ -657,7 +657,7 @@ void Game::setPlayer(RenderWindow  * mainwin,Image * image) {
       
       default : 
       {
-        if(!image_linus.LoadFromFile("sprite/LinusTorvalds.png"))
+        if(!image_joueur.LoadFromFile("sprite/LinusTorvalds.png"))
 		      cout << "erreur " << endl ; 
         joueur = new LinusTorvalds(mainwin,*image_joueur,map_courante);
         mainwin->Draw(*(joueur->getSprite()));
