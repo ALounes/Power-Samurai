@@ -17,12 +17,13 @@ const int n=60; // Taille horizontale de la carte
 const int m=60; // Taille verticale de la carte
 static int Map[n][m];
 
-static int open_Nodes_Map[n][m]; // Carte représentant les noeuds que l'on n'a pas encore testé
+static int open_Nodes_Map[n][m]; // Carte représentant les noeuds que l'on n'a pas encore testé mais scanné
 static int closed_Nodes_Map[n][m]; // Carte représentant les noeuds que l'on a déjà testé
 static int dir_Map[n][m]; // Carte des directions
 const int dir=8; // Nombre de directions possibles à partir d'une case
-static int dx[dir]={1, 1, 0, -1, -1, -1, 0, 1};
+static int dx[dir]={1, 1, 0, -1, -1, -1, 0, 1}; // Caractérisation du déplacement
 static int dy[dir]={0, 1, 1, 1, 0, -1, -1, -1};
+
 /*
 5|6|7
 -+-+-
@@ -31,7 +32,7 @@ static int dy[dir]={0, 1, 1, 1, 0, -1, -1, -1};
 3|2|1
 */
 
-// Determine priority (in the priority queue)
+// Surcharge, permet d'obtenir le noeud de priorité la plus grande
 bool operator<(const Node & a, const Node & b)
 {
   return a.getPriority() > b.getPriority();
@@ -67,6 +68,7 @@ string pathFind( const int & xStart, const int & yStart,
 
     // Recherche d'après l'algorithme A* 
     delete n0;
+    
     while(!pq[pq_index].empty()) // Si cette liste est vide, cela veut dire que l'on n'a pas pu trouver de chemin. On renverra alors une chaîne vide.
     {
         // obtenir le noeud dont la priorité est la plus haute dans la liste des noeuds non testés
@@ -106,7 +108,7 @@ string pathFind( const int & xStart, const int & yStart,
         for(i=0;i<dir;i++)
         {
             xdx=x+dx[i]; ydy=y+dy[i];
-            // Cas sortie de Map ou déjà dans la carte des noeuds déjà explorés, ou on  ne peut pas marcher dessus
+            // Cas sortie de Map ou déjà dans la carte des noeuds déjà explorés, ou on ne peut pas marcher dessus
             if(!(xdx<0 || xdx>n-1 || ydy<0 || ydy>m-1 || Map[xdx][ydy]==1 
                 || closed_Nodes_Map[xdx][ydy]==1))
             {
@@ -193,8 +195,8 @@ int main()
     Map[20][24]=1;
     Map[20][25]=1;
     
-    Map[41][31]=1;
-    Map[41][32]=1;
+    //Map[41][31]=1;
+    //Map[41][32]=1;
     Map[41][33]=1;
     Map[41][34]=1;
     Map[41][35]=1;
@@ -233,7 +235,7 @@ int main()
         
         for(int i=0;i< (int)route.length();i++)
         {
-        while (clock.GetElapsedTime() < 0.10)
+        while (clock.GetElapsedTime() < 0.1)
         {
           
         }

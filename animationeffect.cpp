@@ -23,7 +23,7 @@ AnimationEffect::run()
 		if(iAnim_ < numberOfEffect_)
 		{
 				setAnimation(++iAnim_);
-				display();
+				draw();
 		}
 		else
 		{

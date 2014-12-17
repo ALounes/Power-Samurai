@@ -211,7 +211,7 @@ Animation::getAnimFps() const
 }
 
 void 
-Animation::display()
+Animation::draw()
 {
    if (mySprite_ != NULL)
 	win_->Draw(*mySprite_);

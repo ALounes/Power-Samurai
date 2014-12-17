@@ -52,7 +52,7 @@ class Animation
 
 	virtual void setDefaultSprite();
 
-	void display();
+	void draw();
 
 	protected:
 	Sprite    *mySprite_;

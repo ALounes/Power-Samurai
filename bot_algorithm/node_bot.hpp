@@ -7,13 +7,7 @@ using namespace std;
 
 class Node
 {
-    // position courante
-    int xPos;
-    int yPos;
     
-    int level;      // distance totale parcourue pour arriver au noeud
-                    // priority = level+ distance restante estimée
-    int priority;   // plus la valeur est petite, plus la priorité est grande
 
     public:
         Node(int xp, int yp, int d, int p) ;
@@ -30,6 +24,16 @@ class Node
         
 
         const int & estimate(const int & xDest, const int & yDest) const;
+        
+    private:
+        // position courante
+        int xPos;
+        int yPos;
+       
+        int level;      // distance totale parcourue pour arriver au noeud
+                       // priority = level+ distance restante estimée
+        int priority;   // plus la valeur est petite, plus la priorité est grande
+        
 };
 
 #endif

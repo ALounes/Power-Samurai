@@ -26,11 +26,11 @@ int Node::getPriority() const {
 
 void Node::updatePriority(const int & xDest, const int & yDest)
 {
-     priority = level + estimate(xDest, yDest)*10; // Principe de l'algo A*
+     priority = level + estimate(xDest, yDest)*10; // Principe de l'algo A* (un déplacement = 10)
 }
 
 // On précise que nous préférons aller en ligne droite plutôt qu'en diagonale.
-void Node::nextLevel(const int & i) // i: direction
+void Node::nextLevel(const int & i) // i: direction (impair = diagonale)
 {
      level+= (i%2==0?10:14);
 }

@@ -423,12 +423,13 @@ void Game::RunGame()
 	son.SetLoop(true);
  	//son.Play();	
  	
-	//if(!image_joueur->LoadFromFile("sprite/LinusTorvalds.png"))
-		//cout << "erreur " << endl ;
-	//Player *linus = new LinusTorvalds(mainWindow_,image_linus,map_courante);
-	//camera = new Camera(mainWindow_,linus);
-	//entitys.push_front(linus);
-	//linus->setPosition(Vector2f(PLAYER_X_START*BASE_SPRITE ,PLAYER_Y_START*BASE_SPRITE));
+ 	Image image_bot;
+	if(!image_bot.LoadFromFile("sprite/LinusTorvalds.png"))
+		cout << "erreur " << endl ;
+	Bot *bot = new Bot(mainWindow_,image_bot,Vector2i(LINUS_TORVALDS_X,LINUS_TORVALDS_Y), String("Linus Torvalds"), LINUS_TORVALDS_LIFE, LINUS_TORVALDS_MANA, LINUS_TORVALDS_POWER,map_courante);
+	bot->setPosition(Vector2f(90,90));	
+	entitys.push_front(bot);
+   bot->play();
 
 
    setPlayer(mainWindow_,image_joueur);
@@ -454,12 +455,9 @@ void Game::RunGame()
    mainWindow_->SetFramerateLimit(30);
       camera->setCameraXY(*(map_courante->get_Largeur()) * BASE_SPRITE,*(map_courante->get_Hauteur()) * BASE_SPRITE);
 			mainWindow_->Draw(*(map_courante->sprite_map_));
-			
+			//mainWindow_->Draw(*(bot->getSprite()));
       if (input.IsKeyDown(Key::Z) ||input.IsKeyDown(Key::Q) || input.IsKeyDown(Key::D) || input.IsKeyDown(Key::S) ) {
    
-            /*linus->soclePosition();
-				linus->actionKey(map_courante);
-				map_courante = linus->getMap();*/
 				joueur->soclePosition();
 				joueur->actionKey(map_courante);
 				map_courante = joueur->getMap();
@@ -575,11 +573,18 @@ Game::displayEntity(Clock &time)
 	if (time.GetElapsedTime() > ENTITY_FPS_RATE) 
 		refresh = true;
 
+   if (refresh && joueur->isPlaying()) {
+      joueur->update();
+   }
+   joueur->draw();
+
 	for(auto s : entitys){
-		if(refresh && s->isPlaying()){
+	cout << "print bot" << endl;
+		if(refresh /*&& s->isPlaying()*/){
 			s->update();
+			
 		}
-		s->display();
+		s->draw();
 	}
 
 	if(refresh)
@@ -618,7 +623,7 @@ void Game::setPlayer(RenderWindow  * mainwin,Image * image) {
         joueur = new AlanTuring(mainwin,*image_joueur,map_courante);
         mainwin->Draw(*(joueur->getSprite()));
         joueur->setPosition(Vector2f(PLAYER_X_START*BASE_SPRITE ,PLAYER_Y_START*BASE_SPRITE));
-        entitys.push_front(joueur);
+        //entitys.push_front(joueur);
         break;
       }
       
@@ -629,7 +634,7 @@ void Game::setPlayer(RenderWindow  * mainwin,Image * image) {
         joueur = new AlanTuring(mainwin,*image_joueur,map_courante);
         mainwin->Draw(*(joueur->getSprite()));
         joueur->setPosition(Vector2f(PLAYER_X_START*BASE_SPRITE ,PLAYER_Y_START*BASE_SPRITE));
-        entitys.push_front(joueur);
+        //entitys.push_front(joueur);
         break;
       }
       
@@ -640,7 +645,7 @@ void Game::setPlayer(RenderWindow  * mainwin,Image * image) {
         joueur = new BjarneStroustrup(mainwin,*image_joueur,map_courante);
         mainwin->Draw(*(joueur->getSprite()));
         joueur->setPosition(Vector2f(PLAYER_X_START*BASE_SPRITE ,PLAYER_Y_START*BASE_SPRITE));
-        entitys.push_front(joueur);
+        //entitys.push_front(joueur);
         break;
       }
       
@@ -654,7 +659,7 @@ void Game::setPlayer(RenderWindow  * mainwin,Image * image) {
         joueur = new LinusTorvalds(mainwin,*image_joueur,map_courante);
         mainwin->Draw(*(joueur->getSprite()));
         joueur->setPosition(Vector2f(PLAYER_X_START*BASE_SPRITE ,PLAYER_Y_START*BASE_SPRITE));
-        entitys.push_front(joueur);
+        //entitys.push_front(joueur);
         break;
       }
       
@@ -665,7 +670,7 @@ void Game::setPlayer(RenderWindow  * mainwin,Image * image) {
         joueur = new LinusTorvalds(mainwin,*image_joueur,map_courante);
         mainwin->Draw(*(joueur->getSprite()));
         joueur->setPosition(Vector2f(PLAYER_X_START*BASE_SPRITE ,PLAYER_Y_START*BASE_SPRITE));
-        entitys.push_front(joueur);
+        //entitys.push_front(joueur);
         break;
       }
 
@@ -676,8 +681,8 @@ void Game::setPlayer(RenderWindow  * mainwin,Image * image) {
 void Game::launchingPause() {
    bool Ispause = true;
    
-   Shape grey_screen   = Shape::Rectangle(0,0,PLAYING_WIDTH/2,PLAYING_HEIGHT/2,Color(0,0,0));
-   
+   Shape grey_screen   = Shape::Rectangle(0,0,GAME_WIDTH,GAME_HEIGHT,Color(0,0,0));
+   grey_screen.SetPosition(camera->position_->x - 600, camera->position_->y - 400);
    
 	String texte = String ("               Le jeu est en pause.\n\n(P) : Continuer    (Q) : Menu principal", Font::GetDefaultFont(), 40.f);
 
