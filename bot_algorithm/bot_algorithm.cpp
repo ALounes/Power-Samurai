@@ -9,16 +9,17 @@
 #include "node_bot.hpp"
 
 using namespace std;
+using namespace sf;
 
 
 
 const int n=60; // Taille horizontale de la carte 
 const int m=60; // Taille verticale de la carte
-static int map[n][m];
+static int Map[n][m];
 
-static int open_Nodes_map[n][m]; // Carte représentant les noeuds que l'on n'a pas encore testé
-static int closed_Nodes_map[n][m]; // Carte représentant les noeuds que l'on a déjà testé
-static int dir_map[n][m]; // Carte des directions
+static int open_Nodes_Map[n][m]; // Carte représentant les noeuds que l'on n'a pas encore testé
+static int closed_Nodes_Map[n][m]; // Carte représentant les noeuds que l'on a déjà testé
+static int dir_Map[n][m]; // Carte des directions
 const int dir=8; // Nombre de directions possibles à partir d'une case
 static int dx[dir]={1, 1, 0, -1, -1, -1, 0, 1};
 static int dy[dir]={0, 1, 1, 1, 0, -1, -1, -1};
@@ -54,15 +55,15 @@ string pathFind( const int & xStart, const int & yStart,
     {
         for(x=0;x<n;x++)
         {
-            closed_Nodes_map[x][y]=0;
-            open_Nodes_map[x][y]=0;
+            closed_Nodes_Map[x][y]=0;
+            open_Nodes_Map[x][y]=0;
         }
     }
     // On cree le noeud de départ, et on le pousse dans la liste des noeuds testés.
     n0 = new Node(xStart, yStart, 0, 0);
     n0->updatePriority(xFinish, yFinish);
     pq[pq_index].push(*n0);
-    open_Nodes_map[xStart][yStart]=n0->getPriority(); // on le marque dans la liste des noeuds testés.
+    open_Nodes_Map[xStart][yStart]=n0->getPriority(); // on le marque dans la liste des noeuds testés.
 
     // Recherche d'après l'algorithme A* 
     delete n0;
@@ -75,9 +76,9 @@ string pathFind( const int & xStart, const int & yStart,
         x=n0->getxPos(); y=n0->getyPos();
 
         pq[pq_index].pop(); // On supprime le noeud de la liste open
-        open_Nodes_map[x][y]=0;
+        open_Nodes_Map[x][y]=0;
         // On l'ajoute à la liste des noeuds testés.
-        closed_Nodes_map[x][y]=1;
+        closed_Nodes_Map[x][y]=1;
 
         // On arrête de chercher lorsque nous sommes arrivé à la case d'arrivée.
         //c-a-d quand if((*n0).estimate(xFinish, yFinish) == 0)
@@ -87,7 +88,7 @@ string pathFind( const int & xStart, const int & yStart,
             string path="";
             while(!(x==xStart && y==yStart))
             {
-                j = dir_map[x][y];
+                j = dir_Map[x][y];
                 c = '0'+(j+dir/2)%dir;
                 path = c+path;
                 x += dx[j];
@@ -105,9 +106,9 @@ string pathFind( const int & xStart, const int & yStart,
         for(i=0;i<dir;i++)
         {
             xdx=x+dx[i]; ydy=y+dy[i];
-            // Cas sortie de map ou déjà dans la carte des noeuds déjà explorés, ou on  ne peut pas marcher dessus
-            if(!(xdx<0 || xdx>n-1 || ydy<0 || ydy>m-1 || map[xdx][ydy]==1 
-                || closed_Nodes_map[xdx][ydy]==1))
+            // Cas sortie de Map ou déjà dans la carte des noeuds déjà explorés, ou on  ne peut pas marcher dessus
+            if(!(xdx<0 || xdx>n-1 || ydy<0 || ydy>m-1 || Map[xdx][ydy]==1 
+                || closed_Nodes_Map[xdx][ydy]==1))
             {
                 // on  crèe un noeud fils
                 m0=new Node( xdx, ydy, n0->getLevel(), 
@@ -116,20 +117,20 @@ string pathFind( const int & xStart, const int & yStart,
                 m0->updatePriority(xFinish, yFinish);
 
                 // S'il n'est pas dans la liste open, l'y ajouter
-                if(open_Nodes_map[xdx][ydy]==0)
+                if(open_Nodes_Map[xdx][ydy]==0)
                 {
-                    open_Nodes_map[xdx][ydy]=m0->getPriority();
+                    open_Nodes_Map[xdx][ydy]=m0->getPriority();
                     pq[pq_index].push(*m0);
                     delete m0;
                     // marquer la direction de son père
-                    dir_map[xdx][ydy]=(i+dir/2)%dir;
+                    dir_Map[xdx][ydy]=(i+dir/2)%dir;
                 }
-                else if(open_Nodes_map[xdx][ydy]>m0->getPriority())
+                else if(open_Nodes_Map[xdx][ydy]>m0->getPriority())
                 {
                     // acualiser les informations sur la priorité
-                    open_Nodes_map[xdx][ydy]=m0->getPriority();
+                    open_Nodes_Map[xdx][ydy]=m0->getPriority();
                     // actualiser la direction de son père
-                    dir_map[xdx][ydy]=(i+dir/2)%dir;
+                    dir_Map[xdx][ydy]=(i+dir/2)%dir;
 
                     // remplacer le noeud en vidant un pq dans l'autre, sauf le noeud à remplacer qui sera ignoré et remplacé par le nouveau noeud
   
@@ -162,36 +163,44 @@ string pathFind( const int & xStart, const int & yStart,
 
 int main()
 {
-    // On initialise la map
+
+  Image * image_linus = new Image();
+  Sprite sprite_perso;
+  RenderWindow * mainWindow_ = new RenderWindow(VideoMode(700, 700), "Bot manager");
+  image_linus->LoadFromFile("fleche.png");
+  sprite_perso.SetImage(*image_linus);
+  Clock clock;
+  
+    // On initialise la Map
     for(int y=0;y<m;y++)
     {
-        for(int x=0;x<n;x++) map[x][y]=0;
+        for(int x=0;x<n;x++) Map[x][y]=0;
     }
 
     // remplissage des obstacles
     for(int x=n/8;x<n*7/8;x++)
     {
-        map[x][m/2]=1;
+        Map[x][m/2]=1;
     }
     for(int y=m/8;y<m*7/8;y++)
     {
-        map[n/2][y]=1;
+        Map[n/2][y]=1;
     }
-    map[20][20]=1;
-    map[20][21]=1;
-    map[20][22]=1;
-    map[20][23]=1;
-    map[20][24]=1;
-    map[20][25]=1;
+    Map[20][20]=1;
+    Map[20][21]=1;
+    Map[20][22]=1;
+    Map[20][23]=1;
+    Map[20][24]=1;
+    Map[20][25]=1;
     
-    map[41][31]=1;
-    map[41][32]=1;
-    map[41][33]=1;
-    map[41][34]=1;
-    map[41][35]=1;
-    map[41][36]=1;
-    map[41][37]=1;
-    map[41][38]=1;
+    Map[41][31]=1;
+    Map[41][32]=1;
+    Map[41][33]=1;
+    Map[41][34]=1;
+    Map[41][35]=1;
+    Map[41][36]=1;
+    Map[41][37]=1;
+    Map[41][38]=1;
     
     
     int xA, yA, xB, yB;
@@ -205,12 +214,12 @@ int main()
     cout<<"Start: "<<xA<<","<<yA<<endl;
     cout<<"Finish: "<<xB<<","<<yB<<endl;
     // On calcule la route
-    clock_t start = clock();
+    //clock_t start = clock();
     string route=pathFind(xA, yA, xB, yB);
     if(route=="") cout<<"An empty route generated!"<<endl;
-    clock_t end = clock();
-    double time_elapsed = double(end - start);
-    cout<<"Time to calculate the route (ms): "<<time_elapsed<<endl;
+    //clock_t end = clock();
+    //double time_elapsed = double(end - start);
+    //cout<<"Time to calculate the route (ms): "<<time_elapsed<<endl;
     cout<<"Route:"<<endl;
     cout<<route<<endl<<endl;
 
@@ -220,30 +229,45 @@ int main()
         int j; char c;
         int x=xA;
         int y=yA;
-        map[x][y]=2;
+        Map[x][y]=2;
+        
         for(int i=0;i< (int)route.length();i++)
         {
+        while (clock.GetElapsedTime() < 0.10)
+        {
+          
+        }
+        clock.Reset();
             c = route.at(i);
             j = atoi(&c); 
+            cout << "c " << c << endl;
+            cout << "j " << j << endl;
+            cout << "dy[j] " << dy[j] << endl;
+            cout << "dx[j] " << dx[j] << endl;
             x = x+dx[j];
             y = y+dy[j];
-            map[x][y] = 3;
+            cout<< "x : " << x << "y : " << y << endl;
+            Map[x][y] = 3;
+            sprite_perso.SetPosition(x*10,y*10);
+            mainWindow_->Clear(Color::White);
+            mainWindow_->Draw(sprite_perso);
+            mainWindow_->Display();
         }
-        map[x][y] = 4;
+        Map[x][y] = 4;
     
         // afficher la carte
         for(int y=0;y<m;y++)
         {
             for(int x=0;x<n;x++)
-                if(map[x][y]==0)
+                if(Map[x][y]==0)
                     cout<<".";
-                else if(map[x][y]==1)
+                else if(Map[x][y]==1)
                     cout<<"O"; //obstacle
-                else if(map[x][y]==2)
+                else if(Map[x][y]==2)
                     cout<<"D"; //Début
-                else if(map[x][y]==3)
+                else if(Map[x][y]==3)
                     cout<<"+"; //Chemin
-                else if(map[x][y]==4)
+                else if(Map[x][y]==4)
                     cout<<"A"; //Arrivée
             cout<<endl;
         }

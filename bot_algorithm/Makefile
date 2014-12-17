@@ -1,5 +1,6 @@
 CC = g++
 CFLAGS  := -std=c++11 -Wall -Wfatal-errors -c -ggdb
+LDFLAGS := -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 BIN = Bot_Show
 OBJ = bot_algorithm.o node_bot.o 
 

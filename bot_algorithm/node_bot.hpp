@@ -1,6 +1,8 @@
 #ifndef NODE_BOT_HPP
 #define NODE_BOT_HPP
 
+#include "stdafx.hpp"
+
 using namespace std;
 
 class Node
