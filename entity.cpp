@@ -72,49 +72,51 @@ Entity::legalDeplacement(int x, int y)
 	else {
 	   switch ( myMap_->getSocleMap(i,j) ) {
 	   
-	      case 0 : 
-	         
+	      case 0 : 	         
 	         return false;
 	         break;
+
 	      case 1 :
 	         return true;
 	         break;
-	      case 2 : {
+
+	      case 2 :
 
 	         //linkmap1
-            if ( getMap()->getLink(1) ) {
-	         
-	         setPosition(Vector2f(getMap()->get_tpPoints(1),getMap()->get_tpPoints(0)));   //(Y, X)
-	         setMap(getMap()->getLink(1));
+            if ( getMap()->getLink(1) ) 
+				{	         
+		         setPosition(Vector2f(getMap()->get_tpPoints(1),getMap()->get_tpPoints(0)));   //(Y, X)
+		         setMap(getMap()->getLink(1));
 	         }
 
 	         return false;
 	         break;
-	         }
-	      case 3 : {
+
+	      case 3 : 
+
 	         //linkmap2
-	         if ( getMap()->getLink(2) ) {
-	         
-	         setPosition(Vector2f(getMap()->get_tpPoints(3),getMap()->get_tpPoints(2)));   //(Y, X)
-	         setMap(getMap()->getLink(2));
+	         if ( getMap()->getLink(2) ) 
+				{	       
+	       		setPosition(Vector2f(getMap()->get_tpPoints(3),getMap()->get_tpPoints(2)));   //(Y, X)
+	       		setMap(getMap()->getLink(2));
 	         }
 	         return false;
 	         break;
-	        } 
-	      case 4 : {
+	       
+	      case 4 :
 	         //linkmap3
-	         if ( getMap()->getLink(3) ) {
-	         
-	         setPosition(Vector2f(getMap()->get_tpPoints(5),getMap()->get_tpPoints(4)));   //(Y, X)
-	         setMap(getMap()->getLink(3));
+	         if ( getMap()->getLink(3) ) 
+				{
+		         setPosition(Vector2f(getMap()->get_tpPoints(5),getMap()->get_tpPoints(4)));   //(Y, X)
+		         setMap(getMap()->getLink(3));
 	         }
+
 	         return false;
 	         break;
-	      }
+
 	      default :
-	      return false;
-	         break;
-	         
+		      return false;
+	         break;	         
 	   }
 	}
 	
@@ -132,7 +134,10 @@ Entity::moveUp()
 	if(legalDeplacement(getCenter().x,getCenter().y - getSpeed())){
 		mySprite_->Move(ZERO,-getSpeed());
 		setAnimationY(UP);
+		cout << "deplacement autorisé " << endl;
 	}
+	else
+		cout << "deplacement non autorisé " << endl;
 }
 
 void 

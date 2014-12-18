@@ -60,24 +60,24 @@ private:
   enum GameState { Uninitialized, ShowingSplash, Paused, 
 					ShowingMainMenu, ShowingPlayersMenu, ShowingDifficultyMenu, Playing, Exiting };
 
-	 GameState * gameState_;
-   MainMenu * mainMenu_;
-   DifficultyMenu * difficultyMenu_;
-   PlayersMenu * playersMenu_;
-	 list<Entity*> entitys;
-	 list<AnimationEffect*> effects;
+	GameState *gameState_;
+   MainMenu  *mainMenu_;
+   DifficultyMenu *difficultyMenu_;
+   PlayersMenu    *playersMenu_;
+	list<Entity*> entitys;
+	list<AnimationEffect*> effects;
 	 
-	Player * joueur;
-	Image * image_joueur;
-	Camera * camera;
-	int * player_choice;
-	View * view;
-   Map *map_1;
-   Map *map_2;
-   Map *map_3;
-   Map *map_4;
-   Map *map_courante;
-	RenderWindow  * mainWindow_;
+	Player *joueur;
+	Image  *image_joueur;
+	Camera *camera;
+	int    *player_choice;
+	View   * view;
+   Map    *map_1;
+   Map    *map_2;
+   Map    *map_3;
+   Map    *map_4;
+   Map    *map_courante;
+	RenderWindow  *mainWindow_;
 };
 
 

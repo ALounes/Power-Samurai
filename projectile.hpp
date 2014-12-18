@@ -8,7 +8,7 @@ class Projectile : public Entity
 {
 	public :
 
-	Projectile(RenderWindow *win, Image* image,const Vector2i& nbrOfAnim, Entity *entity, Map *myMap);
+	Projectile(RenderWindow *win, Image* image,const Vector2i& nbrOfAnim, Entity *entity, int numberOfEffect);
 	~Projectile();
 
 	void update();
@@ -18,7 +18,8 @@ class Projectile : public Entity
 	private:
 
 	char direction_;
-
+	int  iAnim_;
+	const int numberOfEffect_;
 };
 
 #endif

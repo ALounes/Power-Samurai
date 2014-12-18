@@ -1,12 +1,15 @@
 #include "projectile.hpp"
 
 	
-Projectile::Projectile(RenderWindow *win, Image* image, const Vector2i& nbrOfAnim, Entity *entity, Map *myMap)
-:Entity(win,*image,nbrOfAnim,myMap)
+Projectile::Projectile(RenderWindow *win, Image* image, const Vector2i& nbrOfAnim, Entity *entity, int numberOfEffect)
+:Entity(win,*image,nbrOfAnim,entity->getMap())
 ,direction_(PROJECTILE_DIRECTION_DEFAULT)
+,iAnim_(0)
+,numberOfEffect_(numberOfEffect)
 {
-	
+	play();
 	setPosition( entity->getPosition() );
+	getSprite()->SetScale(0.4,0.4);
 }
 
 Projectile::~Projectile()
@@ -31,8 +34,15 @@ Projectile::update()
 
 	if (isMoving())
 	{
-		updateSprite();
-		animationRight();
+		if(iAnim_ < numberOfEffect_)
+		{
+			setAnimation(++iAnim_);
+			draw();
+		}
+		else
+		{
+			iAnim_= 0;
+		}	
 		stopMove();
 	}
 

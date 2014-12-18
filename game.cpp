@@ -461,7 +461,7 @@ if (entitys.empty())
 
 
 	// TEST PROJECTILE	
-	Projectile projectile(mainWindow_,feux,vfeux,joueur,map_courante);
+	Projectile projectile(mainWindow_,feux,vfeux,joueur,16);
 
    // Exécution de la boucle principale
    bool fin_de_boucle = false;
@@ -511,8 +511,9 @@ if (entitys.empty())
 		camera->run();	
 
 		// TEST PROJECTILES
-		projectile.moveUp();
-		projectile.draw();	
+		projectile.update();
+		projectile.draw();
+		bot->moveDown();	
 
 		// Mise a jours des sprites et affichage
 		displayEntity(clock);
