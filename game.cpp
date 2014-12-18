@@ -423,6 +423,8 @@ void Game::RunGame()
 	son.SetLoop(true);
  	//son.Play();	
  	
+ 	setPlayer(mainWindow_,image_joueur);
+ 	
  	Image image_bot;
 	if(!image_bot.LoadFromFile("sprite/LinusTorvalds.png"))
 		cout << "erreur " << endl ;
@@ -430,15 +432,17 @@ void Game::RunGame()
 	bot->setPosition(Vector2f(90,90));	
 	entitys.push_front(bot);
    bot->play();
+   if (entitys.empty()) 
+            cout << "liste vide 1" << endl;
 
-
-   setPlayer(mainWindow_,image_joueur);
+   
 	camera = new Camera(mainWindow_,joueur);
 	view = new View();
 	//camera->setCameraXY(BASE_SPRITE * MAP_1_WIDTH,BASE_SPRITE * MAP_1_HEIGHT);
 	
    cout << "Camera created" << endl;
-
+if (entitys.empty()) 
+            cout << "liste vide 2" << endl;
 
 	
 	// ANIMATION EFFECT
@@ -455,7 +459,9 @@ void Game::RunGame()
    mainWindow_->SetFramerateLimit(30);
       camera->setCameraXY(*(map_courante->get_Largeur()) * BASE_SPRITE,*(map_courante->get_Hauteur()) * BASE_SPRITE);
 			mainWindow_->Draw(*(map_courante->sprite_map_));
-			//mainWindow_->Draw(*(bot->getSprite()));
+			
+            
+					displayEntity(clock);
       if (input.IsKeyDown(Key::Z) ||input.IsKeyDown(Key::Q) || input.IsKeyDown(Key::D) || input.IsKeyDown(Key::S) ) {
    
 				joueur->soclePosition();
@@ -577,10 +583,10 @@ Game::displayEntity(Clock &time)
       joueur->update();
    }
    joueur->draw();
-
+      
 	for(auto s : entitys){
 	cout << "print bot" << endl;
-		if(refresh /*&& s->isPlaying()*/){
+		if(refresh && s->isPlaying()){
 			s->update();
 			
 		}
