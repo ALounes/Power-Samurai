@@ -214,8 +214,8 @@ void
 Animation::draw()
 {
    if (mySprite_ != NULL)
-	win_->Draw(*mySprite_);
-	  else
+		win_->Draw(*mySprite_);
+	else
 	   cout << "erreur pointeur sur null " << endl ;
 }
 

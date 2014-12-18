@@ -18,6 +18,7 @@
 #include "config.hpp"
 #include "bjarnestroustrup.hpp"
 #include "alanturing.hpp"
+#include "projectile.hpp"
 
 
 enum direction {DOWN,LEFT,RIGHT,UP};

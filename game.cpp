@@ -412,6 +412,14 @@ void Game::RunGame()
 	Clock clock;
 	Vector2i test_effect(5,8);
 
+	// Test projectile
+	Image *feux = new Image();
+	Vector2i vfeux(4,4);
+	if (!feux->LoadFromFile("sprite/feux.png"))
+		cout << "erreur " << endl ;
+	// FIN Test projectile
+	
+
 	
 	if (!buffer_son.LoadFromFile("Musique/BinB.ogg"))
 		cout << "erreur " << endl ;
@@ -446,6 +454,10 @@ void Game::RunGame()
 	//AnimationEffect *effect = new AnimationEffect(mainWindow_,effect_003,test_effect,linus);
 	//addEffect(effect);
 	//effect->setPosition(Vector2f(300,300));
+
+
+	// TEST PROJECTILE	
+	Projectile projectile(mainWindow_,feux,vfeux,joueur,map_courante);
 
    // Exécution de la boucle principale
    bool fin_de_boucle = false;
@@ -492,7 +504,9 @@ void Game::RunGame()
       
 		camera->run();	
 
-		
+		// TEST PROJECTILES
+		projectile.moveUp();
+		projectile.draw();	
 
 		// Mise a jours des sprites et affichage
 		displayEntity(clock);

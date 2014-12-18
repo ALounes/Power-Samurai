@@ -50,9 +50,9 @@ class Animation
 	int  getAnimationX() const;
 	int  getAnimationY() const;
 
-	virtual void setDefaultSprite();
-
 	void draw();
+
+	virtual void setDefaultSprite();
 
 	protected:
 	Sprite    *mySprite_;
