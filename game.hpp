@@ -34,8 +34,8 @@ public:
    void Map_Load();
 	void Start();
 
-	void addEntity(Entity *entity);
-	void removeEntity(Entity *entity);		
+	void addEntity(Bot *entity);
+	void removeEntity(Bot *entity);		
 	void displayEntity(Clock &time);
 
 	void addEffect(AnimationEffect *effect);
@@ -65,7 +65,7 @@ private:
    MainMenu  *mainMenu_;
    DifficultyMenu *difficultyMenu_;
    PlayersMenu    *playersMenu_;
-	list<Entity*> entitys;
+	list<Bot*> entitys;
 	list<AnimationEffect*> effects;
 	 
 	Player *joueur;

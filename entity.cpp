@@ -57,12 +57,12 @@ Entity::pause()
 bool 
 Entity::legalDeplacement(int x, int y) 
 {	
-		cout << " x et y : " << x << y << endl;
+		//cout << " x et y : " << x << y << endl;
 
 	int *socle = getSocle(y,x); // CAR HAUTEUR DU TABLEAU = X !!!
 	int i = socle[1];
 	int j = socle[3];
-	cout << " socle x : " << x << " socle y : " << y << " socle map :" << myMap_->getSocleMap(i,j) << endl;
+	//cout << " socle x : " << x << " socle y : " << y << " socle map :" << myMap_->getSocleMap(i,j) << endl;
 	//int i = getCenter().x / 32;
 	//int j = getCenter().y / 32;
 		
@@ -134,7 +134,7 @@ Entity::moveUp()
 	if(legalDeplacement(getCenter().x,getCenter().y - getSpeed())){
 		mySprite_->Move(ZERO,-getSpeed());
 		setAnimationY(UP);
-		cout << "deplacement autorisé " << endl;
+		//cout << "deplacement autorisé " << endl;
 	}
 	else
 		cout << "deplacement non autorisé " << endl;
@@ -223,7 +223,7 @@ int*
 Entity::soclePosition() const
 {
 	int *tab = new int[4];
-	Vector2f socle= getCenter();
+	Vector2f socle = getCenter();
 
 	tab[0] = (socle.x - getAnimationWidth()/2) / getAnimationWidth();
 	tab[1] = (socle.x + getAnimationWidth()/2) / getAnimationWidth();
@@ -243,7 +243,7 @@ Entity::getSocle(int x, int y) const
 	tab[2] = y / getAnimationHeight();
 	tab[3] = y / getAnimationHeight();
 	
-	cout << " tab socle : "<< tab[0] << " " << tab[1] << " "  << tab[2] << " "  << tab[3] <<  endl;
+	//cout << " tab socle : "<< tab[0] << " " << tab[1] << " "  << tab[2] << " "  << tab[3] <<  endl;
 
 	return tab;
 }

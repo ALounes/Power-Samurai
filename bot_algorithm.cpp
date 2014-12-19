@@ -186,7 +186,7 @@ int aze()
     cout<<"Finish: "<<xB<<","<<yB<<endl;
     // On calcule la route
     //clock_t start = clock();
-    string route=pathFind(xA, yA, xB, yB);
+    string route = pathFind(xA, yA, xB, yB);
     if(route=="") cout<<"An empty route generated!"<<endl;
     //clock_t end = clock();
     //double time_elapsed = double(end - start);

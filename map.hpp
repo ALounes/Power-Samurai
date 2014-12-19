@@ -36,6 +36,7 @@ public:
    Image*  getImage() const;  
    Sprite* getSprite() const;
    int getSocleMap(int x,int y) const;
+   int ** getVector();
 
    Image  *image_map_;
 	 Sprite *sprite_map_;  

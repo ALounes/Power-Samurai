@@ -140,6 +140,11 @@ void Map::set_tpPoints(int x1, int y1, int x2, int y2, int x3, int y3) {
    *y_link_3 = y3;
 }
 
+int ** Map::getVector() {
+   return Vector_map_;
+
+}
+
 int Map::get_tpPoints(int pos) {
    switch (pos) {
    

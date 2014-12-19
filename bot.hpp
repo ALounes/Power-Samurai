@@ -5,6 +5,8 @@
 #include "config.hpp"
 #include "entity.hpp"
 #include "player.hpp"
+#include "map.hpp"
+#include "player.hpp"
 
 using namespace std;
 
@@ -20,14 +22,25 @@ class Bot: public Entity
 	void move();
 	
 	void SetRange(int range);
-	int GetRange();
+	int GetRange() const;
 	void SetSpeed(int speed);
-	int GetSpeed();
+	int GetSpeed() const;
 	
-	Player * player_;
+	void SetPlayer(Player * player);
+	Player * GetPlayer() const;
+	
+	string GetPath() const ;
+	
+	string pathFind( const int & xStart, const int & yStart, const int & xFinish, const int & yFinish, Map * map_);
+	
+	void update_path(Map * map,Player * player);
+	
+	void follow_path(Map *map, Player * player);
 
 	private:
 	
+	string path;
+	Player * player_;
 	String &name_;
 	int    life_;
 	int    mana_;

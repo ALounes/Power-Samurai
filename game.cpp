@@ -437,22 +437,24 @@ void Game::RunGame()
 	if(!image_bot.LoadFromFile("sprite/LinusTorvalds.png"))
 		cout << "erreur " << endl ;
 	Bot *bot = new Bot(mainWindow_,image_bot,Vector2i(LINUS_TORVALDS_X,LINUS_TORVALDS_Y), String("Linus Torvalds"), LINUS_TORVALDS_LIFE, LINUS_TORVALDS_MANA, LINUS_TORVALDS_POWER,map_courante);
-	bot->setPosition(Vector2f(90,90));	
+	bot->setPosition(Vector2f(32*7,32*3));	
+	bot->update_path(map_courante,joueur);
 	entitys.push_front(bot);
    bot->play();
-   if (entitys.empty()) 
-            cout << "liste vide 1" << endl;
-
+   /*int xStart = 7;
+   int yStart = 3;
+   int xFinish = 8;
+   int yFinish = 25;*/
+   
+  // cout << "CHAINE CHEMIN" << bot->pathFind( xStart, yStart, xFinish, yFinish, map_courante) << endl;
+   //cout << "CHAINE CHEMIN " << bot->GetPath() << endl;
+   
    
 	camera = new Camera(mainWindow_,joueur);
 	view = new View();
 	//camera->setCameraXY(BASE_SPRITE * MAP_1_WIDTH,BASE_SPRITE * MAP_1_HEIGHT);
 	
-   cout << "Camera created" << endl;
-if (entitys.empty()) 
-            cout << "liste vide 2" << endl;
 
-	
 	// ANIMATION EFFECT
 	
 	//AnimationEffect *effect = new AnimationEffect(mainWindow_,effect_003,test_effect,linus);
@@ -468,17 +470,21 @@ if (entitys.empty())
    const Input &input = mainWindow_->GetInput();
    while (mainWindow_->IsOpened() && !(fin_de_boucle) && *gameState_ == Playing)
    {
-   mainWindow_->SetFramerateLimit(30);
+      mainWindow_->SetFramerateLimit(30);
       camera->setCameraXY(*(map_courante->get_Largeur()) * BASE_SPRITE,*(map_courante->get_Hauteur()) * BASE_SPRITE);
-			mainWindow_->Draw(*(map_courante->sprite_map_));
+		mainWindow_->Draw(*(map_courante->sprite_map_));
 			
-            
-					displayEntity(clock);
       if (input.IsKeyDown(Key::Z) ||input.IsKeyDown(Key::Q) || input.IsKeyDown(Key::D) || input.IsKeyDown(Key::S) ) {
    
 				joueur->soclePosition();
 				joueur->actionKey(map_courante);
 				map_courante = joueur->getMap();
+				for(auto s : entitys){
+		         
+			      s->follow_path(map_courante, joueur);
+		         
+	         }
+
 				
 		}
    
@@ -511,9 +517,8 @@ if (entitys.empty())
 		camera->run();	
 
 		// TEST PROJECTILES
-		projectile.update();
-		projectile.draw();
-		bot->moveDown();	
+		//projectile.update();
+		//projectile.draw();
 
 		// Mise a jours des sprites et affichage
 		displayEntity(clock);
@@ -575,13 +580,13 @@ Game::keyPressedManagement (Key::Code keyPressed)
 }
 
 void 
-Game::addEntity(Entity *entity)
+Game::addEntity(Bot *entity)
 {
 	entitys.push_back(entity);
 }
 
 void 
-Game::removeEntity(Entity *entity)
+Game::removeEntity(Bot *entity)
 {
 	entitys.remove(entity);
 }
@@ -600,10 +605,9 @@ Game::displayEntity(Clock &time)
    joueur->draw();
       
 	for(auto s : entitys){
-	cout << "print bot" << endl;
-		if(refresh && s->isPlaying()){
+		if(refresh ){
 			s->update();
-			
+			//s->follow_path(map_courante, joueur);
 		}
 		s->draw();
 	}
