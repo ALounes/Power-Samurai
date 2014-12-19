@@ -1,36 +1,5 @@
+#include "bot_algorithm.hpp"
 
-// inspiré de http://www.policyalmanac.org/games/aStarTutorial.htm
-#include <iostream>
-#include <iomanip>
-#include <queue>
-#include <string>
-#include <math.h>
-#include <ctime>
-#include "node_bot.hpp"
-
-using namespace std;
-using namespace sf;
-
-
-
-const int n=60; // Taille horizontale de la carte 
-const int m=60; // Taille verticale de la carte
-static int Map[n][m];
-
-static int open_Nodes_Map[n][m]; // Carte représentant les noeuds que l'on n'a pas encore testé mais scanné
-static int closed_Nodes_Map[n][m]; // Carte représentant les noeuds que l'on a déjà testé
-static int dir_Map[n][m]; // Carte des directions
-const int dir=8; // Nombre de directions possibles à partir d'une case
-static int dx[dir]={1, 1, 0, -1, -1, -1, 0, 1}; // Caractérisation du déplacement
-static int dy[dir]={0, 1, 1, 1, 0, -1, -1, -1};
-
-/*
-5|6|7
--+-+-
-4|X|0
--+-+-
-3|2|1
-*/
 
 // Surcharge, permet d'obtenir le noeud de priorité la plus grande
 bool operator<(const Node & a, const Node & b)
@@ -109,7 +78,7 @@ string pathFind( const int & xStart, const int & yStart,
         {
             xdx=x+dx[i]; ydy=y+dy[i];
             // Cas sortie de Map ou déjà dans la carte des noeuds déjà explorés, ou on ne peut pas marcher dessus
-            if(!(xdx<0 || xdx>n-1 || ydy<0 || ydy>m-1 || Map[xdx][ydy]==1 
+            if(!(xdx<0 || xdx>n-1 || ydy<0 || ydy>m-1 || Map[xdx][ydy]== 0 
                 || closed_Nodes_Map[xdx][ydy]==1))
             {
                 // on  crèe un noeud fils
@@ -176,33 +145,33 @@ int main()
     // On initialise la Map
     for(int y=0;y<m;y++)
     {
-        for(int x=0;x<n;x++) Map[x][y]=0;
+        for(int x=0;x<n;x++) Map[x][y]=1;
     }
 
     // remplissage des obstacles
     for(int x=n/8;x<n*7/8;x++)
     {
-        Map[x][m/2]=1;
+        Map[x][m/2]=0;
     }
     for(int y=m/8;y<m*7/8;y++)
     {
-        Map[n/2][y]=1;
+        Map[n/2][y]=0;
     }
-    Map[20][20]=1;
-    Map[20][21]=1;
-    Map[20][22]=1;
-    Map[20][23]=1;
-    Map[20][24]=1;
-    Map[20][25]=1;
+    Map[20][20]=0;
+    Map[20][21]=0;
+    Map[20][22]=0;
+    Map[20][23]=0;
+    Map[20][24]=0;
+    Map[20][25]=0;
     
-    Map[41][31]=1;
-    Map[41][32]=1;
-    Map[41][33]=1;
-    Map[41][34]=1;
-    Map[41][35]=1;
-    Map[41][36]=1;
-    Map[41][37]=1;
-    Map[41][38]=1;
+    Map[41][31]=0;
+    Map[41][32]=0;
+    Map[41][33]=0;
+    Map[41][34]=0;
+    Map[41][35]=0;
+    Map[41][36]=0;
+    Map[41][37]=0;
+    Map[41][38]=0;
     
     
     int xA, yA, xB, yB;
@@ -233,7 +202,7 @@ int main()
         int y=yA;
         Map[x][y]=2;
         
-        for(int i=0;i< (int)route.length();i++)
+        for(int i=0;i < (int)route.length();i++)
         {
         while (clock.GetElapsedTime() < 0.1)
         {
@@ -261,9 +230,9 @@ int main()
         for(int y=0;y<m;y++)
         {
             for(int x=0;x<n;x++)
-                if(Map[x][y]==0)
+                if(Map[x][y]==1)
                     cout<<".";
-                else if(Map[x][y]==1)
+                else if(Map[x][y]==0)
                     cout<<"O"; //obstacle
                 else if(Map[x][y]==2)
                     cout<<"D"; //Début

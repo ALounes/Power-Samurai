@@ -19,6 +19,7 @@
 #include "bjarnestroustrup.hpp"
 #include "alanturing.hpp"
 #include "projectile.hpp"
+//#include "bot_algorithm.hpp"
 
 
 enum direction {DOWN,LEFT,RIGHT,UP};

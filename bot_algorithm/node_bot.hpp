@@ -18,7 +18,8 @@ class Node
         int getPriority() const ;
 
         void updatePriority(const int & xDest, const int & yDest);
-
+        
+       
 
         void nextLevel(const int & i) ; 
         
@@ -29,10 +30,9 @@ class Node
         // position courante
         int xPos;
         int yPos;
-       
         int level;      // distance totale parcourue pour arriver au noeud
-                       // priority = level+ distance restante estimée
-        int priority;   // plus la valeur est petite, plus la priorité est grande
+                       
+        int priority;   //  priority = level+ distance restante estimée. Plus la valeur est petite, plus la priorité est grande 
         
 };
 
