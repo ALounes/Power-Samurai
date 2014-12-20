@@ -484,6 +484,9 @@ void Game::RunGame()
 	// TEST PROJECTILE	
 	Projectile projectile(mainWindow_,feux,vfeux,joueur,16);
 
+   displayEntity(clock);
+	mainWindow_->Display();
+
    // Exécution de la boucle principale
    bool fin_de_boucle = false;
    const Input &input = mainWindow_->GetInput();

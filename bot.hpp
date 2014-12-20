@@ -35,7 +35,11 @@ class Bot: public Entity
 	
 	void update_path(Map * map,Player * player);
 	
+	
+	
 	void follow_path(Map *map, Player * player);
+	
+	void update();
 
 	private:
 	

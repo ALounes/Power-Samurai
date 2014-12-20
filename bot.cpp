@@ -124,8 +124,7 @@ string Bot::pathFind( const int & xStart, const int & yStart,
         {
             xdx=x+dx[i]; ydy=y+dy[i];
             // Cas sortie de Map ou déjà dans la carte des noeuds déjà explorés, ou on ne peut pas marcher dessus
-            if(!(xdx<0 || xdx>n-1 || ydy<0 || ydy>m-1 || map_->getVector()[ydy][xdx]== 0 
-                || closed_Nodes_Map[xdx][ydy]==1))
+            if(!(xdx<0 || xdx>n-1 || ydy<0 || ydy>m-1 || map_->getVector()[ydy][xdx] != 1 || closed_Nodes_Map[xdx][ydy]==1))
             {
                 // on  crèe un noeud fils
                 m0=new Node( xdx, ydy, n0->getLevel(), 
@@ -192,7 +191,7 @@ void Bot::follow_path(Map * map, Player * player) {
    int j;
    char c;
    update_path(map, player);
-   //cout << "Chemin : " << path << endl;
+   cout << "Chemin : " << path << endl;
    
    if (path == "")
    {
@@ -200,13 +199,14 @@ void Bot::follow_path(Map * map, Player * player) {
    }
    else {
       c = path.at(0);
-      cout << "Direction bot : " << c << endl;
+      //cout << "Direction bot : " << c << endl;
       j = atoi(&c);
 
       switch(j) 
       {
-         cout << "Premiere case du chemin : " << path.at(0);
+         //cout << "Premiere case du chemin : " << path.at(0);
          case 0 : {
+         runMove();
             moveRight();
             break;
          }
@@ -247,18 +247,24 @@ void Bot::follow_path(Map * map, Player * player) {
             moveUpRight();
             break;
          }
-         case 8 : {
-            runMove();
-            
-            break;
-         }
          default :
             break;
       }
    }
-   cout << "position du perso : (x,y) = " << player->soclePosition()[1]<<", " << player->soclePosition()[3] << endl;
+   //cout << "position du perso : (x,y) = " << player->soclePosition()[1]<<", " << player->soclePosition()[3] << endl;
    //cout << "Centre perso : (x,y) = " << player->getCenter()
-   cout << "position du bot: (x,y) = " << soclePosition()[1]<<", " << soclePosition()[3] << endl;
+   //cout << "position du bot: (x,y) = " << soclePosition()[1]<<", " << soclePosition()[3] << endl;
 }
-        
+
+
+void 
+Bot::update()
+{
+	if (isMoving())
+	{
+		updateSprite();
+		animationRight();
+		stopMove();
+	}
+}
 

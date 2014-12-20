@@ -13,8 +13,8 @@
 
 
 
-const int n=26; // Taille horizontale de la carte 
-const int m=26; // Taille verticale de la carte
+const int n=47; // Taille horizontale de la carte 
+const int m=47; // Taille verticale de la carte
 //static int Socle_Map[n][m];
 
 static int open_Nodes_Map[n][m]; // Carte représentant les noeuds que l'on n'a pas encore testé mais scanné

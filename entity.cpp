@@ -129,13 +129,30 @@ Entity::legalDeplacement(int x, int y)
 }
 
 void 
-Entity::moveUp()
+Entity::moveUp() //Okay
 {
 	if(legalDeplacement(getCenter().x + getAnimationWidth()/3,getCenter().y - getAnimationHeight()/3 - getSpeed()) &&  legalDeplacement(getCenter().x - getAnimationWidth()/3 ,getCenter().y - getAnimationHeight()/3 - getSpeed())){
 
 		mySprite_->Move(ZERO,-getSpeed());
 		setAnimationY(UP);
 		//cout << "deplacement autorisé " << endl;
+	}
+	else {
+	   if(legalDeplacement(getCenter().x + getAnimationWidth()/3, getCenter().y - getAnimationHeight()/3 - getSpeed()) ){
+
+		   mySprite_->Move(getSpeed(),ZERO);
+		   setAnimationY(RIGHT); // Glisser à droite
+	   }
+	   else {
+	       if(legalDeplacement(getCenter().x - getAnimationWidth()  / 3,getCenter().y - getAnimationHeight()  / 3 - getSpeed()) ){
+	//cout << "center X + speed: " << getCenter().x - getSpeed()<< "center Y + speed: " << getCenter().y + getSpeed() << endl;
+		      mySprite_->Move(-getSpeed(),ZERO);
+		      setAnimationY(LEFT); // Glisser à gauche
+	       }
+	   }
+	      
+	
+	
 	}
 	
 }
@@ -148,6 +165,23 @@ Entity::moveDown()
 		mySprite_->Move(ZERO,getSpeed());
 		setAnimationY(DOWN);
 	}
+	else {
+	   if(legalDeplacement(getCenter().x + getAnimationWidth()/3, getCenter().y + getAnimationHeight()/3 + getSpeed()) ){
+
+		   mySprite_->Move(getSpeed(),ZERO);
+		   setAnimationY(RIGHT); // Glisser à droite
+	   }
+	   else {
+	       if(legalDeplacement(getCenter().x - getAnimationWidth()  / 3,getCenter().y + getAnimationHeight()  / 3 + getSpeed()) ){
+	//cout << "center X + speed: " << getCenter().x - getSpeed()<< "center Y + speed: " << getCenter().y + getSpeed() << endl;
+		      mySprite_->Move(-getSpeed(),ZERO);
+		      setAnimationY(LEFT); // Glisser à gauche
+	       }
+	   }
+	      
+	
+	
+	}
 }
 
 void 
@@ -157,6 +191,23 @@ Entity::moveLeft()
 
 		mySprite_->Move(-getSpeed(),ZERO);
 		setAnimationY(LEFT);
+	}
+	else {
+	   if(legalDeplacement(getCenter().x - getAnimationWidth()/3 - getSpeed(), getCenter().y - getAnimationHeight()/3) ){
+
+		   mySprite_->Move(ZERO,-getSpeed());
+		   setAnimationY(UP); // Glisser en haut
+	   }
+	   else {
+	       if(legalDeplacement(getCenter().x - getAnimationWidth()  / 3 - getSpeed(),getCenter().y + getAnimationHeight()  / 3) ){
+	//cout << "center X + speed: " << getCenter().x - getSpeed()<< "center Y + speed: " << getCenter().y + getSpeed() << endl;
+		      mySprite_->Move(ZERO,getSpeed());
+		      setAnimationY(DOWN); // Glisser en bas
+	       }
+	   }
+	      
+	
+	
 	}
 }
 
@@ -168,6 +219,24 @@ Entity::moveRight()
 		mySprite_->Move(getSpeed(),ZERO);
 		setAnimationY(RIGHT);
 	}
+	else {
+	   if(legalDeplacement(getCenter().x + getAnimationWidth()/3 + getSpeed(), getCenter().y - getAnimationHeight()/3) ){
+
+		   mySprite_->Move(ZERO,-getSpeed());
+		   setAnimationY(UP); // Glisser en haut
+	   }
+	   else {
+	       if(legalDeplacement(getCenter().x + getAnimationWidth()  / 3 + getSpeed(),getCenter().y + getAnimationHeight()  / 3) ){
+	//cout << "center X + speed: " << getCenter().x - getSpeed()<< "center Y + speed: " << getCenter().y + getSpeed() << endl;
+		      mySprite_->Move(ZERO,getSpeed());
+		      setAnimationY(DOWN); // Glisser en bas
+	       }
+	   }
+	      
+	
+	
+	}
+	
 }
 
 
@@ -186,7 +255,12 @@ Entity::moveUpRight()
 		   setAnimationY(RIGHT);
 	   }
 	   else {
-	      moveUp();
+	      if(legalDeplacement(getCenter().x + getAnimationWidth()/3,getCenter().y - getAnimationHeight()/3 - getSpeed()) &&  legalDeplacement(getCenter().x - getAnimationWidth()/3 ,getCenter().y - getAnimationHeight()/3 - getSpeed())){
+
+		   mySprite_->Move(ZERO,-getSpeed());
+		   setAnimationY(UP);
+		//cout << "deplacement autorisé " << endl;
+	      }
 	   }
 	}
 }
@@ -206,7 +280,11 @@ Entity::moveDownRight()
 		   setAnimationY(RIGHT);
 	   }
 	   else {
-	      moveDown();
+	      if(legalDeplacement(getCenter().x + getAnimationWidth()/3,getCenter().y + getAnimationHeight()  / 3 + getSpeed()) && legalDeplacement(getCenter().x - getAnimationWidth()/3,getCenter().y + getAnimationHeight()  / 3 + getSpeed())){
+
+		      mySprite_->Move(ZERO,getSpeed());
+		      setAnimationY(DOWN);
+	      }
 	   }
 	}
 }
@@ -225,7 +303,12 @@ Entity::moveUpLeft()
 		setAnimationY(LEFT);
 	   }
 	   else {
-	      moveUp();
+	      if(legalDeplacement(getCenter().x + getAnimationWidth()/3,getCenter().y - getAnimationHeight()/3 - getSpeed()) &&  legalDeplacement(getCenter().x - getAnimationWidth()/3 ,getCenter().y - getAnimationHeight()/3 - getSpeed())){
+
+		      mySprite_->Move(ZERO,-getSpeed());
+		      setAnimationY(UP);
+		//cout << "deplacement autorisé " << endl;
+	      }
 	   }
 	
 	}
@@ -245,7 +328,11 @@ Entity::moveDownLeft()
 		setAnimationY(LEFT);
 	   }
 	   else {
-	      moveDown();
+	      if(legalDeplacement(getCenter().x + getAnimationWidth()/3,getCenter().y + getAnimationHeight()  / 3 + getSpeed()) && legalDeplacement(getCenter().x - getAnimationWidth()/3,getCenter().y + getAnimationHeight()  / 3 + getSpeed())){
+
+		      mySprite_->Move(ZERO,getSpeed());
+		      setAnimationY(DOWN);
+	      }
 	   }
 	
 	}
