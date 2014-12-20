@@ -36,11 +36,18 @@ Animation::setAnimation(int i)
 	int x ,y ;
  
 	x = i % numberOfAnim_.x;
-	y = i / numberOfAnim_.x;
+	y = i / numberOfAnim_.y;
 
 	setAnimationX(x);
 	setAnimationY(y);
 	updateSprite();
+}
+
+void Animation::setAnimationWidth (int x) {
+   sizeSprite_.x = x;
+}
+void Animation::setAnimationHeight (int y) {
+   sizeSprite_.y = y;
 }
 
 void 

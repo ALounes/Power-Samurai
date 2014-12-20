@@ -22,6 +22,8 @@ class Animation
 	int  getWidth () const;
 	int  getHeight() const;
 	int  getAnimationWidth () const;
+	void setAnimationWidth (int x) ;
+	void setAnimationHeight (int x) ;
 	int  getAnimationHeight() const;
 	Sprite* getSprite() const;
 	

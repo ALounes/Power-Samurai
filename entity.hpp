@@ -38,8 +38,8 @@ class Entity : public Animation
 	void stopMove();
 	bool isMoving() const;
 
-	int  getSpeed() const;
-	void setSpeed(int speed);
+	float  getSpeed() const;
+	void setSpeed(float speed);
 
 	int* soclePosition() const;
 	int* getSocle(int x, int y) const;
@@ -47,7 +47,7 @@ class Entity : public Animation
 	private:
 	
 	bool moving_;
-	int  moveSpeed_;
+	float  moveSpeed_;
 	Map  *myMap_;
 };
 

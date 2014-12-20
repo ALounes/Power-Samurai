@@ -433,14 +433,33 @@ void Game::RunGame()
  	
  	setPlayer(mainWindow_,image_joueur);
  	
+ 	
+ 	// BOT 1
  	Image image_bot;
 	if(!image_bot.LoadFromFile("sprite/LinusTorvalds.png"))
 		cout << "erreur " << endl ;
 	Bot *bot = new Bot(mainWindow_,image_bot,Vector2i(LINUS_TORVALDS_X,LINUS_TORVALDS_Y), String("Linus Torvalds"), LINUS_TORVALDS_LIFE, LINUS_TORVALDS_MANA, LINUS_TORVALDS_POWER,map_courante);
 	bot->setPosition(Vector2f(32*7,32*3));	
 	bot->update_path(map_courante,joueur);
+	bot->play();
+	bot->setSpeed(1.5);
 	entitys.push_front(bot);
-   bot->play();
+	
+	
+	
+	// BOT 2
+	Image image_bot2;
+	if(!image_bot2.LoadFromFile("sprite/blonde.png"))
+		cout << "erreur " << endl ;
+	Bot *bot2 = new Bot(mainWindow_,image_bot2,Vector2i(LINUS_TORVALDS_X,LINUS_TORVALDS_Y), String("Linus Torvalds"), LINUS_TORVALDS_LIFE, LINUS_TORVALDS_MANA, LINUS_TORVALDS_POWER,map_courante);
+	bot2->setPosition(Vector2f(32*20,32*20));	
+	bot2->update_path(map_courante,joueur);
+	bot2->play();
+	bot2->setSpeed(1.5);
+	entitys.push_front(bot2);
+
+
+   
    /*int xStart = 7;
    int yStart = 3;
    int xFinish = 8;
@@ -479,14 +498,13 @@ void Game::RunGame()
 				joueur->soclePosition();
 				joueur->actionKey(map_courante);
 				map_courante = joueur->getMap();
-				for(auto s : entitys){
-		         
-			      s->follow_path(map_courante, joueur);
-		         
-	         }
 
-				
 		}
+						cout << "Centre x : " << joueur->getCenter().x << endl;
+												cout << "Centre y : " << joueur->getCenter().y << endl;
+      for(auto s : entitys){
+		   s->follow_path(map_courante, joueur);
+	   }
    
 		while (mainWindow_->GetEvent(event) )
 		{
@@ -695,6 +713,9 @@ void Game::setPlayer(RenderWindow  * mainwin,Image * image) {
         joueur = new LinusTorvalds(mainwin,*image_joueur,map_courante);
         mainwin->Draw(*(joueur->getSprite()));
         joueur->setPosition(Vector2f(PLAYER_X_START*BASE_SPRITE ,PLAYER_Y_START*BASE_SPRITE));
+        //joueur->setAnimationWidth (32);
+        //joueur->setAnimationHeight (32);
+
         //entitys.push_front(joueur);
         break;
       }

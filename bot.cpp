@@ -179,7 +179,8 @@ string Bot::pathFind( const int & xStart, const int & yStart,
 }
 
 void Bot::update_path(Map * map, Player * player) {
-   path = pathFind(soclePosition()[0], soclePosition()[2], player->soclePosition()[0], player->soclePosition()[2], map);
+   //path = pathFind(soclePosition()[1], soclePosition()[3], player->soclePosition()[1], player->soclePosition()[3], map);
+   path = pathFind(getCenter().x / getAnimationWidth(), getCenter().y / getAnimationWidth(), player->getCenter().x / getAnimationWidth(), player->getCenter().y / getAnimationWidth(), map);
    //cout << "position pour le bot du perso : (x,y) = " << player->soclePosition()[0]<<", " << player->soclePosition()[2] << endl;
 }
 
@@ -255,6 +256,9 @@ void Bot::follow_path(Map * map, Player * player) {
             break;
       }
    }
+   cout << "position du perso : (x,y) = " << player->soclePosition()[1]<<", " << player->soclePosition()[3] << endl;
+   //cout << "Centre perso : (x,y) = " << player->getCenter()
+   cout << "position du bot: (x,y) = " << soclePosition()[1]<<", " << soclePosition()[3] << endl;
 }
         
 
