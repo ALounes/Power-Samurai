@@ -15,14 +15,14 @@ Projectile::Projectile(RenderWindow *win, Image* image, const Vector2i& nbrOfAni
 Projectile::~Projectile()
 {}
 
-char 
+int 
 Projectile::getDirection() const
 {
 	return direction_;
 }
 
 void
-Projectile::setDirection(char direction) 
+Projectile::setDirection(int direction) 
 {
 	direction_ = direction;
 }
@@ -30,60 +30,53 @@ Projectile::setDirection(char direction)
 void 
 Projectile::update()
 {
-	char direction = getDirection();
-
-	if (isMoving())
-	{
-		if(iAnim_ < numberOfEffect_)
-		{
-			setAnimation(++iAnim_);
-			draw();
-		}
-		else
-		{
-			iAnim_= 0;
-		}	
-		stopMove();
-	}
-
+	int direction = getDirection();
+	
+   //cout << "direction : " << direction << endl;
 	switch(direction)
 	{
-		case DOWN :
+		case 2 :
 			runMove();
 			moveDown();
 			break;
 
-		case LEFT:
+		case 4:
 			runMove();
 			moveLeft();
 			break;
 
-		case RIGHT:
+		case 0:
 			runMove();
 			moveRight();
 			break;
 
-		case UP:
+		case 6:
 			runMove();
+			//cout << "Move" << endl;
+			cout << "x1 :" << getCenter().x << endl;
+			cout << "y1 :" << getCenter().y << endl;
 			moveUp();
+			cout << "cas 6" << endl;
+			cout << "x2 :" << getCenter().x << endl;
+			cout << "y2 :" << getCenter().y << endl;
 			break;
 
-		case UPLEFT:
+		case 5:
 			runMove();
 			moveUpLeft();
 			break;
 
-		case UPRIGHT:
+		case 7:
 			runMove();
 			moveUpRight();
 			break;
 
-		case DOWNLEFT:
+		case 3:
 			runMove();
 			moveDownLeft();
 			break;
 
-		case DOWNRIGHT:
+		case 1:
 			runMove();
 			moveDownRight();
 			break;
@@ -91,5 +84,22 @@ Projectile::update()
 		default: // Cas -1 pas de mouvement
 			break;
 	}
+	
+	if (isMoving())
+	{
+		if(iAnim_ < numberOfEffect_)
+		{
+			setAnimation(++iAnim_);
+			//draw();
+		}
+		else
+		{
+			iAnim_= 0;
+		}	
+		stopMove();
+	}
+	
+	cout << "x3 :" << getCenter().x << endl;
+	cout << "y3 :" << getCenter().y << endl;
 }
 

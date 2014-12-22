@@ -58,11 +58,11 @@ bool
 Entity::legalDeplacement(int x, int y) 
 {	
 		//cout << " x et y : " << x << y << endl;
-
+   
 	int *socle = getSocle(y,x); // CAR HAUTEUR DU TABLEAU = X !!!
 	int i = socle[0];
 	int j = socle[2];
-
+   cout << "i : " << i << "j : " << j << endl;
 	//int i = getCenter().x / 32;
 	//int j = getCenter().y / 32;
 		
@@ -71,12 +71,14 @@ Entity::legalDeplacement(int x, int y)
 		return false;
 	else {
 	   switch ( myMap_->getSocleMap(i,j) ) {
-	   
-	      case 0 : 	         
+	  
+	      case 0 :
+            cout << "Cas 0 : " << endl;
 	         return false;
 	         break;
 
 	      case 1 :
+            cout << "Cas 1 : " << endl;
 	         return true;
 	         break;
 
@@ -87,6 +89,9 @@ Entity::legalDeplacement(int x, int y)
 				{	         
 		         setPosition(Vector2f(getMap()->get_tpPoints(1),getMap()->get_tpPoints(0)));   //(Y, X)
 		         setMap(getMap()->getLink(1));
+		         map_changed = 1;
+		         cout << "map_changed (dans legal deplacement)" << map_changed << endl;
+		         return false;
 	         }
 
 	         return false;
@@ -99,6 +104,8 @@ Entity::legalDeplacement(int x, int y)
 				{	       
 	       		setPosition(Vector2f(getMap()->get_tpPoints(3),getMap()->get_tpPoints(2)));   //(Y, X)
 	       		setMap(getMap()->getLink(2));
+	       		map_changed = 2;
+	       		return false;
 	         }
 	         return false;
 	         break;
@@ -109,13 +116,16 @@ Entity::legalDeplacement(int x, int y)
 				{
 		         setPosition(Vector2f(getMap()->get_tpPoints(5),getMap()->get_tpPoints(4)));   //(Y, X)
 		         setMap(getMap()->getLink(3));
+		         map_changed = 3;
+		         return false;
 	         }
 
 	         return false;
 	         break;
 
 	      default :
-		      return false;
+
+		      return true;
 	         break;	         
 	   }
 	}
@@ -132,7 +142,7 @@ void
 Entity::moveUp() //Okay
 {
 	if(legalDeplacement(getCenter().x + getAnimationWidth()/3,getCenter().y - getAnimationHeight()/3 - getSpeed()) &&  legalDeplacement(getCenter().x - getAnimationWidth()/3 ,getCenter().y - getAnimationHeight()/3 - getSpeed())){
-
+      cout << "Speed : " << getSpeed() << endl;
 		mySprite_->Move(ZERO,-getSpeed());
 		setAnimationY(UP);
 		//cout << "deplacement autorisé " << endl;
@@ -359,10 +369,10 @@ Entity::soclePosition() const
 	int *tab = new int[4];
 	Vector2f socle = getCenter();
 
-	tab[0] = (socle.x - getAnimationWidth()/2) / getAnimationWidth();
-	tab[1] = (socle.x + getAnimationWidth()/2) / getAnimationWidth();
-	tab[2] = (socle.y - getAnimationHeight()/2) / getAnimationHeight();
-	tab[3] = (socle.y + getAnimationHeight()/2) / getAnimationHeight();
+	tab[0] = (socle.x - ELEM_WIDTH/2) / ELEM_WIDTH;
+	tab[1] = (socle.x + ELEM_WIDTH/2) / ELEM_WIDTH;
+	tab[2] = (socle.y - ELEM_HEIGHT/2) / ELEM_HEIGHT;
+	tab[3] = (socle.y + ELEM_HEIGHT/2) / ELEM_HEIGHT;
 
 	return tab;
 }
@@ -372,10 +382,10 @@ Entity::getSocle(int x, int y) const
 {	
 	int *tab = new int[4];
 
-	tab[0] = x / getAnimationWidth();
-	tab[1] = x / getAnimationWidth();
-	tab[2] = y / getAnimationHeight();
-	tab[3] = y / getAnimationHeight();
+	tab[0] = x / ELEM_WIDTH;
+	tab[1] = x / ELEM_WIDTH;
+	tab[2] = y / ELEM_HEIGHT;
+	tab[3] = y / ELEM_HEIGHT;
 	
 	//cout << " tab socle : "<< tab[0] << " " << tab[1] << " "  << tab[2] << " "  << tab[3] <<  endl;
 
@@ -389,4 +399,20 @@ void Entity::setMap(Map * map) {
 
 Map * Entity::getMap() const {
    return myMap_;
+}
+
+int Entity::isMapChanged() {
+   return map_changed;
+}  
+
+void Entity::setMapChanged(int x) {
+   map_changed = x;
+}
+
+int Entity::getId() const {
+   return id;
+}
+
+void Entity::setId(int x) {
+   id = x;
 }

@@ -36,6 +36,9 @@ class Player : public Entity
 	bool haveMana() const;
 	
 	void update();
+	
+	int getCurrentDirection();
+	void setCurrentDirection(int);
 
 	private:
 	
@@ -45,6 +48,8 @@ class Player : public Entity
 	int lifeMax_;
 	int manaMax_;
 	enum power power_;
+	int current_direction;
+	
 
 };
 

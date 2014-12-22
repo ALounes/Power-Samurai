@@ -21,7 +21,8 @@ Player::~Player()
 
 void
 Player::actionKey(Map * map)
-{
+{  
+   cout << "xperso : " << getPosition().x << "yperso :" << getPosition().y << endl;
 	const sf::Input &input = win_->GetInput();
 	int compteur_deplacement = 0;
 	
@@ -44,48 +45,56 @@ Player::actionKey(Map * map)
 	  {
 		runMove();
 		moveRight();
+		current_direction = 0;
 		  break;
 	  }
 	  case -1 :
 	  {
 		runMove();
 		moveLeft();
+		current_direction = 4;
 		  break;
 	  }
 	  case 3 :
 	  {
 		runMove();
 		moveDown();
+		current_direction = 2;
 		  break;
 	  }
 	  case -3 :
 	  {
 		runMove();
 		moveUp();
+		current_direction = 6;
 		  break;
 	  }
 	  case 2 :
 	  {
 		runMove();
 		moveDownLeft();
+		current_direction = 4;
 		  break;
 	  }
 	  case 4 :
 	  {
 		runMove();
 		moveDownRight();
+		current_direction = 0;
 		  break;
 	  }
 	  case -2 :
 	  {
 		runMove();
 		moveUpRight();
+		current_direction = 0;
 		  break;
 	  }
 	  case -4 :
 	  {
 		runMove();
 		moveUpLeft();
+		current_direction = 4;
 		  break;
 	  }
 	  default :
@@ -233,4 +242,12 @@ void
 Player::bonusManaMac(int mana)
 {
 	manaMax_ += mana;
+}
+
+int Player::getCurrentDirection() {
+   return current_direction;
+}
+
+void Player::setCurrentDirection(int x) {
+   current_direction = x;
 }

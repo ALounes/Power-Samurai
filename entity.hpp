@@ -5,6 +5,9 @@
 #include "config.hpp"
 #include "map.hpp"
 
+#define ELEM_HEIGHT 32
+#define ELEM_WIDTH 32
+
 class Entity : public Animation
 {
 	public :
@@ -43,12 +46,21 @@ class Entity : public Animation
 
 	int* soclePosition() const;
 	int* getSocle(int x, int y) const;
+	
+	int isMapChanged();
+	void setMapChanged(int);
+	int getId() const;
+	void setId(int);
+	
 
 	private:
 	
 	bool moving_;
-	float  moveSpeed_;
+	float moveSpeed_;
 	Map  *myMap_;
+	
+	int map_changed = 0;
+	int id;
 };
 
 #endif

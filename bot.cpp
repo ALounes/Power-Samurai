@@ -190,12 +190,12 @@ string Bot::GetPath() const {
 void Bot::follow_path(Map * map, Player * player) {
    int j;
    char c;
-   update_path(map, player);
+   //update_path(map, player);
    cout << "Chemin : " << path << endl;
    
    if (path == "")
    {
-      //LE BOT TOUCHE LE PERSO
+
    }
    else {
       c = path.at(0);
@@ -251,7 +251,7 @@ void Bot::follow_path(Map * map, Player * player) {
             break;
       }
    }
-   //cout << "position du perso : (x,y) = " << player->soclePosition()[1]<<", " << player->soclePosition()[3] << endl;
+   cout << "position du perso : (x,y) = " << player->soclePosition()[1]<<", " << player->soclePosition()[3] << endl;
    //cout << "Centre perso : (x,y) = " << player->getCenter()
    //cout << "position du bot: (x,y) = " << soclePosition()[1]<<", " << soclePosition()[3] << endl;
 }
@@ -266,5 +266,20 @@ Bot::update()
 		animationRight();
 		stopMove();
 	}
+}
+
+void Bot::setRange(int x){
+   range_ = x;
+}
+int Bot::getRange() {
+   return range_;
+}
+
+
+void Bot::setDistance(int x){
+   distance = x;
+}
+int Bot::getDistance() {
+   return distance;
 }
 

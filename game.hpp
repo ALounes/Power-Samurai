@@ -45,6 +45,7 @@ public:
 	void eventManagement(Event &event);
 	void keyPressedManagement (Key::Code keyPressed);
 	void launchingPause();
+	void loadBot();
   
 private:
 	 bool IsExiting();
@@ -56,6 +57,7 @@ private:
 	 void ShowMainMenu();
 	 void RunGame();
 	 void setPlayer(RenderWindow  * mainwin,Image * image_joueur);
+	 void setDifficulty();
 
 
   enum GameState { Uninitialized, ShowingSplash, Paused, 
@@ -67,6 +69,7 @@ private:
    PlayersMenu    *playersMenu_;
 	list<Bot*> entitys;
 	list<AnimationEffect*> effects;
+	list<Projectile*> projectiles;
 	 
 	Player *joueur;
 	Image  *image_joueur;
@@ -79,6 +82,11 @@ private:
    Map    *map_4;
    Map    *map_courante;
 	RenderWindow  *mainWindow_;
+   float ResultDifficulty = 1;	
+	
+	Image *image_bot_linus;
+	Image *image_bot_blonde;
+	Image *image_projectile;
 };
 
 

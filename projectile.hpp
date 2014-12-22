@@ -2,7 +2,7 @@
 #define PROJECTILE_HPP
 
 #include "entity.hpp"
-#define PROJECTILE_DIRECTION_DEFAULT 3
+#define PROJECTILE_DIRECTION_DEFAULT 6
 
 class Projectile : public Entity
 {
@@ -12,12 +12,12 @@ class Projectile : public Entity
 	~Projectile();
 
 	void update();
-	char getDirection() const;
-	void setDirection(char direction) ;
+	int getDirection() const;
+	void setDirection(int direction) ;
 
 	private:
 
-	char direction_;
+	int direction_;
 	int  iAnim_;
 	const int numberOfEffect_;
 };

@@ -3,7 +3,11 @@
 
 #include "config.hpp"
 #include "stdafx.hpp"
+#include <list>
 
+#define BOT3 -3
+#define BOT2 -2
+#define BOT1 -1
 #define DECOR 0 
 #define VIDE 1
 #define LINK_MAP_1 2 
@@ -14,6 +18,8 @@
 #define WEAPON_1 20
 #define WEAPON_2 21
 #define WEAPON_3 22
+
+class Bot;
 
 class Map
 {
@@ -39,12 +45,14 @@ public:
    int ** getVector();
 
    Image  *image_map_;
-	 Sprite *sprite_map_;  
+	Sprite *sprite_map_; 
+	list<Bot*> Bot_list;
 
 private:
 
    
-
+   
+   
    int ** Vector_map_;
 
    Map * link_map_1_;

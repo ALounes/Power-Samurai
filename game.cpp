@@ -60,6 +60,9 @@ Game::Game ()
   map_courante = new Map();
   player_choice = new int;
   image_joueur = new Image;
+  image_bot_linus = new Image();
+  image_bot_blonde = new Image();
+  image_projectile = new Image();
  
   
   
@@ -80,6 +83,9 @@ Game::~Game ()
   delete mainWindow_;
   delete player_choice;
   delete image_joueur;
+  delete image_bot_linus;
+  delete image_bot_blonde;
+  delete image_projectile;
   //delete joueur;
   
   //delete difficultyMenu_;
@@ -140,6 +146,8 @@ void Game::Map_Load(void)
 	
   map_1->set_links(map_2,NULL,NULL);
   map_1->set_tpPoints(45,23,0,0,0,0);
+  
+   
 	
 	// Creation map 2
   
@@ -358,20 +366,25 @@ void Game::ShowDifficultyMenu()
 
 			break;
 	case DifficultyMenu::Easy:
+	      ResultDifficulty = 1.5;
 			*gameState_ = Game::ShowingMainMenu;
 
 			break;
 	case DifficultyMenu::Intermediate:
+	      ResultDifficulty = 3;
 			*gameState_ = Game::ShowingMainMenu;
 
 			break;
 	case DifficultyMenu::Hard:
+	      ResultDifficulty = 4;
 			*gameState_ = Game::ShowingMainMenu;
 
 			break;
 	default:    
+	      ResultDifficulty = 1.5;
 			break;	
 	}
+	
 }
 
 void Game::ShowPlayersMenu()
@@ -433,7 +446,10 @@ void Game::RunGame()
  	
  	setPlayer(mainWindow_,image_joueur);
  	
+ 	loadBot();
+ 	cout << "Bots chargés" << endl;
  	
+ 	/*
  	// BOT 1
  	Image image_bot;
 	if(!image_bot.LoadFromFile("sprite/LinusTorvalds.png"))
@@ -443,23 +459,11 @@ void Game::RunGame()
 	bot->update_path(map_courante,joueur);
 	bot->play();
 	bot->setSpeed(1.5);
-	entitys.push_front(bot);
+	entitys.push_front(bot);*/
 	
+	entitys = map_1->Bot_list;
+	cout << "entitys initialisée" << endl;
 	
-	
-	// BOT 2
-	Image image_bot2;
-	if(!image_bot2.LoadFromFile("sprite/blonde.png"))
-		cout << "erreur " << endl ;
-	Bot *bot2 = new Bot(mainWindow_,image_bot2,Vector2i(LINUS_TORVALDS_X,LINUS_TORVALDS_Y), String("Linus Torvalds"), LINUS_TORVALDS_LIFE, LINUS_TORVALDS_MANA, LINUS_TORVALDS_POWER,map_courante);
-	bot2->setPosition(Vector2f(32*20,32*20));	
-	bot2->update_path(map_courante,joueur);
-	bot2->play();
-	bot2->setSpeed(1.5);
-	entitys.push_front(bot2);
-
-
-   
    /*int xStart = 7;
    int yStart = 3;
    int xFinish = 8;
@@ -482,7 +486,8 @@ void Game::RunGame()
 
 
 	// TEST PROJECTILE	
-	Projectile projectile(mainWindow_,feux,vfeux,joueur,16);
+	
+	Projectile *projectile = new Projectile(mainWindow_,feux,vfeux,joueur,16);
 
    displayEntity(clock);
 	mainWindow_->Display();
@@ -500,14 +505,39 @@ void Game::RunGame()
    
 				joueur->soclePosition();
 				joueur->actionKey(map_courante);
-				map_courante = joueur->getMap();
+				
+				if (joueur->isMapChanged() != 0) {
+				   map_courante->Bot_list = entitys;
+				   map_courante = joueur->getMap();
+				   joueur->setMapChanged(0);
+				   entitys = map_courante->Bot_list;
+				}
+				
+				
 
 		}
-						cout << "Centre x : " << joueur->getCenter().x << endl;
-												cout << "Centre y : " << joueur->getCenter().y << endl;
+
+
       for(auto s : entitys){
-		   s->follow_path(map_courante, joueur);
+         s->update_path(map_courante, joueur);
+         s->setDistance( (s->GetPath()).size() );
+         
+         if (s->getDistance() > s->getRange())
+         {
+            // Cas SURPLACE
+         }
+         else {
+		      s->follow_path(map_courante, joueur);
+		   }
+
+
+		   
 	   }
+	   
+	   // TEST PROJECTILES
+      
+		projectile->update();
+		projectile->draw();
    
 		while (mainWindow_->GetEvent(event) )
 		{
@@ -537,10 +567,7 @@ void Game::RunGame()
       
 		camera->run();	
 
-		// TEST PROJECTILES
-		//projectile.update();
-		//projectile.draw();
-
+		
 		// Mise a jours des sprites et affichage
 		displayEntity(clock);
 	
@@ -555,6 +582,9 @@ void Game::RunGame()
    }
 mainWindow_->ShowMouseCursor(true);
 entitys.clear();
+(map_1->Bot_list).clear();
+(map_2->Bot_list).clear();
+(map_3->Bot_list).clear();
 effects.clear();
 delete view;
 delete camera;
@@ -587,12 +617,15 @@ Game::keyPressedManagement (Key::Code keyPressed)
       launchingPause();
 		
 	 	break;
-   case  Key::P :
-      map_courante = map_courante->getLink(1);
-
-		
+   case  Key::Space : {
+   
+      Vector2i vfeux(4,4);
+	   if (!image_projectile->LoadFromFile("sprite/feux.png"))
+		   cout << "erreur " << endl ;
+	   Projectile *projectile = new Projectile(mainWindow_,image_projectile ,vfeux,joueur,16);
+		projectiles.push_front(projectile);
 		break;
-
+   }
 
 		default: 
 			break;
@@ -628,8 +661,13 @@ Game::displayEntity(Clock &time)
 	for(auto s : entitys){
 		if(refresh ){
 			s->update();
-			//s->follow_path(map_courante, joueur);
 		}
+		s->draw();
+	}
+	for(auto s : projectiles){
+		//if(refresh ){
+			s->update();
+		//}
 		s->draw();
 	}
 
@@ -724,6 +762,7 @@ void Game::setPlayer(RenderWindow  * mainwin,Image * image) {
       }
 
    }
+   joueur->setId(0);
 }
 
 
@@ -780,5 +819,41 @@ void Game::launchingPause() {
 
 }
 
+void Game::loadBot() {
 
+   // MAP 1
 
+      // BOT 1
+	if(!image_bot_linus->LoadFromFile("sprite/LinusTorvalds.png"))
+		cout << "erreur " << endl ;
+	Bot *bot = new Bot(mainWindow_,*image_bot_linus,Vector2i(LINUS_TORVALDS_X,LINUS_TORVALDS_Y), String("Linus Torvalds"), LINUS_TORVALDS_LIFE, LINUS_TORVALDS_MANA, LINUS_TORVALDS_POWER,map_1);
+	bot->setPosition(Vector2f(32*7,32*3));	
+	bot->update_path(map_courante,joueur);	
+	bot->play();
+	bot->setSpeed(ResultDifficulty);
+	//bot->setId(-1);
+  (map_1->Bot_list).push_front(bot);
+  
+      // BOT 2
+	if(!image_bot_blonde->LoadFromFile("sprite/blonde.png"))
+		cout << "erreur " << endl ;
+	Bot *bot2 = new Bot(mainWindow_,*image_bot_blonde,Vector2i(LINUS_TORVALDS_X,LINUS_TORVALDS_Y), String("Linus Torvalds"), LINUS_TORVALDS_LIFE, LINUS_TORVALDS_MANA, LINUS_TORVALDS_POWER,map_1);
+	bot2->setPosition(Vector2f(32*20,32*20));	
+	bot2->update_path(map_courante,joueur);
+	bot2->play();
+	bot2->setSpeed(ResultDifficulty);
+	//bot2->setId(-2);
+  (map_1->Bot_list).push_front(bot2);
+  
+  // MAP 2
+  
+	Bot *bot3 = new Bot(mainWindow_,*image_bot_linus,Vector2i(LINUS_TORVALDS_X,LINUS_TORVALDS_Y), String("Linus Torvalds"), LINUS_TORVALDS_LIFE, LINUS_TORVALDS_MANA, LINUS_TORVALDS_POWER,map_2);
+	bot3->setPosition(Vector2f(32*7,32*3));	
+	bot3->update_path(map_courante,joueur);
+	bot3->play();
+	bot3->setSpeed(ResultDifficulty);
+	//bot3->setId(-1);
+  (map_2->Bot_list).push_front(bot3);
+  
+
+}

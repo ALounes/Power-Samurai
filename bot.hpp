@@ -3,12 +3,15 @@
 
 //#include <random>
 #include "config.hpp"
+#include "map.hpp"
 #include "entity.hpp"
 #include "player.hpp"
-#include "map.hpp"
-#include "player.hpp"
+
+
 
 using namespace std;
+
+
 
 class Bot: public Entity
 {
@@ -35,11 +38,17 @@ class Bot: public Entity
 	
 	void update_path(Map * map,Player * player);
 	
-	
-	
 	void follow_path(Map *map, Player * player);
 	
 	void update();
+	
+	void setRange(int);
+	int getRange();
+	
+	void setDistance(int);
+	int getDistance();
+	
+
 
 	private:
 	
@@ -50,11 +59,9 @@ class Bot: public Entity
 	int    mana_;
 	enum power power_;
 	
-	int range_;
+	int range_ = 10;
 	int speed_;
-	
-	
-	
+	int distance;
 	
 	//uniform_int_distribution<int> distribution(random_minimum,random_maximum);
 	//defalut_random_engine generateur;
