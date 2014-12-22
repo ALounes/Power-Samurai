@@ -14,6 +14,7 @@ class Projectile : public Entity
 	void update();
 	int getDirection() const;
 	void setDirection(int direction) ;
+	void preset();
 
 	private:
 

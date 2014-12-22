@@ -52,6 +52,10 @@ class Entity : public Animation
 	int getId() const;
 	void setId(int);
 	
+	bool getStuck() const;
+	void setStuck(bool);
+	
+	
 
 	private:
 	
@@ -61,6 +65,7 @@ class Entity : public Animation
 	
 	int map_changed = 0;
 	int id;
+	bool is_stuck = false;
 };
 
 #endif

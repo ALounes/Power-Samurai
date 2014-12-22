@@ -424,14 +424,14 @@ void Game::RunGame()
 	Vector2f position(mainWindow_->GetWidth()/2,mainWindow_->GetHeight()/2);
 	Clock clock;
 	Vector2i test_effect(5,8);
-
+/*
 	// Test projectile
 	Image *feux = new Image();
 	Vector2i vfeux(4,4);
 	if (!feux->LoadFromFile("sprite/feux.png"))
 		cout << "erreur " << endl ;
 	// FIN Test projectile
-	
+	*/
 
 	
 	if (!buffer_son.LoadFromFile("Musique/BinB.ogg"))
@@ -487,9 +487,8 @@ void Game::RunGame()
 
 	// TEST PROJECTILE	
 	
-	Projectile *projectile = new Projectile(mainWindow_,feux,vfeux,joueur,16);
+	//Projectile *projectile = new Projectile(mainWindow_,feux,vfeux,joueur,16);
 
-   displayEntity(clock);
 	mainWindow_->Display();
 
    // Exécution de la boucle principale
@@ -535,10 +534,10 @@ void Game::RunGame()
 	   }
 	   
 	   // TEST PROJECTILES
-      
+      /*
 		projectile->update();
 		projectile->draw();
-   
+   */
 		while (mainWindow_->GetEvent(event) )
 		{
 		
@@ -620,10 +619,14 @@ Game::keyPressedManagement (Key::Code keyPressed)
    case  Key::Space : {
    
       Vector2i vfeux(4,4);
-	   if (!image_projectile->LoadFromFile("sprite/feux.png"))
+	   if (!image_projectile->LoadFromFile("sprite/feux2.png"))
 		   cout << "erreur " << endl ;
 	   Projectile *projectile = new Projectile(mainWindow_,image_projectile ,vfeux,joueur,16);
+	   projectile->setDirection( joueur->getCurrentDirection() );
+	   projectile->preset();
+	   projectile->setSpeed(5);
 		projectiles.push_front(projectile);
+		
 		break;
    }
 
@@ -665,10 +668,18 @@ Game::displayEntity(Clock &time)
 		s->draw();
 	}
 	for(auto s : projectiles){
-		//if(refresh ){
-			s->update();
-		//}
-		s->draw();
+
+		   if ( !s->getStuck())
+		   {
+
+		   s->update();
+		   s->draw();
+		}
+		else {
+		   projectiles.remove(s);
+		   delete s ;
+			break;
+		}
 	}
 
 	if(refresh)

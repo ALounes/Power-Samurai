@@ -62,7 +62,6 @@ Entity::legalDeplacement(int x, int y)
 	int *socle = getSocle(y,x); // CAR HAUTEUR DU TABLEAU = X !!!
 	int i = socle[0];
 	int j = socle[2];
-   cout << "i : " << i << "j : " << j << endl;
 	//int i = getCenter().x / 32;
 	//int j = getCenter().y / 32;
 		
@@ -73,12 +72,12 @@ Entity::legalDeplacement(int x, int y)
 	   switch ( myMap_->getSocleMap(i,j) ) {
 	  
 	      case 0 :
-            cout << "Cas 0 : " << endl;
+            is_stuck = true;
 	         return false;
 	         break;
 
 	      case 1 :
-            cout << "Cas 1 : " << endl;
+            is_stuck = false;
 	         return true;
 	         break;
 
@@ -91,9 +90,10 @@ Entity::legalDeplacement(int x, int y)
 		         setMap(getMap()->getLink(1));
 		         map_changed = 1;
 		         cout << "map_changed (dans legal deplacement)" << map_changed << endl;
+		         is_stuck = true;
 		         return false;
 	         }
-
+            is_stuck = true;
 	         return false;
 	         break;
 
@@ -105,8 +105,10 @@ Entity::legalDeplacement(int x, int y)
 	       		setPosition(Vector2f(getMap()->get_tpPoints(3),getMap()->get_tpPoints(2)));   //(Y, X)
 	       		setMap(getMap()->getLink(2));
 	       		map_changed = 2;
+	       		is_stuck = true;
 	       		return false;
 	         }
+	         is_stuck = true;
 	         return false;
 	         break;
 	       
@@ -117,14 +119,15 @@ Entity::legalDeplacement(int x, int y)
 		         setPosition(Vector2f(getMap()->get_tpPoints(5),getMap()->get_tpPoints(4)));   //(Y, X)
 		         setMap(getMap()->getLink(3));
 		         map_changed = 3;
+		         is_stuck = true;
 		         return false;
 	         }
-
+            is_stuck = true;
 	         return false;
 	         break;
 
 	      default :
-
+            is_stuck = false;
 		      return true;
 	         break;	         
 	   }
@@ -142,7 +145,6 @@ void
 Entity::moveUp() //Okay
 {
 	if(legalDeplacement(getCenter().x + getAnimationWidth()/3,getCenter().y - getAnimationHeight()/3 - getSpeed()) &&  legalDeplacement(getCenter().x - getAnimationWidth()/3 ,getCenter().y - getAnimationHeight()/3 - getSpeed())){
-      cout << "Speed : " << getSpeed() << endl;
 		mySprite_->Move(ZERO,-getSpeed());
 		setAnimationY(UP);
 		//cout << "deplacement autorisé " << endl;
@@ -415,4 +417,12 @@ int Entity::getId() const {
 
 void Entity::setId(int x) {
    id = x;
+}
+
+bool Entity::getStuck() const {
+   return is_stuck;
+}
+
+void Entity::setStuck(bool b) {
+   is_stuck = b;
 }
