@@ -60,11 +60,11 @@ class Animation
 	bool	paused_;
 
 	private:
+
 	Image     &myImage_;
 	Vector2i  sizeImage_; 
 	Vector2i  sizeSprite_;
 	const Vector2i numberOfAnim_;
-
 	int	animationFps_;
 	Vector2i  anim_;
 
