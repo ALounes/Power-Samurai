@@ -613,6 +613,7 @@ void Game::RunGame()
 		camera->run();	
 
 		// Mise a jour de la StatusBar et affichage
+		
 		statusbar.display();	
 		
 		// Mise a jours des sprites et affichage
@@ -698,40 +699,62 @@ Game::keyPressedManagement (Key::Code keyPressed)
 {
 
   switch (keyPressed) {
-   case  Key::Escape :
-      launchingPause();
-		
-	 	break;
-   case  Key::Space : {
+      case  Key::O : 
+      { //HP
+
+        if (joueur->getNbHP() > 0)
+            joueur->consumeHpPot();
    
-		
-		break;
-   }
-   case  Key::E : {
-      Vector2i test_effect(5,8);
-      if (!effect_003.LoadFromFile("sprite/effect_010.png"))
-		   cout << "erreur " << endl ;
-      AnimationEffect *effect = new AnimationEffect(mainWindow_,effect_003,test_effect,joueur);
-	   addEffect(effect);
-	   
-	   for(auto s : entitys){
-		   if(s->getDistance() < 3) {
-		      cout << "Dégats dans ta face" << endl;
-		      
-		      s->lifePenalty(400);
-	         if (!s->isAlive())
-	         {
-	            entitys.remove(s);
-	            delete s;
-	         }
-		      break;
-		      
-		   }
+        break;
       }
-	   
-	   
-      break;
-   }
+   
+      case  Key::P : 
+      { //MANA
+         if (joueur->getNbHP() > 0)
+            joueur->consumeManaPot();
+         
+	      
+         break;
+      }
+  
+      case  Key::Escape :
+      {
+         launchingPause();
+		
+	    	break;
+	   }
+      case  Key::Space : 
+      {
+		
+		   break;
+      }
+      case  Key::E : 
+      {
+         Vector2i test_effect(5,8);
+         if (!effect_003.LoadFromFile("sprite/effect_010.png"))
+		      cout << "erreur " << endl ;
+         AnimationEffect *effect = new AnimationEffect(mainWindow_,effect_003,test_effect,joueur);
+	      addEffect(effect);
+	      
+	      for(auto s : entitys){
+		      if(s->getDistance() < 3) {
+		         cout << "Dégats dans ta face" << endl;
+		         
+		         s->lifePenalty(400);
+	            if (!s->isAlive())
+	            {
+	               entitys.remove(s);
+	               delete s;
+	            }
+		         break;
+		         
+		      }
+         }
+	      
+	      
+         break;
+      }
+      
 		default: 
 			break;
   }
@@ -790,7 +813,7 @@ Game::displayEntity(Clock &time)
    
 	refresh = false;
 
-	if (Timer_Items->GetElapsedTime() > 5) 
+	if (Timer_Items->GetElapsedTime() > REFRESH_ITEM ) 
 		refresh = true;
    
    for(auto s : items){
@@ -798,6 +821,16 @@ Game::displayEntity(Clock &time)
       {
             cout << "Contact item" << endl;
             s->setIsShown(false); 
+            if (s->getIt() == Item::HP)
+            {
+               joueur->increaseNbHpPot();
+            }
+            if (s->getIt() == Item::MANA)
+            {
+               joueur->increaseNbManaPot();
+            }
+            
+            
       }
       if (s->getIsShown())
       {
@@ -1031,13 +1064,13 @@ void Game::loadItem() {
 
    if(!image_hp_item->LoadFromFile("sprite/hp.png"))
 		   cout << "erreur " << endl ;
-	Item *hp1 = new Item(mainWindow_,image_hp_item,map_1, 7, 3);
+	Item *hp1 = new Item(mainWindow_,image_hp_item,map_1, 7, 3, Item::HP);
      (map_1->Item_list).push_front(hp1);
      
      
    if(!image_mana_item->LoadFromFile("sprite/mana.png"))
 		   cout << "erreur " << endl ;
-	Item *mana1 = new Item(mainWindow_,image_mana_item,map_1, 9, 3);
+	Item *mana1 = new Item(mainWindow_,image_mana_item,map_1, 9, 3, Item::MANA);
      (map_1->Item_list).push_front(mana1);
      
 }     

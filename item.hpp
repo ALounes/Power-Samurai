@@ -9,10 +9,12 @@ class Item
    
    public :
    
-   Item(RenderWindow *win, Image* image, Map* map, int x, int y);
-
-   void setLifeBonus(int);
-	int getLifeBonus() const;
+   enum item_type {HP,MANA};
+   
+   Item(RenderWindow *win, Image* image, Map* map, int x, int y, Item::item_type it);
+ 
+   /*void setLifeBonus(int);
+	int getLifeBonus() const;*/
 	
 	void setMapRef(Map*);
 	Map *getMapRef() const;
@@ -22,6 +24,9 @@ class Item
 	
 	void setY(int y);
 	int getY() const;
+	
+	void setIt(item_type y);
+	item_type getIt() const;
 	
 	void setIsShown(bool);
 	bool getIsShown() const;
@@ -40,8 +45,9 @@ class Item
    bool isShown = true;
    int x_;
    int y_;
+   item_type it_;
 
-   int life_;
+   
    
    RenderWindow *window_;
    Image *image_;

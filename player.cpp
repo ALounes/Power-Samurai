@@ -7,8 +7,8 @@ Player::Player(RenderWindow *win, Image &image, const Vector2i nbrOfAnim, String
 ,name_(name)
 ,life_(life)
 ,mana_(mana)
-,lifeMax_(PLAYER_LIFE_MAX)
-,manaMax_(PLAYER_MANA_MAX)
+,lifeMax_(life)
+,manaMax_(mana)
 ,power_(power)
 ,attack_damage(att_dmg)
 {
@@ -23,7 +23,7 @@ Player::~Player()
 void
 Player::actionKey(Map * map)
 {  
-   //cout << "xperso : " << getPosition().x << "yperso :" << getPosition().y << endl;
+   cout << "NbHp : " << nb_Hp_Pot << " NbMana : " << nb_Mana_Pot << endl;
 	const sf::Input &input = win_->GetInput();
 	int compteur_deplacement = 0;
 	
@@ -260,3 +260,58 @@ void Player::setAttackDamage(float ad) {
 float Player::getAttackDamage() {
    return attack_damage;
 }
+
+int Player::getNbHP() const {
+   return nb_Hp_Pot;
+}
+
+void Player::setNbHP(int h) {
+   nb_Hp_Pot = h;
+}
+	
+int Player::getNbMANA() const {
+   return nb_Mana_Pot;
+}
+void Player::setNbMANA(int m) {
+   nb_Mana_Pot = m;
+}
+
+void Player::increaseNbHpPot() {
+   if (nb_Hp_Pot >= 5)
+   {
+      nb_Hp_Pot = 5;
+   }
+   else 
+      ++nb_Hp_Pot;
+}
+
+void Player::increaseNbManaPot() {
+   if (nb_Mana_Pot >= 5)
+   {
+      nb_Mana_Pot = 5;
+   }
+   else 
+      ++nb_Mana_Pot;
+
+}
+void Player::consumeHpPot() {
+   if (nb_Hp_Pot <= 0)
+   {
+      nb_Hp_Pot = 0;
+   }
+   else 
+      --nb_Hp_Pot;
+      lifeGain(HP_POT_GAIN);
+
+}
+void Player::consumeManaPot() {
+   if (nb_Mana_Pot <= 0)
+   {
+      nb_Mana_Pot = 0;
+   }
+   else 
+      --nb_Mana_Pot;
+      manaGain(MANA_POT_GAIN);
+
+}
+

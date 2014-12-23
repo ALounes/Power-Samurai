@@ -2,20 +2,18 @@
 #include <SFML/Graphics.hpp>
 #include "statusbar.hpp"
 
-StatusBar::StatusBar(RenderWindow *win, Entity *entity, Camera *camera)
+StatusBar::StatusBar(RenderWindow *win, Player *player, Camera *camera)
 	: win_(win)
-	, entity_(entity)
+	, player_(player)
 	, camera_(camera)
 {
 	myImage_  = new Image();
 	myImage_->LoadFromFile("images/StatusBar/StatusBar.png");
-	//myImage_->SetSmooth(true);
 
 	mySprite_ = new Sprite();
 	mySprite_->SetImage(*myImage_);
 
 	persoSprite_ = new Sprite();
-	//persoSprite_->SetImage(entity->);
 
 	myText_ = new String();	
 	myText_->SetSize(25);
@@ -72,7 +70,7 @@ StatusBar::~StatusBar()
 void 
 StatusBar::update()
 {
-	statuLife_.SetScaleX(0.5);
+	//statuLife_.SetScaleX(0.5);
 
 	myText_->SetPosition  (TEXT_POSITION_X, TEXT_POSITION_Y);
 	mySprite_->SetPosition(SPRITE_POSITION_X, SPRITE_POSITION_Y);
@@ -86,16 +84,42 @@ StatusBar::update()
 void
 StatusBar::display ()
 {
+   
+   playLifeEffect(getPlayer());
+   playManaEffect(getPlayer());
 	update();
 
 	win_->Draw(*mySprite_);
-	win_->Draw(statuLifeRed_);
-	win_->Draw(statuManaRed_);
+	
 	win_->Draw(statuLife_);
 	win_->Draw(statuMana_);
+	win_->Draw(statuLifeRed_);
+	win_->Draw(statuManaRed_);
 	win_->Draw(*myText_);
 }
 
+
+void StatusBar::playLifeEffect(Player *player) {
+   
+   statuLifeRed_ = Shape::Rectangle((int) 118 * ( (float) player->getLife() / (float) player->getLifeMax() ),
+										  		0,
+												118,
+												12,
+												RED_COLOR,
+												LIFE_BORDURE,
+												LIFE_BORDURE_COLOR);
+}
+
+void StatusBar::playManaEffect(Player *player) {
+	statuManaRed_ = Shape::Rectangle((int) 118 * ( (float) player->getMana() / (float) player->getManaMax() ),
+										   	0,
+												118,
+												12,
+												RED_COLOR,
+												MANA_BORDURE,
+												MANA_BORDURE_COLOR);
+	
+}
 
 void 
 StatusBar::setPosition(Vector2f *position)
@@ -105,9 +129,9 @@ StatusBar::setPosition(Vector2f *position)
 }
 
 void 
-StatusBar::setEntity(Entity *entity)
+StatusBar::setPlayer(Player *player)
 {
-	entity_ = entity;
+	player_ = player;
 }
 
 void 
@@ -137,10 +161,10 @@ StatusBar::getPosition() const
 }
 
 
-Entity*
-StatusBar::getEntity() const
+Player*
+StatusBar::getPlayer() const
 {
-	return entity_;
+	return player_;
 }
 
 

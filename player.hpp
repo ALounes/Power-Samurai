@@ -4,6 +4,9 @@
 #include "entity.hpp"
 #include "config.hpp"
 
+#define HP_POT_GAIN 300
+#define MANA_POT_GAIN 100
+
 class Player : public Entity
 {
 	public :
@@ -36,6 +39,17 @@ class Player : public Entity
 	bool isAlive()  const;
 	bool haveMana() const;
 	
+	int getNbHP() const;
+	void setNbHP(int);
+	
+	int getNbMANA() const;
+	void setNbMANA(int);
+	
+	void increaseNbHpPot();
+	void increaseNbManaPot();
+	void consumeHpPot();
+	void consumeManaPot();
+	
 	void update();
 	
 	int getCurrentDirection();
@@ -54,6 +68,8 @@ class Player : public Entity
 	enum power power_;
 	int current_direction;
 	float attack_damage;
+	int nb_Hp_Pot = 0;
+	int nb_Mana_Pot = 0;
 	
 
 };

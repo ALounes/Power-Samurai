@@ -97,9 +97,6 @@ private:
    Map    *map_3;
    Map    *map_4;
    Map    *map_courante;
-   
-	int nb_Hp_Pot = 0;
-	int nb_Mana_Pot = 0;
   
    Clock * Timer_Projectile;	
    Clock * Timer_Items;

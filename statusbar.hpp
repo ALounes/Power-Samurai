@@ -2,7 +2,7 @@
 #define STATUSBAR_HPP
 
 #include <SFML/Graphics.hpp>
-#include "entity.hpp"
+#include "player.hpp"
 #include "config.hpp"
 #include "camera.hpp"
 
@@ -40,22 +40,22 @@ class StatusBar
 {
 public:
 
-	StatusBar(RenderWindow *win, Entity *entity, Camera *camera);
+	StatusBar(RenderWindow *win, Player *player, Camera *camera);
 	~StatusBar();  
 
 	void display () ;
-	void playLifeEffect(Entity *entity);
-	void playManaEffect(Entity *entity);
+	void playLifeEffect(Player *player);
+	void playManaEffect(Player *player);
 
 	void update();
 
-	void setEntity(Entity *entity);
+	void setPlayer(Player *player);
 	void setWindow(RenderWindow *win);
 	void setSprite(Sprite *sprite);
 	void setImage(Image *image);
 	void setPosition(Vector2f *position);
 
-	Entity*   getEntity() const;
+	Player*   getPlayer() const;
 	RenderWindow* getWindow() const;
 	Sprite*   getSprite()   const;
 	Image*    getImage()    const;
@@ -64,7 +64,7 @@ public:
 private:
 
 	RenderWindow *win_;
-	Entity *entity_;
+	Player *player_;
 	Sprite *mySprite_;
 	Sprite *persoSprite_;
 	Image  *myImage_;

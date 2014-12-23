@@ -1,9 +1,10 @@
 #include "item.hpp"
 
 
-Item::Item(RenderWindow *win, Image* image, Map* map, int x, int y) :
+Item::Item(RenderWindow *win, Image* image, Map* map, int x, int y, Item::item_type it) :
    x_(x),
    y_(y),
+   it_(it),
    window_(win),
    image_(image),
    map_ref(map)
@@ -15,13 +16,13 @@ Item::Item(RenderWindow *win, Image* image, Map* map, int x, int y) :
 
 
 
-void Item::setLifeBonus(int l) {
+/*void Item::setLifeBonus(int l) {
    life_ = l;
 
 }
 int Item::getLifeBonus() const {
    return life_;
-}
+}*/
 
 void Item::setMapRef(Map* map) {
    map_ref = map;
@@ -69,6 +70,13 @@ void Item::setY(int y) {
 }
 int Item::getY() const {
    return y_;
+}
+
+void Item::setIt(Item::item_type y) {
+   it_ = y;
+}
+Item::item_type Item::getIt() const {
+   return it_;
 }
 
 
