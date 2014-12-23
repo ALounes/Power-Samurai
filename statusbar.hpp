@@ -34,6 +34,8 @@
 #define MANA_BORDURE 3
 #define MANA_BORDURE_COLOR Color(0,204,102,255)
 
+#define RED_COLOR Color(255,0,0,255)
+
 class StatusBar
 {
 public:
@@ -70,6 +72,8 @@ private:
 
 	Shape  statuLife_;
 	Shape  statuMana_;
+	Shape  statuLifeRed_;
+	Shape  statuManaRed_;
 };	
 
 #endif 

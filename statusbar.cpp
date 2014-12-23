@@ -35,6 +35,14 @@ StatusBar::StatusBar(RenderWindow *win, Entity *entity, Camera *camera)
 											LIFE_BORDURE,
 											LIFE_BORDURE_COLOR); 
 
+	statuLifeRed_ = Shape::Rectangle(0,
+										  		0,
+												118,
+												12,
+												RED_COLOR,
+												LIFE_BORDURE,
+												LIFE_BORDURE_COLOR);
+
 	statuMana_ = Shape::Rectangle(0,
 										   0,
 											118,
@@ -42,6 +50,14 @@ StatusBar::StatusBar(RenderWindow *win, Entity *entity, Camera *camera)
 											MANA_COLOR,
 											MANA_BORDURE,
 											MANA_BORDURE_COLOR); 
+
+	statuManaRed_ = Shape::Rectangle(0,
+										   	0,
+												118,
+												12,
+												RED_COLOR,
+												MANA_BORDURE,
+												MANA_BORDURE_COLOR);
 }
 
 
