@@ -47,6 +47,8 @@ public:
 	void playLifeEffect(Entity *entity);
 	void playManaEffect(Entity *entity);
 
+	void update();
+
 	void setEntity(Entity *entity);
 	void setWindow(RenderWindow *win);
 	void setSprite(Sprite *sprite);

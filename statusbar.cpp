@@ -69,8 +69,8 @@ StatusBar::~StatusBar()
 	delete persoSprite_;
 }
 
-void
-StatusBar::display ()
+void 
+StatusBar::update()
 {
 	myText_->SetPosition  (TEXT_POSITION_X, TEXT_POSITION_Y);
 	mySprite_->SetPosition(SPRITE_POSITION_X, SPRITE_POSITION_Y);
@@ -79,6 +79,12 @@ StatusBar::display ()
 	statuMana_.SetPosition(MANA_POSITION_X, MANA_POSITION_Y);
 	statuLifeRed_.SetPosition(LIFE_POSITION_X, LIFE_POSITION_Y);
 	statuManaRed_.SetPosition(MANA_POSITION_X, MANA_POSITION_Y);
+}
+
+void
+StatusBar::display ()
+{
+	update();
 
 	win_->Draw(*mySprite_);
 	win_->Draw(statuLifeRed_);
