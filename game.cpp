@@ -417,7 +417,7 @@ void Game::RunGame()
 	Clock clock2;
 	Vector2f position(mainWindow_->GetWidth()/2,mainWindow_->GetHeight()/2);
 	Clock clock;
-	Vector2i test_effect(5,8);
+	//Vector2i test_effect(5,8);
 	
 	if (!buffer_son.LoadFromFile("Musique/BinB.ogg"))
 		cout << "erreur " << endl ;
@@ -437,6 +437,14 @@ void Game::RunGame()
 	
 	entitys = map_courante->Bot_list;
 	cout << "entitys initialisée" << endl;
+	
+	   Vector2i test_effect(5,8);
+      if (!effect_003.LoadFromFile("sprite/effect_010.png"))
+		cout << "erreur " << endl ;
+      AnimationEffect *effect = new AnimationEffect(mainWindow_,effect_003,test_effect,joueur);
+	   addEffect(effect);
+	   //effect->setPosition(Vector2f(300,300));
+      effect->run();
    
    
 	camera = new Camera(mainWindow_,joueur);
@@ -449,7 +457,7 @@ void Game::RunGame()
 	//AnimationEffect *effect = new AnimationEffect(mainWindow_,effect_003,test_effect,linus);
 	//addEffect(effect);
 	//effect->setPosition(Vector2f(300,300));
-
+//effect->run();
 	mainWindow_->Display();
 
    // Exécution de la boucle principale
@@ -461,7 +469,7 @@ void Game::RunGame()
       camera->setCameraXY(*(map_courante->get_Largeur()) * BASE_SPRITE,*(map_courante->get_Hauteur()) * BASE_SPRITE);
 		mainWindow_->Draw(*(map_courante->sprite_map_));
 			
-      if (input.IsKeyDown(Key::Z) ||input.IsKeyDown(Key::Q) || input.IsKeyDown(Key::D) || input.IsKeyDown(Key::S) ) {
+      if (input.IsKeyDown(Key::Z) ||input.IsKeyDown(Key::Q) || input.IsKeyDown(Key::D) || input.IsKeyDown(Key::S)) {
    
 				joueur->soclePosition();
 				joueur->actionKey(map_courante);
@@ -472,18 +480,36 @@ void Game::RunGame()
 				   joueur->setMapChanged(NOCHANGE);
 				   entitys = map_courante->Bot_list;
 				}
-				
-				
 
 		}
+		
+		if ( input.IsKeyDown(Key::Space)) {
+		   
+		
+		   bool refresh = false;
 
+	         if (Timer_Projectile->GetElapsedTime() > RATE_FIRE) 
+	   	   refresh = true;
+
+            if (refresh) {
+        
+            Vector2i vfeux(4,4);
+	         if (!image_projectile->LoadFromFile("sprite/feux2.png"))
+		       cout << "erreur " << endl ;
+	         Projectile *projectile = new Projectile(mainWindow_,image_projectile ,vfeux,joueur,16,5);
+	       projectile->setDirection( joueur->getCurrentDirection() );
+	       projectile->preset();
+		     projectiles.push_front(projectile);
+		   Timer_Projectile->Reset();
+		      }
+      }
 
       for(auto s : entitys){
          s->update_path(map_courante, joueur);
          s->setDistance( (s->GetPath()).size() );
          
          if (s->getDistance() > s->getRange())
-         {
+         {  
             // Cas SURPLACE
          }
          else {
@@ -570,6 +596,7 @@ for(auto s : projectiles){
    delete s ;
 }*/
 entitys.clear();
+map_courante = map_1;
 (map_1->Bot_list).clear();
 (map_2->Bot_list).clear();
 (map_3->Bot_list).clear();
@@ -610,7 +637,7 @@ Game::keyPressedManagement (Key::Code keyPressed)
 	 	break;
    case  Key::Space : {
    
-      bool refresh = false;
+      /*bool refresh = false;
 
 	   if (Timer_Projectile->GetElapsedTime() > RATE_FIRE) 
 	   	refresh = true;
@@ -625,11 +652,14 @@ Game::keyPressedManagement (Key::Code keyPressed)
 	      projectile->preset();
 		   projectiles.push_front(projectile);
 		   Timer_Projectile->Reset();
-		}
+		}*/
 		
 		break;
    }
-
+   case  Key::E : {
+      
+      break;
+   }
 		default: 
 			break;
   }
@@ -674,6 +704,14 @@ Game::displayEntity(Clock &time)
 	   }
 	   s->draw();
    }
+   
+   for(auto s : effects){
+      if(s->isPlaying()){
+      s->run();
+      }
+   s->draw();
+   }
+   //time.Reset();
    for(auto s : projectiles){
       
 	   if ( !s->getStuck())
@@ -858,12 +896,16 @@ void Game::loadBot() {
    // MAP 1
 
       // BOT 1
+      
+      
 	if(!image_bot_linus->LoadFromFile("sprite/LinusTorvalds.png"))
 		cout << "erreur " << endl ;
 	Bot *bot = new Bot(mainWindow_,*image_bot_linus,Vector2i(LINUS_TORVALDS_X,LINUS_TORVALDS_Y), String("Linus Torvalds"), LINUS_TORVALDS_LIFE, LINUS_TORVALDS_MANA, LINUS_TORVALDS_POWER,map_1,100,0.5,ResultDifficulty * 1, -1,10);
 	bot->setPosition(Vector2f(BASE_SPRITE*7,BASE_SPRITE*3));	
 	bot->update_path(map_courante,joueur);	
   (map_1->Bot_list).push_front(bot);
+  
+      
   
       // BOT 2
 	if(!image_bot_blonde->LoadFromFile("sprite/blonde.png"))
@@ -878,9 +920,6 @@ void Game::loadBot() {
 	Bot *bot3 = new Bot(mainWindow_,*image_bot_linus,Vector2i(LINUS_TORVALDS_X,LINUS_TORVALDS_Y), String("Linus Torvalds"), LINUS_TORVALDS_LIFE, LINUS_TORVALDS_MANA, LINUS_TORVALDS_POWER,map_2,100,0.5,ResultDifficulty * 1,-1,10);
 	bot3->setPosition(Vector2f(BASE_SPRITE*7,BASE_SPRITE*3));	
 	bot3->update_path(map_courante,joueur);
-	//bot3->play();
-	//bot3->setSpeed(ResultDifficulty);
-	//bot3->setId(-1);
   (map_2->Bot_list).push_front(bot3);
   
 
