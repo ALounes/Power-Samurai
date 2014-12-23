@@ -19,10 +19,13 @@
 #include "bjarnestroustrup.hpp"
 #include "alanturing.hpp"
 #include "projectile.hpp"
+#include "item.hpp"
 
 #define EASY_DIFFICULTY 1
 #define INTERMEDIATE_DIFFICULTY 2 
 #define HARD_DIFFICULTY 3
+
+#define REFRESH_ITEM 60
 
 enum direction {DOWN,LEFT,RIGHT,UP};
 enum p_choice {P1,P2,P3,P4};
@@ -50,6 +53,7 @@ public:
 	void keyPressedManagement (Key::Code keyPressed);
 	void launchingPause();
 	void loadBot();
+	void loadItem();
   
 private:
 	bool IsExiting();
@@ -75,10 +79,12 @@ private:
 	list<Bot*> entitys;
 	list<AnimationEffect*> effects;
 	list<Projectile*> projectiles;
+	list<Item*> items;
 	 
 	Player *joueur;
 	Image  *image_joueur;
 	
+	RenderWindow  *mainWindow_;
 	Camera *camera;
 	View   * view;
 	 
@@ -91,13 +97,17 @@ private:
    Map    *map_4;
    Map    *map_courante;
    
-	RenderWindow  *mainWindow_;
+	int nb_Hp_Pot = 0;
+	int nb_Mana_Pot = 0;
   
    Clock * Timer_Projectile;	
+   Clock * Timer_Items;
 	
 	Image *image_bot_linus;
 	Image *image_bot_blonde;
 	Image *image_projectile;
+	Image *image_hp_item;
+	Image *image_mana_item;
 };
 
 

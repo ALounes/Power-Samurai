@@ -9,7 +9,7 @@ class Player : public Entity
 	public :
 	
 	Player(RenderWindow *win, Image &image,const Vector2i nbrOfAnim, String name,
-					int life, int mana, enum power power, Map *myMap);
+					int life, int mana, enum power power, Map *myMap, float att_dmg);
 	~Player();
 
 	void actionKey(Map * map);
@@ -40,6 +40,9 @@ class Player : public Entity
 	
 	int getCurrentDirection();
 	void setCurrentDirection(int);
+	
+	void setAttackDamage(float);
+	float getAttackDamage();
 
 	private:
 	
@@ -50,6 +53,7 @@ class Player : public Entity
 	int manaMax_;
 	enum power power_;
 	int current_direction;
+	float attack_damage;
 	
 
 };

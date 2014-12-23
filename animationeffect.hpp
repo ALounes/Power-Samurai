@@ -24,6 +24,8 @@ class AnimationEffect: public Animation
 	const int numberOfEffect_;
 	int  iAnim_;
 	bool playing_;
+	//Clock time_animation ;
+	//float delay_animation = 0.001;
 	
 
 };

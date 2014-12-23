@@ -21,6 +21,7 @@
 #define WEAPON_3 22
 
 class Bot;
+class Item;
 
 class Map
 {
@@ -60,6 +61,7 @@ public:
 	Sprite *sprite_map_; 
 	
 	list<Bot*> Bot_list;
+	list<Item*> Item_list;
 
 private:
    

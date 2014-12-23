@@ -2,7 +2,7 @@
 
 
 Player::Player(RenderWindow *win, Image &image, const Vector2i nbrOfAnim, String name,
-					int life, int mana, enum power power, Map *myMap)
+					int life, int mana, enum power power, Map *myMap, float att_dmg)
 :Entity(win,image,nbrOfAnim,myMap)
 ,name_(name)
 ,life_(life)
@@ -10,6 +10,7 @@ Player::Player(RenderWindow *win, Image &image, const Vector2i nbrOfAnim, String
 ,lifeMax_(PLAYER_LIFE_MAX)
 ,manaMax_(PLAYER_MANA_MAX)
 ,power_(power)
+,attack_damage(att_dmg)
 {
 	play();
 }
@@ -250,4 +251,12 @@ int Player::getCurrentDirection() {
 
 void Player::setCurrentDirection(int x) {
    current_direction = x;
+}
+
+void Player::setAttackDamage(float ad) {
+   attack_damage = ad;
+}
+
+float Player::getAttackDamage() {
+   return attack_damage;
 }

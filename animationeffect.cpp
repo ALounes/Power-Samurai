@@ -17,7 +17,8 @@ AnimationEffect::
 void 
 AnimationEffect::run() 
 {
-	if(playing_)
+
+	if(playing_ )
 	{
 		setCenter(entity_->getCenter());
 		if(iAnim_ < numberOfEffect_)
@@ -31,7 +32,9 @@ AnimationEffect::run()
 		}	
 		if(playing_ && (iAnim_ == -1))
 			stop();
+			
 	}
+	
 }
 
 void 

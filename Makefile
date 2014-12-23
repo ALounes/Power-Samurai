@@ -2,7 +2,7 @@ CC = g++
 CFLAGS  := -std=c++11 -Wall -Wfatal-errors -c -ggdb
 LDFLAGS := -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 BIN = PowerSamurai
-OBJ = main.o projectile.o difficultyMenu.o mainMenu.o map.o splashScreen.o game.o playersMenu.o main.o animation.o animationeffect.o entity.o player.o bot.o linustorvalds.o alanturing.o bjarnestroustrup.o camera.o map.o node_bot.o
+OBJ = main.o projectile.o difficultyMenu.o mainMenu.o map.o splashScreen.o game.o playersMenu.o main.o animation.o animationeffect.o entity.o player.o bot.o linustorvalds.o alanturing.o bjarnestroustrup.o camera.o map.o node_bot.o item.o
 
 all: .depend $(BIN)
 
