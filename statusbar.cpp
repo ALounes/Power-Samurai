@@ -35,14 +35,6 @@ StatusBar::StatusBar(RenderWindow *win, Entity *entity, Camera *camera)
 											LIFE_BORDURE,
 											LIFE_BORDURE_COLOR); 
 
-	statuLifeRed_ = Shape::Rectangle(0,
-										  		0,
-												118,
-												12,
-												RED_COLOR,
-												LIFE_BORDURE,
-												LIFE_BORDURE_COLOR);
-
 	statuMana_ = Shape::Rectangle(0,
 										   0,
 											118,
@@ -50,6 +42,14 @@ StatusBar::StatusBar(RenderWindow *win, Entity *entity, Camera *camera)
 											MANA_COLOR,
 											MANA_BORDURE,
 											MANA_BORDURE_COLOR); 
+
+	statuLifeRed_ = Shape::Rectangle(0,
+										  		0,
+												118,
+												12,
+												RED_COLOR,
+												LIFE_BORDURE,
+												LIFE_BORDURE_COLOR);
 
 	statuManaRed_ = Shape::Rectangle(0,
 										   	0,
@@ -73,13 +73,16 @@ void
 StatusBar::display ()
 {
 	myText_->SetPosition  (TEXT_POSITION_X, TEXT_POSITION_Y);
-
 	mySprite_->SetPosition(SPRITE_POSITION_X, SPRITE_POSITION_Y);
 
 	statuLife_.SetPosition(LIFE_POSITION_X, LIFE_POSITION_Y);
 	statuMana_.SetPosition(MANA_POSITION_X, MANA_POSITION_Y);
+	statuLifeRed_.SetPosition(LIFE_POSITION_X, LIFE_POSITION_Y);
+	statuManaRed_.SetPosition(MANA_POSITION_X, MANA_POSITION_Y);
 
 	win_->Draw(*mySprite_);
+	win_->Draw(statuLifeRed_);
+	win_->Draw(statuManaRed_);
 	win_->Draw(statuLife_);
 	win_->Draw(statuMana_);
 	win_->Draw(*myText_);
