@@ -64,32 +64,31 @@ Entity::legalDeplacement(int x, int y)
 	int j = socle[2];
 	//int i = getCenter().x / 32;
 	//int j = getCenter().y / 32;
-		
+	//cout << "i : " << i << "j : " << j << endl;
 //myMap_->getSocleMap(i,j)
 	if (!isMoving())
 		return false;
 	else {
 	   switch ( myMap_->getSocleMap(i,j) ) {
 	  
-	      case 0 :
+	      case DECOR :
             is_stuck = true;
 	         return false;
 	         break;
 
-	      case 1 :
+	      case VIDE :
             is_stuck = false;
 	         return true;
 	         break;
 
-	      case 2 :
+	      case LINK_MAP_1 :
 
 	         //linkmap1
-            if ( getMap()->getLink(1) ) 
+            if ( getMap()->getLink(1) && getId() != PROJECTILE ) 
 				{	         
 		         setPosition(Vector2f(getMap()->get_tpPoints(1),getMap()->get_tpPoints(0)));   //(Y, X)
 		         setMap(getMap()->getLink(1));
-		         map_changed = 1;
-		         cout << "map_changed (dans legal deplacement)" << map_changed << endl;
+		         map_changed = MAP1;
 		         is_stuck = true;
 		         return false;
 	         }
@@ -97,14 +96,14 @@ Entity::legalDeplacement(int x, int y)
 	         return false;
 	         break;
 
-	      case 3 : 
+	      case LINK_MAP_2 : 
 
 	         //linkmap2
-	         if ( getMap()->getLink(2) ) 
+	         if ( getMap()->getLink(2) && getId() != PROJECTILE ) 
 				{	       
 	       		setPosition(Vector2f(getMap()->get_tpPoints(3),getMap()->get_tpPoints(2)));   //(Y, X)
 	       		setMap(getMap()->getLink(2));
-	       		map_changed = 2;
+	       		map_changed = MAP2;
 	       		is_stuck = true;
 	       		return false;
 	         }
@@ -112,13 +111,13 @@ Entity::legalDeplacement(int x, int y)
 	         return false;
 	         break;
 	       
-	      case 4 :
+	      case LINK_MAP_3 :
 	         //linkmap3
-	         if ( getMap()->getLink(3) ) 
+	         if ( getMap()->getLink(3) && getId() != PROJECTILE ) 
 				{
 		         setPosition(Vector2f(getMap()->get_tpPoints(5),getMap()->get_tpPoints(4)));   //(Y, X)
 		         setMap(getMap()->getLink(3));
-		         map_changed = 3;
+		         map_changed = MAP3;
 		         is_stuck = true;
 		         return false;
 	         }
@@ -150,7 +149,12 @@ Entity::moveUp() //Okay
 		//cout << "deplacement autorisé " << endl;
 	}
 	else {
-	   if(legalDeplacement(getCenter().x + getAnimationWidth()/3, getCenter().y - getAnimationHeight()/3 - getSpeed()) ){
+	   if (getId() == PROJECTILE)
+	   {
+	      return;
+	   }
+	
+	   if(legalDeplacement(getCenter().x + getAnimationWidth()/3, getCenter().y - getAnimationHeight()/3 - getSpeed())  ){
 
 		   mySprite_->Move(getSpeed(),ZERO);
 		   setAnimationY(RIGHT); // Glisser à droite
@@ -178,6 +182,10 @@ Entity::moveDown()
 		setAnimationY(DOWN);
 	}
 	else {
+	   if (getId() == PROJECTILE)
+	   {
+	      return;
+	   }
 	   if(legalDeplacement(getCenter().x + getAnimationWidth()/3, getCenter().y + getAnimationHeight()/3 + getSpeed()) ){
 
 		   mySprite_->Move(getSpeed(),ZERO);
@@ -205,6 +213,10 @@ Entity::moveLeft()
 		setAnimationY(LEFT);
 	}
 	else {
+	   if (getId() == PROJECTILE)
+	   {
+	      return;
+	   }
 	   if(legalDeplacement(getCenter().x - getAnimationWidth()/3 - getSpeed(), getCenter().y - getAnimationHeight()/3) ){
 
 		   mySprite_->Move(ZERO,-getSpeed());
@@ -232,6 +244,10 @@ Entity::moveRight()
 		setAnimationY(RIGHT);
 	}
 	else {
+	   if (getId() == PROJECTILE)
+	   {
+	      return;
+	   }
 	   if(legalDeplacement(getCenter().x + getAnimationWidth()/3 + getSpeed(), getCenter().y - getAnimationHeight()/3) ){
 
 		   mySprite_->Move(ZERO,-getSpeed());
@@ -261,6 +277,10 @@ Entity::moveUpRight()
 		setAnimationY(RIGHT);
 	}
 	else {
+	   if (getId() == PROJECTILE)
+	   {
+	      return;
+	   }
 	   if(legalDeplacement(getCenter().x + getAnimationWidth()  / 3 + getSpeed(),getCenter().y + getAnimationHeight()  / 3) && legalDeplacement(getCenter().x  + getAnimationWidth()  / 3 + getSpeed(),getCenter().y - getAnimationHeight()  / 3)){ // RIGHT
 
 		   mySprite_->Move(getSpeed(),ZERO);
@@ -286,6 +306,10 @@ Entity::moveDownRight()
 		setAnimationY(RIGHT);
 	}
 	else {
+	   if (getId() == PROJECTILE)
+	   {
+	      return;
+	   }
 	   if(legalDeplacement(getCenter().x + getAnimationWidth()  / 3 + getSpeed(),getCenter().y + getAnimationHeight()  / 3 ) && legalDeplacement(getCenter().x  + getAnimationWidth()  / 3 + getSpeed(),getCenter().y - getAnimationHeight()  / 3)){ // RIGHT
 
 		   mySprite_->Move(getSpeed(),ZERO);
@@ -310,6 +334,10 @@ Entity::moveUpLeft()
 		setAnimationY(LEFT);
 	}
 	else {
+	   if (getId() == PROJECTILE)
+	   {
+	      return;
+	   }
 	   if(legalDeplacement(getCenter().x  - getAnimationWidth()  / 3 - getSpeed(),getCenter().y + getAnimationHeight()  / 3 ) && legalDeplacement(getCenter().x  - getAnimationWidth()  / 3 - getSpeed(),getCenter().y - getAnimationHeight()  / 3 )){
 		mySprite_->Move(-getSpeed(),ZERO);
 		setAnimationY(LEFT);
@@ -335,6 +363,10 @@ Entity::moveDownLeft()
 		setAnimationY(LEFT);
 	}
 	else {
+	   if (getId() == PROJECTILE)
+	   {
+	      return;
+	   }
 	   if(legalDeplacement(getCenter().x  - getAnimationWidth()  / 3 - getSpeed(),getCenter().y + getAnimationHeight()  / 3 ) && legalDeplacement(getCenter().x  - getAnimationWidth()  / 3 - getSpeed(),getCenter().y - getAnimationHeight()  / 3 )){
 		mySprite_->Move(-getSpeed(),ZERO);
 		setAnimationY(LEFT);
@@ -403,11 +435,11 @@ Map * Entity::getMap() const {
    return myMap_;
 }
 
-int Entity::isMapChanged() {
+map_number Entity::isMapChanged() {
    return map_changed;
 }  
 
-void Entity::setMapChanged(int x) {
+void Entity::setMapChanged(map_number x) {
    map_changed = x;
 }
 
@@ -426,3 +458,4 @@ bool Entity::getStuck() const {
 void Entity::setStuck(bool b) {
    is_stuck = b;
 }
+

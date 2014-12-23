@@ -15,18 +15,19 @@ class Player : public Entity
 	void actionKey(Map * map);
 
 	String getName() const;
+	void setName(String name);
+	
 	int getLifeMax() const;
 	int getManaMax() const;
 	int getLife() const;
 	int getMana() const;
 
-	void setName(String name);
 	void setLife(int life);
 	void setMana(int mana);
 	void setLifeMax(int life);
 	void setManaMax(int mana);
 	void bonusLifeMax(int life);
-	void bonusManaMac(int mana);
+	void bonusManaMax(int mana);
 
 	void lifePenalty(int penalty);
 	void lifeGain(int gain);

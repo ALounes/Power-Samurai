@@ -13,6 +13,8 @@ class Entity : public Animation
 	public :
 
 	enum direction {DOWN = 0, LEFT, RIGHT, UP, UPLEFT, UPRIGHT, DOWNLEFT, DOWNRIGHT};
+	
+	   //enum direction {RIGHT = 0, DOWNRIGHT, DOWN, DOWNLEFT, LEFT, UPLEFT, UP, UPRIGHT};
 
 	Entity(RenderWindow *win, Image& image,const Vector2i& nbrOfAnim, Map *myMap);
 	~Entity();
@@ -47,13 +49,35 @@ class Entity : public Animation
 	int* soclePosition() const;
 	int* getSocle(int x, int y) const;
 	
-	int isMapChanged();
-	void setMapChanged(int);
+	map_number isMapChanged();
+	void setMapChanged(map_number);
 	int getId() const;
 	void setId(int);
 	
 	bool getStuck() const;
 	void setStuck(bool);
+	
+	/*virtual String getName() const;
+	virtual void setName(String name);
+	
+	virtual int getLifeMax() const;
+	virtual int getManaMax() const;
+	virtual int getLife() const;
+	virtual int getMana() const;
+
+	virtual void setLife(int life);
+	virtual void setMana(int mana);
+	virtual void setLifeMax(int life);
+	virtual void setManaMax(int mana);
+	virtual void bonusLifeMax(int life);
+	virtual void bonusManaMax(int mana);
+
+	virtual void lifePenalty(int penalty);
+	virtual void lifeGain(int gain);
+	virtual void manaPenalty(int penalty);
+	virtual void manaGain(int gain);
+	virtual bool isAlive()  const;
+	virtual bool haveMana() const;*/
 	
 	
 
@@ -63,7 +87,7 @@ class Entity : public Animation
 	float moveSpeed_;
 	Map  *myMap_;
 	
-	int map_changed = 0;
+	map_number map_changed = NOCHANGE;
 	int id;
 	bool is_stuck = false;
 };

@@ -22,7 +22,7 @@ Player::~Player()
 void
 Player::actionKey(Map * map)
 {  
-   cout << "xperso : " << getPosition().x << "yperso :" << getPosition().y << endl;
+   //cout << "xperso : " << getPosition().x << "yperso :" << getPosition().y << endl;
 	const sf::Input &input = win_->GetInput();
 	int compteur_deplacement = 0;
 	
@@ -73,28 +73,28 @@ Player::actionKey(Map * map)
 	  {
 		runMove();
 		moveDownLeft();
-		current_direction = 4;
+		current_direction = 3;
 		  break;
 	  }
 	  case 4 :
 	  {
 		runMove();
 		moveDownRight();
-		current_direction = 0;
+		current_direction = 1;
 		  break;
 	  }
 	  case -2 :
 	  {
 		runMove();
 		moveUpRight();
-		current_direction = 0;
+		current_direction = 7;
 		  break;
 	  }
 	  case -4 :
 	  {
 		runMove();
 		moveUpLeft();
-		current_direction = 4;
+		current_direction = 5;
 		  break;
 	  }
 	  default :
@@ -239,7 +239,7 @@ Player::bonusLifeMax(int life)
 }
 
 void 
-Player::bonusManaMac(int mana)
+Player::bonusManaMax(int mana)
 {
 	manaMax_ += mana;
 }

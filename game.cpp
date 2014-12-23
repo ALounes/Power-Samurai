@@ -1,5 +1,4 @@
 #include "game.hpp"
-#include "config.hpp"
 
 #define GAME_WIDTH  1024
 #define GAME_HEIGHT 768
@@ -7,7 +6,11 @@
 #define PLAYING_WIDTH 800
 #define PLAYING_HEIGHT 600
 
+#define VIEW_WIDTH 400
+#define VIEW_HEIGHT 300
+
 #define BASE_SPRITE 32
+
 #define PLAYER_X_START 8
 #define PLAYER_Y_START 25
 
@@ -17,18 +20,17 @@
 #define MAP_2_HEIGHT 47
 #define MAP_2_WIDTH 47
 
+#define FRAMERATE 30
+
+#define RATE_FIRE 0.2
+
 
 
 Image image_linus;
 Image perso;
 Image plan;
 Image effect_003;
-
 Sprite sprite_perso;
-//Image feux;
-//Sprite sprite_feux;
-
-//Player *joueur;
 
 Vector2i anim(1,DOWN);
 bool moving = false;
@@ -53,16 +55,16 @@ Game::Game ()
   mainWindow_->SetPosition((VideoMode::GetDesktopMode().Width - GAME_WIDTH)/2, (VideoMode::GetDesktopMode().Height - GAME_HEIGHT)/2);
 
   map_1 = new Map();
-  cout << "map_1 créé" << endl;
   map_2 = new Map();
   map_3 = new Map();
   map_4 = new Map();
   map_courante = new Map();
-  player_choice = new int;
+  player_choice = new p_choice;
   image_joueur = new Image;
   image_bot_linus = new Image();
   image_bot_blonde = new Image();
   image_projectile = new Image();
+
  
   
   
@@ -72,12 +74,12 @@ Game::Game ()
 
 Game::~Game ()
 {
+
   delete map_1;
-    cout << "map 1 détruite" << endl;
   delete map_2;
   //delete map_3;
   //delete map_4;
-  cout << "maps détruites" << endl;
+  
   delete mainMenu_;
   delete gameState_;
   delete mainWindow_;
@@ -156,23 +158,23 @@ void Game::Map_Load(void)
   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-  {0,1,1,0,0,1,1,1,1,1,2,0,0,0,0,0,0,1,1,1,0,1,1,0,1,1,1,0,1,1,1,1,1,0,1,0,2,1,1,1,1,1,1,1,1,1,0},
-  {0,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,1,2,0,2,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,0,0,0,0,0,1,0},
-  {0,1,1,1,0,0,0,0,0,1,1,0,0,0,0,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,0,0,0,0,0,0,1,0},
-  {0,1,1,0,0,0,0,0,0,0,1,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,1,1,0,0,0,0,0,0,1,0},
+  {0,1,1,0,0,1,1,1,1,1,2,0,1,1,1,1,0,1,1,1,0,1,1,0,1,1,1,0,1,1,1,1,1,0,1,0,2,1,1,1,1,1,1,1,1,1,0},
+  {0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,2,0,2,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,0,0,0,0,0,1,0},
+  {0,1,1,1,0,0,0,0,0,1,1,0,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,0,0,0,0,0,0,1,0},
+  {0,1,1,0,0,0,0,0,0,0,1,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,1,1,0,0,0,0,0,0,1,0},
   {0,1,0,0,0,0,0,0,0,0,1,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,1,1,0,0,0,0,0,0,0,1,0},
   {0,1,0,0,0,0,0,0,0,1,1,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,1,1,0,0,0,0,0,0,1,1,0},
-  {0,1,1,1,0,0,0,0,1,1,1,0,0,1,1,0,0,0,1,0,1,0,0,0,1,0,1,0,1,0,1,0,1,1,1,0,1,1,0,0,0,1,1,0,1,1,0},
+  {0,1,1,1,0,0,0,0,1,1,1,0,0,1,1,0,0,0,1,0,1,0,0,0,1,0,1,0,1,0,0,0,1,1,1,0,1,1,0,0,0,1,1,0,1,1,0},
   {0,1,1,1,1,1,1,1,1,1,1,0,0,1,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,1,1,0,1,1,1,1,1,1,1,1,1,1,0},
-  {0,0,1,1,0,0,0,0,0,0,0,0,0,1,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,1,0,0,1,1,1,1,0,0,0},
-  {0,0,1,1,0,0,0,0,0,0,0,0,0,1,0,0,1,1,1,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0},
-  {0,0,1,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0},
-  {0,1,1,0,0,0,1,0,1,1,1,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0},
-  {0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,1,0,0,0,1,1,1,1,1,1,1,1,1,0},
+  {0,0,1,1,0,0,0,0,0,0,0,0,0,1,0,0,0,1,1,1,1,0,0,0,0,0,0,1,1,1,0,0,1,1,0,0,0,1,0,0,1,1,1,1,0,0,0},
+  {0,0,1,1,0,0,0,0,0,0,0,0,0,1,0,0,1,1,1,0,0,0,0,0,0,0,0,0,1,1,1,0,0,1,0,0,0,0,0,0,0,1,1,1,0,0,0},
+  {0,0,1,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,1,1,1,0,0,1,0,0,0,0,0,0,0,1,1,1,0,0,0},
+  {0,1,1,0,0,0,1,0,1,1,1,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,1,0,0,0,0,1,1,1,1,1,1,1,1,0},
   {0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,1,1,1,0,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1,0},
-  {0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
-  {0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1,1,1,0},
-  {0,1,1,1,1,1,1,0,1,1,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,1,0,0,1,1,1,1,1,1,0},
+  {0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
+  {0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1,1,1,0},
+  {0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,1,0,0,1,1,1,1,1,1,0},
+  {0,1,1,1,1,1,1,0,1,1,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,1,0,0,1,1,1,1,1,1,0},
   {0,1,1,1,1,1,1,0,1,1,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,1,0,0,1,1,1,1,1,1,0},
   {0,0,1,0,0,1,0,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,0,0,1,0,0,1,0,0},
   {0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0},
@@ -366,22 +368,22 @@ void Game::ShowDifficultyMenu()
 
 			break;
 	case DifficultyMenu::Easy:
-	      ResultDifficulty = 1.5;
+	      ResultDifficulty = EASY_DIFFICULTY;
 			*gameState_ = Game::ShowingMainMenu;
 
 			break;
 	case DifficultyMenu::Intermediate:
-	      ResultDifficulty = 3;
+	      ResultDifficulty = INTERMEDIATE_DIFFICULTY;
 			*gameState_ = Game::ShowingMainMenu;
 
 			break;
 	case DifficultyMenu::Hard:
-	      ResultDifficulty = 4;
+	      ResultDifficulty = HARD_DIFFICULTY;
 			*gameState_ = Game::ShowingMainMenu;
 
 			break;
 	default:    
-	      ResultDifficulty = 1.5;
+	      ResultDifficulty = EASY_DIFFICULTY;
 			break;	
 	}
 	
@@ -409,7 +411,7 @@ void Game::ShowPlayersMenu()
 			break;	
 	 }
 	 
-	 *player_choice = *(playersMenu_->getposition());
+	 *player_choice = (p_choice) *(playersMenu_->getposition());
 	 cout << "CHOIX JOUEUR : " << *player_choice << endl;
   mainWindow_->ShowMouseCursor(true);
   cout << "delete players terminé" << endl;
@@ -417,22 +419,14 @@ void Game::ShowPlayersMenu()
 
 void Game::RunGame()
 {
-  mainWindow_->ShowMouseCursor(false);
+   Timer_Projectile = new Clock();
+   mainWindow_->ShowMouseCursor(false);
 	Event event;
 	Clock time;
 	Clock clock2;
 	Vector2f position(mainWindow_->GetWidth()/2,mainWindow_->GetHeight()/2);
 	Clock clock;
 	Vector2i test_effect(5,8);
-/*
-	// Test projectile
-	Image *feux = new Image();
-	Vector2i vfeux(4,4);
-	if (!feux->LoadFromFile("sprite/feux.png"))
-		cout << "erreur " << endl ;
-	// FIN Test projectile
-	*/
-
 	
 	if (!buffer_son.LoadFromFile("Musique/BinB.ogg"))
 		cout << "erreur " << endl ;
@@ -448,29 +442,9 @@ void Game::RunGame()
  	
  	loadBot();
  	cout << "Bots chargés" << endl;
- 	
- 	/*
- 	// BOT 1
- 	Image image_bot;
-	if(!image_bot.LoadFromFile("sprite/LinusTorvalds.png"))
-		cout << "erreur " << endl ;
-	Bot *bot = new Bot(mainWindow_,image_bot,Vector2i(LINUS_TORVALDS_X,LINUS_TORVALDS_Y), String("Linus Torvalds"), LINUS_TORVALDS_LIFE, LINUS_TORVALDS_MANA, LINUS_TORVALDS_POWER,map_courante);
-	bot->setPosition(Vector2f(32*7,32*3));	
-	bot->update_path(map_courante,joueur);
-	bot->play();
-	bot->setSpeed(1.5);
-	entitys.push_front(bot);*/
 	
 	entitys = map_1->Bot_list;
 	cout << "entitys initialisée" << endl;
-	
-   /*int xStart = 7;
-   int yStart = 3;
-   int xFinish = 8;
-   int yFinish = 25;*/
-   
-  // cout << "CHAINE CHEMIN" << bot->pathFind( xStart, yStart, xFinish, yFinish, map_courante) << endl;
-   //cout << "CHAINE CHEMIN " << bot->GetPath() << endl;
    
    
 	camera = new Camera(mainWindow_,joueur);
@@ -484,11 +458,6 @@ void Game::RunGame()
 	//addEffect(effect);
 	//effect->setPosition(Vector2f(300,300));
 
-
-	// TEST PROJECTILE	
-	
-	//Projectile *projectile = new Projectile(mainWindow_,feux,vfeux,joueur,16);
-
 	mainWindow_->Display();
 
    // Exécution de la boucle principale
@@ -496,7 +465,7 @@ void Game::RunGame()
    const Input &input = mainWindow_->GetInput();
    while (mainWindow_->IsOpened() && !(fin_de_boucle) && *gameState_ == Playing)
    {
-      mainWindow_->SetFramerateLimit(30);
+      mainWindow_->SetFramerateLimit(FRAMERATE);
       camera->setCameraXY(*(map_courante->get_Largeur()) * BASE_SPRITE,*(map_courante->get_Hauteur()) * BASE_SPRITE);
 		mainWindow_->Draw(*(map_courante->sprite_map_));
 			
@@ -505,10 +474,10 @@ void Game::RunGame()
 				joueur->soclePosition();
 				joueur->actionKey(map_courante);
 				
-				if (joueur->isMapChanged() != 0) {
+				if (joueur->isMapChanged() != NOCHANGE) {
 				   map_courante->Bot_list = entitys;
 				   map_courante = joueur->getMap();
-				   joueur->setMapChanged(0);
+				   joueur->setMapChanged(NOCHANGE);
 				   entitys = map_courante->Bot_list;
 				}
 				
@@ -533,11 +502,6 @@ void Game::RunGame()
 		   
 	   }
 	   
-	   // TEST PROJECTILES
-      /*
-		projectile->update();
-		projectile->draw();
-   */
 		while (mainWindow_->GetEvent(event) )
 		{
 		
@@ -561,7 +525,7 @@ void Game::RunGame()
 			
 		}
 
-		view->SetHalfSize(400, 300);
+		view->SetHalfSize(VIEW_WIDTH, VIEW_HEIGHT);
       
       
 		camera->run();	
@@ -569,7 +533,7 @@ void Game::RunGame()
 		
 		// Mise a jours des sprites et affichage
 		displayEntity(clock);
-	
+
    	//effect->run();
 
 		// Affichage du contenu de la fenêtre à l'écran
@@ -579,14 +543,50 @@ void Game::RunGame()
 		mainWindow_->Clear();
    
    }
+   cout << "Sortie de boucle" << endl;
 mainWindow_->ShowMouseCursor(true);
+
+/*cout << "1" << endl;
+for(auto s : entitys){
+	entitys.remove(s);
+   delete s ;
+}
+cout << "1" << endl;
+
+
+for(auto s : (map_1->Bot_list)){
+	(map_1->Bot_list).remove(s);
+   delete s ;
+}
+for(auto s : (map_2->Bot_list)){
+	(map_2->Bot_list).remove(s);
+   delete s ;
+}
+for(auto s : (map_2->Bot_list)){
+	(map_2->Bot_list).remove(s);
+   delete s ;
+}
+
+for(auto s : effects){
+	effects.remove(s);
+   delete s ;
+}
+
+cout << "hihi" << endl;
+for(auto s : projectiles){
+	projectiles.remove(s);
+   delete s ;
+}*/
 entitys.clear();
 (map_1->Bot_list).clear();
 (map_2->Bot_list).clear();
 (map_3->Bot_list).clear();
 effects.clear();
+projectiles.clear();
 delete view;
 delete camera;
+delete joueur;
+delete Timer_Projectile;
 }
 
 void
@@ -618,14 +618,22 @@ Game::keyPressedManagement (Key::Code keyPressed)
 	 	break;
    case  Key::Space : {
    
-      Vector2i vfeux(4,4);
-	   if (!image_projectile->LoadFromFile("sprite/feux2.png"))
-		   cout << "erreur " << endl ;
-	   Projectile *projectile = new Projectile(mainWindow_,image_projectile ,vfeux,joueur,16);
-	   projectile->setDirection( joueur->getCurrentDirection() );
-	   projectile->preset();
-	   projectile->setSpeed(5);
-		projectiles.push_front(projectile);
+      bool refresh = false;
+
+	   if (Timer_Projectile->GetElapsedTime() > RATE_FIRE) 
+	   	refresh = true;
+
+      if (refresh) {
+        
+         Vector2i vfeux(4,4);
+	      if (!image_projectile->LoadFromFile("sprite/feux2.png"))
+		      cout << "erreur " << endl ;
+	      Projectile *projectile = new Projectile(mainWindow_,image_projectile ,vfeux,joueur,16,5);
+	      projectile->setDirection( joueur->getCurrentDirection() );
+	      projectile->preset();
+		   projectiles.push_front(projectile);
+		   Timer_Projectile->Reset();
+		}
 		
 		break;
    }
@@ -655,32 +663,59 @@ Game::displayEntity(Clock &time)
 
 	if (time.GetElapsedTime() > ENTITY_FPS_RATE) 
 		refresh = true;
+	if (!joueur->isAlive())
+	{
+	   *gameState_ = ShowingMainMenu;
+	   return;
+	}
+	
 
    if (refresh && joueur->isPlaying()) {
       joueur->update();
    }
    joueur->draw();
       
-	for(auto s : entitys){
-		if(refresh ){
-			s->update();
-		}
-		s->draw();
-	}
-	for(auto s : projectiles){
+   for(auto s : entitys){
 
-		   if ( !s->getStuck())
-		   {
-
+	   if(refresh ){
 		   s->update();
-		   s->draw();
-		}
-		else {
-		   projectiles.remove(s);
-		   delete s ;
-			break;
-		}
-	}
+	   }
+	   s->draw();
+   }
+   for(auto s : projectiles){
+      
+	   if ( !s->getStuck())
+	      {
+
+	      s->update();
+	      s->draw();
+	   }
+	   else {
+	      projectiles.remove(s);
+	      delete s ;
+		   break;
+	   }
+	   for(auto c : entitys){
+
+
+         if ( s->getCenter().x < c->getCenter().x + c->getAnimationWidth() && s->getCenter().x > c->getCenter().x - c->getAnimationWidth() && s->getCenter().y < c->getCenter().y + c->getAnimationHeight() && s->getCenter().y > c->getCenter().y - c->getAnimationHeight())
+         {
+            
+            cout << "Bot touché" << endl;
+            projectiles.remove(s);
+	         delete s ;
+	         c->lifePenalty(c->getAttackDamage());
+	         if (!c->isAlive())
+	         {
+	            entitys.remove(c);
+	            delete c;
+	         }
+	         
+		      return;
+         }
+      }
+   }
+	
 
 	if(refresh)
 		time.Reset();
@@ -709,7 +744,7 @@ Game::displayEffect(Clock &time)
 void Game::setPlayer(RenderWindow  * mainwin,Image * image) {
    entitys.clear();
    switch(*player_choice) {
-      case 0 : 
+      case P1 : 
 
       {
         if(!image_joueur->LoadFromFile("sprite/blonde.png"))
@@ -722,7 +757,7 @@ void Game::setPlayer(RenderWindow  * mainwin,Image * image) {
         break;
       }
       
-      case 1 : 
+      case P2 : 
       {
         if(!image_joueur->LoadFromFile("sprite/fartas.png"))
 		      cout << "erreur " << endl ; 
@@ -733,7 +768,7 @@ void Game::setPlayer(RenderWindow  * mainwin,Image * image) {
         break;
       }
       
-      case 2 : 
+      case P3 : 
       {
         if(!image_joueur->LoadFromFile("sprite/gris.png"))
 		      cout << "erreur " << endl ; 
@@ -744,7 +779,7 @@ void Game::setPlayer(RenderWindow  * mainwin,Image * image) {
         break;
       }
       
-      case 3 : 
+      case P4 : 
 
       {
 
@@ -765,10 +800,6 @@ void Game::setPlayer(RenderWindow  * mainwin,Image * image) {
         joueur = new LinusTorvalds(mainwin,*image_joueur,map_courante);
         mainwin->Draw(*(joueur->getSprite()));
         joueur->setPosition(Vector2f(PLAYER_X_START*BASE_SPRITE ,PLAYER_Y_START*BASE_SPRITE));
-        //joueur->setAnimationWidth (32);
-        //joueur->setAnimationHeight (32);
-
-        //entitys.push_front(joueur);
         break;
       }
 
@@ -837,32 +868,26 @@ void Game::loadBot() {
       // BOT 1
 	if(!image_bot_linus->LoadFromFile("sprite/LinusTorvalds.png"))
 		cout << "erreur " << endl ;
-	Bot *bot = new Bot(mainWindow_,*image_bot_linus,Vector2i(LINUS_TORVALDS_X,LINUS_TORVALDS_Y), String("Linus Torvalds"), LINUS_TORVALDS_LIFE, LINUS_TORVALDS_MANA, LINUS_TORVALDS_POWER,map_1);
-	bot->setPosition(Vector2f(32*7,32*3));	
+	Bot *bot = new Bot(mainWindow_,*image_bot_linus,Vector2i(LINUS_TORVALDS_X,LINUS_TORVALDS_Y), String("Linus Torvalds"), LINUS_TORVALDS_LIFE, LINUS_TORVALDS_MANA, LINUS_TORVALDS_POWER,map_1,100,0.5,ResultDifficulty * 1, -1,10);
+	bot->setPosition(Vector2f(BASE_SPRITE*7,BASE_SPRITE*3));	
 	bot->update_path(map_courante,joueur);	
-	bot->play();
-	bot->setSpeed(ResultDifficulty);
-	//bot->setId(-1);
   (map_1->Bot_list).push_front(bot);
   
       // BOT 2
 	if(!image_bot_blonde->LoadFromFile("sprite/blonde.png"))
 		cout << "erreur " << endl ;
-	Bot *bot2 = new Bot(mainWindow_,*image_bot_blonde,Vector2i(LINUS_TORVALDS_X,LINUS_TORVALDS_Y), String("Linus Torvalds"), LINUS_TORVALDS_LIFE, LINUS_TORVALDS_MANA, LINUS_TORVALDS_POWER,map_1);
-	bot2->setPosition(Vector2f(32*20,32*20));	
+	Bot *bot2 = new Bot(mainWindow_,*image_bot_blonde,Vector2i(LINUS_TORVALDS_X,LINUS_TORVALDS_Y), String("Linus Torvalds"), LINUS_TORVALDS_LIFE, LINUS_TORVALDS_MANA, LINUS_TORVALDS_POWER,map_1,100,0.5,ResultDifficulty * 2,-2,20);
+	bot2->setPosition(Vector2f(BASE_SPRITE*20,BASE_SPRITE*20));	
 	bot2->update_path(map_courante,joueur);
-	bot2->play();
-	bot2->setSpeed(ResultDifficulty);
-	//bot2->setId(-2);
   (map_1->Bot_list).push_front(bot2);
   
   // MAP 2
   
-	Bot *bot3 = new Bot(mainWindow_,*image_bot_linus,Vector2i(LINUS_TORVALDS_X,LINUS_TORVALDS_Y), String("Linus Torvalds"), LINUS_TORVALDS_LIFE, LINUS_TORVALDS_MANA, LINUS_TORVALDS_POWER,map_2);
-	bot3->setPosition(Vector2f(32*7,32*3));	
+	Bot *bot3 = new Bot(mainWindow_,*image_bot_linus,Vector2i(LINUS_TORVALDS_X,LINUS_TORVALDS_Y), String("Linus Torvalds"), LINUS_TORVALDS_LIFE, LINUS_TORVALDS_MANA, LINUS_TORVALDS_POWER,map_2,100,0.5,ResultDifficulty * 1,-1,10);
+	bot3->setPosition(Vector2f(BASE_SPRITE*7,BASE_SPRITE*3));	
 	bot3->update_path(map_courante,joueur);
-	bot3->play();
-	bot3->setSpeed(ResultDifficulty);
+	//bot3->play();
+	//bot3->setSpeed(ResultDifficulty);
 	//bot3->setId(-1);
   (map_2->Bot_list).push_front(bot3);
   

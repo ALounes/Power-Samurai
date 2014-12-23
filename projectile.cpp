@@ -1,18 +1,17 @@
 #include "projectile.hpp"
 
 	
-Projectile::Projectile(RenderWindow *win, Image* image, const Vector2i& nbrOfAnim, Entity *entity, int numberOfEffect)
+Projectile::Projectile(RenderWindow *win, Image* image, const Vector2i& nbrOfAnim, Entity *entity, int numberOfEffect, int ProjectileSpeed)
 :Entity(win,*image,nbrOfAnim,entity->getMap())
 ,direction_(PROJECTILE_DIRECTION_DEFAULT)
 ,iAnim_(0)
 ,numberOfEffect_(numberOfEffect)
 {
+   setId(-10);
 	play();
 	Vector2f posit(entity->getCenter().x - getAnimationWidth() / 2, entity->getCenter().y - getAnimationHeight() / 2);
-	setPosition( posit );
-	cout << "Animation largeur : "  << getAnimationWidth() << endl;
-	//getSprite()->SetScale(0.4,0.4);
-	
+	setPosition( posit );	
+	setSpeed(ProjectileSpeed);
 }
 
 Projectile::~Projectile()
@@ -60,27 +59,36 @@ void Projectile::preset() {
 		case 6:
 
 			//moveUp();
+			
 			mySprite_->SetRotation(90);
 			break;
 
 		case 5:
 
 			//moveUpLeft();
+			mySprite_->Move( 0, getAnimationHeight());
+			mySprite_->SetRotation(135);
+			//mySprite_->Move( 0, getAnimationHeight());
 			break;
 
 		case 7:
 
 			//moveUpRight();
+			mySprite_->SetRotation(45);
 			break;
 
 		case 3:
-
+         
 			//moveDownLeft();
+			mySprite_->Move( getAnimationWidth(), getAnimationHeight());
+			mySprite_->SetRotation(225);
 			break;
 
 		case 1:
 
 			//moveDownRight();
+						mySprite_->Move( getAnimationWidth(), 0);
+			mySprite_->SetRotation(315);
 			break;
 		
 		default: // Cas -1 pas de mouvement
@@ -107,7 +115,6 @@ Projectile::update()
 		case 4:
 			runMove();
 			moveLeft();
-			mySprite_->SetRotation(180);
 			break;
 
 		case 0:
@@ -118,7 +125,6 @@ Projectile::update()
 		case 6:
 			runMove();
 			moveUp();
-			mySprite_->SetRotation(90);
 			break;
 
 		case 5:
@@ -159,4 +165,5 @@ Projectile::update()
 		stopMove();
 	}
 }
+
 

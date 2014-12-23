@@ -7,19 +7,26 @@ bool operator<(const Node & a, const Node & b)
 }
 
 Bot::Bot(RenderWindow *win, Image& image, const Vector2i nbrOfAnim, String name,
-			int life, int mana, enum power power, Map *myMap)
+			int life, int mana, enum power power, Map *myMap, float att_dmg, float att_delay, float ResultDiff, int ident, int rangebot)
 :Entity(win,image,nbrOfAnim,myMap)
+,range_(rangebot)
 ,name_(name)
 ,life_(life)
 ,mana_(mana)
 ,power_(power)
-{
+,attack_damage(att_dmg)
+,attack_delay(att_delay)
 
+{
+   setSpeed(ResultDiff);
+   setId(ident);
+   play();
+   timer = new Clock();
 }
 
 Bot::~Bot()
 {
-
+   delete timer;
 }
 
 void
@@ -190,12 +197,23 @@ string Bot::GetPath() const {
 void Bot::follow_path(Map * map, Player * player) {
    int j;
    char c;
-   //update_path(map, player);
-   cout << "Chemin : " << path << endl;
+   bool refresh = false;
+   //attack_delay = 0.5;
+   
+   if (timer->GetElapsedTime() > getAttackDelay()) {
+		refresh = true;
+	}	
+   	
    
    if (path == "")
    {
-
+   // Attaque du personnage
+      if (refresh)
+      {
+          player->lifePenalty(getAttackDamage());
+          timer->Reset();
+      }
+     
    }
    else {
       c = path.at(0);
@@ -221,7 +239,6 @@ void Bot::follow_path(Map * map, Player * player) {
             break;
          }
          case 3 : {
-            cout << "cas 3" << endl;
             runMove();
             moveDownLeft();
             break;
@@ -237,7 +254,6 @@ void Bot::follow_path(Map * map, Player * player) {
             break;
          }
          case 6 : {
-         cout << "cas 6" << endl;
             runMove();
             moveUp();
             break;
@@ -251,7 +267,7 @@ void Bot::follow_path(Map * map, Player * player) {
             break;
       }
    }
-   cout << "position du perso : (x,y) = " << player->soclePosition()[1]<<", " << player->soclePosition()[3] << endl;
+   //cout << "position du perso : (x,y) = " << player->soclePosition()[1]<<", " << player->soclePosition()[3] << endl;
    //cout << "Centre perso : (x,y) = " << player->getCenter()
    //cout << "position du bot: (x,y) = " << soclePosition()[1]<<", " << soclePosition()[3] << endl;
 }
@@ -283,3 +299,148 @@ int Bot::getDistance() {
    return distance;
 }
 
+String 
+Bot::getName() const
+{
+	return name_;
+}
+
+void 
+Bot::setName(String name)
+{
+	name_ = name;
+}
+
+int 
+Bot::getLife() const
+{
+	return life_;
+}
+
+int 
+Bot::getMana() const
+{
+	return mana_;
+}
+
+void 
+Bot::setLife(int life)
+{
+	life_ = life;
+}
+
+void 
+Bot::setMana(int mana)
+{
+	mana_ = mana;
+}
+
+void 
+Bot::lifePenalty(int penalty)
+{
+	life_ -= penalty;
+
+	if(life_ < ZERO)
+	{
+		life_ = ZERO;
+	}
+}
+
+void 
+Bot::lifeGain(int gain)
+{
+ 	life_ += gain;
+
+	if(life_ > lifeMax_)
+	{
+		life_ = lifeMax_;
+	}
+}
+
+void 
+Bot::manaPenalty(int penalty)
+{
+	mana_ -= penalty;
+
+	if(mana_ < ZERO)
+	{
+		mana_ = ZERO;
+	}
+}
+
+void 
+Bot::manaGain(int gain)
+{
+ 	mana_ += gain;
+
+	if(mana_ > manaMax_)
+	{
+		mana_ = manaMax_;
+	}
+}
+
+bool 
+Bot::isAlive() const
+{
+	return (life_ > ZERO);
+}
+
+bool 
+Bot::haveMana() const
+{
+	return (mana_ > ZERO);
+}
+
+
+int  
+Bot::getLifeMax() const
+{
+	return lifeMax_;
+}
+
+int  
+Bot::getManaMax() const
+{
+	return manaMax_;
+}
+
+void  
+Bot::setLifeMax(int life)
+{
+	lifeMax_ = life;
+}
+
+void  
+Bot::setManaMax(int mana)
+{
+	manaMax_ = mana;
+}
+
+
+void 
+Bot::bonusLifeMax(int life)
+{
+	lifeMax_ += life;
+}
+
+void 
+Bot::bonusManaMax(int mana)
+{
+	manaMax_ += mana;
+}
+
+void Bot::setAttackDelay(float ad) {
+   attack_delay = ad;
+}
+
+float Bot::getAttackDelay() {
+   return attack_delay;
+}
+
+void Bot::setAttackDamage(float ad) {
+   attack_damage = ad;
+}
+
+float Bot::getAttackDamage() {
+   return attack_damage;
+}

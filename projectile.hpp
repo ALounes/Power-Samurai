@@ -8,7 +8,7 @@ class Projectile : public Entity
 {
 	public :
 
-	Projectile(RenderWindow *win, Image* image,const Vector2i& nbrOfAnim, Entity *entity, int numberOfEffect);
+	Projectile(RenderWindow *win, Image* image,const Vector2i& nbrOfAnim, Entity *entity, int numberOfEffect, int ProjectileSpeed);
 	~Projectile();
 
 	void update();

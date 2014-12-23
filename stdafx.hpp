@@ -11,5 +11,7 @@
 using namespace std;
 using namespace sf;
 
+enum map_number {NOCHANGE,MAP1,MAP2,MAP3};
+
 
 #endif 

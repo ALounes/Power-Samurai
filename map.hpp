@@ -5,6 +5,7 @@
 #include "stdafx.hpp"
 #include <list>
 
+#define PROJECTILE -10
 #define BOT3 -3
 #define BOT2 -2
 #define BOT1 -1

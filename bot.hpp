@@ -6,6 +6,7 @@
 #include "map.hpp"
 #include "entity.hpp"
 #include "player.hpp"
+#define DEFAULT_RANGE 10
 
 
 
@@ -18,7 +19,7 @@ class Bot: public Entity
 	public :
 	
 	Bot(RenderWindow *win, Image &image, const Vector2i nbrOfAnim, String name,
-		 int life, int mana, enum power power, Map *myMap);
+		 int life, int mana, enum power power, Map *myMap, float att_dmg, float att_delay, float ResultDiff, int ident, int rangebot);
 		
 	~Bot();
 
@@ -48,20 +49,54 @@ class Bot: public Entity
 	void setDistance(int);
 	int getDistance();
 	
+	String getName() const;
+	void setName(String name);
+	
+	int getLifeMax() const;
+	int getManaMax() const;
+	int getLife() const;
+	int getMana() const;
 
+	void setLife(int life);
+	void setMana(int mana);
+	void setLifeMax(int life);
+	void setManaMax(int mana);
+	void bonusLifeMax(int life);
+	void bonusManaMax(int mana);
+
+	void lifePenalty(int penalty);
+	void lifeGain(int gain);
+	void manaPenalty(int penalty);
+	void manaGain(int gain);
+	bool isAlive()  const;
+	bool haveMana() const;
+	
+   void setAttackDelay(float);
+	float getAttackDelay();
+	
+	void setAttackDamage(float);
+	float getAttackDamage();
 
 	private:
 	
 	string path;
 	Player * player_;
-	String &name_;
-	int    life_;
-	int    mana_;
-	enum power power_;
 	
-	int range_ = 10;
+	int range_ = DEFAULT_RANGE;
 	int speed_;
 	int distance;
+	
+	String &name_;
+	int life_;
+	int mana_;
+	int lifeMax_;
+	int manaMax_;
+	enum power power_;
+	int current_direction;
+	float attack_damage;
+	
+	float attack_delay;
+	Clock * timer;
 	
 	//uniform_int_distribution<int> distribution(random_minimum,random_maximum);
 	//defalut_random_engine generateur;

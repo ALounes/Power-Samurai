@@ -2,7 +2,6 @@
 
 Map::Map () 
 {
-   cout << "Map()" << endl;
    sprite_map_ = new Sprite();
    image_map_ = new Image();
    

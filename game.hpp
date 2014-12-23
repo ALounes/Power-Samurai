@@ -19,10 +19,13 @@
 #include "bjarnestroustrup.hpp"
 #include "alanturing.hpp"
 #include "projectile.hpp"
-//#include "bot_algorithm.hpp"
 
+#define EASY_DIFFICULTY 1
+#define INTERMEDIATE_DIFFICULTY 2 
+#define HARD_DIFFICULTY 3
 
 enum direction {DOWN,LEFT,RIGHT,UP};
+enum p_choice {P1,P2,P3,P4};
 
 class Game
 {
@@ -74,7 +77,7 @@ private:
 	Player *joueur;
 	Image  *image_joueur;
 	Camera *camera;
-	int    *player_choice;
+	p_choice *player_choice;
 	View   * view;
    Map    *map_1;
    Map    *map_2;
@@ -82,7 +85,8 @@ private:
    Map    *map_4;
    Map    *map_courante;
 	RenderWindow  *mainWindow_;
-   float ResultDifficulty = 1;	
+   float ResultDifficulty = EASY_DIFFICULTY;
+   Clock * Timer_Projectile;	
 	
 	Image *image_bot_linus;
 	Image *image_bot_blonde;
