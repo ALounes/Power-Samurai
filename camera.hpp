@@ -16,7 +16,10 @@ class Camera
 	void setCameraXY(int x, int y);
 	int * getCameraX() const;
 	int * getCameraY() const;
-Vector2f *position_;
+	Vector2f * getPosition() const;
+
+	Vector2f *position_;
+
 	private:
 	RenderWindow *win_;
 	//Vector2f *position_;
