@@ -72,6 +72,8 @@ StatusBar::~StatusBar()
 void 
 StatusBar::update()
 {
+	statuLife_.SetScaleX(0.5);
+
 	myText_->SetPosition  (TEXT_POSITION_X, TEXT_POSITION_Y);
 	mySprite_->SetPosition(SPRITE_POSITION_X, SPRITE_POSITION_Y);
 
