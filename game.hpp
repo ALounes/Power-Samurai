@@ -20,6 +20,7 @@
 #include "alanturing.hpp"
 #include "projectile.hpp"
 #include "item.hpp"
+#include "statusbar.hpp"
 
 #define EASY_DIFFICULTY 1
 #define INTERMEDIATE_DIFFICULTY 2 

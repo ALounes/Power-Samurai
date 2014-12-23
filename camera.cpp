@@ -16,17 +16,30 @@ Camera::~Camera()
 	delete Camera_Y;
 }
 
-void Camera::setCameraXY(int x, int y) {
+void 
+Camera::setCameraXY(int x, int y) 
+{
    *Camera_X = x;
    *Camera_Y = y;
 }
 
-int * Camera::getCameraX() const {
+int* 
+Camera::getCameraX() const 
+{
    return Camera_X;
 }
 
-int * Camera::getCameraY() const {
+int* 
+Camera::getCameraY() const 
+{
    return Camera_Y;
+}
+
+
+Vector2f* 
+Camera::getPosition() const
+{
+	return position_;
 }
 
 void

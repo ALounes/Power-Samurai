@@ -512,6 +512,9 @@ void Game::RunGame()
 	camera = new Camera(mainWindow_,joueur);
 	view = new View();
 
+	// TEST STATUS BAR
+	StatusBar statusbar(mainWindow_,joueur,camera);
+
 	mainWindow_->Display();
 
    // Exécution de la boucle principale
@@ -609,6 +612,8 @@ void Game::RunGame()
       
 		camera->run();	
 
+		// Mise a jour de la StatusBar et affichage
+		statusbar.display();	
 		
 		// Mise a jours des sprites et affichage
 		displayEntity(clock);
