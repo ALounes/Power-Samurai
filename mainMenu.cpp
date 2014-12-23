@@ -26,9 +26,9 @@ MainMenu::MainMenu ()
   menuItems_ = new list<MenuItem>;
   sprite_main_all_ = new	Sprite();     
   
-	//Load images from files
+	//Chargement des images effectués dès le constructeur en raison de leur coût en ressource
 	
-	cout << "CONSTRUCTEUR MainMenu()" << endl;
+	//cout << "CONSTRUCTEUR MainMenu()" << endl;
 	
 	image_main_ = new sf::Image();
 	image_main_->LoadFromFile("images/MainMenu/MainMenu.png");
@@ -131,11 +131,10 @@ MainMenu::~MainMenu ()
 	delete image_players_;
 }
 
+// Afficher l'image principale
 void MainMenu::Load(RenderWindow *window)
 { 
-   
-
-  window->Clear(Color::White);
+   window->Clear(Color::White);
 	window->Draw(*sprite_main_all_);
 	window->Display();
 
@@ -196,21 +195,22 @@ MainMenu::MenuResult MainMenu::HandleClick(int x, int y)
 
 void MainMenu::HandleMove(int x, int y, RenderWindow *window)
 {	
-
-	bool on_button = false;
 	
 	for (auto b : *menuItems_) {
     if (b.rect.Contains(x, y)) {
-      on_button = true;
+      on_button = 4;
       window->Clear(Color::White);
 	    window->Draw(*sprite_main_all_);
 	    window->Draw( b.sprite );
       
     }
+    else {
+      --on_button;
+    }
   }
 	
-	if (!on_button) {
-		    window->Clear(Color::White);
+	if (on_button <= 0) {
+		   window->Clear(Color::White);
 	      window->Draw(*sprite_main_all_);
   }
   

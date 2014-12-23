@@ -29,30 +29,39 @@ public:
    Map ();
    ~Map ();
   
-	 void map_create(int hauteur, int largeur);
-	 void set_links(Map *map_1, Map *map_2, Map *map_3);
-	 void set_tpPoints(int x1, int y1, int x2, int y2, int x3, int y3);
-	 void set_image(Image img);
-	 void set_sprite(Sprite sprt);
-	 void set_tableau(int i, int j, int val);
+   //Allocation dynamique du tableau Bitmap et initialisation de ses dimensions
+	void map_create(int hauteur, int largeur);
+   // On mémorise en pointeur sur Map les cartes avec lesquelles nous pouvons interagir depuis cette map.
+   void set_links(Map *map_1, Map *map_2, Map *map_3);
+   // On paramétre les coordonées d'arrivée lorsque l'on passe d'une carte à l'autre.
+   void set_tpPoints(int x1, int y1, int x2, int y2, int x3, int y3);
+	void set_image(Image img);
+	void set_sprite(Sprite sprt);
+	// Assigne la valeur "val" à la case (i,j)  du tableau
+	void set_tableau(int i, int j, int val);
 
    int * get_Hauteur();
    int * get_Largeur();
+   int ** getVector();
+   
+   // Suivant la valeur de i, renvoie le pointeur sur la (i+1)eme Map.
    Map* getLink(int i) const;
+   
+   // 0 < pos < 5. pos renvoie la valeur des coordonnées de téléportations (Exemple : pos = 0 => x_link_1)
    int  get_tpPoints(int pos);
+   
    Image*  getImage() const;  
    Sprite* getSprite() const;
+   
    int getSocleMap(int x,int y) const;
-   int ** getVector();
+   
 
    Image  *image_map_;
 	Sprite *sprite_map_; 
+	
 	list<Bot*> Bot_list;
 
 private:
-
-   
-   
    
    int ** Vector_map_;
 

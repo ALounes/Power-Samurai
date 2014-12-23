@@ -21,7 +21,7 @@ public:
 			MenuResult action;
 			Sprite sprite;
 		};
-	
+	// Afficher l'image principale
 	void Load(RenderWindow *window);
 	MenuResult Show(RenderWindow *window);
 
@@ -37,6 +37,8 @@ private:
 	sf::Image *image_exit_;
 	sf::Image *image_difficulty_;
 	sf::Image *image_players_;
+	
+	int on_button = 0;
 	
 	sf::Sprite *sprite_main_all_; 
 };

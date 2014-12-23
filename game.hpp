@@ -33,7 +33,8 @@ public:
 
   	Game ();
   	~Game ();
-
+   
+   //Charger et initialiser les cartes. 
    void Map_Load();
 	void Start();
 
@@ -51,16 +52,16 @@ public:
 	void loadBot();
   
 private:
-	 bool IsExiting();
-	 void GameLoop();
+	bool IsExiting();
+	void GameLoop();
 	
-	 void ShowSplashScreen();
-	 void ShowPlayersMenu();
-	 void ShowDifficultyMenu();
-	 void ShowMainMenu();
-	 void RunGame();
-	 void setPlayer(RenderWindow  * mainwin,Image * image_joueur);
-	 void setDifficulty();
+	void ShowSplashScreen();
+	void ShowPlayersMenu();
+	void ShowDifficultyMenu();
+	void ShowMainMenu();
+	void RunGame();
+	void setPlayer(RenderWindow  * mainwin);
+	void setDifficulty();
 
 
   enum GameState { Uninitialized, ShowingSplash, Paused, 
@@ -70,22 +71,28 @@ private:
    MainMenu  *mainMenu_;
    DifficultyMenu *difficultyMenu_;
    PlayersMenu    *playersMenu_;
+   
 	list<Bot*> entitys;
 	list<AnimationEffect*> effects;
 	list<Projectile*> projectiles;
 	 
 	Player *joueur;
 	Image  *image_joueur;
+	
 	Camera *camera;
-	p_choice *player_choice;
 	View   * view;
+	 
+	p_choice *player_choice;
+	float ResultDifficulty = EASY_DIFFICULTY;
+	
    Map    *map_1;
    Map    *map_2;
    Map    *map_3;
    Map    *map_4;
    Map    *map_courante;
+   
 	RenderWindow  *mainWindow_;
-   float ResultDifficulty = EASY_DIFFICULTY;
+  
    Clock * Timer_Projectile;	
 	
 	Image *image_bot_linus;

@@ -26,11 +26,8 @@
 
 
 
-Image image_linus;
-Image perso;
-Image plan;
+
 Image effect_003;
-Sprite sprite_perso;
 
 Vector2i anim(1,DOWN);
 bool moving = false;
@@ -51,6 +48,9 @@ Game::Game ()
 
   gameState_ = new GameState;
   *gameState_ = Uninitialized;
+  
+  
+  // On crée une fenêtre et on la centre sur l'écran.
   mainWindow_ = new RenderWindow(VideoMode(GAME_WIDTH, GAME_HEIGHT), "Power Samurai!!!");
   mainWindow_->SetPosition((VideoMode::GetDesktopMode().Width - GAME_WIDTH)/2, (VideoMode::GetDesktopMode().Height - GAME_HEIGHT)/2);
 
@@ -99,7 +99,7 @@ void Game::Map_Load(void)
   // Creation map 1
   
   map_1->map_create(MAP_1_HEIGHT,MAP_1_WIDTH);
-  cout << "creation terminée()" << endl;
+  // Comme nous ne pouvons pas initialiser facilement de tableau dynamique, nous avons recours à un tableau statique
   int staticmap_1[MAP_1_HEIGHT][MAP_1_WIDTH] = 
 { {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -129,24 +129,19 @@ void Game::Map_Load(void)
   {0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
   {0,0,0,0,0,0,0,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
   };
-  
-  cout << "static terminé() (3,1) = " << staticmap_1[3][1] << endl;
-  
+
   for (int x = 0; x < MAP_1_HEIGHT; x++) {
     for (int y = 0; y < MAP_1_WIDTH; y++) {
       map_1->set_tableau(x, y, staticmap_1[x][y]);
     }
   }
-  
-  
-  cout << "dynamique terminé()" << endl;
-  
-  cout << "dynamique(3,1) = " << map_1->getSocleMap(3,1) << endl; 
    
   map_1->image_map_->LoadFromFile("images/Maps/map.png");
   map_1->sprite_map_->SetImage(*(map_1->image_map_));
-	
+  
+  // On link la carte 1 à la carte 2. Le passage de la carte 1 à la 2 se fait via les cases "2"
   map_1->set_links(map_2,NULL,NULL);
+  // On rentre alors les coordonnées d'arrivées dans la nouvelle carte (45,23)
   map_1->set_tpPoints(45,23,0,0,0,0);
   
    
@@ -269,19 +264,18 @@ void Game::GameLoop()
 			{
 			  difficultyMenu_ = new DifficultyMenu();
 			  difficultyMenu_->Load(mainWindow_);
-				ShowDifficultyMenu();
-        delete difficultyMenu_;
-        
-				break;
+			  ShowDifficultyMenu();
+           delete difficultyMenu_;
+           break;
 			}
 			
 		case Game::ShowingPlayersMenu:
 			{
 			  playersMenu_ = new PlayersMenu();
 			  playersMenu_->Load(mainWindow_);
-				ShowPlayersMenu();
-        delete playersMenu_;
-				break;
+			  ShowPlayersMenu();
+           delete playersMenu_;
+			  break;
 			}
 			
 		case Game::Playing:
@@ -289,7 +283,7 @@ void Game::GameLoop()
             delete mainMenu_;
             delete mainWindow_;
             
-            
+            // On détruit et on recrée une nouvelle fenêtre aux dimensions du jeu.
             
             mainWindow_ = new RenderWindow(VideoMode(PLAYING_WIDTH, PLAYING_HEIGHT), "     Kill them all, and get the BOSS");
             mainWindow_->SetPosition((VideoMode::GetDesktopMode().Width - PLAYING_WIDTH)/2, (VideoMode::GetDesktopMode().Height - PLAYING_HEIGHT)/2);
@@ -329,11 +323,7 @@ void Game::ShowSplashScreen()
 void Game::ShowMainMenu()
 {
    mainMenu_->Load(mainWindow_);
-	cout << "mainMenu loaded" << endl;
-	
-	cout << "Début ShowMainMenu" << endl;
 	MainMenu::MenuResult result = mainMenu_->Show(mainWindow_);
-	cout << "result obtenu" << endl;
 	switch(result)
 	{
 	case MainMenu::Exit:
@@ -368,7 +358,8 @@ void Game::ShowDifficultyMenu()
 
 			break;
 	case DifficultyMenu::Easy:
-	      ResultDifficulty = EASY_DIFFICULTY;
+	      
+	      ResultDifficulty = EASY_DIFFICULTY;          // Sauvegarde le niveau de difficulté
 			*gameState_ = Game::ShowingMainMenu;
 
 			break;
@@ -410,11 +401,11 @@ void Game::ShowPlayersMenu()
 	 default:    
 			break;	
 	 }
-	 
+	 // Sauvegarde le choix du personnage
 	 *player_choice = (p_choice) *(playersMenu_->getposition());
-	 cout << "CHOIX JOUEUR : " << *player_choice << endl;
+
   mainWindow_->ShowMouseCursor(true);
-  cout << "delete players terminé" << endl;
+
 }
 
 void Game::RunGame()
@@ -438,12 +429,13 @@ void Game::RunGame()
 	son.SetLoop(true);
  	//son.Play();	
  	
- 	setPlayer(mainWindow_,image_joueur);
+ 	// Suivant le résultat de PlayersMenu, on crée un personnage
+ 	setPlayer(mainWindow_);
  	
  	loadBot();
  	cout << "Bots chargés" << endl;
 	
-	entitys = map_1->Bot_list;
+	entitys = map_courante->Bot_list;
 	cout << "entitys initialisée" << endl;
    
    
@@ -741,7 +733,7 @@ Game::displayEffect(Clock &time)
 }
 
 
-void Game::setPlayer(RenderWindow  * mainwin,Image * image) {
+void Game::setPlayer(RenderWindow  * mainwin) {
    entitys.clear();
    switch(*player_choice) {
       case P1 : 

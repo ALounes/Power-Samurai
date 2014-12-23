@@ -42,7 +42,7 @@ Map::~Map()
 void 
 Map::map_create(int hauteur, int largeur) 
 { 
-  // Allocation dynamique 
+  // Allocation dynamique du tableau Bitmap
   
   *Hauteur_ = hauteur;
   *Largeur_ = largeur;

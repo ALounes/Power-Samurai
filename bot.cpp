@@ -7,7 +7,7 @@ bool operator<(const Node & a, const Node & b)
 }
 
 Bot::Bot(RenderWindow *win, Image& image, const Vector2i nbrOfAnim, String name,
-			int life, int mana, enum power power, Map *myMap, float att_dmg, float att_delay, float ResultDiff, int ident, int rangebot)
+			int life, int mana, enum power power, Map *myMap, float att_dmg, float att_delay, float bot_speed, int ident, int rangebot)
 :Entity(win,image,nbrOfAnim,myMap)
 ,range_(rangebot)
 ,name_(name)
@@ -18,7 +18,7 @@ Bot::Bot(RenderWindow *win, Image& image, const Vector2i nbrOfAnim, String name,
 ,attack_delay(att_delay)
 
 {
-   setSpeed(ResultDiff);
+   setSpeed(bot_speed);
    setId(ident);
    play();
    timer = new Clock();
