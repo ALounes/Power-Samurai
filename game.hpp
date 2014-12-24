@@ -27,6 +27,7 @@
 #define HARD_DIFFICULTY 3
 
 #define REFRESH_ITEM 60
+#define SPELL_RATE 1
 
 enum direction {DOWN,LEFT,RIGHT,UP};
 enum p_choice {P1,P2,P3,P4};
@@ -55,6 +56,7 @@ public:
 	void launchingPause();
 	void loadBot();
 	void loadItem();
+	void loadSpell();
   
 private:
 	bool IsExiting();
@@ -100,6 +102,7 @@ private:
   
    Clock * Timer_Projectile;	
    Clock * Timer_Items;
+   Clock * Timer_Spell;
 	
 	Image *image_bot_linus;
 	Image *image_bot_blonde;
