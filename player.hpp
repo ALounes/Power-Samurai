@@ -1,13 +1,13 @@
 #ifndef PLAYER_HPP
 #define PLAYER_HPP
 
-#include "entity.hpp"
+#include "livingentity.hpp"
 #include "config.hpp"
 
 #define HP_POT_GAIN 300
 #define MANA_POT_GAIN 100
 
-class Player : public Entity
+class Player : public LivingEntity
 {
 	public :
 	

@@ -3,7 +3,7 @@
 
 Player::Player(RenderWindow *win, Image &image, const Vector2i nbrOfAnim, String name,
 					int life, int mana, enum power power, Map *myMap, float att_dmg)
-:Entity(win,image,nbrOfAnim,myMap)
+:LivingEntity(win,image,nbrOfAnim,myMap)
 ,name_(name)
 ,life_(life)
 ,mana_(mana)

@@ -662,18 +662,19 @@ for(auto s : projectiles){
 	projectiles.remove(s);
    delete s ;
 }*/
-entitys.clear();
-map_courante = map_1;
-(map_1->Bot_list).clear();
-(map_2->Bot_list).clear();
-(map_3->Bot_list).clear();
-effects.clear();
-projectiles.clear();
-delete view;
-delete camera;
-delete joueur;
-delete Timer_Projectile;
-delete Timer_Items;
+	entitys.clear();
+	map_courante = map_1;
+	(map_1->Bot_list).clear();
+	(map_2->Bot_list).clear();
+	(map_3->Bot_list).clear();
+	effects.clear();
+	projectiles.clear();
+
+	delete view;
+	delete camera;
+	delete joueur;
+	delete Timer_Projectile;
+	delete Timer_Items;
 }
 
 void

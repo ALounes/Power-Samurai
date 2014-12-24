@@ -17,7 +17,7 @@ class Entity : public Animation
 	   //enum direction {RIGHT = 0, DOWNRIGHT, DOWN, DOWNLEFT, LEFT, UPLEFT, UP, UPRIGHT};
 
 	Entity(RenderWindow *win, Image& image,const Vector2i& nbrOfAnim, Map *myMap);
-	~Entity();
+	virtual ~Entity();
 
 	void moveUp();
 	void moveDown();
