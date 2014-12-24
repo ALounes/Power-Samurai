@@ -26,7 +26,8 @@ Bot::Bot(RenderWindow *win, Image& image, const Vector2i nbrOfAnim, String name,
 
 Bot::~Bot()
 {
-   delete timer;
+	delete timer;
+
 }
 
 void

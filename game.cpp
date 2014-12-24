@@ -1023,7 +1023,17 @@ Game::displayEntity(Clock &time)
 	         if (!c->isAlive())
 	         {
 	            entitys.remove(c);
-	            delete c;
+
+					// TEST ANIMATION
+					//Image *dieImage_  = new Image();
+					//dieImage_->LoadFromFile("images/Sprite_bot/DieImage.png");
+					//AnimationEffect *dieAnimation_ = new AnimationEffect(mainWindow_, *dieImage_, Vector2i(4,4),c);
+					//dieAnimation_->play();
+					//dieAnimation_->run();
+
+					cout << " Destruction BOT "<< endl;
+			      delete c;
+					
 	         }
 	         
 		      return;
@@ -1223,8 +1233,8 @@ void Game::loadSpell() {
 Vector2i test_effect(5,2);
          if (!effect_003.LoadFromFile("Sprites/Sorts/Earth1.png"))
 		      cout << "erreur " << endl ;
-         AnimationEffect *effect = new AnimationEffect(mainWindow_,effect_003,test_effect,joueur);
-	      addEffect(effect);
+         //AnimationEffect *effect = new AnimationEffect(mainWindow_,effect_003,test_effect,joueur);
+	     // addEffect(effect);
 } 
 
 void Game::loadImages() {
