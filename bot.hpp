@@ -6,6 +6,8 @@
 #include "map.hpp"
 #include "entity.hpp"
 #include "player.hpp"
+#include "animationeffect.hpp"
+
 #define DEFAULT_RANGE 10
 
 
@@ -19,7 +21,7 @@ class Bot: public Entity
 	public :
 	
 	Bot(RenderWindow *win, Image &image, const Vector2i nbrOfAnim, String name,
-		 int life, int mana, enum power power, Map *myMap, float att_dmg, float att_delay, float ResultDiff, int ident, int rangebot);
+		 int life, int mana, enum power power, Map *myMap, float att_dmg, float att_delay, float 			 ResultDiff, int ident, int rangebot);
 		
 	~Bot();
 
@@ -97,7 +99,8 @@ class Bot: public Entity
 	
 	float attack_delay;
 	Clock * timer;
-	
+
+
 	//uniform_int_distribution<int> distribution(random_minimum,random_maximum);
 	//defalut_random_engine generateur;
 };

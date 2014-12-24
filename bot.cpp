@@ -16,7 +16,6 @@ Bot::Bot(RenderWindow *win, Image& image, const Vector2i nbrOfAnim, String name,
 ,power_(power)
 ,attack_damage(att_dmg)
 ,attack_delay(att_delay)
-
 {
    setSpeed(bot_speed);
    setId(ident);
@@ -26,7 +25,8 @@ Bot::Bot(RenderWindow *win, Image& image, const Vector2i nbrOfAnim, String name,
 
 Bot::~Bot()
 {
-   delete timer;
+	delete timer;
+
 }
 
 void
