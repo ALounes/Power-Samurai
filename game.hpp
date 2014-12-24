@@ -26,7 +26,7 @@
 #define INTERMEDIATE_DIFFICULTY 2 
 #define HARD_DIFFICULTY 3
 
-#define REFRESH_ITEM 60
+
 
 enum direction {DOWN,LEFT,RIGHT,UP};
 enum p_choice {P1,P2,P3,P4};
@@ -55,6 +55,7 @@ public:
 	void launchingPause();
 	void loadBot();
 	void loadItem();
+	void loadSpell();
   
 private:
 	bool IsExiting();
@@ -96,10 +97,12 @@ private:
    Map    *map_2;
    Map    *map_3;
    Map    *map_4;
+   Map    *map_5;
    Map    *map_courante;
   
    Clock * Timer_Projectile;	
    Clock * Timer_Items;
+   Clock * Timer_Spell;
 	
 	Image *image_bot_linus;
 	Image *image_bot_blonde;

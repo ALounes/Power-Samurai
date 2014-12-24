@@ -1,13 +1,23 @@
 #ifndef STATUSBAR_HPP
 #define STATUSBAR_HPP
 
+#include "stdafx.hpp"
 #include <SFML/Graphics.hpp>
 #include "player.hpp"
 #include "config.hpp"
 #include "camera.hpp"
 
-#define TEXT_POSITION_X position_->x + 217
-#define TEXT_POSITION_Y position_->y + 228
+#define PLAYER_POSITION_X position_->x - 330
+#define PLAYER_POSITION_Y position_->y + 193
+
+#define LVL_POSITION_X position_->x - 297
+#define LVL_POSITION_Y position_->y + 250
+
+#define NBHP_POSITION_X position_->x + 284
+#define NBHP_POSITION_Y position_->y + 240
+
+#define NBMANA_POSITION_X position_->x + 345
+#define NBMANA_POSITION_Y position_->y + 240
 
 #define SPRITE_POSITION_X position_->x - 400
 #define SPRITE_POSITION_Y position_->y - 300
@@ -68,7 +78,7 @@ private:
 	String *NamePlayer_;
 	String *Level_;
 	String *HP_Pot_Nb_;
-	String *HP_Mana_Nb_;
+	String *MANA_Pot_Nb_;
 	
 	
 	Camera *camera_;
@@ -81,6 +91,8 @@ private:
 	Image *Life_;
 	Image *Mana_;
 	Image *StatusBar_;
+	
+	Font *Perso_;
 	};	
 
 #endif 

@@ -113,6 +113,7 @@ Entity::legalDeplacement(int x, int y)
 	       
 	      case LINK_MAP_3 :
 	         //linkmap3
+	         cout << "GNE" << endl;
 	         if ( getMap()->getLink(3) && getId() != PROJECTILE ) 
 				{
 		         setPosition(Vector2f(getMap()->get_tpPoints(5),getMap()->get_tpPoints(4)));   //(Y, X)

@@ -26,6 +26,10 @@ class Animation
 	int  getAnimationY() const;	
 	int  getAnimationHeight() const;
 	int  getAnimationWidth () const;
+	
+	//Clock * getTimer() const;
+	//void resetTimer();
+	
 	Vector2f getPosition() const;	
 	Vector2f getCenter()   const;	
 	Sprite*  getSprite()   const;
@@ -67,6 +71,7 @@ class Animation
 	const Vector2i numberOfAnim_;
 	int	animationFps_;
 	Vector2i  anim_;
+	//Clock * Timer_animation;
 
 };
 
