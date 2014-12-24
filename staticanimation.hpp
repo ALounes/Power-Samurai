@@ -1,8 +1,9 @@
 #ifndef STATIC_ANIMATION_HPP
 #define STATIC_ANIMATION_HPP
 
+#include <SFML/Graphics.hpp>
 #include "animationeffect.hpp"
-#include "entity.hpp"
+#include "config.hpp"
 
 class StaticAnimation : public AnimationEffect
 {
@@ -11,13 +12,9 @@ class StaticAnimation : public AnimationEffect
 	StaticAnimation(RenderWindow *win, Image& image, const Vector2i nbrOfAnim, Vector2f position);
 	~StaticAnimation();
 
-	void play();
-	void loop();
-	void stop();
-	void run ();
 
-	bool isPlaying() const;
-	void setDefaultSprite();
+	void loop();
+	void run ();
 
 	private:
 

@@ -1226,8 +1226,8 @@ void Game::loadSpell() {
 Vector2i test_effect(5,2);
          if (!effect_003.LoadFromFile("sprite/Earth1.png"))
 		      cout << "erreur " << endl ;
-         AnimationEffect *effect = new AnimationEffect(mainWindow_,effect_003,test_effect,joueur);
-	      addEffect(effect);
+         //AnimationEffect *effect = new AnimationEffect(mainWindow_,effect_003,test_effect,joueur);
+	     // addEffect(effect);
 } 
      
      

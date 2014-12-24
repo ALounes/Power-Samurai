@@ -1,6 +1,7 @@
 #ifndef ANIMATION_EFFECT_HPP
 #define ANIMATION_EFFECT_HPP
 
+#include <SFML/Graphics.hpp>
 #include "animation.hpp"
 #include "entity.hpp"
 
@@ -8,14 +9,22 @@ class AnimationEffect: public Animation
 {
 	public:
 
-	virtual void play() = 0;
-	virtual void loop() = 0;
-	virtual void stop() = 0;
-	virtual void run () = 0;
+	AnimationEffect(RenderWindow *win, Image& image, const Vector2i nbrOfAnim); 
+	~AnimationEffect();
 
-	virtual bool isPlaying() const  = 0;
+ 	void play();
+	void stop();
+	bool isPlaying() const;
 
-	virtual void setDefaultSprite() = 0;
+	virtual void loop();
+	virtual void run ();
+
+	void setDefaultSprite();
+
+	void setAnim(int anim);
+	int  incrementationAnim();
+	int  getAnim() const;
+	int  getNmbEffect() const;
 
 	private:
 
