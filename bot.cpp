@@ -7,16 +7,16 @@ bool operator<(const Node & a, const Node & b)
 }
 
 Bot::Bot(RenderWindow *win, Image& image, const Vector2i nbrOfAnim, String name,
-			int life, int mana, enum power power, Map *myMap, float att_dmg, float att_delay, float bot_speed, int ident, int rangebot)
+			int life, int mana, enum power power, Map *myMap, float att_dmg, float att_delay, float bot_speed, int ident, int rangebot, int xp)
 :Entity(win,image,nbrOfAnim,myMap)
 ,range_(rangebot)
 ,name_(name)
 ,life_(life)
 ,mana_(mana)
 ,power_(power)
-,attack_damage(att_dmg)
+,attack_damage_(att_dmg)
 ,attack_delay(att_delay)
-
+,xp_(xp)
 {
    setSpeed(bot_speed);
    setId(ident);
@@ -438,9 +438,16 @@ float Bot::getAttackDelay() {
 }
 
 void Bot::setAttackDamage(float ad) {
-   attack_damage = ad;
+   attack_damage_ = ad;
 }
 
 float Bot::getAttackDamage() {
-   return attack_damage;
+   return attack_damage_;
+}
+
+void Bot::setXp(int xp) {
+   xp_ = xp;
+}
+int Bot::getXp() const {
+   return xp_;
 }

@@ -19,7 +19,7 @@ class Bot: public Entity
 	public :
 	
 	Bot(RenderWindow *win, Image &image, const Vector2i nbrOfAnim, String name,
-		 int life, int mana, enum power power, Map *myMap, float att_dmg, float att_delay, float ResultDiff, int ident, int rangebot);
+		 int life, int mana, enum power power, Map *myMap, float att_dmg, float att_delay, float ResultDiff, int ident, int rangebot, int xp);
 		
 	~Bot();
 
@@ -76,6 +76,9 @@ class Bot: public Entity
 	
 	void setAttackDamage(float);
 	float getAttackDamage();
+	
+	void setXp(int);
+	int getXp() const;
 
 	private:
 	
@@ -93,10 +96,11 @@ class Bot: public Entity
 	int manaMax_;
 	enum power power_;
 	int current_direction;
-	float attack_damage;
+	float attack_damage_;
 	
 	float attack_delay;
 	Clock * timer;
+	int xp_;
 	
 	//uniform_int_distribution<int> distribution(random_minimum,random_maximum);
 	//defalut_random_engine generateur;

@@ -37,6 +37,9 @@ class Item
 	
 	Vector2f getCenter() const;
 	
+	Clock * getTimer() const ;
+   void resetTimer() ;
+	
 	
    Sprite *mySprite_;
    
@@ -52,6 +55,7 @@ class Item
    RenderWindow *window_;
    Image *image_;
    Map *map_ref;
+   Clock *Timer_Item;
    //Sprite *mySprite_;
 
 

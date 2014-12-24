@@ -18,35 +18,35 @@ PlayersMenu::PlayersMenu ()
 	
 	
 	image_p1_ = new sf::Image();
-	image_p1_->LoadFromFile("images/Sprite_perso/blonde.png");
+	image_p1_->LoadFromFile("Sprites/Personnages/P1.png");
 	sf::Sprite sprite_p1;
 	sprite_p1.SetImage(*image_p1_);
 	sprite_p1.SetSubRect(IntRect(0,0,32,32));
 	sprite_p1.SetPosition(12*32,12*32);
 	
 	image_p2_ = new sf::Image();
-	image_p2_->LoadFromFile("images/Sprite_perso/fartas.png");
+	image_p2_->LoadFromFile("Sprites/Personnages/P2.png");
 	sf::Sprite sprite_p2;
 	sprite_p2.SetImage(*image_p2_);
 	sprite_p2.SetSubRect(IntRect(0,0,32,32));
 	sprite_p2.SetPosition(12*32 + 64,12*32);
 	
 	image_p3_ = new sf::Image();
-	image_p3_->LoadFromFile("images/Sprite_perso/gris.png");
+	image_p3_->LoadFromFile("Sprites/Personnages/P3.png");
 	sf::Sprite sprite_p3;
 	sprite_p3.SetImage(*image_p3_);
 	sprite_p3.SetSubRect(IntRect(0,0,32,32));
 	sprite_p3.SetPosition(12*32 + 128,12*32);
 	
 	image_p4_ = new sf::Image();
-	image_p4_->LoadFromFile("images/Sprite_perso/LinusTorvalds.png");
+	image_p4_->LoadFromFile("Sprites/Personnages/P4.png");
 	sf::Sprite sprite_p4;
 	sprite_p4.SetImage(*image_p4_);
 	sprite_p4.SetSubRect(IntRect(0,0,32,32));
 	sprite_p4.SetPosition(12*32 + 192,12*32);
 	
 	image_arrow_ = new sf::Image();
-	image_arrow_->LoadFromFile("images/Sprite_perso/fleche.png");
+	image_arrow_->LoadFromFile("images/PlayersMenu/fleche.png");
 	sprite_arrow_ = new sf::Sprite();
 	sprite_arrow_->SetImage(*image_arrow_);
 	

@@ -31,7 +31,7 @@
 
 #define FRAMERATE 30
 
-#define RATE_FIRE 0.2
+#define RATE_FIRE 0.5
 
 #define REFRESH_ITEM 60
 #define SPELL_RATE 3
@@ -70,14 +70,21 @@ Game::Game ()
   map_4 = new Map();
   map_5 = new Map();
   
-  map_courante = new Map();
-  player_choice = new p_choice;
-  image_joueur = new Image;
-  image_bot_linus = new Image();
-  image_bot_blonde = new Image();
-  image_projectile = new Image();
-  image_hp_item = new Image();
-  image_mana_item = new Image();
+   map_courante = new Map();
+   player_choice = new p_choice;
+   image_joueur = new Image;
+   image_projectile = new Image();
+   image_hp_item = new Image();
+   image_mana_item = new Image();
+  
+   image_Armor1 = new Image();
+   image_Devil1 = new Image();
+	image_Dragon1 = new Image();
+	image_Fantome1 = new Image();
+	image_Fantome2 = new Image();
+	image_Reaper1 = new Image();
+	image_Squelette = new Image();
+	image_Troll = new Image();
   
   cout << "game() terminé" << endl;
 }
@@ -97,11 +104,17 @@ Game::~Game ()
   delete mainWindow_;
   delete player_choice;
   delete image_joueur;
-  delete image_bot_linus;
-  delete image_bot_blonde;
   delete image_projectile;
   delete image_hp_item;
   delete image_mana_item;
+  delete image_Armor1;
+  delete image_Devil1;
+   delete image_Dragon1;
+	delete image_Fantome1;
+	delete image_Fantome2;
+	delete image_Reaper1;
+	delete image_Squelette;
+	delete image_Troll;
   
 }
 void Game::Map_Load(void)
@@ -127,18 +140,18 @@ void Game::Map_Load(void)
   {0,1,1,0,0,1,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1,1,0},
   {0,1,1,0,0,1,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0},
   {0,1,1,0,1,1,1,1,1,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,1,1,1,0,1,0},
-  {0,1,1,0,1,1,1,1,1,1,1,1,1,1,1,0,0,1,0,0,0,0,0,1,1,1,1,0,0,0,0},
-  {0,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,1,1,1,0,1,1,1,1,1,1,0,0,0,0},
+  {0,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,1,1,1,1,0,0,0,0},
+  {0,1,1,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,0,0,0,0},
   {0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,1,0,0,0,1,1,0},
   {0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0},
   {0,1,1,1,1,1,1,1,1,1,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0},
   {0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
   {0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
   {0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
-  {0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,1,1,0,0,0,0,1,1,1,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
+  {0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+  {0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+  {0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+  {0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
   };
 
   for (int x = 0; x < MAP_1_HEIGHT; x++) {
@@ -190,7 +203,7 @@ void Game::Map_Load(void)
   {0,1,1,1,1,1,1,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,1,1,1,0,1,1,0,0,0,0,0,1,1,0,1,1,0,0,1,0,0,0,1,1,0},
   {0,1,1,1,1,1,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,0,0,0,1,1,0},
   {0,1,1,1,1,1,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,0,0,0,1,1,0},
-  {0,1,1,1,1,0,1,0,0,1,1,0,1,1,0,1,1,0,1,1,0,1,1,1,0,0,0,0,0,0,1,1,0,1,1,0,1,1,1,0,1,1,0,0,1,1,0},
+  {0,1,1,1,1,0,1,0,0,1,1,1,1,1,0,1,1,0,1,1,0,1,1,1,0,0,0,0,0,0,1,1,0,1,1,0,1,1,1,0,1,1,0,0,1,1,0},
   {0,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,0},
   {0,0,1,0,0,0,0,0,1,1,1,0,0,1,0,0,1,0,0,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,0,0,1,1,0,1,0,0},
   {0,0,1,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,1,0,0},
@@ -629,9 +642,11 @@ void Game::RunGame()
  	// Suivant le résultat de PlayersMenu, on crée un personnage
  	setPlayer(mainWindow_);
  	
+ 	loadImages();
  	loadBot();
  	loadItem();
  	loadSpell();
+ 	
  	cout << "Bots chargés" << endl;
 	
 	entitys = map_courante->Bot_list;
@@ -684,8 +699,8 @@ void Game::RunGame()
             if (refresh) {
         
                Vector2i vfeux(4,4);
-	            if (!image_projectile->LoadFromFile("sprite/feux2.png"))
-		            cout << "erreur " << endl ;
+
+
 	               Projectile *projectile = new Projectile(mainWindow_,image_projectile ,vfeux,joueur,16,5);
 	               projectile->setDirection( joueur->getCurrentDirection() );
 	               projectile->preset();
@@ -947,16 +962,17 @@ Game::displayEntity(Clock &time)
    }
    //time.Reset();
    
-	refresh = false;
-
-	if (Timer_Items->GetElapsedTime() > REFRESH_ITEM ) 
-		refresh = true;
-   
    for(auto s : items){
+      refresh = false;
+
+	   if (s->getTimer()->GetElapsedTime() > REFRESH_ITEM ) 
+		   refresh = true;
+   
       if ( s->getIsShown()  && joueur->getCenter().x < s->getCenter().x + s->getAnimationWidth() && joueur->getCenter().x > s->getCenter().x - s->getAnimationWidth() && joueur->getCenter().y < s->getCenter().y + s->getAnimationHeight() && joueur->getCenter().y > s->getCenter().y - s->getAnimationHeight())
       {
             cout << "Contact item" << endl;
-            s->setIsShown(false); 
+            s->setIsShown(false);
+            s->resetTimer(); 
             if (s->getIt() == Item::HP)
             {
                joueur->increaseNbHpPot();
@@ -974,14 +990,11 @@ Game::displayEntity(Clock &time)
       }
       if (refresh) {
          s->setIsShown(true);
+         s->resetTimer();
          
       }
 
    }
-   if (refresh) {
-         Timer_Items->Reset();
-         
-      }
 
    
    for(auto s : projectiles){
@@ -1050,7 +1063,7 @@ void Game::setPlayer(RenderWindow  * mainwin) {
       case P1 : 
 
       {
-        if(!image_joueur->LoadFromFile("sprite/blonde.png"))
+        if(!image_joueur->LoadFromFile("Sprites/Personnages/P1.png"))
 
 		      cout << "erreur " << endl ; 
         joueur = new AlanTuring(mainwin,*image_joueur,map_courante,100);
@@ -1062,7 +1075,7 @@ void Game::setPlayer(RenderWindow  * mainwin) {
       
       case P2 : 
       {
-        if(!image_joueur->LoadFromFile("sprite/fartas.png"))
+        if(!image_joueur->LoadFromFile("Sprites/Personnages/P2.png"))
 		      cout << "erreur " << endl ; 
         joueur = new AlanTuring(mainwin,*image_joueur,map_courante,200);
         //mainwin->Draw(*(joueur->getSprite()));
@@ -1072,7 +1085,7 @@ void Game::setPlayer(RenderWindow  * mainwin) {
       
       case P3 : 
       {
-        if(!image_joueur->LoadFromFile("sprite/gris.png"))
+        if(!image_joueur->LoadFromFile("Sprites/Personnages/P3.png"))
 		      cout << "erreur " << endl ; 
         joueur = new BjarneStroustrup(mainwin,*image_joueur,map_courante,300);
         //mainwin->Draw(*(joueur->getSprite()));
@@ -1084,7 +1097,7 @@ void Game::setPlayer(RenderWindow  * mainwin) {
 
       {
 
-        if(!image_joueur->LoadFromFile("sprite/LinusTorvalds.png"))
+        if(!image_joueur->LoadFromFile("Sprites/Personnages/P4.png"))
 
 		      cout << "erreur " << endl ; 
         joueur = new LinusTorvalds(mainwin,*image_joueur,map_courante,250);
@@ -1095,7 +1108,7 @@ void Game::setPlayer(RenderWindow  * mainwin) {
       
       default : 
       {
-        if(!image_joueur->LoadFromFile("sprite/LinusTorvalds.png"))
+        if(!image_joueur->LoadFromFile("Sprites/Personnages/P1.png"))
 		      cout << "erreur " << endl ; 
         joueur = new LinusTorvalds(mainwin,*image_joueur,map_courante,150);
         //mainwin->Draw(*(joueur->getSprite()));
@@ -1166,11 +1179,7 @@ void Game::loadBot() {
    // MAP 1
 
       // BOT 1
-      
-      
-	if(!image_bot_linus->LoadFromFile("sprite/LinusTorvalds.png"))
-		cout << "erreur " << endl ;
-	Bot *bot = new Bot(mainWindow_,*image_bot_linus,Vector2i(LINUS_TORVALDS_X,LINUS_TORVALDS_Y), String("Linus Torvalds"), LINUS_TORVALDS_LIFE, LINUS_TORVALDS_MANA, LINUS_TORVALDS_POWER,map_1,100,0.5,ResultDifficulty * 1, -1,10);
+	Bot *bot = new Bot(mainWindow_,*image_Reaper1,Vector2i(LINUS_TORVALDS_X,LINUS_TORVALDS_Y), String("Linus Torvalds"), LINUS_TORVALDS_LIFE, LINUS_TORVALDS_MANA, LINUS_TORVALDS_POWER,map_1,100,0.5,ResultDifficulty * 1, -1,10, 10);
 	bot->setPosition(Vector2f(BASE_SPRITE*7,BASE_SPRITE*3));	
 	bot->update_path(map_courante,joueur);	
   (map_1->Bot_list).push_front(bot);
@@ -1178,16 +1187,14 @@ void Game::loadBot() {
       
   
       // BOT 2
-	if(!image_bot_blonde->LoadFromFile("sprite/blonde.png"))
-		cout << "erreur " << endl ;
-	Bot *bot2 = new Bot(mainWindow_,*image_bot_blonde,Vector2i(LINUS_TORVALDS_X,LINUS_TORVALDS_Y), String("Linus Torvalds"), LINUS_TORVALDS_LIFE, LINUS_TORVALDS_MANA, LINUS_TORVALDS_POWER,map_1,100,0.5,ResultDifficulty * 2,-2,10);
+	Bot *bot2 = new Bot(mainWindow_,*image_Troll,Vector2i(LINUS_TORVALDS_X,LINUS_TORVALDS_Y), String("Linus Torvalds"), LINUS_TORVALDS_LIFE, LINUS_TORVALDS_MANA, LINUS_TORVALDS_POWER,map_1,100,0.5,ResultDifficulty * 2,-2,10, 10);
 	bot2->setPosition(Vector2f(BASE_SPRITE*20,BASE_SPRITE*20));	
 	bot2->update_path(map_courante,joueur);
   (map_1->Bot_list).push_front(bot2);
   
   // MAP 2
   
-	Bot *bot3 = new Bot(mainWindow_,*image_bot_linus,Vector2i(LINUS_TORVALDS_X,LINUS_TORVALDS_Y), String("Linus Torvalds"), LINUS_TORVALDS_LIFE, LINUS_TORVALDS_MANA, LINUS_TORVALDS_POWER,map_2,100,0.5,ResultDifficulty * 1,-1,10);
+	Bot *bot3 = new Bot(mainWindow_,*image_Dragon1,Vector2i(LINUS_TORVALDS_X,LINUS_TORVALDS_Y), String("Linus Torvalds"), LINUS_TORVALDS_LIFE, LINUS_TORVALDS_MANA, LINUS_TORVALDS_POWER,map_2,100,0.5,ResultDifficulty * 1,-1,10, 10);
 	bot3->setPosition(Vector2f(BASE_SPRITE*7,BASE_SPRITE*3));	
 	bot3->update_path(map_courante,joueur);
   (map_2->Bot_list).push_front(bot3);
@@ -1198,13 +1205,13 @@ void Game::loadBot() {
 
 void Game::loadItem() {
 
-   if(!image_hp_item->LoadFromFile("sprite/hp.png"))
+   if(!image_hp_item->LoadFromFile("Sprites/Items/hp.png"))
 		   cout << "erreur " << endl ;
 	Item *hp1 = new Item(mainWindow_,image_hp_item,map_1, 7, 3, Item::HP);
      (map_1->Item_list).push_front(hp1);
      
      
-   if(!image_mana_item->LoadFromFile("sprite/mana.png"))
+   if(!image_mana_item->LoadFromFile("Sprites/Items/mana.png"))
 		   cout << "erreur " << endl ;
 	Item *mana1 = new Item(mainWindow_,image_mana_item,map_1, 9, 3, Item::MANA);
      (map_1->Item_list).push_front(mana1);
@@ -1214,10 +1221,38 @@ void Game::loadItem() {
 void Game::loadSpell() {
 
 Vector2i test_effect(5,2);
-         if (!effect_003.LoadFromFile("sprite/Earth1.png"))
+         if (!effect_003.LoadFromFile("Sprites/Sorts/Earth1.png"))
 		      cout << "erreur " << endl ;
          AnimationEffect *effect = new AnimationEffect(mainWindow_,effect_003,test_effect,joueur);
 	      addEffect(effect);
 } 
+
+void Game::loadImages() {
+
+   if (!effect_003.LoadFromFile("Sprites/Sorts/Earth1.png"))
+		      cout << "erreur " << endl ;
+   if (!image_hp_item->LoadFromFile("Sprites/Items/hp.png"))
+		      cout << "erreur " << endl ;
+	if (!image_mana_item->LoadFromFile("Sprites/Items/mana.png"))
+		      cout << "erreur " << endl ;	      
+   if (!image_Armor1->LoadFromFile("Sprites/Ennemis/Armor1.png"))
+		      cout << "erreur " << endl ;      
+   if (!image_Devil1->LoadFromFile("Sprites/Ennemis/Devil1.png"))
+		      cout << "erreur " << endl ;	      
+   if (!image_Dragon1->LoadFromFile("Sprites/Ennemis/Dragon1.png"))
+		      cout << "erreur " << endl ;
+   if (!image_Fantome1->LoadFromFile("Sprites/Ennemis/Fantome1.png"))
+		      cout << "erreur " << endl ;
+   if (!image_Reaper1->LoadFromFile("Sprites/Ennemis/Reaper1.png"))
+		      cout << "erreur " << endl ;
+   if (!image_Squelette->LoadFromFile("Sprites/Ennemis/Squelette.png"))
+		      cout << "erreur " << endl ;	      
+   if (!image_Troll->LoadFromFile("Sprites/Ennemis/Troll.png"))
+		      cout << "erreur " << endl ;
+   if (!image_Fantome2->LoadFromFile("Sprites/Ennemis/Fantome2.png"))
+		      cout << "erreur " << endl ;
+   if (!image_projectile->LoadFromFile("Sprites/Projectiles/Fire1.png"))
+		      cout << "erreur " << endl ;
+}
      
      

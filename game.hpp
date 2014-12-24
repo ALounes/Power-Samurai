@@ -56,6 +56,7 @@ public:
 	void loadBot();
 	void loadItem();
 	void loadSpell();
+	void loadImages();
   
 private:
 	bool IsExiting();
@@ -104,11 +105,18 @@ private:
    Clock * Timer_Items;
    Clock * Timer_Spell;
 	
-	Image *image_bot_linus;
-	Image *image_bot_blonde;
+
 	Image *image_projectile;
 	Image *image_hp_item;
 	Image *image_mana_item;
+	Image *image_Armor1;
+	Image *image_Devil1;
+	Image *image_Dragon1;
+	Image *image_Fantome1;
+	Image *image_Fantome2;
+	Image *image_Reaper1;
+	Image *image_Squelette;
+	Image *image_Troll;
 };
 
 

@@ -12,6 +12,7 @@ Item::Item(RenderWindow *win, Image* image, Map* map, int x, int y, Item::item_t
    mySprite_ = new Sprite();
 	mySprite_->SetImage(*image_);
 	mySprite_->SetPosition(BASE_SPRITE * x_, BASE_SPRITE * y_);
+	Timer_Item = new Clock();
 }
 
 
@@ -23,6 +24,7 @@ Item::Item(RenderWindow *win, Image* image, Map* map, int x, int y, Item::item_t
 int Item::getLifeBonus() const {
    return life_;
 }*/
+
 
 void Item::setMapRef(Map* map) {
    map_ref = map;
@@ -77,6 +79,15 @@ void Item::setIt(Item::item_type y) {
 }
 Item::item_type Item::getIt() const {
    return it_;
+}
+
+
+Clock * Item::getTimer() const {
+   return Timer_Item;
+}
+
+void Item::resetTimer() {
+   Timer_Item->Reset();
 }
 
 
