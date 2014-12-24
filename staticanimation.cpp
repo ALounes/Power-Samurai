@@ -1,26 +1,25 @@
 #include "animationeffect.hpp"
 int PIPI = 0;
 
-AnimationEffect::AnimationEffect(RenderWindow *win, Image& image, const Vector2i nbrOfAnim, Entity *entity)
-: Animation(win,image,nbrOfAnim)
-,entity_(entity)
-,numberOfEffect_(nbrOfAnim.x * nbrOfAnim.y)
-,iAnim_(-1)
-,playing_(false)
+FolowingAnimation::AnimationEffect(RenderWindow *win, Image& image, const Vector2i nbrOfAnim, Vector2f position)
+	: AnimationEffect(win,image,nbrOfAnim)
+	, position_(position)
+	, numberOfEffect_(nbrOfAnim.x * nbrOfAnim.y)
+	, iAnim_(-1)
+	, playing_(false)
 {
 	setDefaultSprite();
 }
 
-AnimationEffect::
-~AnimationEffect() {}
+FolowingAnimation::
+~FolowingAnimation() {}
 
 void 
 AnimationEffect::run() 
 {
-<<<<<<< HEAD
 	if(playing_ )
 	{
-		setCenter(entity_->getCenter());
+		setCenter(position_);
 		if(iAnim_ < numberOfEffect_)
 		{
 			setAnimation(++iAnim_);
@@ -33,25 +32,24 @@ AnimationEffect::run()
 		if(playing_ && (iAnim_ == -1))
 			stop();			
 	}
-=======
-	   if(playing_ )
-	   {
-		   setCenter(entity_->getCenter());
-		   if(iAnim_ < numberOfEffect_)
-		   {
-				   setAnimation(++iAnim_);
-				   draw();
-		   }
-		   else
-		   {
-			   iAnim_= -1;
-		   }	
-		   if(playing_ && (iAnim_ == -1))
-			   stop();
-			
-	   }
-	
->>>>>>> d45d1dae2323c0ac2efef6abc4e2fc101311d5f4
+}
+
+void 
+AnimationEffect::loop() 
+{
+	if(playing_ )
+	{
+		setCenter(position_);
+		if(iAnim_ < numberOfEffect_)
+		{
+			setAnimation(++iAnim_);
+			draw();
+		}
+		else
+		{
+			iAnim_= -1;
+		}				
+	}
 }
 
 void 

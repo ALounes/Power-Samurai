@@ -8,26 +8,21 @@ class AnimationEffect: public Animation
 {
 	public:
 
-	AnimationEffect(RenderWindow *win, Image& image, const Vector2i nbrOfAnim, Entity *entity);
-	~AnimationEffect();
+	virtual void play() = 0;
+	virtual void loop() = 0;
+	virtual void stop() = 0;
+	virtual void run () = 0;
 
-	void play();
-	void stop();
-	void run ();
+	virtual bool isPlaying() const  = 0;
 
-	bool isPlaying() const;
-
-	virtual void setDefaultSprite();
+	virtual void setDefaultSprite() = 0;
 
 	private:
-	Entity *entity_;	
+
 	const int numberOfEffect_;
 	int  iAnim_;
 	bool playing_;
-	//Clock time_animation ;
-	//float delay_animation = 0.001;
 	
-
 };
 
 #endif
