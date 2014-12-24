@@ -26,8 +26,7 @@
 #define INTERMEDIATE_DIFFICULTY 2 
 #define HARD_DIFFICULTY 3
 
-#define REFRESH_ITEM 60
-#define SPELL_RATE 1
+
 
 enum direction {DOWN,LEFT,RIGHT,UP};
 enum p_choice {P1,P2,P3,P4};
@@ -98,6 +97,7 @@ private:
    Map    *map_2;
    Map    *map_3;
    Map    *map_4;
+   Map    *map_5;
    Map    *map_courante;
   
    Clock * Timer_Projectile;	

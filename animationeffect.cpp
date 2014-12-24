@@ -17,23 +17,22 @@ AnimationEffect::
 void 
 AnimationEffect::run() 
 {
-
-	if(playing_ )
-	{
-		setCenter(entity_->getCenter());
-		if(iAnim_ < numberOfEffect_)
-		{
-				setAnimation(++iAnim_);
-				draw();
-		}
-		else
-		{
-			iAnim_= -1;
-		}	
-		if(playing_ && (iAnim_ == -1))
-			stop();
+	   if(playing_ )
+	   {
+		   setCenter(entity_->getCenter());
+		   if(iAnim_ < numberOfEffect_)
+		   {
+				   setAnimation(++iAnim_);
+				   draw();
+		   }
+		   else
+		   {
+			   iAnim_= -1;
+		   }	
+		   if(playing_ && (iAnim_ == -1))
+			   stop();
 			
-	}
+	   }
 	
 }
 

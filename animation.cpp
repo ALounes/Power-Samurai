@@ -8,6 +8,7 @@ Animation::Animation(RenderWindow *win, Image &image, const Vector2i& nbrOfAnim)
 , animationFps_(DEFAULT_ANIM_FPS)
 , anim_(1,0) 
 {
+   //Timer_animation = new Clock();
 	mySprite_ = new Sprite();
 	mySprite_->SetImage(image); 
 

@@ -23,7 +23,6 @@ Player::~Player()
 void
 Player::actionKey(Map * map)
 {  
-   cout << "NbHp : " << nb_Hp_Pot << " NbMana : " << nb_Mana_Pot << endl;
 	const sf::Input &input = win_->GetInput();
 	int compteur_deplacement = 0;
 	
