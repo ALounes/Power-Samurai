@@ -60,7 +60,7 @@ class Player : public Entity
 
 	private:
 	
-	String &name_;
+	String name_;
 	int life_;
 	int mana_;
 	int lifeMax_;

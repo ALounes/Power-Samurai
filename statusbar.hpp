@@ -51,31 +51,36 @@ public:
 
 	void setPlayer(Player *player);
 	void setWindow(RenderWindow *win);
-	void setSprite(Sprite *sprite);
+	void setSprite(Sprite sprite);
 	void setImage(Image *image);
 	void setPosition(Vector2f *position);
 
 	Player*   getPlayer() const;
 	RenderWindow* getWindow() const;
-	Sprite*   getSprite()   const;
+	Sprite   getSprite()   const;
 	Image*    getImage()    const;
 	Vector2f* getPosition() const;
 
 private:
-
+   Player *player_;
 	RenderWindow *win_;
-	Player *player_;
-	Sprite *mySprite_;
-	Sprite *persoSprite_;
-	Image  *myImage_;
-	String *myText_;
+
+	String *NamePlayer_;
+	String *Level_;
+	String *HP_Pot_Nb_;
+	String *HP_Mana_Nb_;
+	
+	
 	Camera *camera_;
 	Vector2f *position_;
 
-	Shape  statuLife_;
-	Shape  statuMana_;
-	Shape  statuLifeRed_;
-	Shape  statuManaRed_;
-};	
+	Sprite statuLife_;
+	Sprite statuMana_;
+	Sprite statusBar_;
+	
+	Image *Life_;
+	Image *Mana_;
+	Image *StatusBar_;
+	};	
 
 #endif 
