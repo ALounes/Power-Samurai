@@ -21,6 +21,7 @@
 #include "projectile.hpp"
 #include "item.hpp"
 #include "statusbar.hpp"
+#include "folowinganimation.hpp"
 
 #define EASY_DIFFICULTY 1
 #define INTERMEDIATE_DIFFICULTY 2 

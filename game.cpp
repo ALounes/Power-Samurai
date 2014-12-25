@@ -1230,11 +1230,12 @@ void Game::loadItem() {
 
 void Game::loadSpell() {
 
-Vector2i test_effect(5,2);
+         Vector2i test_effect(5,2);
          if (!effect_003.LoadFromFile("Sprites/Sorts/Earth1.png"))
 		      cout << "erreur " << endl ;
+		      FolowingAnimation *effect = new FolowingAnimation(mainWindow_, effect_003, test_effect, joueur);
          //AnimationEffect *effect = new AnimationEffect(mainWindow_,effect_003,test_effect,joueur);
-	     // addEffect(effect);
+	       addEffect(effect);
 } 
 
 void Game::loadImages() {
