@@ -3,9 +3,13 @@
 
 #include "livingentity.hpp"
 #include "config.hpp"
+#include "animationeffect.hpp"
+#include <list>
 
-#define HP_POT_GAIN 300
-#define MANA_POT_GAIN 100
+#define HP_POT_PERCENTAGE 0.4
+#define MANA_POT_PERCENTAGE 0.4
+#define MAX_HP_POT 5
+#define MAX_MANA_POT 5
 
 class Player : public LivingEntity
 {
@@ -57,6 +61,8 @@ class Player : public LivingEntity
 	
 	void setAttackDamage(float);
 	float getAttackDamage();
+	
+	list<AnimationEffect*> spells;
 
 	private:
 	

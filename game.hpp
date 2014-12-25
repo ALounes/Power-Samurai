@@ -56,8 +56,11 @@ public:
 	void launchingPause();
 	void loadBot();
 	void loadItem();
+	void loadHP(int coordx, int coordy, Map *map);
+	void loadMana(int coordx, int coordy, Map *map);
 	void loadSpell();
 	void loadImages();
+	void launchingDeath();
   
 private:
 	bool IsExiting();

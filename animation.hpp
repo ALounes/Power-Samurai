@@ -50,6 +50,7 @@ class Animation
 	void animationDown();
 	void animationLeft();
 	void animationRight();
+	
 
 	void draw();
 

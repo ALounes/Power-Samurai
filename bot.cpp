@@ -217,6 +217,13 @@ void Bot::follow_path(Map * map, Player * player) {
      
    }
    else {
+      if (refresh && path.size() == 1)
+      {
+          player->lifePenalty(getAttackDamage());
+          timer->Reset();
+      }
+      
+      
       c = path.at(0);
       //cout << "Direction bot : " << c << endl;
       j = atoi(&c);

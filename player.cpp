@@ -276,18 +276,18 @@ void Player::setNbMANA(int m) {
 }
 
 void Player::increaseNbHpPot() {
-   if (nb_Hp_Pot >= 5)
+   if (nb_Hp_Pot >= MAX_HP_POT)
    {
-      nb_Hp_Pot = 5;
+      nb_Hp_Pot = MAX_HP_POT;
    }
    else 
       ++nb_Hp_Pot;
 }
 
 void Player::increaseNbManaPot() {
-   if (nb_Mana_Pot >= 5)
+   if (nb_Mana_Pot >= MAX_MANA_POT)
    {
-      nb_Mana_Pot = 5;
+      nb_Mana_Pot = MAX_MANA_POT;
    }
    else 
       ++nb_Mana_Pot;
@@ -298,19 +298,31 @@ void Player::consumeHpPot() {
    {
       nb_Hp_Pot = 0;
    }
-   else 
-      --nb_Hp_Pot;
-      lifeGain(HP_POT_GAIN);
-
+   else {
+      if (life_ == lifeMax_)
+      {
+         // Ne rien faire, pas besoin de gaspiller de potions
+      }
+      else {
+         --nb_Hp_Pot;
+         lifeGain( (int) (HP_POT_PERCENTAGE * lifeMax_) );
+      }
+   }
 }
 void Player::consumeManaPot() {
    if (nb_Mana_Pot <= 0)
    {
       nb_Mana_Pot = 0;
    }
-   else 
-      --nb_Mana_Pot;
-      manaGain(MANA_POT_GAIN);
-
+   else {
+      if (mana_ == manaMax_)
+      {
+         // Ne rien faire, pas besoin de gaspiller de potions
+      }
+      else {
+         --nb_Mana_Pot;
+         manaGain( (int) (MANA_POT_PERCENTAGE * manaMax_) );
+      }
+   }
 }
 

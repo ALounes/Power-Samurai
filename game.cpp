@@ -142,7 +142,7 @@ void Game::Map_Load(void)
   {0,1,1,0,1,1,1,1,1,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,1,1,1,0,1,0},
   {0,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,1,1,1,1,0,0,0,0},
   {0,1,1,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,0,0,0,0},
-  {0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,1,0,0,0,1,1,0},
+  {0,1,1,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,0,1,0,0,0,1,1,0},
   {0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0},
   {0,1,1,1,1,1,1,1,1,1,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0},
   {0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
@@ -700,7 +700,6 @@ void Game::RunGame()
         
                Vector2i vfeux(4,4);
 
-
 	               Projectile *projectile = new Projectile(mainWindow_,image_projectile ,vfeux,joueur,16,5);
 	               projectile->setDirection( joueur->getCurrentDirection() );
 	               projectile->preset();
@@ -795,6 +794,12 @@ void Game::RunGame()
 
 		// Efface le contenu de la fenetre 
 		mainWindow_->Clear();
+		
+		if (!joueur->isAlive())
+		{
+		   cout << "Perso Mort" << endl;
+		   launchingDeath();
+		}
    
    }
    cout << "Sortie de boucle" << endl;
@@ -871,19 +876,15 @@ Game::keyPressedManagement (Key::Code keyPressed)
   switch (keyPressed) {
       case  Key::O : 
       { //HP
-
-        if (joueur->getNbHP() > 0)
-            joueur->consumeHpPot();
+        joueur->consumeHpPot();
    
         break;
       }
    
       case  Key::P : 
       { //MANA
-         if (joueur->getNbMANA() > 0)
-            joueur->consumeManaPot();
+         joueur->consumeManaPot();
          
-	      
          break;
       }
   
@@ -897,13 +898,6 @@ Game::keyPressedManagement (Key::Code keyPressed)
       {
 		
 		   break;
-      }
-      case  Key::E : 
-      {
-         
-	      
-	      
-         break;
       }
       
 		default: 
@@ -975,6 +969,7 @@ Game::displayEntity(Clock &time)
             s->resetTimer(); 
             if (s->getIt() == Item::HP)
             {
+               cout << "add" << endl;
                joueur->increaseNbHpPot();
             }
             if (s->getIt() == Item::MANA)
@@ -1134,8 +1129,8 @@ void Game::setPlayer(RenderWindow  * mainwin) {
 void Game::launchingPause() {
    bool Ispause = true;
    
-   Shape grey_screen   = Shape::Rectangle(0,0,GAME_WIDTH,GAME_HEIGHT,Color(0,0,0));
-   grey_screen.SetPosition(camera->position_->x - 600, camera->position_->y - 400);
+   Shape grey_screen   = Shape::Rectangle(0,0,PLAYING_WIDTH,PLAYING_HEIGHT,Color(0,0,0));
+   grey_screen.SetPosition(camera->position_->x - PLAYING_WIDTH /2/* - 600*/, camera->position_->y - PLAYING_HEIGHT /2/*- 400*/);
    
 	String texte = String ("               Le jeu est en pause.\n\n(P) : Continuer    (Q) : Menu principal", Font::GetDefaultFont(), 40.f);
 
@@ -1184,29 +1179,29 @@ void Game::launchingPause() {
 
 }
 
+void Game::launchingDeath() {
+}
+
 void Game::loadBot() {
 
    // MAP 1
 
       // BOT 1
-	Bot *bot = new Bot(mainWindow_,*image_Reaper1,Vector2i(LINUS_TORVALDS_X,LINUS_TORVALDS_Y), String("Linus Torvalds"), LINUS_TORVALDS_LIFE, LINUS_TORVALDS_MANA, LINUS_TORVALDS_POWER,map_1,100,0.5,ResultDifficulty * 1, -1,10, 10);
+	Bot *bot = new Bot(mainWindow_,*image_Reaper1,Vector2i(LINUS_TORVALDS_X,LINUS_TORVALDS_Y), String("Linus Torvalds"), LINUS_TORVALDS_LIFE, LINUS_TORVALDS_MANA, LINUS_TORVALDS_POWER,map_1,100,0.3,ResultDifficulty * 1.5, -1,20, 10);
 	bot->setPosition(Vector2f(BASE_SPRITE*7,BASE_SPRITE*3));	
-	bot->update_path(map_courante,joueur);	
   (map_1->Bot_list).push_front(bot);
   
       
   
       // BOT 2
-	Bot *bot2 = new Bot(mainWindow_,*image_Troll,Vector2i(LINUS_TORVALDS_X,LINUS_TORVALDS_Y), String("Linus Torvalds"), LINUS_TORVALDS_LIFE, LINUS_TORVALDS_MANA, LINUS_TORVALDS_POWER,map_1,100,0.5,ResultDifficulty * 2,-2,10, 10);
+	Bot *bot2 = new Bot(mainWindow_,*image_Troll,Vector2i(LINUS_TORVALDS_X,LINUS_TORVALDS_Y), String("Linus Torvalds"), LINUS_TORVALDS_LIFE, LINUS_TORVALDS_MANA, LINUS_TORVALDS_POWER,map_1,100,0.5,ResultDifficulty * 2,-2,20, 10);
 	bot2->setPosition(Vector2f(BASE_SPRITE*20,BASE_SPRITE*20));	
-	bot2->update_path(map_courante,joueur);
   (map_1->Bot_list).push_front(bot2);
   
   // MAP 2
   
-	Bot *bot3 = new Bot(mainWindow_,*image_Dragon1,Vector2i(LINUS_TORVALDS_X,LINUS_TORVALDS_Y), String("Linus Torvalds"), LINUS_TORVALDS_LIFE, LINUS_TORVALDS_MANA, LINUS_TORVALDS_POWER,map_2,100,0.5,ResultDifficulty * 1,-1,10, 10);
+	Bot *bot3 = new Bot(mainWindow_,*image_Dragon1,Vector2i(LINUS_TORVALDS_X,LINUS_TORVALDS_Y), String("Linus Torvalds"), LINUS_TORVALDS_LIFE, LINUS_TORVALDS_MANA, LINUS_TORVALDS_POWER,map_2,100,0.5,ResultDifficulty * 1,-1,30, 10);
 	bot3->setPosition(Vector2f(BASE_SPRITE*7,BASE_SPRITE*3));	
-	bot3->update_path(map_courante,joueur);
   (map_2->Bot_list).push_front(bot3);
   
 
@@ -1215,24 +1210,61 @@ void Game::loadBot() {
 
 void Game::loadItem() {
 
-
-
-	Item *hp1 = new Item(mainWindow_,image_hp_item,map_1, 7, 3, Item::HP);
-     (map_1->Item_list).push_front(hp1);
-      
-	Item *mana1 = new Item(mainWindow_,image_mana_item,map_1, 9, 3, Item::MANA);
-     (map_1->Item_list).push_front(mana1);
-     
+   
+   // MAP 5
+   loadHP(22,16, map_5);
+   loadMana(3,9, map_5);
+   
+   // MAP 1
+   loadHP(7,3, map_1);
+   loadMana(9,3, map_1);
+   
+   // MAP 2   
+   loadHP(2,24, map_2);
+   loadHP(10,3, map_2);
+   loadHP(40,24, map_2);
+   loadMana(6,14, map_2);
+   loadMana(30,25, map_2);
+   loadMana(29,40, map_2);  
+   
+   // MAP 3
+   loadHP(21,35, map_3);
+   loadHP(10,3, map_3);
+   loadHP(24,3, map_3);
+   loadHP(20,19, map_3);
+   
+   loadMana(45,24, map_3);
+   loadMana(22,3, map_3);
+   loadMana(22,9, map_3);
+   
+   // MAP 4
+   loadHP(21,27, map_4);
+   loadHP(11,3, map_4);
+   loadHP(1,20, map_4);
+   loadHP(1,35, map_4);
+   loadHP(40,28, map_4);
+   loadHP(37,3, map_4);
+   
+   loadMana(25,27, map_4);
+   loadMana(1,21, map_4);
+   loadMana(15,29, map_4);
+   loadMana(44,24, map_4);
+   loadMana(39,3, map_4);
+   loadMana(31,3, map_4);
 }    
 
 void Game::loadSpell() {
 
-         Vector2i test_effect(5,4);
-         if (!effect_003.LoadFromFile("Sprites/Sorts/Earth1.png"))
+         //effects = joueur->Spells;
+         Vector2i test_effect(5,6);
+         if (!effect_003.LoadFromFile("Sprites/Sorts/Special15.png"))
 		      cout << "erreur " << endl ;
 		      FolowingAnimation *effect = new FolowingAnimation(mainWindow_, effect_003, test_effect, joueur);
          //AnimationEffect *effect = new AnimationEffect(mainWindow_,effect_003,test_effect,joueur);
-	       addEffect(effect);
+         (joueur->spells).push_front(effect);
+         
+         effects = joueur->spells;
+	       
 } 
 
 void Game::loadImages() {
@@ -1264,3 +1296,13 @@ void Game::loadImages() {
 }
      
      
+     
+void Game::loadHP(int coordx, int coordy, Map *map) {
+   Item *hp = new Item(mainWindow_,image_hp_item,map, coordx, coordy, Item::HP);
+     (map->Item_list).push_front(hp);
+}
+
+void Game::loadMana(int coordx, int coordy, Map *map) {
+   Item *mana = new Item(mainWindow_,image_mana_item,map, coordx, coordy, Item::MANA);
+     (map->Item_list).push_front(mana);
+}
