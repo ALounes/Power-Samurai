@@ -1215,14 +1215,11 @@ void Game::loadBot() {
 
 void Game::loadItem() {
 
-   if(!image_hp_item->LoadFromFile("Sprites/Items/hp.png"))
-		   cout << "erreur " << endl ;
+
+
 	Item *hp1 = new Item(mainWindow_,image_hp_item,map_1, 7, 3, Item::HP);
      (map_1->Item_list).push_front(hp1);
-     
-     
-   if(!image_mana_item->LoadFromFile("Sprites/Items/mana.png"))
-		   cout << "erreur " << endl ;
+      
 	Item *mana1 = new Item(mainWindow_,image_mana_item,map_1, 9, 3, Item::MANA);
      (map_1->Item_list).push_front(mana1);
      
@@ -1230,7 +1227,7 @@ void Game::loadItem() {
 
 void Game::loadSpell() {
 
-         Vector2i test_effect(5,2);
+         Vector2i test_effect(5,4);
          if (!effect_003.LoadFromFile("Sprites/Sorts/Earth1.png"))
 		      cout << "erreur " << endl ;
 		      FolowingAnimation *effect = new FolowingAnimation(mainWindow_, effect_003, test_effect, joueur);
