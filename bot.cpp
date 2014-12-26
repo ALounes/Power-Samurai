@@ -1,6 +1,8 @@
 #include "bot.hpp"
 #include "bot_algorithm.hpp"
 
+
+Image effect_1;
 bool operator<(const Node & a, const Node & b)
 {
   return a.getPriority() > b.getPriority();
@@ -8,7 +10,7 @@ bool operator<(const Node & a, const Node & b)
 
 Bot::Bot(RenderWindow *win, Image& image, const Vector2i nbrOfAnim, String name,
 			int life, int mana, enum power power, Map *myMap, float att_dmg, float att_delay, float bot_speed, int ident, int rangebot, int xp)
-:Entity(win,image,nbrOfAnim,myMap)
+:LivingEntity(win,image,nbrOfAnim,myMap)
 ,range_(rangebot)
 ,name_(name)
 ,life_(life)
@@ -21,12 +23,22 @@ Bot::Bot(RenderWindow *win, Image& image, const Vector2i nbrOfAnim, String name,
    setSpeed(bot_speed);
    setId(ident);
    play();
-   timer = new Clock();
+   timer1 = new Clock();
+   timer2 = new Clock();
+   timer3 = new Clock();
+   Spell1 = new Image();
+   Spell2 = new Image();
+   Spell3 = new Image();
 }
 
 Bot::~Bot()
 {
-	delete timer;
+	delete timer1;
+	delete timer2;
+	delete timer3;
+	delete Spell1;
+	delete Spell2;
+	delete Spell3;
 
 }
 
@@ -186,9 +198,7 @@ string Bot::pathFind( const int & xStart, const int & yStart,
 }
 
 void Bot::update_path(Map * map, Player * player) {
-   //path = pathFind(soclePosition()[1], soclePosition()[3], player->soclePosition()[1], player->soclePosition()[3], map);
    path = pathFind(getCenter().x / getAnimationWidth(), getCenter().y / getAnimationWidth(), player->getCenter().x / getAnimationWidth(), player->getCenter().y / getAnimationWidth(), map);
-   //cout << "position pour le bot du perso : (x,y) = " << player->soclePosition()[0]<<", " << player->soclePosition()[2] << endl;
 }
 
 string Bot::GetPath() const {
@@ -198,31 +208,42 @@ string Bot::GetPath() const {
 void Bot::follow_path(Map * map, Player * player) {
    int j;
    char c;
-   bool refresh = false;
-   //attack_delay = 0.5;
+	      
+   if ( timer1->GetElapsedTime() > spell_delay1 && (int)path.size() <= range1 ) {
+         cout << "SORT 1 Créé" << endl;
+         player->lifePenalty(dmg1);
+		      
+		   FolowingAnimation *effect1 = new FolowingAnimation(win_, *Spell1, v_spell1, player);
+         effect1->play();
+         spells.push_front(effect1);
+         timer1->Reset();
+   }
+   if ( timer2->GetElapsedTime() > spell_delay2 && (int) path.size() <= range2 ) {
+         cout << "SORT 2 Créé" << endl;
+         player->lifePenalty(dmg2);
+		      
+		   FolowingAnimation *effect2 = new FolowingAnimation(win_, *Spell2, v_spell2, player);
+         effect2->play();
+         spells.push_front(effect2);
+         timer2->Reset();
+   }
    
-   if (timer->GetElapsedTime() > getAttackDelay()) {
-		refresh = true;
-	}	
-   	
-   
+   if ( (timer3->GetElapsedTime() >  spell_delay3) && ( (int) path.size() <= range3) ) {
+         cout << "SORT 3 Créé : " << "Taille Chemin : " << path.size() << "Range :" << range3 << endl;
+         player->lifePenalty(dmg3);
+          
+		      
+		   FolowingAnimation *effect3 = new FolowingAnimation(win_, *Spell3, v_spell3, player);
+         effect3->play();
+         spells.push_front(effect3);
+         timer3->Reset();
+   }
+	      
    if (path == "")
    {
-   // Attaque du personnage
-      if (refresh)
-      {
-          player->lifePenalty(getAttackDamage());
-          timer->Reset();
-      }
-     
+
    }
    else {
-      if (refresh && path.size() == 1)
-      {
-          player->lifePenalty(getAttackDamage());
-          timer->Reset();
-      }
-      
       
       c = path.at(0);
       //cout << "Direction bot : " << c << endl;
@@ -458,4 +479,11 @@ void Bot::setXp(int xp) {
 }
 int Bot::getXp() const {
    return xp_;
+}
+
+void Bot::inPursuit() {
+   in_pursuit = true;
+}
+bool Bot::getPursuit() {
+   return in_pursuit;
 }

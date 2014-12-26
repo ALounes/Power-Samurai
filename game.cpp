@@ -259,7 +259,7 @@ void Game::Map_Load(void)
   {0,1,1,1,1,1,1,0,1,1,0,0,1,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,1,1,0,1,1,1,0,1,1,1,1,1,1,0},
   {0,1,1,1,1,1,1,0,1,1,1,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,1,1,1,0,1,1,1,1,1,1,0},
   {0,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,1,1,0,1,1,1,1,1,1,0},
-  {0,0,1,1,1,1,1,0,1,1,0,0,0,1,1,0,1,0,1,1,1,0,0,0,0,0,1,1,0,1,1,0,1,1,0,0,0,1,1,0,1,1,1,1,1,1,0},
+  {0,0,1,1,1,1,1,0,1,1,0,0,1,1,1,0,1,0,1,1,1,0,0,0,0,0,1,1,0,1,1,0,1,1,0,0,0,1,1,0,1,1,1,1,1,1,0},
   {0,0,1,1,0,0,0,0,0,1,0,0,1,1,1,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,1,1,0,0,0,1,1,0,0,0,0,0,1,1,0},
   {0,1,1,1,0,0,0,0,0,1,0,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,0,0,0,1,1,0,0,0,0,0,1,1,0}, 
   {0,1,1,1,0,0,0,0,0,1,0,0,0,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,0,0,1,0,0,0,0,1,1,0,0,0,0,0,1,1,0},
@@ -268,7 +268,7 @@ void Game::Map_Load(void)
   {0,1,1,1,0,1,1,1,1,1,1,0,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,0,0,0},
   {0,1,1,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0},
   {0,1,1,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,1,0,0,0,0},
-  {0,1,1,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,1,0},
+  {0,1,1,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,1,0,1,0},
   {0,0,0,1,1,0,1,0,0,1,1,0,1,0,1,0,1,0,1,0,1,0,1,0,0,0,1,0,1,0,1,0,1,0,1,0,1,1,1,0,1,0,1,1,1,1,0}, 
   {0,0,0,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,0},
   {0,0,0,0,1,0,1,1,1,0,1,0,1,0,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,0,1,0,1,0,1,0,1,0,1,0,1,1,1,1,1,1,0},
@@ -391,7 +391,7 @@ void Game::Map_Load(void)
   {0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,1,1,0,0,0,0,0},
   {0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,0,1,1,1,0,0,0,0},
   {0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,0,0,0,0},
-  {0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,0,0,0,0,0,0,1,0},
+  {0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,0,0,0,0,0,0,0,1,0},
   {0,1,1,0,0,0,0,1,1,1,1,0,1,1,1,1,1,0,1,1,0,0,0,0,0,0,0,1,1,0},
   {0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
   {0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0},
@@ -668,6 +668,7 @@ void Game::RunGame()
    const Input &input = mainWindow_->GetInput();
    while (mainWindow_->IsOpened() && !(fin_de_boucle) && *gameState_ == Playing)
    {
+      effects = joueur->spells;
       mainWindow_->SetFramerateLimit(FRAMERATE);
       camera->setCameraXY(*(map_courante->get_Largeur()) * BASE_SPRITE,*(map_courante->get_Hauteur()) * BASE_SPRITE);
 		mainWindow_->Draw(*(map_courante->sprite_map_));
@@ -721,6 +722,8 @@ void Game::RunGame()
                s->play();
 	         }
             for(auto s : entitys){
+               
+            
 		         if(s->getDistance() < 3) {
 		            cout << "Dégats dans ta face" << endl;
 		            
@@ -737,16 +740,31 @@ void Game::RunGame()
             Timer_Spell->Reset();
          }
       }
+      
 
       for(auto s : entitys){
          s->update_path(map_courante, joueur);
          s->setDistance( (s->GetPath()).size() );
-         
-         if (s->getDistance() > s->getRange())
+         for (auto c : s->spells)
+	      {
+	         if(c->isPlaying()){
+	         cout << ":( " << endl;
+             c->run();
+            }
+            
+            if (!c->isPlaying())
+            {
+              s->spells.remove(c);
+               delete c; 
+            }
+            break;
+	      }
+         if (s->getDistance() > s->getRange() && !s->getPursuit())
          {  
             // Cas SURPLACE
          }
          else {
+            s->inPursuit();
 		      s->follow_path(map_courante, joueur);
 		   }
 	   }
@@ -925,6 +943,7 @@ Game::displayEntity(Clock &time)
 
 	if (time.GetElapsedTime() > ENTITY_FPS_RATE) 
 		refresh = true;
+		
 	if (!joueur->isAlive())
 	{
 	   *gameState_ = ShowingMainMenu;
@@ -946,6 +965,7 @@ Game::displayEntity(Clock &time)
 	   if(refresh ){
 		   s->update();
 	   }
+	   
 	   s->draw();
    }
    // Gestion des effets
@@ -1186,25 +1206,26 @@ void Game::loadBot() {
 
    // MAP 1
 
-      // BOT 1
-	Bot *bot = new Bot(mainWindow_,*image_Reaper1,Vector2i(LINUS_TORVALDS_X,LINUS_TORVALDS_Y), String("Linus Torvalds"), LINUS_TORVALDS_LIFE, LINUS_TORVALDS_MANA, LINUS_TORVALDS_POWER,map_1,100,0.3,ResultDifficulty * 1.5, -1,20, 10);
-	bot->setPosition(Vector2f(BASE_SPRITE*7,BASE_SPRITE*3));	
-  (map_1->Bot_list).push_front(bot);
-  
-      
-  
-      // BOT 2
-	Bot *bot2 = new Bot(mainWindow_,*image_Troll,Vector2i(LINUS_TORVALDS_X,LINUS_TORVALDS_Y), String("Linus Torvalds"), LINUS_TORVALDS_LIFE, LINUS_TORVALDS_MANA, LINUS_TORVALDS_POWER,map_1,100,0.5,ResultDifficulty * 2,-2,20, 10);
-	bot2->setPosition(Vector2f(BASE_SPRITE*20,BASE_SPRITE*20));	
-  (map_1->Bot_list).push_front(bot2);
+  loadReaper1(map_1, -1, 10, 7, 3);
+
+  loadTroll(map_1, -1, 20, 20,20);
   
   // MAP 2
   
-	Bot *bot3 = new Bot(mainWindow_,*image_Dragon1,Vector2i(LINUS_TORVALDS_X,LINUS_TORVALDS_Y), String("Linus Torvalds"), LINUS_TORVALDS_LIFE, LINUS_TORVALDS_MANA, LINUS_TORVALDS_POWER,map_2,100,0.5,ResultDifficulty * 1,-1,30, 10);
+	/*Bot *bot3 = new Bot(mainWindow_,*image_Dragon1,Vector2i(LINUS_TORVALDS_X,LINUS_TORVALDS_Y), String("Linus Torvalds"), LINUS_TORVALDS_LIFE, LINUS_TORVALDS_MANA, LINUS_TORVALDS_POWER,map_2,100,0.5,ResultDifficulty * 1,-1,30, 10);
 	bot3->setPosition(Vector2f(BASE_SPRITE*7,BASE_SPRITE*3));	
-  (map_2->Bot_list).push_front(bot3);
+  (map_2->Bot_list).push_front(bot3);*/
   
-
+  
+  // MAP 5
+  loadArmor1(map_5, -5, 10, 2, 5);
+  loadArmor1(map_5, -5, 3, 20, 8);
+  
+  loadDragon(map_5, -1, 10, 6, 24);
+   
+  loadTroll(map_5, -2, 10, 12,17);
+  loadTroll(map_5, -3, 9, 25,15);
+  loadTroll(map_5, -4, 8, 10,9);
 }
 
 
@@ -1212,7 +1233,10 @@ void Game::loadItem() {
 
    
    // MAP 5
-   loadHP(22,16, map_5);
+   loadHP(28,16, map_5);
+   loadHP(17,24, map_5);
+   loadHP(9,8, map_5);
+   loadMana(27,4, map_5);
    loadMana(3,9, map_5);
    
    // MAP 1
@@ -1263,7 +1287,7 @@ void Game::loadSpell() {
          //AnimationEffect *effect = new AnimationEffect(mainWindow_,effect_003,test_effect,joueur);
          (joueur->spells).push_front(effect);
          
-         effects = joueur->spells;
+         
 	       
 } 
 
@@ -1305,4 +1329,28 @@ void Game::loadHP(int coordx, int coordy, Map *map) {
 void Game::loadMana(int coordx, int coordy, Map *map) {
    Item *mana = new Item(mainWindow_,image_mana_item,map, coordx, coordy, Item::MANA);
      (map->Item_list).push_front(mana);
+}
+
+void Game::loadDragon(Map *map, int id, int range, int coordx, int coordy) { 
+   GreenDragon *bot = new GreenDragon(mainWindow_,*image_Dragon1,map,id,range);
+   bot->setPosition(Vector2f(BASE_SPRITE*coordx,BASE_SPRITE*coordy));
+   (map->Bot_list).push_front(bot);
+}
+
+void Game::loadTroll(Map *map, int id, int range, int coordx, int coordy) {
+   Troll *bot = new Troll(mainWindow_,*image_Troll,map,id,range);
+   bot->setPosition(Vector2f(BASE_SPRITE*coordx,BASE_SPRITE*coordy));
+   (map->Bot_list).push_front(bot);
+}
+
+void Game::loadArmor1(Map *map, int id, int range, int coordx, int coordy) {
+   Armor1 *bot = new Armor1(mainWindow_,*image_Armor1,map,id,range);
+   bot->setPosition(Vector2f(BASE_SPRITE*coordx,BASE_SPRITE*coordy));
+   (map->Bot_list).push_front(bot);
+}
+
+void Game::loadReaper1(Map *map, int id, int range, int coordx, int coordy) {
+   Reaper1 *bot = new Reaper1(mainWindow_,*image_Reaper1,map,id,range);
+   bot->setPosition(Vector2f(BASE_SPRITE*coordx,BASE_SPRITE*coordy));
+   (map->Bot_list).push_front(bot);
 }

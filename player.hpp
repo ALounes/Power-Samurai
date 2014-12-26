@@ -3,8 +3,7 @@
 
 #include "livingentity.hpp"
 #include "config.hpp"
-#include "animationeffect.hpp"
-#include <list>
+
 
 #define HP_POT_PERCENTAGE 0.4
 #define MANA_POT_PERCENTAGE 0.4
@@ -62,7 +61,7 @@ class Player : public LivingEntity
 	void setAttackDamage(float);
 	float getAttackDamage();
 	
-	list<AnimationEffect*> spells;
+	
 
 	private:
 	

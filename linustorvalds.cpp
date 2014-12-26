@@ -1,5 +1,5 @@
 #include "linustorvalds.hpp"
-#include "folowinganimation.hpp"
+
 
 LinusTorvalds::LinusTorvalds(RenderWindow *win, Image &image, Map *myMap,float att_dmg)
 :Player( win,

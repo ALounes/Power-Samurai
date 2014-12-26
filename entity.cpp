@@ -144,96 +144,107 @@ Entity::legalDeplacement(int x, int y)
 void 
 Entity::moveUp() //Okay
 {
-	if(legalDeplacement(getCenter().x + getAnimationWidth()/3,getCenter().y - getAnimationHeight()/3 - getSpeed()) &&  legalDeplacement(getCenter().x - getAnimationWidth()/3 ,getCenter().y - getAnimationHeight()/3 - getSpeed())){
-		mySprite_->Move(ZERO,-getSpeed());
-		setAnimationY(UP);
-		//cout << "deplacement autorisé " << endl;
+   if (getId() == PROJECTILE)
+	{
+	   if(legalDeplacement(getCenter().x + getAnimationWidth()/3,getCenter().y - getAnimationHeight()/3 - getSpeed()- getAnimationHeight()) &&  legalDeplacement(getCenter().x - getAnimationWidth()/3 ,getCenter().y - getAnimationHeight()/3 - getSpeed()- getAnimationHeight())){
+		   mySprite_->Move(ZERO,-getSpeed());
+		   setAnimationY(UP);
+	   }
+	   return;
 	}
 	else {
-	   if (getId() == PROJECTILE)
-	   {
-	      return;
-	   }
-	
-	   if(legalDeplacement(getCenter().x + getAnimationWidth()/3, getCenter().y - getAnimationHeight()/3 - getSpeed())  ){
-
-		   mySprite_->Move(getSpeed(),ZERO);
-		   setAnimationY(RIGHT); // Glisser à droite
+   
+	   if(legalDeplacement(getCenter().x + getAnimationWidth()/3,getCenter().y - getAnimationHeight()/3 - getSpeed()) &&  legalDeplacement(getCenter().x - getAnimationWidth()/3 ,getCenter().y - getAnimationHeight()/3 - getSpeed())){
+		   mySprite_->Move(ZERO,-getSpeed());
+		   setAnimationY(UP);
+		   //cout << "deplacement autorisé " << endl;
 	   }
 	   else {
-	       if(legalDeplacement(getCenter().x - getAnimationWidth()  / 3,getCenter().y - getAnimationHeight()  / 3 - getSpeed()) ){
-	//cout << "center X + speed: " << getCenter().x - getSpeed()<< "center Y + speed: " << getCenter().y + getSpeed() << endl;
-		      mySprite_->Move(-getSpeed(),ZERO);
-		      setAnimationY(LEFT); // Glisser à gauche
-	       }
+	      if(legalDeplacement(getCenter().x + getAnimationWidth()/3, getCenter().y - getAnimationHeight()/3 - getSpeed())  ){
+
+		      mySprite_->Move(getSpeed(),ZERO);
+		      setAnimationY(RIGHT); // Glisser à droite
+	      }
+	      else {
+	          if(legalDeplacement(getCenter().x - getAnimationWidth()  / 3,getCenter().y - getAnimationHeight()  / 3 - getSpeed()) ){
+	   //cout << "center X + speed: " << getCenter().x - getSpeed()<< "center Y + speed: " << getCenter().y + getSpeed() << endl;
+		         mySprite_->Move(-getSpeed(),ZERO);
+		         setAnimationY(LEFT); // Glisser à gauche
+	          }
+	      }
 	   }
-	      
-	
-	
 	}
-	
 }
 
 void 
 Entity::moveDown()
 {
-	if(legalDeplacement(getCenter().x + getAnimationWidth()/3,getCenter().y + getAnimationHeight()  / 3 + getSpeed()) && legalDeplacement(getCenter().x - getAnimationWidth()/3,getCenter().y + getAnimationHeight()  / 3 + getSpeed())){
+   if (getId() == PROJECTILE)
+	{
+	   if(legalDeplacement(getCenter().x + getAnimationWidth()/3 - getAnimationWidth(),getCenter().y + getAnimationHeight()  / 3 + getSpeed()) && legalDeplacement(getCenter().x - getAnimationWidth()/3 - getAnimationWidth(),getCenter().y + getAnimationHeight()  / 3 + getSpeed())){
 
-		mySprite_->Move(ZERO,getSpeed());
-		setAnimationY(DOWN);
+		   mySprite_->Move(ZERO,getSpeed());
+		   setAnimationY(DOWN);
+	   }
+	   return;
 	}
 	else {
-	   if (getId() == PROJECTILE)
-	   {
-	      return;
-	   }
-	   if(legalDeplacement(getCenter().x + getAnimationWidth()/3, getCenter().y + getAnimationHeight()/3 + getSpeed()) ){
+	   if(legalDeplacement(getCenter().x + getAnimationWidth()/3,getCenter().y + getAnimationHeight()  / 3 + getSpeed()) && legalDeplacement(getCenter().x - getAnimationWidth()/3,getCenter().y + getAnimationHeight()  / 3 + getSpeed())){
 
-		   mySprite_->Move(getSpeed(),ZERO);
-		   setAnimationY(RIGHT); // Glisser à droite
+		   mySprite_->Move(ZERO,getSpeed());
+		   setAnimationY(DOWN);
 	   }
 	   else {
-	       if(legalDeplacement(getCenter().x - getAnimationWidth()  / 3,getCenter().y + getAnimationHeight()  / 3 + getSpeed()) ){
-	//cout << "center X + speed: " << getCenter().x - getSpeed()<< "center Y + speed: " << getCenter().y + getSpeed() << endl;
-		      mySprite_->Move(-getSpeed(),ZERO);
-		      setAnimationY(LEFT); // Glisser à gauche
-	       }
-	   }
 	      
-	
-	
+	      if(legalDeplacement(getCenter().x + getAnimationWidth()/3, getCenter().y + getAnimationHeight()/3 + getSpeed()) ){
+
+		      mySprite_->Move(getSpeed(),ZERO);
+		      setAnimationY(RIGHT); // Glisser à droite
+	      }
+	      else {
+	          if(legalDeplacement(getCenter().x - getAnimationWidth()  / 3,getCenter().y + getAnimationHeight()  / 3 + getSpeed()) ){
+	   //cout << "center X + speed: " << getCenter().x - getSpeed()<< "center Y + speed: " << getCenter().y + getSpeed() << endl;
+		         mySprite_->Move(-getSpeed(),ZERO);
+		         setAnimationY(LEFT); // Glisser à gauche
+	          }
+	      }
+	   }
 	}
 }
 
 void 
 Entity::moveLeft()
 {
-	if(legalDeplacement(getCenter().x  - getAnimationWidth()  / 3 - getSpeed(),getCenter().y + getAnimationHeight()  / 3) && legalDeplacement(getCenter().x  - getAnimationWidth()  / 3 - getSpeed(),getCenter().y - getAnimationHeight()  / 3)){
 
-		mySprite_->Move(-getSpeed(),ZERO);
-		setAnimationY(LEFT);
+   if (getId() == PROJECTILE)
+	{
+	   
+	   if(legalDeplacement(getCenter().x  - getAnimationWidth() / 3  - getSpeed() - getAnimationWidth(),getCenter().y - getAnimationHeight()  / 3 - getAnimationHeight()) && legalDeplacement(getCenter().x  - getAnimationWidth() / 3- getSpeed()- getAnimationWidth(),getCenter().y - getAnimationHeight()  / 3 - getAnimationHeight())){
+		   mySprite_->Move(-getSpeed(),ZERO);
+		   setAnimationY(LEFT);
+	   }	      
+	   return;
 	}
 	else {
-	   if (getId() == PROJECTILE)
-	   {
-	      return;
+	   if(legalDeplacement(getCenter().x  - getAnimationWidth()  / 3 - getSpeed(),getCenter().y + getAnimationHeight()  / 3) && legalDeplacement(getCenter().x  - getAnimationWidth()  / 3 - getSpeed(),getCenter().y - getAnimationHeight()  / 3)){
+		   mySprite_->Move(-getSpeed(),ZERO);
+		   setAnimationY(LEFT);
 	   }
-	   if(legalDeplacement(getCenter().x - getAnimationWidth()/3 - getSpeed(), getCenter().y - getAnimationHeight()/3) ){
+	   else {  
+	      if(legalDeplacement(getCenter().x - getAnimationWidth()/3 - getSpeed(), getCenter().y - getAnimationHeight()/3) ){
 
-		   mySprite_->Move(ZERO,-getSpeed());
-		   setAnimationY(UP); // Glisser en haut
+		      mySprite_->Move(ZERO,-getSpeed());
+		      setAnimationY(UP); // Glisser en haut
+	      }
+	      else {
+	          if(legalDeplacement(getCenter().x - getAnimationWidth()  / 3 - getSpeed(),getCenter().y + getAnimationHeight()  / 3) ){
+	   //cout << "center X + speed: " << getCenter().x - getSpeed()<< "center Y + speed: " << getCenter().y + getSpeed() << endl;
+		         mySprite_->Move(ZERO,getSpeed());
+		         setAnimationY(DOWN); // Glisser en bas
+	          }
+	      }
 	   }
-	   else {
-	       if(legalDeplacement(getCenter().x - getAnimationWidth()  / 3 - getSpeed(),getCenter().y + getAnimationHeight()  / 3) ){
-	//cout << "center X + speed: " << getCenter().x - getSpeed()<< "center Y + speed: " << getCenter().y + getSpeed() << endl;
-		      mySprite_->Move(ZERO,getSpeed());
-		      setAnimationY(DOWN); // Glisser en bas
-	       }
-	   }
-	      
-	
-	
-	}
+	 }
 }
 
 void 
@@ -249,6 +260,7 @@ Entity::moveRight()
 	   {
 	      return;
 	   }
+	   
 	   if(legalDeplacement(getCenter().x + getAnimationWidth()/3 + getSpeed(), getCenter().y - getAnimationHeight()/3) ){
 
 		   mySprite_->Move(ZERO,-getSpeed());
@@ -329,58 +341,74 @@ Entity::moveDownRight()
 void 
 Entity::moveUpLeft()
 {
-	if(legalDeplacement(getCenter().x - getAnimationWidth()  / 3 - getSpeed(),getCenter().y - getAnimationHeight()  / 3 - getSpeed())  && legalDeplacement(getCenter().x - getAnimationWidth()  / 3 - getSpeed(),getCenter().y + getAnimationHeight()  / 3 - getSpeed()) && legalDeplacement(getCenter().x + getAnimationWidth()  / 3 - getSpeed(),getCenter().y - getAnimationHeight()  / 3 - getSpeed())){
-	//cout << "center X + speed: " << getCenter().x - getSpeed()<< "center Y + speed: " << getCenter().y + getSpeed() << endl;
-		mySprite_->Move(-getSpeed(),-getSpeed());
-		setAnimationY(LEFT);
+   if (getId() == PROJECTILE)
+	{
+	   if(legalDeplacement(getCenter().x - getAnimationWidth()  / 3 - getSpeed()- getAnimationWidth(),getCenter().y - getAnimationHeight()  / 3 - getSpeed()- getAnimationHeight())  && legalDeplacement(getCenter().x - getAnimationWidth()  / 3 - getSpeed()- getAnimationWidth(),getCenter().y + getAnimationHeight()  / 3 - getSpeed()+ getAnimationHeight()) && legalDeplacement(getCenter().x + getAnimationWidth()  / 3 - getSpeed()- getAnimationWidth(),getCenter().y - getAnimationHeight()  / 3 - getSpeed()- getAnimationHeight())){
+	   //cout << "center X + speed: " << getCenter().x - getSpeed()<< "center Y + speed: " << getCenter().y + getSpeed() << endl;
+		   mySprite_->Move(-getSpeed(),-getSpeed());
+		   setAnimationY(LEFT);
+	   }
+	   return;
 	}
 	else {
-	   if (getId() == PROJECTILE)
-	   {
-	      return;
-	   }
-	   if(legalDeplacement(getCenter().x  - getAnimationWidth()  / 3 - getSpeed(),getCenter().y + getAnimationHeight()  / 3 ) && legalDeplacement(getCenter().x  - getAnimationWidth()  / 3 - getSpeed(),getCenter().y - getAnimationHeight()  / 3 )){
-		mySprite_->Move(-getSpeed(),ZERO);
-		setAnimationY(LEFT);
+
+	   if(legalDeplacement(getCenter().x - getAnimationWidth()  / 3 - getSpeed(),getCenter().y - getAnimationHeight()  / 3 - getSpeed())  && legalDeplacement(getCenter().x - getAnimationWidth()  / 3 - getSpeed(),getCenter().y + getAnimationHeight()  / 3 - getSpeed()) && legalDeplacement(getCenter().x + getAnimationWidth()  / 3 - getSpeed(),getCenter().y - getAnimationHeight()  / 3 - getSpeed())){
+	   //cout << "center X + speed: " << getCenter().x - getSpeed()<< "center Y + speed: " << getCenter().y + getSpeed() << endl;
+		   mySprite_->Move(-getSpeed(),-getSpeed());
+		   setAnimationY(LEFT);
 	   }
 	   else {
-	      if(legalDeplacement(getCenter().x + getAnimationWidth()/3,getCenter().y - getAnimationHeight()/3 - getSpeed()) &&  legalDeplacement(getCenter().x - getAnimationWidth()/3 ,getCenter().y - getAnimationHeight()/3 - getSpeed())){
+	      if (getId() == PROJECTILE)
+	      {
+	         return;
+	      }
+	      if(legalDeplacement(getCenter().x  - getAnimationWidth()  / 3 - getSpeed(),getCenter().y + getAnimationHeight()  / 3 ) && legalDeplacement(getCenter().x  - getAnimationWidth()  / 3 - getSpeed(),getCenter().y - getAnimationHeight()  / 3 )){
+		   mySprite_->Move(-getSpeed(),ZERO);
+		   setAnimationY(LEFT);
+	      }
+	      else {
+	         if(legalDeplacement(getCenter().x + getAnimationWidth()/3,getCenter().y - getAnimationHeight()/3 - getSpeed()) &&  legalDeplacement(getCenter().x - getAnimationWidth()/3 ,getCenter().y - getAnimationHeight()/3 - getSpeed())){
 
-		      mySprite_->Move(ZERO,-getSpeed());
-		      setAnimationY(UP);
-		//cout << "deplacement autorisé " << endl;
+		         mySprite_->Move(ZERO,-getSpeed());
+		         setAnimationY(UP);
+		   //cout << "deplacement autorisé " << endl;
+	         }
 	      }
 	   }
-	
 	}
 }
 
 void 
 Entity::moveDownLeft()
 {
-	if(legalDeplacement(getCenter().x - getAnimationWidth()  / 3 - getSpeed(),getCenter().y + getAnimationHeight()  / 3 + getSpeed())   && legalDeplacement(getCenter().x - getAnimationWidth()  / 3 - getSpeed(),getCenter().y - getAnimationHeight()  / 3 + getSpeed())  && legalDeplacement(getCenter().x + getAnimationWidth()  / 3 - getSpeed(),getCenter().y + getAnimationHeight()  / 3 + getSpeed())){
-
-		mySprite_->Move(-getSpeed(),getSpeed());
-		setAnimationY(LEFT);
+   if (getId() == PROJECTILE)
+	{
+	   if(legalDeplacement(getCenter().x - getAnimationWidth()  / 3 - getSpeed()- getAnimationWidth(),getCenter().y + getAnimationHeight()  / 3 + getSpeed()- getAnimationHeight())   && legalDeplacement(getCenter().x - getAnimationWidth()  / 3 - getSpeed()- getAnimationWidth(),getCenter().y - getAnimationHeight()  / 3 + getSpeed()- getAnimationHeight())  && legalDeplacement(getCenter().x + getAnimationWidth()  / 3 - getSpeed()+ getAnimationWidth(),getCenter().y + getAnimationHeight()  / 3 + getSpeed() - getAnimationHeight())){
+		   mySprite_->Move(-getSpeed(),getSpeed());
+		   setAnimationY(LEFT);
+	   }
+	   return;
 	}
 	else {
-	   if (getId() == PROJECTILE)
-	   {
-	      return;
-	   }
-	   if(legalDeplacement(getCenter().x  - getAnimationWidth()  / 3 - getSpeed(),getCenter().y + getAnimationHeight()  / 3 ) && legalDeplacement(getCenter().x  - getAnimationWidth()  / 3 - getSpeed(),getCenter().y - getAnimationHeight()  / 3 )){
-		mySprite_->Move(-getSpeed(),ZERO);
-		setAnimationY(LEFT);
+	   if(legalDeplacement(getCenter().x - getAnimationWidth()  / 3 - getSpeed(),getCenter().y + getAnimationHeight()  / 3 + getSpeed())   && legalDeplacement(getCenter().x - getAnimationWidth()  / 3 - getSpeed(),getCenter().y - getAnimationHeight()  / 3 + getSpeed())  && legalDeplacement(getCenter().x + getAnimationWidth()  / 3 - getSpeed(),getCenter().y + getAnimationHeight()  / 3 + getSpeed())){
+
+		   mySprite_->Move(-getSpeed(),getSpeed());
+		   setAnimationY(LEFT);
 	   }
 	   else {
-	      if(legalDeplacement(getCenter().x + getAnimationWidth()/3,getCenter().y + getAnimationHeight()  / 3 + getSpeed()) && legalDeplacement(getCenter().x - getAnimationWidth()/3,getCenter().y + getAnimationHeight()  / 3 + getSpeed())){
-
-		      mySprite_->Move(ZERO,getSpeed());
-		      setAnimationY(DOWN);
+	      if(legalDeplacement(getCenter().x  - getAnimationWidth()  / 3 - getSpeed(),getCenter().y + getAnimationHeight()  / 3 ) && legalDeplacement(getCenter().x  - getAnimationWidth()  / 3 - getSpeed(),getCenter().y - getAnimationHeight()  / 3 )){
+		   mySprite_->Move(-getSpeed(),ZERO);
+		   setAnimationY(LEFT);
 	      }
-	   }
-	
-	}
+	      else {
+	         if(legalDeplacement(getCenter().x + getAnimationWidth()/3,getCenter().y + getAnimationHeight()  / 3 + getSpeed()) && legalDeplacement(getCenter().x - getAnimationWidth()/3,getCenter().y + getAnimationHeight()  / 3 + getSpeed())){
+
+		         mySprite_->Move(ZERO,getSpeed());
+		         setAnimationY(DOWN);
+	         }
+	      }
+      }
+   }
 }
 
 void 

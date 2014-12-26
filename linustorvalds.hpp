@@ -3,6 +3,7 @@
 
 #include "player.hpp"
 #include "config.hpp"
+//#include "folowinganimation.hpp"
 
 #define LINUS_TORVALDS_X 3
 #define LINUS_TORVALDS_Y 4

@@ -4,10 +4,14 @@
 #include "animation.hpp"
 #include "config.hpp"
 #include "map.hpp"
+#include "animationeffect.hpp"
+#include <list>
+
 
 #define ELEM_HEIGHT 32
 #define ELEM_WIDTH 32
 
+class AnimationEffect;
 class Entity : public Animation
 {
 	public :
@@ -78,6 +82,7 @@ class Entity : public Animation
 	virtual void manaGain(int gain);
 	virtual bool isAlive()  const;
 	virtual bool haveMana() const;*/
+	
 	
 	
 

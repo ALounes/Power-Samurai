@@ -4,9 +4,9 @@
 //#include <random>
 #include "config.hpp"
 #include "map.hpp"
-#include "entity.hpp"
 #include "player.hpp"
-#include "animationeffect.hpp"
+#include "folowinganimation.hpp"
+#include "livingentity.hpp"
 
 #define DEFAULT_RANGE 10
 
@@ -16,13 +16,13 @@ using namespace std;
 
 
 
-class Bot: public Entity
+class Bot: public LivingEntity
 {
 	public :
 	
 	Bot(RenderWindow *win, Image &image, const Vector2i nbrOfAnim, String name, int life, int mana, enum power power, Map *myMap, float att_dmg, float att_delay, float ResultDiff, int ident, int rangebot, int xp);
 		
-	~Bot();
+	virtual ~Bot();
 
 	void move();
 	
@@ -80,6 +80,32 @@ class Bot: public Entity
 	
 	void setXp(int);
 	int getXp() const;
+	
+	void inPursuit();
+	bool getPursuit();
+	
+	protected :
+	
+	Clock * timer1;
+	Clock * timer2;
+	Clock * timer3;
+	
+	int spell_delay1;
+	int spell_delay2;
+   int spell_delay3;	
+	
+	Image* Spell1;
+	Image* Spell2;
+	Image* Spell3;
+	int range1;
+	int range2;
+	int range3;
+	int dmg1;
+	int dmg2;
+	int dmg3;
+	Vector2i v_spell1;
+	Vector2i v_spell2;
+	Vector2i v_spell3;
 
 	private:
 	
@@ -98,11 +124,9 @@ class Bot: public Entity
 	enum power power_;
 	int current_direction;
 	float attack_damage_;
-	
 	float attack_delay;
-	Clock * timer;
 	int xp_;
-	
+	bool in_pursuit = false;
 	//uniform_int_distribution<int> distribution(random_minimum,random_maximum);
 	//defalut_random_engine generateur;
 };

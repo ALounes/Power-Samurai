@@ -66,9 +66,8 @@ void Projectile::preset() {
 		case 5:
 
 			//moveUpLeft();
-			mySprite_->Move( 0, getAnimationHeight());
 			mySprite_->SetRotation(135);
-			//mySprite_->Move( 0, getAnimationHeight());
+			mySprite_->Move( 0, getAnimationHeight());
 			break;
 
 		case 7:
@@ -79,7 +78,7 @@ void Projectile::preset() {
 
 		case 3:
          
-			//moveDownLeft();
+			//moveDownLeft();  
 			mySprite_->Move( getAnimationWidth(), getAnimationHeight());
 			mySprite_->SetRotation(225);
 			break;
@@ -87,7 +86,7 @@ void Projectile::preset() {
 		case 1:
 
 			//moveDownRight();
-						mySprite_->Move( getAnimationWidth(), 0);
+			mySprite_->Move( getAnimationWidth(), 0);
 			mySprite_->SetRotation(315);
 			break;
 		

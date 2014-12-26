@@ -22,6 +22,10 @@
 #include "item.hpp"
 #include "statusbar.hpp"
 #include "folowinganimation.hpp"
+#include "greendragon.hpp"
+#include "troll.hpp"
+#include "armor1.hpp"
+#include "reaper1.hpp"
 
 #define EASY_DIFFICULTY 1
 #define INTERMEDIATE_DIFFICULTY 2 
@@ -61,8 +65,13 @@ public:
 	void loadSpell();
 	void loadImages();
 	void launchingDeath();
+	void loadDragon(Map *map, int id, int range, int coordx, int coordy);
+	void loadTroll(Map *map, int id, int range, int coordx, int coordy);
+	void loadArmor1(Map *map, int id, int range, int coordx, int coordy);
+	void loadReaper1(Map *map, int id, int range, int coordx, int coordy);
   
 private:
+
 	bool IsExiting();
 	void GameLoop();
 	

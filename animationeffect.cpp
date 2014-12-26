@@ -71,3 +71,6 @@ AnimationEffect::setDefaultSprite()
 											EFFECT_SPRITE_END_X, 
 											EFFECT_SPRITE_END_Y ));
 }
+
+
+

@@ -10,7 +10,7 @@ class AnimationEffect: public Animation
 	public:
 
 	AnimationEffect(RenderWindow *win, Image& image, const Vector2i nbrOfAnim); 
-	~AnimationEffect();
+	virtual ~AnimationEffect();
 
  	void play();
 	void stop();
