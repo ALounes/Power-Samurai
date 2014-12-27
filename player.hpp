@@ -61,10 +61,14 @@ class Player : public LivingEntity
 	
 	void setAttackDamage(float);
 	float getAttackDamage();
+	
 	SoundBuffer * getMovingSoundB() const;
 	void setMovingSoundB(string s);
-	
 	Sound * getMovingSound() const;
+	
+	SoundBuffer * getProjectileSoundB() const;
+	void setProjectileSoundB(string s);
+	Sound * getProjectileSound() const;
 	
 	
 	int range1;
@@ -104,6 +108,9 @@ class Player : public LivingEntity
 	int nb_Mana_Pot = 0;
 	SoundBuffer * movingSoundB_;
 	Sound * movingSound_;
+	
+	SoundBuffer * projectileSoundB_;
+	Sound * projectileSound_;
 	
 
 };

@@ -3,6 +3,7 @@
 
 #include "entity.hpp"
 #define PROJECTILE_DIRECTION_DEFAULT 6
+#define ID_PROJECTILE -10
 
 class Projectile : public Entity
 {

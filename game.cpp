@@ -460,14 +460,11 @@ void Game::GameLoop()
 	{
 	  case Game::ShowingSplash:
 			{
-			  
-        cout << "Showingsplash" << endl;
 				ShowSplashScreen();
 				break;
 			}
 		case Game::ShowingMainMenu:
 			{
-			  cout << "MainMenu" << endl;
 				ShowMainMenu();
 				break;
 			}
@@ -492,28 +489,21 @@ void Game::GameLoop()
 		case Game::Playing:
 			{
             delete mainMenu_;
-            delete mainWindow_;
-            
+            delete mainWindow_;  
             // On détruit et on recrée une nouvelle fenêtre aux dimensions du jeu.
             
             mainWindow_ = new RenderWindow(VideoMode(PLAYING_WIDTH, PLAYING_HEIGHT), "     Kill them all, and get the BOSS", Style::Close);
             mainWindow_->SetPosition((VideoMode::GetDesktopMode().Width - PLAYING_WIDTH)/2, (VideoMode::GetDesktopMode().Height - PLAYING_HEIGHT)/2);
             mainWindow_->Clear();
             
-            cout << "Rungame()" << endl;
-            
             RunGame();
             
             delete mainWindow_;
-           
             mainWindow_ = new RenderWindow(VideoMode(GAME_WIDTH, GAME_HEIGHT), "  Power Samurai!!!",Style::Close);
             mainWindow_->SetPosition((VideoMode::GetDesktopMode().Width - GAME_WIDTH)/2, (VideoMode::GetDesktopMode().Height - GAME_HEIGHT)/2);
-	         
             mainMenu_ = new MainMenu();
-
 				break;
 			}
-			
 			default :
 			{
 				break;
@@ -631,25 +621,7 @@ void Game::RunGame()
 	
 	map_courante = map_5;
 	map_courante->getMusic()->Play();
-	
-	//Music Music1;
-	//if (!Music1.OpenFromFile("Musique/BinB.ogg"))
-     // cout << "erreur " << endl ;
-   
-   //map_1->getMusic()->Play();
-	//SoundBuffer buffer_son;
-   //Sound son;
-	
-	
-	
-	//if (!buffer_son.LoadFromFile("Musique/BinB.ogg"))
-		//cout << "erreur " << endl ;
-
-
-	//son.SetBuffer(buffer_son);
-	//son.SetLoop(true);
- 	//son.Play();	
- 	
+	 	
  	// Suivant le résultat de PlayersMenu, on crée un personnage
  	setPlayer(mainWindow_);
  	
@@ -711,6 +683,7 @@ void Game::RunGame()
 	               projectile->preset();
 		            projectiles.push_front(projectile);
 		            Timer_Projectile->Reset();
+		            joueur->getProjectileSound()->Play();
 		         
 		      }
       }
@@ -883,18 +856,19 @@ void Game::RunGame()
 
 		// Efface le contenu de la fenetre 
 		mainWindow_->Clear();
-		
+		joueur->getMovingSound()->Pause();
 		if (!joueur->isAlive())
 		{
+		   map_courante->getMusic()->Stop();
 		   cout << "Perso Mort" << endl;
 		   launchingDeath();
 		}
-   joueur->getMovingSound()->Pause();
+   
    }
    cout << "Sortie de boucle" << endl;
    mainWindow_->ShowMouseCursor(true);
-   map_courante->getMusic()->Stop();
-
+   
+joueur->getMovingSound()->Stop();
 entitys = map_courante->Bot_list;
 items = map_courante->Item_list;
 
@@ -1267,16 +1241,43 @@ void Game::launchingDeath() {
    
    mainWindow_->Clear();
    
-   while (death_timer.GetElapsedTime() <= 5) {
-      texte = String (to_string (5 - (int) death_timer.GetElapsedTime() ), Font::GetDefaultFont(), 40.f);
+   Event event2;
+   bool inboucle = true;
+     
+     while ((mainWindow_->GetEvent(event2) || death_timer.GetElapsedTime() <= 18) && inboucle == true)
+		{
+	   texte = String (to_string (18 - (int) death_timer.GetElapsedTime() ), Font::GetDefaultFont(), 40.f);
       texte.SetStyle(11);
 	   texte.SetColor(Color::White);
 	   texte.SetPosition(camera->position_->x - 30, camera->position_->y + PLAYING_HEIGHT /4);
       mainWindow_->Draw(s_over);
       mainWindow_->Draw(texte);
-      mainWindow_->Display();
-   }
+      mainWindow_->Display(); 
+		switch (event2.Type)
+		{
+			case Event::KeyPressed :
+     
+            switch (event2.Key.Code) {
+               case  Key::Escape : {
+                  *gameState_ = ShowingMainMenu;
+                  inboucle = false;
+		            break;
+               }
+	            default :
+	               break;
+	         }
+	         
+	         break;
+	      default :
+	         break;
+	   }
+    }
    gameover.Stop();
+   
+   //while () {
+      
+   //}
+   
    
 }
 
@@ -1354,7 +1355,6 @@ void Game::loadSpell() {
 		      cout << "erreur " << endl ;
 		   FolowingAnimation *effect = new FolowingAnimation(mainWindow_, effect_003, test_effect, joueur);
 		   effect->setManaCost(30);
-         //(joueur->spells).push_front(effect);	       
 } 
 
 void Game::loadImages() {

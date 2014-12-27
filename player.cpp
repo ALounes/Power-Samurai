@@ -24,8 +24,15 @@ Player::Player(RenderWindow *win, Image &image, const Vector2i nbrOfAnim, String
    movingSound_ = new Sound;
    setMovingSoundB("Musique/Move.ogg");
    movingSound_->SetPitch(2);
-   movingSound_->SetVolume(30);
+   movingSound_->SetVolume(60);
    movingSound_->SetLoop(true);
+   
+   projectileSoundB_ = new SoundBuffer;
+   projectileSound_ = new Sound;
+   setProjectileSoundB("Musique/Blow7.ogg");
+   projectileSound_->SetPitch(2);
+   projectileSound_->SetVolume(60);
+   projectileSound_->SetLoop(false);
 }
 
 Player::~Player()
@@ -38,6 +45,8 @@ Player::~Player()
 	delete Spell3;
 	delete movingSoundB_;
    delete movingSound_;
+   delete projectileSoundB_;
+   delete projectileSound_;
    cout << "DESTRUCTEUR Player()" << endl;
 }
 
@@ -372,7 +381,19 @@ Sound * Player::getMovingSound() const {
    return movingSound_;
 }
 
-   
+//
+SoundBuffer* Player::getProjectileSoundB() const { 
+   return projectileSoundB_;
+}
+void Player::setProjectileSoundB(string s) {
+	if (!projectileSoundB_->LoadFromFile(s))
+		cout << "erreur " << endl ;
+   projectileSound_->SetBuffer(*projectileSoundB_);
+}
+
+Sound * Player::getProjectileSound() const {
+   return projectileSound_;
+}
    
    
 

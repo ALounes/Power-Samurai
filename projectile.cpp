@@ -7,7 +7,7 @@ Projectile::Projectile(RenderWindow *win, Image* image, const Vector2i& nbrOfAni
 ,iAnim_(0)
 ,numberOfEffect_(numberOfEffect)
 {
-   setId(-10);
+   setId(ID_PROJECTILE);
 	play();
 	Vector2f posit(entity->getCenter().x - getAnimationWidth() / 2, entity->getCenter().y - getAnimationHeight() / 2);
 	setPosition( posit );	
