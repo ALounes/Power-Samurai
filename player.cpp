@@ -337,12 +337,10 @@ void Player::consumeManaPot() {
       }
    }
 }
-/*
-void Player::createSpell1() {
+
+/*void Player::createSpell1() {
    if ( timer1->GetElapsedTime() > spell_delay1 ) {
-         cout << "SORT 1 Créé" << endl;
-         //player->lifePenalty(dmg1);
-		      
+         cout << "SORT 1 Créé" << endl;		      
 		   FolowingAnimation *effect1 = new FolowingAnimation(win_, *Spell1, v_spell1, player);
          effect1->play();
          spells.push_front(effect1);
@@ -374,9 +372,9 @@ void Player::createSpell3() {
          spells.push_front(effect3);
          timer3->Reset();
    }
-}
+}*/
 
-*/
+
    
    
    

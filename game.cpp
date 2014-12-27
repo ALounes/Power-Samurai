@@ -38,6 +38,7 @@
 
 
 Image effect_003;
+Image effect_003e;
 
 Vector2i anim(1,DOWN);
 bool moving = false;
@@ -697,46 +698,102 @@ void Game::RunGame()
 		      }
       }
       
-      if ( input.IsKeyDown(Key::E)) {
-         bool refresh = false;
-
-         if (Timer_Spell->GetElapsedTime() > SPELL_RATE) 
-   	   refresh = true;
-
-         if (refresh) {
+      if ( input.IsKeyDown(Key::E)) { 
+            if ( joueur->timer1->GetElapsedTime() > joueur->spell_delay1 ) {
+		         FolowingAnimation *effect1 = new FolowingAnimation(mainWindow_, *(joueur->Spell1), joueur->v_spell1, joueur);
+               effect1->play();
+               effect1->setId(1);
+               effect1->setManaCost(30);               
+               joueur->spells.push_front(effect1);              
+            }
             
-            //createSpell1()
-            
-            for(auto s : effects/*joueur->spells*/){
-               if (joueur->getMana() < s->getManaCost())
+            for(auto s : joueur->spells){
+               if (joueur->getMana() < s->getManaCost() || s->getId() != 1 || joueur->timer1->GetElapsedTime() <= joueur->spell_delay1)
                {
-                  cout << "Pas assez de Mana" << endl;
                }
                else {
                   joueur->manaPenalty(s->getManaCost());
-                  s->play();
                   for(auto s : entitys){
-		               if(s->getDistance() < 3) {
-		                  cout << "Dégats dans ta face" << endl;
-		                  
-		                  s->lifePenalty(400);
+		               if(s->getDistance() < joueur->range1) {
+		                  s->lifePenalty(joueur->dmg1);
 	                     if (!s->isAlive())
 	                     {
-	                        
 	                        entitys.remove(s);
 	                        (map_courante->Bot_list).remove(s);
 	                        delete s;
 	                     }
-		                  break;
-		                  
+		                  break; 
 		               }
                   }
+                  joueur->timer1->Reset();
                }
 	         }
-            
-            Timer_Spell->Reset();
-         }
       }
+      
+      if ( input.IsKeyDown(Key::R)) { 
+            if ( joueur->timer2->GetElapsedTime() > joueur->spell_delay2 ) {
+		         FolowingAnimation *effect2 = new FolowingAnimation(mainWindow_, *(joueur->Spell2), joueur->v_spell2, joueur);
+               effect2->play();
+               effect2->setId(2);
+               effect2->setManaCost(30);               
+               joueur->spells.push_front(effect2);              
+            }
+            
+            for(auto s : joueur->spells){
+               if (joueur->getMana() < s->getManaCost() || s->getId() != 2 || joueur->timer2->GetElapsedTime() <= joueur->spell_delay2)
+               {
+               }
+               else {
+                  joueur->manaPenalty(s->getManaCost());
+                  for(auto s : entitys){
+		               if(s->getDistance() < joueur->range2) {
+		                  s->lifePenalty(joueur->dmg2);
+	                     if (!s->isAlive())
+	                     {
+	                        entitys.remove(s);
+	                        (map_courante->Bot_list).remove(s);
+	                        delete s;
+	                     }
+		                  break; 
+		               }
+                  }
+                  joueur->timer2->Reset();
+               }
+	         }
+      }
+      
+      if ( input.IsKeyDown(Key::T)) { 
+            if ( joueur->timer3->GetElapsedTime() > joueur->spell_delay3 ) {
+		         FolowingAnimation *effect3 = new FolowingAnimation(mainWindow_, *(joueur->Spell3), joueur->v_spell3, joueur);
+               effect3->play();
+               effect3->setId(3);
+               effect3->setManaCost(30);               
+               joueur->spells.push_front(effect3);              
+            }
+            
+            for(auto s : joueur->spells){
+               if (joueur->getMana() < s->getManaCost() || s->getId() != 3 || joueur->timer3->GetElapsedTime() <= joueur->spell_delay3)
+               {
+               }
+               else {
+                  joueur->manaPenalty(s->getManaCost());
+                  for(auto s : entitys){
+		               if(s->getDistance() < joueur->range3) {
+		                  s->lifePenalty(joueur->dmg3);
+	                     if (!s->isAlive())
+	                     {
+	                        entitys.remove(s);
+	                        (map_courante->Bot_list).remove(s);
+	                        delete s;
+	                     }
+		                  break; 
+		               }
+                  }
+                  joueur->timer3->Reset();
+               }
+	         }
+      }
+      
       
 
       for(auto s : entitys){
@@ -1011,7 +1068,7 @@ Game::displayEntity(Clock &time)
 	   }
 	   else {
 	      projectiles.remove(s);
-	      
+	      delete s;
 		   break;
 	   }
 	   for(auto c : entitys){
@@ -1274,7 +1331,7 @@ void Game::loadSpell() {
 		      cout << "erreur " << endl ;
 		   FolowingAnimation *effect = new FolowingAnimation(mainWindow_, effect_003, test_effect, joueur);
 		   effect->setManaCost(30);
-         (joueur->spells).push_front(effect);	       
+         //(joueur->spells).push_front(effect);	       
 } 
 
 void Game::loadImages() {

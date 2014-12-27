@@ -27,6 +27,8 @@ class AnimationEffect: public Animation
 	int  getNmbEffect() const;
 	int getManaCost() const;
 	void setManaCost(int);
+	int getId() const;
+	void setId(int);
 
 	private:
 
@@ -34,6 +36,7 @@ class AnimationEffect: public Animation
 	int  iAnim_;
 	bool playing_;
 	int mana_cost_;
+	int id_;
 	
 };
 

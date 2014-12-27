@@ -82,4 +82,10 @@ void AnimationEffect::setManaCost(int mana_cost) {
    mana_cost_ = mana_cost;
 }
 
+int AnimationEffect::getId() const {
+   return id_;
+}
+void AnimationEffect::setId(int id) {
+   id_ = id;
+}
 
