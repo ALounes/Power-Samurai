@@ -45,8 +45,7 @@ bool moving = false;
 
 
 int pos_x ,pos_y;
-SoundBuffer buffer_son;
-Sound son;
+
 
 
 
@@ -86,6 +85,7 @@ Game::Game ()
 	image_Reaper1 = new Image();
 	image_Squelette = new Image();
 	image_Troll = new Image();
+	//music_courante_ = new Music();
   
   cout << "game() terminé" << endl;
 }
@@ -116,6 +116,7 @@ Game::~Game ()
 	delete image_Reaper1;
 	delete image_Squelette;
 	delete image_Troll;
+	//delete music_courante_;
   
 }
 void Game::Map_Load(void)
@@ -169,6 +170,7 @@ void Game::Map_Load(void)
   // On rentre alors les coordonnées d'arrivées dans la nouvelle carte (45,23)
   map_1->set_tpPoints(45,23,0,0,1,8);
   
+  map_1->setMusic("Musique/Dungeon6.ogg");
    
 	
 	// Creation map 2
@@ -236,6 +238,7 @@ void Game::Map_Load(void)
 	
 	map_2->set_links(map_3,map_1,NULL);
 	map_2->set_tpPoints(3,37,8,14,0,0);
+	map_2->setMusic("Musique/Battle3.ogg");
 	
 	// MAP 3
 	
@@ -418,6 +421,7 @@ void Game::Map_Load(void)
 	
 	map_5->set_links(map_1,NULL,NULL);
 	map_5->set_tpPoints(25,8,0,0,0,0);
+	map_5->setMusic("Musique/Airship.ogg");
 	
 	cout << "Map chargées" << endl;
 	
@@ -626,13 +630,24 @@ void Game::RunGame()
 	Clock clock;
 	
 	map_courante = map_5;
+	map_courante->getMusic()->Play();
 	
-	if (!buffer_son.LoadFromFile("Musique/BinB.ogg"))
-		cout << "erreur " << endl ;
+	//Music Music1;
+	//if (!Music1.OpenFromFile("Musique/BinB.ogg"))
+     // cout << "erreur " << endl ;
+   
+   //map_1->getMusic()->Play();
+	//SoundBuffer buffer_son;
+   //Sound son;
+	
+	
+	
+	//if (!buffer_son.LoadFromFile("Musique/BinB.ogg"))
+		//cout << "erreur " << endl ;
 
 
-	son.SetBuffer(buffer_son);
-	son.SetLoop(true);
+	//son.SetBuffer(buffer_son);
+	//son.SetLoop(true);
  	//son.Play();	
  	
  	// Suivant le résultat de PlayersMenu, on crée un personnage
@@ -670,12 +685,14 @@ void Game::RunGame()
 				joueur->actionKey(map_courante);
 				
 				if (joueur->isMapChanged() != NOCHANGE) {
+				   map_courante->getMusic()->Stop();
 				   map_courante->Item_list = items;
 				   map_courante->Bot_list = entitys;
 				   map_courante = joueur->getMap();
 				   joueur->setMapChanged(NOCHANGE);
 				   entitys = map_courante->Bot_list;
 				   items = map_courante->Item_list;
+				   map_courante->getMusic()->Play();
 				}
 
 		}
@@ -872,11 +889,11 @@ void Game::RunGame()
 		   cout << "Perso Mort" << endl;
 		   launchingDeath();
 		}
-   
+   joueur->getMovingSound()->Pause();
    }
    cout << "Sortie de boucle" << endl;
    mainWindow_->ShowMouseCursor(true);
-
+   map_courante->getMusic()->Stop();
 
 entitys = map_courante->Bot_list;
 items = map_courante->Item_list;
@@ -1238,6 +1255,11 @@ void Game::launchingDeath() {
    Sprite s_over;
    String texte;
   
+   Music gameover;
+   if(!gameover.OpenFromFile("Musique/Gameover2.ogg"))
+      cout << "erreur " << endl ;
+   gameover.Play();
+   
    if(!game_over.LoadFromFile("images/Gameover/Gameover.png"))
       cout << "erreur " << endl ;
    s_over.SetImage(game_over);
@@ -1254,6 +1276,7 @@ void Game::launchingDeath() {
       mainWindow_->Draw(texte);
       mainWindow_->Display();
    }
+   gameover.Stop();
    
 }
 

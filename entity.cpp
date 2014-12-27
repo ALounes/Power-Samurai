@@ -5,11 +5,22 @@ Entity::Entity(RenderWindow *win, Image& image, const Vector2i& nbrOfAnim, Map *
 ,moving_(false)
 ,myMap_(myMap)
 {
+   movingSoundB_ = new SoundBuffer;
+   movingSound_ = new Sound;
+   setMovingSoundB("Musique/Move.ogg");
+   movingSound_->SetPitch(2);
+   movingSound_->SetVolume(30);
+   movingSound_->SetLoop(true);
 	setDefaultSprite();
 	setSpeed(DEFAULT_SPEED);
+	
+	
 }
 
-Entity::~Entity() {}
+Entity::~Entity() {
+   delete movingSoundB_;
+   delete movingSound_;
+}
 
 void 
 Entity::setSpeed(float speed)
@@ -57,6 +68,16 @@ Entity::pause()
 bool 
 Entity::legalDeplacement(int x, int y) 
 {	   
+   //SoundBuffer buffer_son;
+   
+	
+	
+	//if (!buffer_son.LoadFromFile("Musique/BinB.ogg"))
+		//cout << "erreur " << endl ;
+
+
+	//son.SetBuffer(buffer_son);
+	//son.SetLoop(true)
 	int *socle = getSocle(y,x); // CAR HAUTEUR DU TABLEAU = X !!!
 	int i = socle[0];
 	int j = socle[2];
@@ -472,5 +493,19 @@ bool Entity::getStuck() const {
 
 void Entity::setStuck(bool b) {
    is_stuck = b;
+}
+
+SoundBuffer* Entity::getMovingSoundB() const { 
+   return movingSoundB_;
+}
+void Entity::setMovingSoundB(string s) {
+	if (!movingSoundB_->LoadFromFile(s))
+		cout << "erreur " << endl ;
+   movingSound_->SetBuffer(*movingSoundB_);
+
+}
+
+Sound * Entity::getMovingSound() const {
+   return movingSound_;
 }
 

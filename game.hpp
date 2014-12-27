@@ -113,6 +113,8 @@ private:
    Map    *map_4;
    Map    *map_5;
    Map    *map_courante;
+   
+   //Music *music_courante_;
   
    Clock * Timer_Projectile;	
    Clock * Timer_Items;

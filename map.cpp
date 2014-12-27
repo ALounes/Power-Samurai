@@ -16,6 +16,7 @@ Map::Map ()
    
    x_link_3 = new int;
    y_link_3 = new int;
+   music_ = new Music();
 }
 
 Map::~Map()
@@ -38,6 +39,8 @@ Map::~Map()
    delete y_link_3;
    delete Hauteur_;
    delete Largeur_;
+   music_->Stop();
+   delete music_;
    
 }
  
@@ -180,4 +183,14 @@ int Map::get_tpPoints(int pos) {
       return -1;
          break;
    }
+}
+
+Music* Map::getMusic() const {
+   return music_;
+}
+
+
+void Map::setMusic(string s) {
+   music_->OpenFromFile(s);
+   music_->SetLoop(true);
 }

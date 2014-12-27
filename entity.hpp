@@ -61,6 +61,12 @@ class Entity : public Animation
 	bool getStuck() const;
 	void setStuck(bool);
 	
+	SoundBuffer * getMovingSoundB() const;
+	void setMovingSoundB(string s);
+	
+	Sound * getMovingSound() const;
+	//void setMovingSound(string s);
+	
 	/*virtual String getName() const;
 	virtual void setName(String name);
 	
@@ -95,6 +101,8 @@ class Entity : public Animation
 	map_number map_changed = NOCHANGE;
 	int id;
 	bool is_stuck = false;
+	SoundBuffer * movingSoundB_;
+	Sound * movingSound_;
 };
 
 #endif

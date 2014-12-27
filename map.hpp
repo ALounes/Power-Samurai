@@ -45,6 +45,9 @@ public:
    int * get_Largeur();
    int ** getVector();
    
+   Music* getMusic() const;
+   void setMusic(string s);
+   
    // Suivant la valeur de i, renvoie le pointeur sur la (i+1)eme Map.
    Map* getLink(int i) const;
    
@@ -83,6 +86,7 @@ private:
 
    int *Hauteur_;
    int *Largeur_;
+   Music* music_;
 
    
 };

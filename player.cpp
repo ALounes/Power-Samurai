@@ -112,6 +112,16 @@ Player::actionKey(Map * map)
 	  default :
 	    break;
 	}
+	if (compteur_deplacement != 0 && (getMovingSound()->GetStatus() == Sound::Stopped || getMovingSound()->GetStatus() == Sound::Paused) )
+	{
+	   cout << "SON joué" << endl;
+	   getMovingSound()->Play();
+	}
+	if (compteur_deplacement == 0)
+	{
+	   cout<< "Pause" << endl;
+	   getMovingSound()->Pause();
+	}
 
 }
 
