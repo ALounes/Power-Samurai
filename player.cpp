@@ -12,6 +12,7 @@ Player::Player(RenderWindow *win, Image &image, const Vector2i nbrOfAnim, String
 ,power_(power)
 ,attack_damage(att_dmg)
 {
+   
 	play();
 	timer1 = new Clock();
    timer2 = new Clock();
@@ -19,6 +20,12 @@ Player::Player(RenderWindow *win, Image &image, const Vector2i nbrOfAnim, String
    Spell1 = new Image();
    Spell2 = new Image();
    Spell3 = new Image();
+   movingSoundB_ = new SoundBuffer;
+   movingSound_ = new Sound;
+   setMovingSoundB("Musique/Move.ogg");
+   movingSound_->SetPitch(2);
+   movingSound_->SetVolume(30);
+   movingSound_->SetLoop(true);
 }
 
 Player::~Player()
@@ -29,6 +36,8 @@ Player::~Player()
 	delete Spell1;
 	delete Spell2;
 	delete Spell3;
+	delete movingSoundB_;
+   delete movingSound_;
    cout << "DESTRUCTEUR Player()" << endl;
 }
 
@@ -348,42 +357,20 @@ void Player::consumeManaPot() {
    }
 }
 
-/*void Player::createSpell1() {
-   if ( timer1->GetElapsedTime() > spell_delay1 ) {
-         cout << "SORT 1 Créé" << endl;		      
-		   FolowingAnimation *effect1 = new FolowingAnimation(win_, *Spell1, v_spell1, player);
-         effect1->play();
-         spells.push_front(effect1);
-         timer1->Reset();
-   }
-   
+
+SoundBuffer* Player::getMovingSoundB() const { 
+   return movingSoundB_;
+}
+void Player::setMovingSoundB(string s) {
+	if (!movingSoundB_->LoadFromFile(s))
+		cout << "erreur " << endl ;
+   movingSound_->SetBuffer(*movingSoundB_);
+
 }
 
-void Player::createSpell2() {
-   if ( timer2->GetElapsedTime() > spell_delay2 ) {
-         cout << "SORT 2 Créé" << endl;
-         //player->lifePenalty(dmg2);
-		      
-		   FolowingAnimation *effect2 = new FolowingAnimation(win_, *Spell2, v_spell2, player);
-         effect2->play();
-         spells.push_front(effect2);
-         timer2->Reset();
-   }
+Sound * Player::getMovingSound() const {
+   return movingSound_;
 }
-
-void Player::createSpell3() {
-   if ( (timer3->GetElapsedTime() >  spell_delay3) && ( (int) path.size() <= range3) ) {
-         cout << "SORT 3 Créé : " << "Taille Chemin : " << path.size() << "Range :" << range3 << endl;
-         //player->lifePenalty(dmg3);
-          
-		      
-		   FolowingAnimation *effect3 = new FolowingAnimation(win_, *Spell3, v_spell3, player);
-         effect3->play();
-         spells.push_front(effect3);
-         timer3->Reset();
-   }
-}*/
-
 
    
    

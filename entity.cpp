@@ -5,12 +5,7 @@ Entity::Entity(RenderWindow *win, Image& image, const Vector2i& nbrOfAnim, Map *
 ,moving_(false)
 ,myMap_(myMap)
 {
-   movingSoundB_ = new SoundBuffer;
-   movingSound_ = new Sound;
-   setMovingSoundB("Musique/Move.ogg");
-   movingSound_->SetPitch(2);
-   movingSound_->SetVolume(30);
-   movingSound_->SetLoop(true);
+   
 	setDefaultSprite();
 	setSpeed(DEFAULT_SPEED);
 	
@@ -18,8 +13,7 @@ Entity::Entity(RenderWindow *win, Image& image, const Vector2i& nbrOfAnim, Map *
 }
 
 Entity::~Entity() {
-   delete movingSoundB_;
-   delete movingSound_;
+   
 }
 
 void 
@@ -495,17 +489,4 @@ void Entity::setStuck(bool b) {
    is_stuck = b;
 }
 
-SoundBuffer* Entity::getMovingSoundB() const { 
-   return movingSoundB_;
-}
-void Entity::setMovingSoundB(string s) {
-	if (!movingSoundB_->LoadFromFile(s))
-		cout << "erreur " << endl ;
-   movingSound_->SetBuffer(*movingSoundB_);
-
-}
-
-Sound * Entity::getMovingSound() const {
-   return movingSound_;
-}
 
