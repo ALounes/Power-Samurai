@@ -15,6 +15,11 @@ Item::Item(RenderWindow *win, Image* image, Map* map, int x, int y, Item::item_t
 	Timer_Item = new Clock();
 }
 
+Item::~Item() {
+   delete mySprite_;
+   delete Timer_Item;
+}
+
 
 
 /*void Item::setLifeBonus(int l) {

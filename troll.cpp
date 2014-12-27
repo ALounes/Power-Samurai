@@ -5,7 +5,7 @@ Troll::Troll(RenderWindow *win, Image &image, Map *myMap, int ident, int range)
 :Bot( win,
 			image, 
 			Vector2i(TROLL_X,TROLL_Y), 
-			String("GreenDragon"),
+			String("Troll"),
 			TROLL_LIFE,
 			TROLL_MANA, 
 			TROLL_POWER,

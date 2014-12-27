@@ -12,6 +12,7 @@ class Item
    enum item_type {HP,MANA};
    
    Item(RenderWindow *win, Image* image, Map* map, int x, int y, Item::item_type it);
+   ~Item();
  
    /*void setLifeBonus(int);
 	int getLifeBonus() const;*/
@@ -56,7 +57,6 @@ class Item
    Image *image_;
    Map *map_ref;
    Clock *Timer_Item;
-   //Sprite *mySprite_;
 
 
 };

@@ -13,11 +13,23 @@ Player::Player(RenderWindow *win, Image &image, const Vector2i nbrOfAnim, String
 ,attack_damage(att_dmg)
 {
 	play();
+	timer1 = new Clock();
+   timer2 = new Clock();
+   timer3 = new Clock();
+   Spell1 = new Image();
+   Spell2 = new Image();
+   Spell3 = new Image();
 }
 
 Player::~Player()
 {
-
+   delete timer1;
+	delete timer2;
+	delete timer3;
+	delete Spell1;
+	delete Spell2;
+	delete Spell3;
+   cout << "DESTRUCTEUR Player()" << endl;
 }
 
 void
@@ -325,4 +337,47 @@ void Player::consumeManaPot() {
       }
    }
 }
+/*
+void Player::createSpell1() {
+   if ( timer1->GetElapsedTime() > spell_delay1 ) {
+         cout << "SORT 1 Créé" << endl;
+         //player->lifePenalty(dmg1);
+		      
+		   FolowingAnimation *effect1 = new FolowingAnimation(win_, *Spell1, v_spell1, player);
+         effect1->play();
+         spells.push_front(effect1);
+         timer1->Reset();
+   }
+   
+}
+
+void Player::createSpell2() {
+   if ( timer2->GetElapsedTime() > spell_delay2 ) {
+         cout << "SORT 2 Créé" << endl;
+         //player->lifePenalty(dmg2);
+		      
+		   FolowingAnimation *effect2 = new FolowingAnimation(win_, *Spell2, v_spell2, player);
+         effect2->play();
+         spells.push_front(effect2);
+         timer2->Reset();
+   }
+}
+
+void Player::createSpell3() {
+   if ( (timer3->GetElapsedTime() >  spell_delay3) && ( (int) path.size() <= range3) ) {
+         cout << "SORT 3 Créé : " << "Taille Chemin : " << path.size() << "Range :" << range3 << endl;
+         //player->lifePenalty(dmg3);
+          
+		      
+		   FolowingAnimation *effect3 = new FolowingAnimation(win_, *Spell3, v_spell3, player);
+         effect3->play();
+         spells.push_front(effect3);
+         timer3->Reset();
+   }
+}
+
+*/
+   
+   
+   
 

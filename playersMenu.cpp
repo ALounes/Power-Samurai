@@ -10,13 +10,8 @@ PlayersMenu::PlayersMenu ()
   playersItems_ = new std::list<PlayersItem>;
   position_fleche_ = new int;
   *position_fleche_ = 0;
-
 	//Load images from files
 
-	
-	//sprite_perso.SetSubRect(IntRect(0,0,32,32));
-	
-	
 	image_p1_ = new sf::Image();
 	image_p1_->LoadFromFile("Sprites/Personnages/P1.png");
 	sf::Sprite sprite_p1;
@@ -105,6 +100,7 @@ PlayersMenu::~PlayersMenu ()
   delete sprite_arrow_;
   delete position_fleche_;
   delete sprite_main_players_;
+  delete image_main_players_;
 
 	delete image_p1_;
 	delete image_p2_;

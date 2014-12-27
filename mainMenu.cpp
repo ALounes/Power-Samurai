@@ -112,7 +112,7 @@ MainMenu::MainMenu ()
 	menuItems_->push_back(exitButton);
 	menuItems_->push_back(difficultyButton);
 	menuItems_->push_back(playersButton);
-
+   cout << "CONSTRUCTEUR MainMenu()" << endl;
 
 }
 

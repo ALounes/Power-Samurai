@@ -61,6 +61,29 @@ class Player : public LivingEntity
 	void setAttackDamage(float);
 	float getAttackDamage();
 	
+	protected :
+	
+	Clock * timer1;
+	Clock * timer2;
+	Clock * timer3;
+	
+	int spell_delay1;
+	int spell_delay2;
+   int spell_delay3;	
+	
+	Image* Spell1;
+	Image* Spell2;
+	Image* Spell3;
+	int range1;
+	int range2;
+	int range3;
+	int dmg1;
+	int dmg2;
+	int dmg3;
+	Vector2i v_spell1;
+	Vector2i v_spell2;
+	Vector2i v_spell3;
+	
 	
 
 	private:

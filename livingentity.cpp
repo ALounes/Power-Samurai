@@ -8,4 +8,8 @@ LivingEntity::LivingEntity(RenderWindow *win, Image& image,const Vector2i& nbrOf
 }
 
 LivingEntity::~LivingEntity()
-{}
+{
+//while (!spells.empty()) { delete spells.back(); spells.pop_back(); }
+//while (!appliedeffects.empty()) { delete appliedeffects.back(); appliedeffects.pop_back(); }
+cout << "DESTRUCTEUR LivingEntity()" << endl;
+}

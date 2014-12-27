@@ -84,7 +84,7 @@ private:
 	void setDifficulty();
 
 
-  enum GameState { Uninitialized, ShowingSplash, Paused, 
+   enum GameState { Uninitialized, ShowingSplash, Paused, 
 					ShowingMainMenu, ShowingPlayersMenu, ShowingDifficultyMenu, Playing, Exiting };
 
 	GameState *gameState_;

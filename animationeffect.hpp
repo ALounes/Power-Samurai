@@ -25,12 +25,15 @@ class AnimationEffect: public Animation
 	int  incrementationAnim();
 	int  getAnim() const;
 	int  getNmbEffect() const;
+	int getManaCost() const;
+	void setManaCost(int);
 
 	private:
 
 	const int numberOfEffect_;
 	int  iAnim_;
 	bool playing_;
+	int mana_cost_;
 	
 };
 

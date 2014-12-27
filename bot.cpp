@@ -29,6 +29,7 @@ Bot::Bot(RenderWindow *win, Image& image, const Vector2i nbrOfAnim, String name,
    Spell1 = new Image();
    Spell2 = new Image();
    Spell3 = new Image();
+   cout << "CONSTRUCTEUR BOT" << endl;
 }
 
 Bot::~Bot()
@@ -39,6 +40,7 @@ Bot::~Bot()
 	delete Spell1;
 	delete Spell2;
 	delete Spell3;
+	cout << "DESTRUCTEUR BOT" << endl;
 
 }
 
@@ -296,9 +298,6 @@ void Bot::follow_path(Map * map, Player * player) {
             break;
       }
    }
-   //cout << "position du perso : (x,y) = " << player->soclePosition()[1]<<", " << player->soclePosition()[3] << endl;
-   //cout << "Centre perso : (x,y) = " << player->getCenter()
-   //cout << "position du bot: (x,y) = " << soclePosition()[1]<<", " << soclePosition()[3] << endl;
 }
 
 

@@ -84,6 +84,8 @@ DifficultyMenu::DifficultyMenu ()
 	difficultyItems_->push_back(easyButton);
 	difficultyItems_->push_back(intermediateButton);
 	difficultyItems_->push_back(hardButton);
+	
+	cout << "CONSTRUCTEUR Difficulty Menu" << endl;
 }
 
 DifficultyMenu::~DifficultyMenu () 
@@ -97,19 +99,18 @@ DifficultyMenu::~DifficultyMenu ()
 	delete image_easy_;
 	delete image_intermediate_;
 	delete image_hard_;
-	cout << "delete Difficulty Menu terminé" << endl;
+	cout << "DESTRUCTEUR Difficulty Menu" << endl;
 }
 void DifficultyMenu::Load(sf::RenderWindow *window)
 { 
-cout << "Load diff menu" << endl;
-  window->Clear(sf::Color::White);
+
+   window->Clear(sf::Color::White);
 	window->Draw(*sprite_main_difficulty_);
 	window->Display();
 }
 
 DifficultyMenu::DifficultyResult DifficultyMenu::Show(sf::RenderWindow *window)
 {
-    cout << "Show" << endl;
 	return GetDifficultyResponse(window);
 }
 

@@ -36,6 +36,8 @@ Map::~Map()
    delete y_link_2;
    delete x_link_3;
    delete y_link_3;
+   delete Hauteur_;
+   delete Largeur_;
    
 }
  

@@ -16,7 +16,7 @@ Projectile::Projectile(RenderWindow *win, Image* image, const Vector2i& nbrOfAni
 
 Projectile::~Projectile()
 {
-
+cout << "DESTRUCTION Projectile()" << endl;
 }
 
 int 
@@ -101,7 +101,7 @@ Projectile::update()
 {
 	int direction = getDirection();
 	
-   //cout << "direction : " << direction << endl;
+
 	switch(direction)
 	{
 		case 2 :

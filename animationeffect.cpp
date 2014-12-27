@@ -73,4 +73,13 @@ AnimationEffect::setDefaultSprite()
 }
 
 
+int AnimationEffect::getManaCost() const {
+   return mana_cost_;
+}
+
+
+void AnimationEffect::setManaCost(int mana_cost) {
+   mana_cost_ = mana_cost;
+}
+
 

@@ -61,7 +61,7 @@ Game::Game ()
   
   
   // On crée une fenêtre et on la centre sur l'écran.
-  mainWindow_ = new RenderWindow(VideoMode(GAME_WIDTH, GAME_HEIGHT), "Power Samurai!!!");
+  mainWindow_ = new RenderWindow(VideoMode(GAME_WIDTH, GAME_HEIGHT), "Power Samurai!!!", Style::Close);
   mainWindow_->SetPosition((VideoMode::GetDesktopMode().Width - GAME_WIDTH)/2, (VideoMode::GetDesktopMode().Height - GAME_HEIGHT)/2);
 
   map_1 = new Map();
@@ -93,22 +93,22 @@ Game::Game ()
 Game::~Game ()
 {
 
-  delete map_1;
-  delete map_2;
-  delete map_3;
-  delete map_4;
-  delete map_5;
+   delete map_1;
+   delete map_2;
+   delete map_3;
+   delete map_4;
+   delete map_5;
   
-  delete mainMenu_;
-  delete gameState_;
-  delete mainWindow_;
-  delete player_choice;
-  delete image_joueur;
-  delete image_projectile;
-  delete image_hp_item;
-  delete image_mana_item;
-  delete image_Armor1;
-  delete image_Devil1;
+   delete mainMenu_;
+   delete gameState_;
+   delete mainWindow_;
+   delete player_choice;
+   delete image_joueur;
+   delete image_projectile;
+   delete image_hp_item;
+   delete image_mana_item;
+   delete image_Armor1;
+   delete image_Devil1;
    delete image_Dragon1;
 	delete image_Fantome1;
 	delete image_Fantome2;
@@ -142,7 +142,7 @@ void Game::Map_Load(void)
   {0,1,1,0,1,1,1,1,1,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,1,1,1,0,1,0},
   {0,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,1,1,1,1,0,0,0,0},
   {0,1,1,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,0,0,0,0},
-  {0,1,1,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,0,1,0,0,0,1,1,0},
+  {0,1,1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,1,0,0,0,1,1,0},
   {0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0},
   {0,1,1,1,1,1,1,1,1,1,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0},
   {0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
@@ -491,7 +491,7 @@ void Game::GameLoop()
             
             // On détruit et on recrée une nouvelle fenêtre aux dimensions du jeu.
             
-            mainWindow_ = new RenderWindow(VideoMode(PLAYING_WIDTH, PLAYING_HEIGHT), "     Kill them all, and get the BOSS");
+            mainWindow_ = new RenderWindow(VideoMode(PLAYING_WIDTH, PLAYING_HEIGHT), "     Kill them all, and get the BOSS", Style::Close);
             mainWindow_->SetPosition((VideoMode::GetDesktopMode().Width - PLAYING_WIDTH)/2, (VideoMode::GetDesktopMode().Height - PLAYING_HEIGHT)/2);
             mainWindow_->Clear();
             
@@ -501,7 +501,7 @@ void Game::GameLoop()
             
             delete mainWindow_;
            
-            mainWindow_ = new RenderWindow(VideoMode(GAME_WIDTH, GAME_HEIGHT), "  Power Samurai!!!");
+            mainWindow_ = new RenderWindow(VideoMode(GAME_WIDTH, GAME_HEIGHT), "  Power Samurai!!!",Style::Close);
             mainWindow_->SetPosition((VideoMode::GetDesktopMode().Width - GAME_WIDTH)/2, (VideoMode::GetDesktopMode().Height - GAME_HEIGHT)/2);
 	         
             mainMenu_ = new MainMenu();
@@ -594,11 +594,9 @@ void Game::ShowPlayersMenu()
   while (resultat != PlayersMenu::Escape && resultat != PlayersMenu::Return) {
 	  resultat = playersMenu_->Show(mainWindow_);
 	}
-	
 	switch(resultat)
 	 {
 	 case PlayersMenu::Escape:
-	  cout << "cas échap" << endl;
 			*gameState_ = Game::ShowingMainMenu;	
 			break;
 	 case PlayersMenu::Return:
@@ -625,15 +623,12 @@ void Game::RunGame()
 	Clock clock2;
 	Vector2f position(mainWindow_->GetWidth()/2,mainWindow_->GetHeight()/2);
 	Clock clock;
-	//Vector2i test_effect(5,8);
 	
 	map_courante = map_5;
 	
 	if (!buffer_son.LoadFromFile("Musique/BinB.ogg"))
 		cout << "erreur " << endl ;
 
-	//if (!effect_003.LoadFromFile("sprite/Earth1.png"))
-		//cout << "erreur " << endl ;
 
 	son.SetBuffer(buffer_son);
 	son.SetLoop(true);
@@ -646,14 +641,9 @@ void Game::RunGame()
  	loadBot();
  	loadItem();
  	loadSpell();
- 	
- 	cout << "Bots chargés" << endl;
 	
 	entitys = map_courante->Bot_list;
 	items = map_courante->Item_list;
-	
-	cout << "entitys initialisée" << endl;     
-   
    
 	camera = new Camera(mainWindow_,joueur);
 	view = new View();
@@ -690,16 +680,13 @@ void Game::RunGame()
 		}
 		
 		if ( input.IsKeyDown(Key::Space)) {
-		   
-		
 		   bool refresh = false;
-
 	         if (Timer_Projectile->GetElapsedTime() > RATE_FIRE) 
 	   	   refresh = true;
 
             if (refresh) {
         
-               Vector2i vfeux(4,4);
+                  Vector2i vfeux(4,4);
 
 	               Projectile *projectile = new Projectile(mainWindow_,image_projectile ,vfeux,joueur,16,5);
 	               projectile->setDirection( joueur->getCurrentDirection() );
@@ -717,26 +704,36 @@ void Game::RunGame()
    	   refresh = true;
 
          if (refresh) {
-            joueur->manaPenalty(50);
-            for(auto s : effects){
-               s->play();
-	         }
-            for(auto s : entitys){
-               
             
-		         if(s->getDistance() < 3) {
-		            cout << "Dégats dans ta face" << endl;
-		            
-		            s->lifePenalty(400);
-	               if (!s->isAlive())
-	               {
-	                  entitys.remove(s);
-	                  delete s;
-	               }
-		            break;
-		            
-		         }
-            }
+            //createSpell1()
+            
+            for(auto s : effects/*joueur->spells*/){
+               if (joueur->getMana() < s->getManaCost())
+               {
+                  cout << "Pas assez de Mana" << endl;
+               }
+               else {
+                  joueur->manaPenalty(s->getManaCost());
+                  s->play();
+                  for(auto s : entitys){
+		               if(s->getDistance() < 3) {
+		                  cout << "Dégats dans ta face" << endl;
+		                  
+		                  s->lifePenalty(400);
+	                     if (!s->isAlive())
+	                     {
+	                        
+	                        entitys.remove(s);
+	                        (map_courante->Bot_list).remove(s);
+	                        delete s;
+	                     }
+		                  break;
+		                  
+		               }
+                  }
+               }
+	         }
+            
             Timer_Spell->Reset();
          }
       }
@@ -754,8 +751,8 @@ void Game::RunGame()
             
             if (!c->isPlaying())
             {
-              s->spells.remove(c);
-               delete c; 
+               s->spells.remove(c); 
+               delete c;
             }
             break;
 	      }
@@ -823,53 +820,45 @@ void Game::RunGame()
    cout << "Sortie de boucle" << endl;
    mainWindow_->ShowMouseCursor(true);
 
-/*cout << "1" << endl;
-for(auto s : entitys){
-	entitys.remove(s);
-   delete s ;
-}
-cout << "1" << endl;
+
+entitys = map_courante->Bot_list;
+items = map_courante->Item_list;
+
+while (!(map_1->Bot_list).empty()) { delete (map_1->Bot_list).back(); (map_1->Bot_list).pop_back(); }
+
+while (!(map_2->Bot_list).empty()) { delete (map_2->Bot_list).back(); (map_2->Bot_list).pop_back(); }
+while (!(map_3->Bot_list).empty()) { delete (map_3->Bot_list).back(); (map_3->Bot_list).pop_back(); }
+while (!(map_4->Bot_list).empty()) { delete (map_4->Bot_list).back(); (map_4->Bot_list).pop_back(); }
+while (!(map_5->Bot_list).empty()) { delete (map_5->Bot_list).back(); (map_5->Bot_list).pop_back(); }
+
+entitys.clear();
+
+while (!(map_1->Item_list).empty()) { delete (map_1->Item_list).back(); (map_1->Item_list).pop_back(); }
+while (!(map_2->Item_list).empty()) { delete (map_2->Item_list).back(); (map_2->Item_list).pop_back(); }
+while (!(map_3->Item_list).empty()) { delete (map_3->Item_list).back(); (map_3->Item_list).pop_back(); }
+while (!(map_4->Item_list).empty()) { delete (map_4->Item_list).back(); (map_4->Item_list).pop_back(); }
+while (!(map_5->Item_list).empty()) { delete (map_5->Item_list).back(); (map_5->Item_list).pop_back(); }
 
 
-for(auto s : (map_1->Bot_list)){
-	(map_1->Bot_list).remove(s);
-   delete s ;
-}
-for(auto s : (map_2->Bot_list)){
-	(map_2->Bot_list).remove(s);
-   delete s ;
-}
-for(auto s : (map_2->Bot_list)){
-	(map_2->Bot_list).remove(s);
-   delete s ;
-}
+while (!effects.empty()) { delete effects.back(); effects.pop_back(); }
 
-for(auto s : effects){
-	effects.remove(s);
-   delete s ;
-}
 
-cout << "hihi" << endl;
-for(auto s : projectiles){
-	projectiles.remove(s);
-   delete s ;
-}*/
-	entitys.clear();
-	map_courante = map_5;
-	(map_1->Bot_list).clear();
-	(map_2->Bot_list).clear();
-	(map_3->Bot_list).clear();
-	effects.clear();
-	projectiles.clear();
+while (!projectiles.empty()) { delete projectiles.back(); projectiles.pop_back(); }
 
 	delete view;
+
 	delete camera;
+
 	delete joueur;
+
 	delete Timer_Projectile;
+
 	delete Timer_Items;
+
+   delete Timer_Spell;
 }
 
-void
+/*void
 Game::eventManagement(Event &event)
 {
 	switch (event.Type)
@@ -885,7 +874,7 @@ Game::eventManagement(Event &event)
 		default:
 			break;
 	}
-}
+}*/
 
 void 
 Game::keyPressedManagement (Key::Code keyPressed)
@@ -1022,7 +1011,7 @@ Game::displayEntity(Clock &time)
 	   }
 	   else {
 	      projectiles.remove(s);
-	      delete s ;
+	      
 		   break;
 	   }
 	   for(auto c : entitys){
@@ -1032,13 +1021,15 @@ Game::displayEntity(Clock &time)
          {
             
             cout << "Bot touché" << endl;
+            // Pour éviter la triche, quand un monstre est touché par un projectile, il se met en poursuite, quelque soit sa distance.
+            c->inPursuit();
             projectiles.remove(s);
 	         delete s ;
 	         c->lifePenalty(joueur->getAttackDamage());
 	         if (!c->isAlive())
 	         {
 	            entitys.remove(c);
-
+               (map_courante->Bot_list).remove(c);
 					// TEST ANIMATION
 					//Image *dieImage_  = new Image();
 					//dieImage_->LoadFromFile("images/Sprite_bot/DieImage.png");
@@ -1046,7 +1037,6 @@ Game::displayEntity(Clock &time)
 					//dieAnimation_->play();
 					//dieAnimation_->run();
 
-					cout << " Destruction BOT "<< endl;
 			      delete c;
 					
 	         }
@@ -1055,11 +1045,6 @@ Game::displayEntity(Clock &time)
          }
       }
    }
-   
-   
-	
-
-	
 }
 
 
@@ -1089,12 +1074,9 @@ void Game::setPlayer(RenderWindow  * mainwin) {
 
       {
         if(!image_joueur->LoadFromFile("Sprites/Personnages/P1.png"))
-
 		      cout << "erreur " << endl ; 
         joueur = new AlanTuring(mainwin,*image_joueur,map_courante,100);
-        //mainwin->Draw(*(joueur->getSprite()));
         joueur->setPosition(Vector2f(PLAYER_X_START*BASE_SPRITE ,PLAYER_Y_START*BASE_SPRITE));
-        //entitys.push_front(joueur);
         break;
       }
       
@@ -1103,7 +1085,6 @@ void Game::setPlayer(RenderWindow  * mainwin) {
         if(!image_joueur->LoadFromFile("Sprites/Personnages/P2.png"))
 		      cout << "erreur " << endl ; 
         joueur = new AlanTuring(mainwin,*image_joueur,map_courante,200);
-        //mainwin->Draw(*(joueur->getSprite()));
         joueur->setPosition(Vector2f(PLAYER_X_START*BASE_SPRITE ,PLAYER_Y_START*BASE_SPRITE));
         break;
       }
@@ -1113,7 +1094,6 @@ void Game::setPlayer(RenderWindow  * mainwin) {
         if(!image_joueur->LoadFromFile("Sprites/Personnages/P3.png"))
 		      cout << "erreur " << endl ; 
         joueur = new BjarneStroustrup(mainwin,*image_joueur,map_courante,300);
-        //mainwin->Draw(*(joueur->getSprite()));
         joueur->setPosition(Vector2f(PLAYER_X_START*BASE_SPRITE ,PLAYER_Y_START*BASE_SPRITE));
         break;
       }
@@ -1126,7 +1106,6 @@ void Game::setPlayer(RenderWindow  * mainwin) {
 
 		      cout << "erreur " << endl ; 
         joueur = new LinusTorvalds(mainwin,*image_joueur,map_courante,250);
-        //mainwin->Draw(*(joueur->getSprite()));
         joueur->setPosition(Vector2f(PLAYER_X_START*BASE_SPRITE ,PLAYER_Y_START*BASE_SPRITE));
         break;
       }
@@ -1136,7 +1115,6 @@ void Game::setPlayer(RenderWindow  * mainwin) {
         if(!image_joueur->LoadFromFile("Sprites/Personnages/P1.png"))
 		      cout << "erreur " << endl ; 
         joueur = new LinusTorvalds(mainwin,*image_joueur,map_courante,150);
-        //mainwin->Draw(*(joueur->getSprite()));
         joueur->setPosition(Vector2f(PLAYER_X_START*BASE_SPRITE ,PLAYER_Y_START*BASE_SPRITE));
         break;
       }
@@ -1150,15 +1128,14 @@ void Game::launchingPause() {
    bool Ispause = true;
    
    Shape grey_screen   = Shape::Rectangle(0,0,PLAYING_WIDTH,PLAYING_HEIGHT,Color(0,0,0));
-   grey_screen.SetPosition(camera->position_->x - PLAYING_WIDTH /2/* - 600*/, camera->position_->y - PLAYING_HEIGHT /2/*- 400*/);
+   grey_screen.SetPosition(camera->position_->x - PLAYING_WIDTH /2, camera->position_->y - PLAYING_HEIGHT /2);
    
 	String texte = String ("               Le jeu est en pause.\n\n(P) : Continuer    (Q) : Menu principal", Font::GetDefaultFont(), 40.f);
 
 	texte.SetPosition( camera->position_->x - 320, camera->position_->y - 100);
 	texte.SetStyle(11);
 	texte.SetColor(Color::White);
-	
-   
+
    mainWindow_->Draw(grey_screen);
    mainWindow_->Draw(texte);
    mainWindow_->Display();
@@ -1196,10 +1173,31 @@ void Game::launchingPause() {
 	   }
     }
    }
-
 }
 
 void Game::launchingDeath() {
+   Clock death_timer;
+   Image game_over;
+   Sprite s_over;
+   String texte;
+  
+   if(!game_over.LoadFromFile("images/Gameover/Gameover.png"))
+      cout << "erreur " << endl ;
+   s_over.SetImage(game_over);
+   s_over.SetPosition( camera->position_->x - PLAYING_WIDTH/2, camera->position_->y - PLAYING_HEIGHT/2);
+   
+   mainWindow_->Clear();
+   
+   while (death_timer.GetElapsedTime() <= 5) {
+      texte = String (to_string (5 - (int) death_timer.GetElapsedTime() ), Font::GetDefaultFont(), 40.f);
+      texte.SetStyle(11);
+	   texte.SetColor(Color::White);
+	   texte.SetPosition(camera->position_->x - 30, camera->position_->y + PLAYING_HEIGHT /4);
+      mainWindow_->Draw(s_over);
+      mainWindow_->Draw(texte);
+      mainWindow_->Display();
+   }
+   
 }
 
 void Game::loadBot() {
@@ -1211,11 +1209,6 @@ void Game::loadBot() {
   loadTroll(map_1, -1, 20, 20,20);
   
   // MAP 2
-  
-	/*Bot *bot3 = new Bot(mainWindow_,*image_Dragon1,Vector2i(LINUS_TORVALDS_X,LINUS_TORVALDS_Y), String("Linus Torvalds"), LINUS_TORVALDS_LIFE, LINUS_TORVALDS_MANA, LINUS_TORVALDS_POWER,map_2,100,0.5,ResultDifficulty * 1,-1,30, 10);
-	bot3->setPosition(Vector2f(BASE_SPRITE*7,BASE_SPRITE*3));	
-  (map_2->Bot_list).push_front(bot3);*/
-  
   
   // MAP 5
   loadArmor1(map_5, -5, 10, 2, 5);
@@ -1230,11 +1223,9 @@ void Game::loadBot() {
 
 
 void Game::loadItem() {
-
-   
    // MAP 5
-   loadHP(28,16, map_5);
-   loadHP(17,24, map_5);
+   loadHP(28,17, map_5);
+   loadHP(17,26, map_5);
    loadHP(9,8, map_5);
    loadMana(27,4, map_5);
    loadMana(3,9, map_5);
@@ -1278,23 +1269,15 @@ void Game::loadItem() {
 }    
 
 void Game::loadSpell() {
-
-         //effects = joueur->Spells;
          Vector2i test_effect(5,6);
          if (!effect_003.LoadFromFile("Sprites/Sorts/Special15.png"))
 		      cout << "erreur " << endl ;
-		      FolowingAnimation *effect = new FolowingAnimation(mainWindow_, effect_003, test_effect, joueur);
-         //AnimationEffect *effect = new AnimationEffect(mainWindow_,effect_003,test_effect,joueur);
-         (joueur->spells).push_front(effect);
-         
-         
-	       
+		   FolowingAnimation *effect = new FolowingAnimation(mainWindow_, effect_003, test_effect, joueur);
+		   effect->setManaCost(30);
+         (joueur->spells).push_front(effect);	       
 } 
 
 void Game::loadImages() {
-
-   if (!effect_003.LoadFromFile("Sprites/Sorts/Earth1.png"))
-		      cout << "erreur " << endl ;
    if (!image_hp_item->LoadFromFile("Sprites/Items/hp.png"))
 		      cout << "erreur " << endl ;
 	if (!image_mana_item->LoadFromFile("Sprites/Items/mana.png"))
