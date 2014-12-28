@@ -18,14 +18,10 @@ StatusBar::StatusBar(RenderWindow *win, Player *player, Camera *camera)
 	Mana_  = new Image();
 	Mana_->LoadFromFile("images/StatusBar/Mana_bar.png");
 
+
    statuLife_.SetImage(*Life_);
    statuMana_.SetImage(*Mana_);
    statusBar_.SetImage(*StatusBar_);
-
-   /*String *NamePlayer_;
-	String *Level_;
-	String *HP_Pot_Nb_;
-	String *MANA_Pot_Nb_;*/
 	
 	Perso_ = new Font();
    if (!Perso_->LoadFromFile("Fonts/perso.ttf"))
@@ -103,6 +99,7 @@ StatusBar::update()
 	statuMana_.SetPosition(MANA_POSITION_X, MANA_POSITION_Y);
 	statuLifeRed_.SetPosition(LIFE_POSITION_X, LIFE_POSITION_Y);
 	statuManaRed_.SetPosition(MANA_POSITION_X, MANA_POSITION_Y);*/
+	(player_->getSpritePortrait())->SetPosition(SPRITE_POSITION_X, SPRITE_POSITION_Y);
 }
 
 void
@@ -121,6 +118,7 @@ StatusBar::display ()
 	win_->Draw(*MANA_Pot_Nb_);
 	win_->Draw(statuLife_);
 	win_->Draw(statuMana_);
+	win_->Draw( *(player_->getSpritePortrait() ));
 	
 }
 

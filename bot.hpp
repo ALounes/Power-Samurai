@@ -31,6 +31,8 @@ class Bot: public LivingEntity
 	void SetSpeed(int speed);
 	int GetSpeed() const;
 	
+	void drawRect();
+	
 	void SetPlayer(Player * player);
 	Player * GetPlayer() const;
 	
@@ -84,28 +86,10 @@ class Bot: public LivingEntity
 	void inPursuit();
 	bool getPursuit();
 	
-	protected :
+	//protected :
+	Shape Rect ;//= Shape::Rectangle(0, 0, 30, 3, Color::Red);
 	
-	Clock * timer1;
-	Clock * timer2;
-	Clock * timer3;
 	
-	int spell_delay1;
-	int spell_delay2;
-   int spell_delay3;	
-	
-	Image* Spell1;
-	Image* Spell2;
-	Image* Spell3;
-	int range1;
-	int range2;
-	int range3;
-	int dmg1;
-	int dmg2;
-	int dmg3;
-	Vector2i v_spell1;
-	Vector2i v_spell2;
-	Vector2i v_spell3;
 
 	private:
 	

@@ -26,6 +26,9 @@
 #define REAPER1_V2I1 Vector2i(5,3)
 #define REAPER1_V2I2 Vector2i(5,5)
 #define REAPER1_V2I3 Vector2i(5,5)
+#define REAPER1_MANA_COST1 0
+#define REAPER1_MANA_COST2 0
+#define REAPER1_MANA_COST3 0
 
 class Reaper1 : public Bot
 {

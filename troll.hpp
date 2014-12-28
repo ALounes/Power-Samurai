@@ -26,6 +26,9 @@
 #define TROLL_V2I1 Vector2i(5,3)
 #define TROLL_V2I2 Vector2i(5,5)
 #define TROLL_V2I3 Vector2i(5,5)
+#define TROLL_MANA_COST1 0
+#define TROLL_MANA_COST2 0
+#define TROLL_MANA_COST3 0
 
 class Troll : public Bot
 {

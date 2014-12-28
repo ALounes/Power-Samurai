@@ -70,30 +70,9 @@ class Player : public LivingEntity
 	void setProjectileSoundB(string s);
 	Sound * getProjectileSound() const;
 	
+	Sprite* getSpritePortrait() const;
+	void setImgSpritePortrait(string s);
 	
-	int range1;
-	int range2;
-	int range3;
-	int dmg1;
-	int dmg2;
-	int dmg3;
-	int spell_delay1;
-	int spell_delay2;
-   int spell_delay3;
-   Clock * timer1;
-	Clock * timer2;
-	Clock * timer3;
-	
-	Image* Spell1;
-	Image* Spell2;
-	Image* Spell3;
-	
-	Vector2i v_spell1;
-	Vector2i v_spell2;
-	Vector2i v_spell3;
-	
-	
-
 	private:
 	
 	String name_;
@@ -106,6 +85,10 @@ class Player : public LivingEntity
 	float attack_damage;
 	int nb_Hp_Pot = 0;
 	int nb_Mana_Pot = 0;
+	
+	Image* portrait_;
+	Sprite* sprt_;
+	
 	SoundBuffer * movingSoundB_;
 	Sound * movingSound_;
 	

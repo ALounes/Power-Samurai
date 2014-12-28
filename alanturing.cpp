@@ -12,25 +12,26 @@ AlanTuring::AlanTuring(RenderWindow *win, Image &image, Map *myMap,float att_dmg
 			att_dmg
 			)
 {
-         spell_delay1 = ALAN_TURING_DELAY1;
-			spell_delay2 = ALAN_TURING_DELAY2;
-			spell_delay3 = ALAN_TURING_DELAY3;
-			range1 = ALAN_TURING_RANGE1;
-			range2 = ALAN_TURING_RANGE2;
-			range3 = ALAN_TURING_RANGE3;
-			dmg1 = ALAN_TURING_DMG1;
-			dmg2 = ALAN_TURING_DMG2;
-			dmg3 = ALAN_TURING_DMG3;
-			v_spell1 = ALAN_TURING_V2I1;
-			v_spell2 = ALAN_TURING_V2I2;
-			v_spell3 = ALAN_TURING_V2I3;
-
-         if (!Spell1->LoadFromFile("Sprites/Sorts/Special15.png"))
-		      cout << "erreur " << endl ;
-         if (!Spell2->LoadFromFile("Sprites/Sorts/Special12.png"))
-		      cout << "erreur " << endl ;
-         if (!Spell3->LoadFromFile("Sprites/Sorts/Gun2.png"))
-		      cout << "erreur " << endl ;
+         setSpellDelay(1, ALAN_TURING_DELAY1);
+         setSpellDelay(2, ALAN_TURING_DELAY2);
+         setSpellDelay(3, ALAN_TURING_DELAY3);
+         setSRange(1, ALAN_TURING_RANGE1);
+         setSRange(2, ALAN_TURING_RANGE2);
+         setSRange(3, ALAN_TURING_RANGE3);
+         setDmg(1, ALAN_TURING_DMG1);
+         setDmg(2, ALAN_TURING_DMG2);
+         setDmg(3, ALAN_TURING_DMG3);
+         setVSpell(1, ALAN_TURING_V2I1);
+         setVSpell(2, ALAN_TURING_V2I2);
+         setVSpell(3, ALAN_TURING_V2I3);
+         setImgSpell(1, "Sprites/Sorts/Special15.png");
+         setImgSpell(2, "Sprites/Sorts/Special12.png");
+         setImgSpell(3, "Sprites/Sorts/Gun2.png");
+         setSManaCost(1, ALAN_TURING_MANA_COST1);
+         setSManaCost(2, ALAN_TURING_MANA_COST2);
+         setSManaCost(3, ALAN_TURING_MANA_COST3);
+         setImgSpritePortrait("Sprites/Personnages/Portrait3.png");
+         cout << " CONSTRUCTEUR AlanTuring()" << endl;
 }
 
 

@@ -37,8 +37,8 @@
 #define SPELL_RATE 3
 
 
-Image effect_003;
-Image effect_003e;
+//Image effect_003;
+//Image effect_003e;
 
 Vector2i anim(1,DOWN);
 bool moving = false;
@@ -85,7 +85,20 @@ Game::Game ()
 	image_Reaper1 = new Image();
 	image_Squelette = new Image();
 	image_Troll = new Image();
-	//music_courante_ = new Music();
+   
+   image_Bat = new Image();
+	image_Bee = new Image();
+	image_Blueslime = new Image();
+	image_Greendragon1 = new Image();
+	image_Greenscorpion = new Image();
+	image_Greenslime = new Image();
+	image_Mouse1 = new Image();
+	image_Naga = new Image();
+	
+	image_Reddragon1 = new Image();
+	image_Redeye = new Image();
+	image_Redscorpion = new Image();
+
   
   cout << "game() terminé" << endl;
 }
@@ -116,7 +129,19 @@ Game::~Game ()
 	delete image_Reaper1;
 	delete image_Squelette;
 	delete image_Troll;
-	//delete music_courante_;
+
+   delete image_Bat;
+	delete image_Bee;
+	delete image_Blueslime;
+	delete image_Greendragon1;
+	delete image_Greenscorpion;
+	delete image_Greenslime;
+	delete image_Mouse1;
+	delete image_Naga;
+	
+	delete image_Reddragon1;
+	delete image_Redeye;
+	delete image_Redscorpion;
   
 }
 void Game::Map_Load(void)
@@ -628,7 +653,7 @@ void Game::RunGame()
  	loadImages();
  	loadBot();
  	loadItem();
- 	loadSpell();
+ 	//loadSpell();
 	
 	entitys = map_courante->Bot_list;
 	items = map_courante->Item_list;
@@ -689,23 +714,23 @@ void Game::RunGame()
       }
       
       if ( input.IsKeyDown(Key::E)) { 
-            if ( joueur->timer1->GetElapsedTime() > joueur->spell_delay1 ) {
-		         FolowingAnimation *effect1 = new FolowingAnimation(mainWindow_, *(joueur->Spell1), joueur->v_spell1, joueur);
+            if ( joueur->getTimer(1)->GetElapsedTime() > joueur->getSpellDelay(1) ) {
+		         FolowingAnimation *effect1 = new FolowingAnimation(mainWindow_, *(joueur->getImgSpell(1)), joueur->getVSpell(1), joueur);
                effect1->play();
                effect1->setId(1);
-               effect1->setManaCost(30);               
+               effect1->setManaCost(joueur->getSManaCost(1));               
                joueur->spells.push_front(effect1);              
             }
             
             for(auto s : joueur->spells){
-               if (joueur->getMana() < s->getManaCost() || s->getId() != 1 || joueur->timer1->GetElapsedTime() <= joueur->spell_delay1)
+               if (joueur->getMana() < s->getManaCost() || s->getId() != 1 || joueur->getTimer(1)->GetElapsedTime() <= joueur->getSpellDelay(1))
                {
                }
                else {
                   joueur->manaPenalty(s->getManaCost());
                   for(auto s : entitys){
-		               if(s->getDistance() < joueur->range1) {
-		                  s->lifePenalty(joueur->dmg1);
+		               if(s->getDistance() < joueur->getSRange(1)) {
+		                  s->lifePenalty(joueur->getDmg(1));
 	                     if (!s->isAlive())
 	                     {
 	                        entitys.remove(s);
@@ -715,29 +740,29 @@ void Game::RunGame()
 		                  break; 
 		               }
                   }
-                  joueur->timer1->Reset();
+                  joueur->getTimer(1)->Reset();
                }
 	         }
       }
       
       if ( input.IsKeyDown(Key::R)) { 
-            if ( joueur->timer2->GetElapsedTime() > joueur->spell_delay2 ) {
-		         FolowingAnimation *effect2 = new FolowingAnimation(mainWindow_, *(joueur->Spell2), joueur->v_spell2, joueur);
+            if ( joueur->getTimer(2)->GetElapsedTime() > joueur->getSpellDelay(2) ) {
+		         FolowingAnimation *effect2 = new FolowingAnimation(mainWindow_, *(joueur->getImgSpell(2)), joueur->getVSpell(2), joueur);
                effect2->play();
                effect2->setId(2);
-               effect2->setManaCost(30);               
+               effect2->setManaCost(joueur->getSManaCost(2));               
                joueur->spells.push_front(effect2);              
             }
             
             for(auto s : joueur->spells){
-               if (joueur->getMana() < s->getManaCost() || s->getId() != 2 || joueur->timer2->GetElapsedTime() <= joueur->spell_delay2)
+               if (joueur->getMana() < s->getManaCost() || s->getId() != 2 || joueur->getTimer(2)->GetElapsedTime() <= joueur->getSpellDelay(2))
                {
                }
                else {
                   joueur->manaPenalty(s->getManaCost());
                   for(auto s : entitys){
-		               if(s->getDistance() < joueur->range2) {
-		                  s->lifePenalty(joueur->dmg2);
+		               if(s->getDistance() < joueur->getSRange(2)) {
+		                  s->lifePenalty(joueur->getDmg(2));
 	                     if (!s->isAlive())
 	                     {
 	                        entitys.remove(s);
@@ -747,29 +772,29 @@ void Game::RunGame()
 		                  break; 
 		               }
                   }
-                  joueur->timer2->Reset();
+                  joueur->getTimer(2)->Reset();
                }
 	         }
       }
       
       if ( input.IsKeyDown(Key::T)) { 
-            if ( joueur->timer3->GetElapsedTime() > joueur->spell_delay3 ) {
-		         FolowingAnimation *effect3 = new FolowingAnimation(mainWindow_, *(joueur->Spell3), joueur->v_spell3, joueur);
+            if ( joueur->getTimer(3)->GetElapsedTime() > joueur->getSpellDelay(3) ) {
+		         FolowingAnimation *effect3 = new FolowingAnimation(mainWindow_, *(joueur->getImgSpell(3)), joueur->getVSpell(3), joueur);
                effect3->play();
                effect3->setId(3);
-               effect3->setManaCost(30);               
+               effect3->setManaCost(joueur->getSManaCost(3));               
                joueur->spells.push_front(effect3);              
             }
             
             for(auto s : joueur->spells){
-               if (joueur->getMana() < s->getManaCost() || s->getId() != 3 || joueur->timer3->GetElapsedTime() <= joueur->spell_delay3)
+               if (joueur->getMana() < s->getManaCost() || s->getId() != 3 || joueur->getTimer(3)->GetElapsedTime() <= joueur->getSpellDelay(3))
                {
                }
                else {
                   joueur->manaPenalty(s->getManaCost());
                   for(auto s : entitys){
-		               if(s->getDistance() < joueur->range3) {
-		                  s->lifePenalty(joueur->dmg3);
+		               if(s->getDistance() < joueur->getSRange(3)) {
+		                  s->lifePenalty(joueur->getDmg(3));
 	                     if (!s->isAlive())
 	                     {
 	                        entitys.remove(s);
@@ -779,7 +804,7 @@ void Game::RunGame()
 		                  break; 
 		               }
                   }
-                  joueur->timer3->Reset();
+                  joueur->getTimer(3)->Reset();
                }
 	         }
       }
@@ -789,20 +814,7 @@ void Game::RunGame()
       for(auto s : entitys){
          s->update_path(map_courante, joueur);
          s->setDistance( (s->GetPath()).size() );
-         for (auto c : s->spells)
-	      {
-	         if(c->isPlaying()){
-	         cout << ":( " << endl;
-             c->run();
-            }
-            
-            if (!c->isPlaying())
-            {
-               s->spells.remove(c); 
-               delete c;
-            }
-            break;
-	      }
+         
          if (s->getDistance() > s->getRange() && !s->getPursuit())
          {  
             // Cas SURPLACE
@@ -867,7 +879,8 @@ void Game::RunGame()
    }
    cout << "Sortie de boucle" << endl;
    mainWindow_->ShowMouseCursor(true);
-   
+
+map_courante->getMusic()->Stop();
 joueur->getMovingSound()->Stop();
 entitys = map_courante->Bot_list;
 items = map_courante->Item_list;
@@ -905,24 +918,6 @@ while (!projectiles.empty()) { delete projectiles.back(); projectiles.pop_back()
 
    delete Timer_Spell;
 }
-
-/*void
-Game::eventManagement(Event &event)
-{
-	switch (event.Type)
-	{
-		case Event::Closed :
-			mainWindow_->Close();
-			break;
-
-		case Event::KeyPressed :
-			keyPressedManagement(event.Key.Code);
-			break;
-
-		default:
-			break;
-	}
-}*/
 
 void 
 Game::keyPressedManagement (Key::Code keyPressed)
@@ -1002,8 +997,23 @@ Game::displayEntity(Clock &time)
 	   if(refresh ){
 		   s->update();
 	   }
+	   for (auto c : s->spells)
+	      {
+	         if(c->isPlaying()){
+	         cout << ":( " << endl;
+             c->run();
+            }
+            
+            if (!c->isPlaying())
+            {
+               s->spells.remove(c); 
+               delete c;
+            }
+            break;
+	      }
 	   
 	   s->draw();
+	   s->drawRect();
    }
    // Gestion des effets
    for(auto s : effects){
@@ -1123,7 +1133,8 @@ void Game::setPlayer(RenderWindow  * mainwin) {
       {
         if(!image_joueur->LoadFromFile("Sprites/Personnages/P1.png"))
 		      cout << "erreur " << endl ; 
-        joueur = new AlanTuring(mainwin,*image_joueur,map_courante,100);
+        
+        joueur = new LinusTorvalds(mainwin,*image_joueur,map_courante,250);
         joueur->setPosition(Vector2f(PLAYER_X_START*BASE_SPRITE ,PLAYER_Y_START*BASE_SPRITE));
         break;
       }
@@ -1132,7 +1143,7 @@ void Game::setPlayer(RenderWindow  * mainwin) {
       {
         if(!image_joueur->LoadFromFile("Sprites/Personnages/P2.png"))
 		      cout << "erreur " << endl ; 
-        joueur = new AlanTuring(mainwin,*image_joueur,map_courante,200);
+        joueur = new BjarneStroustrup(mainwin,*image_joueur,map_courante,300);
         joueur->setPosition(Vector2f(PLAYER_X_START*BASE_SPRITE ,PLAYER_Y_START*BASE_SPRITE));
         break;
       }
@@ -1141,7 +1152,8 @@ void Game::setPlayer(RenderWindow  * mainwin) {
       {
         if(!image_joueur->LoadFromFile("Sprites/Personnages/P3.png"))
 		      cout << "erreur " << endl ; 
-        joueur = new BjarneStroustrup(mainwin,*image_joueur,map_courante,300);
+        
+        joueur = new AlanTuring(mainwin,*image_joueur,map_courante,100);
         joueur->setPosition(Vector2f(PLAYER_X_START*BASE_SPRITE ,PLAYER_Y_START*BASE_SPRITE));
         break;
       }
@@ -1153,7 +1165,7 @@ void Game::setPlayer(RenderWindow  * mainwin) {
         if(!image_joueur->LoadFromFile("Sprites/Personnages/P4.png"))
 
 		      cout << "erreur " << endl ; 
-        joueur = new LinusTorvalds(mainwin,*image_joueur,map_courante,250);
+        joueur = new Athena(mainwin,*image_joueur,map_courante,250);
         joueur->setPosition(Vector2f(PLAYER_X_START*BASE_SPRITE ,PLAYER_Y_START*BASE_SPRITE));
         break;
       }
@@ -1285,21 +1297,35 @@ void Game::loadBot() {
 
    // MAP 1
 
-  loadReaper1(map_1, -1, 10, 7, 3);
+  //loadReaper1(map_1, -1, 10, 7, 3);
 
-  loadTroll(map_1, -1, 20, 20,20);
+  //loadTroll(map_1, -1, 20, 20,20);
   
   // MAP 2
   
   // MAP 5
-  loadArmor1(map_5, -5, 10, 2, 5);
-  loadArmor1(map_5, -5, 3, 20, 8);
+  //loadBee(map_5, -5, 2 ,15, 23);
+  loadBee(map_5, -5, 8, 25, 16);
+  loadBee(map_5, -5, 9, 3, 6);
+  loadBlueslime(map_5, -1, 2, 11, 22);
+  loadBlueslime(map_5, -1, 5, 10, 9);
+  loadBlueslime(map_5, -1, 5, 25, 7);
+  loadGreenslime(map_5, -2, 3, 20, 5);
+  loadGreenslime(map_5, -2, 5, 16, 11);
+
+  loadNaga(map_5, -3, 3, 8, 3);
+  loadNaga(map_5, -3, 6, 18, 17);
+  loadNaga(map_5, -3, 2, 3, 21);
+  loadNaga(map_5, -3, 5, 2, 9);
+
   
+  //loadArmor1(map_5, -5, 8, 20, 3);
+  /*
   loadDragon(map_5, -1, 10, 6, 24);
    
   loadTroll(map_5, -2, 10, 12,17);
   loadTroll(map_5, -3, 9, 25,15);
-  loadTroll(map_5, -4, 8, 10,9);
+  loadTroll(map_5, -4, 8, 10,9);*/
 }
 
 
@@ -1308,7 +1334,7 @@ void Game::loadItem() {
    loadHP(28,17, map_5);
    loadHP(17,26, map_5);
    loadHP(9,8, map_5);
-   loadMana(27,4, map_5);
+   loadMana(27,5, map_5);
    loadMana(3,9, map_5);
    
    // MAP 1
@@ -1349,13 +1375,13 @@ void Game::loadItem() {
    loadMana(31,3, map_4);
 }    
 
-void Game::loadSpell() {
+/*void Game::loadSpell() {
          Vector2i test_effect(5,6);
          if (!effect_003.LoadFromFile("Sprites/Sorts/Special15.png"))
 		      cout << "erreur " << endl ;
 		   FolowingAnimation *effect = new FolowingAnimation(mainWindow_, effect_003, test_effect, joueur);
 		   effect->setManaCost(30);
-} 
+} */
 
 void Game::loadImages() {
    if (!image_hp_item->LoadFromFile("Sprites/Items/hp.png"))
@@ -1380,6 +1406,27 @@ void Game::loadImages() {
 		      cout << "erreur " << endl ;
    if (!image_projectile->LoadFromFile("Sprites/Projectiles/Fire1.png"))
 		      cout << "erreur " << endl ;
+		      
+   if (!image_Bee->LoadFromFile("Sprites/Ennemis/Bee.png"))
+		      cout << "erreur " << endl ; 
+	if (!image_Blueslime->LoadFromFile("Sprites/Ennemis/Blueslime.png"))
+		      cout << "erreur " << endl ;
+	if (!image_Greendragon1->LoadFromFile("Sprites/Ennemis/Greendragon1.png"))
+		      cout << "erreur " << endl ;
+	if (!image_Greenscorpion->LoadFromFile("Sprites/Ennemis/Greenscorpion.png"))
+		      cout << "erreur " << endl ;
+	if (!image_Greenslime->LoadFromFile("Sprites/Ennemis/Greenslime.png"))
+		      cout << "erreur " << endl ;	      	      	            
+	if (!image_Mouse1->LoadFromFile("Sprites/Ennemis/Mouse1.png"))
+		      cout << "erreur " << endl ;
+	if (!image_Naga->LoadFromFile("Sprites/Ennemis/Naga.png"))
+		      cout << "erreur " << endl ;
+	if (!image_Reddragon1->LoadFromFile("Sprites/Ennemis/Reddragon1.png"))
+		      cout << "erreur " << endl ;
+	if (!image_Redeye->LoadFromFile("Sprites/Ennemis/Redeye.png"))
+		      cout << "erreur " << endl ;
+	if (!image_Redscorpion->LoadFromFile("Sprites/Ennemis/Redscorpion.png"))
+		      cout << "erreur " << endl ;	  
 }
      
      
@@ -1414,6 +1461,89 @@ void Game::loadArmor1(Map *map, int id, int range, int coordx, int coordy) {
 
 void Game::loadReaper1(Map *map, int id, int range, int coordx, int coordy) {
    Reaper1 *bot = new Reaper1(mainWindow_,*image_Reaper1,map,id,range);
+   bot->setPosition(Vector2f(BASE_SPRITE*coordx,BASE_SPRITE*coordy));
+   (map->Bot_list).push_front(bot);
+}
+
+void Game::loadFantome1(Map *map, int id, int range, int coordx, int coordy) {
+   Fantome1 *bot = new Fantome1(mainWindow_,*image_Fantome1,map,id,range);
+   bot->setPosition(Vector2f(BASE_SPRITE*coordx,BASE_SPRITE*coordy));
+   (map->Bot_list).push_front(bot);
+}
+
+void Game::loadFantome2(Map *map, int id, int range, int coordx, int coordy) {
+   Fantome2 *bot = new Fantome2(mainWindow_,*image_Fantome2,map,id,range);
+   bot->setPosition(Vector2f(BASE_SPRITE*coordx,BASE_SPRITE*coordy));
+   (map->Bot_list).push_front(bot);
+}
+
+void Game::loadSquelette(Map *map, int id, int range, int coordx, int coordy) {
+   Squelette *bot = new Squelette(mainWindow_,*image_Squelette,map,id,range);
+   bot->setPosition(Vector2f(BASE_SPRITE*coordx,BASE_SPRITE*coordy));
+   (map->Bot_list).push_front(bot);
+}
+
+void Game::loadBat(Map *map, int id, int range, int coordx, int coordy) {
+   Bat *bot = new Bat(mainWindow_,*image_Bat,map,id,range);
+   bot->setPosition(Vector2f(BASE_SPRITE*coordx,BASE_SPRITE*coordy));
+   (map->Bot_list).push_front(bot);
+}
+
+void Game::loadBee(Map *map, int id, int range, int coordx, int coordy) {
+   Bee *bot = new Bee(mainWindow_,*image_Bee,map,id,range);
+   bot->setPosition(Vector2f(BASE_SPRITE*coordx,BASE_SPRITE*coordy));
+   (map->Bot_list).push_front(bot);
+}
+
+void Game::loadBlueslime(Map *map, int id, int range, int coordx, int coordy) {
+   Blueslime *bot = new Blueslime(mainWindow_,*image_Blueslime,map,id,range);
+   bot->setPosition(Vector2f(BASE_SPRITE*coordx,BASE_SPRITE*coordy));
+   (map->Bot_list).push_front(bot);
+}
+void Game::loadGreendragon1(Map *map, int id, int range, int coordx, int coordy) {
+   Greendragon1 *bot = new Greendragon1(mainWindow_,*image_Greendragon1,map,id,range);
+   bot->setPosition(Vector2f(BASE_SPRITE*coordx,BASE_SPRITE*coordy));
+   (map->Bot_list).push_front(bot);
+}
+
+void Game::loadGreenscorpion(Map *map, int id, int range, int coordx, int coordy) {
+   Greenscorpion *bot = new Greenscorpion(mainWindow_,*image_Greenscorpion,map,id,range);
+   bot->setPosition(Vector2f(BASE_SPRITE*coordx,BASE_SPRITE*coordy));
+   (map->Bot_list).push_front(bot);
+}
+
+void Game::loadGreenslime(Map *map, int id, int range, int coordx, int coordy) {
+   Greenslime *bot = new Greenslime(mainWindow_,*image_Greenslime,map,id,range);
+   bot->setPosition(Vector2f(BASE_SPRITE*coordx,BASE_SPRITE*coordy));
+   (map->Bot_list).push_front(bot);
+}
+
+void Game::loadMouse1(Map *map, int id, int range, int coordx, int coordy) {
+   Mouse1 *bot = new Mouse1(mainWindow_,*image_Mouse1,map,id,range);
+   bot->setPosition(Vector2f(BASE_SPRITE*coordx,BASE_SPRITE*coordy));
+   (map->Bot_list).push_front(bot);
+}
+
+void Game::loadNaga(Map *map, int id, int range, int coordx, int coordy) {
+   Naga *bot = new Naga(mainWindow_,*image_Naga,map,id,range);
+   bot->setPosition(Vector2f(BASE_SPRITE*coordx,BASE_SPRITE*coordy));
+   (map->Bot_list).push_front(bot);
+}
+
+void Game::loadReddragon1(Map *map, int id, int range, int coordx, int coordy) {
+   Reddragon1 *bot = new Reddragon1(mainWindow_,*image_Reddragon1,map,id,range);
+   bot->setPosition(Vector2f(BASE_SPRITE*coordx,BASE_SPRITE*coordy));
+   (map->Bot_list).push_front(bot);
+}
+
+void Game::loadRedeye(Map *map, int id, int range, int coordx, int coordy) {
+   Redeye *bot = new Redeye(mainWindow_,*image_Redeye,map,id,range);
+   bot->setPosition(Vector2f(BASE_SPRITE*coordx,BASE_SPRITE*coordy));
+   (map->Bot_list).push_front(bot);
+}
+
+void Game::loadRedscorpion(Map *map, int id, int range, int coordx, int coordy) {
+   Redscorpion *bot = new Redscorpion(mainWindow_,*image_Redscorpion,map,id,range);
    bot->setPosition(Vector2f(BASE_SPRITE*coordx,BASE_SPRITE*coordy));
    (map->Bot_list).push_front(bot);
 }

@@ -15,6 +15,7 @@ Bot::Bot(RenderWindow *win, Image& image, const Vector2i nbrOfAnim, String name,
 ,name_(name)
 ,life_(life)
 ,mana_(mana)
+,lifeMax_(life)
 ,power_(power)
 ,attack_damage_(att_dmg)
 ,attack_delay(att_delay)
@@ -23,32 +24,20 @@ Bot::Bot(RenderWindow *win, Image& image, const Vector2i nbrOfAnim, String name,
    setSpeed(bot_speed);
    setId(ident);
    play();
-   timer1 = new Clock();
-   timer2 = new Clock();
-   timer3 = new Clock();
-   Spell1 = new Image();
-   Spell2 = new Image();
-   Spell3 = new Image();
+   
    cout << "CONSTRUCTEUR BOT" << endl;
 }
 
 Bot::~Bot()
 {
-	delete timer1;
-	delete timer2;
-	delete timer3;
-	delete Spell1;
-	delete Spell2;
-	delete Spell3;
+	
 	cout << "DESTRUCTEUR BOT" << endl;
 
 }
 
 void
 Bot::move()
-{
-	/*if (player_->getPosition())*/
-	
+{	
 }
 
 void
@@ -211,34 +200,34 @@ void Bot::follow_path(Map * map, Player * player) {
    int j;
    char c;
 	      
-   if ( timer1->GetElapsedTime() > spell_delay1 && (int)path.size() <= range1 ) {
+   if ( getTimer(1)->GetElapsedTime() > getSpellDelay(1) && (int)path.size() <= getSRange(1) ) {
          cout << "SORT 1 Créé" << endl;
-         player->lifePenalty(dmg1);
+         player->lifePenalty(getDmg(1));
 		      
-		   FolowingAnimation *effect1 = new FolowingAnimation(win_, *Spell1, v_spell1, player);
+		   FolowingAnimation *effect1 = new FolowingAnimation(win_, *getImgSpell(1), getVSpell(1), player);
          effect1->play();
          spells.push_front(effect1);
-         timer1->Reset();
+         getTimer(1)->Reset();
    }
-   if ( timer2->GetElapsedTime() > spell_delay2 && (int) path.size() <= range2 ) {
+   if ( getTimer(2)->GetElapsedTime() > getSpellDelay(2) && (int) path.size() <= getSRange(2) ) {
          cout << "SORT 2 Créé" << endl;
-         player->lifePenalty(dmg2);
+         player->lifePenalty(getDmg(2));
 		      
-		   FolowingAnimation *effect2 = new FolowingAnimation(win_, *Spell2, v_spell2, player);
+		   FolowingAnimation *effect2 = new FolowingAnimation(win_, *getImgSpell(2), getVSpell(2), player);
          effect2->play();
          spells.push_front(effect2);
-         timer2->Reset();
+         getTimer(2)->Reset();
    }
    
-   if ( (timer3->GetElapsedTime() >  spell_delay3) && ( (int) path.size() <= range3) ) {
-         cout << "SORT 3 Créé : " << "Taille Chemin : " << path.size() << "Range :" << range3 << endl;
-         player->lifePenalty(dmg3);
+   if ( getTimer(3)->GetElapsedTime() >  getSpellDelay(3) && ( (int) path.size() <= getSRange(3)) ) {
+         cout << "SORT 3 Créé : " << endl;
+         player->lifePenalty(getDmg(3));
           
 		      
-		   FolowingAnimation *effect3 = new FolowingAnimation(win_, *Spell3, v_spell3, player);
+		   FolowingAnimation *effect3 = new FolowingAnimation(win_, *getImgSpell(3), getVSpell(3), player);
          effect3->play();
          spells.push_front(effect3);
-         timer3->Reset();
+         getTimer(3)->Reset();
    }
 	      
    if (path == "")
@@ -485,4 +474,11 @@ void Bot::inPursuit() {
 }
 bool Bot::getPursuit() {
    return in_pursuit;
+}
+
+void Bot::drawRect() {
+
+   Rect =  Shape::Rectangle(0, 0, 30 *((float) getLife() /(float) getLifeMax()), 3, Color::Red);
+   Rect.SetPosition(getCenter().x - 15, getCenter().y - 22);
+   win_->Draw(Rect);
 }

@@ -17,27 +17,24 @@ Troll::Troll(RenderWindow *win, Image &image, Map *myMap, int ident, int range)
 			range,
 			TROLL_XP
 			)
-{	
-			spell_delay1 = TROLL_DELAY1;
-			spell_delay2 = TROLL_DELAY2;
-			spell_delay3 = TROLL_DELAY3;
-			range1 = TROLL_RANGE1;
-			range2 = TROLL_RANGE2;
-			range3 = TROLL_RANGE3;
-			dmg1 = TROLL_DMG1;
-			dmg2 = TROLL_DMG2;
-			dmg3 = TROLL_DMG3;
-			v_spell1 = TROLL_V2I1;
-			v_spell2 = TROLL_V2I2;
-			v_spell3 = TROLL_V2I3;
-
-         if (!Spell1->LoadFromFile("Sprites/Sorts/Attack12.png"))
-		      cout << "erreur " << endl ;
-         if (!Spell2->LoadFromFile("Sprites/Sorts/Meteor.png"))
-		      cout << "erreur " << endl ;
-         if (!Spell3->LoadFromFile("Sprites/Sorts/Heal4.png"))
-		      cout << "erreur " << endl ;
-      
+{	      setSpellDelay(1, TROLL_DELAY1);
+         setSpellDelay(2, TROLL_DELAY2);
+         setSpellDelay(3, TROLL_DELAY3);
+         setSRange(1, TROLL_RANGE1);
+         setSRange(2, TROLL_RANGE2);
+         setSRange(3, TROLL_RANGE3);
+         setDmg(1, TROLL_DMG1);
+         setDmg(2, TROLL_DMG2);
+         setDmg(3, TROLL_DMG3);
+         setVSpell(1, TROLL_V2I1);
+         setVSpell(2, TROLL_V2I2);
+         setVSpell(3, TROLL_V2I3);
+         setImgSpell(1, "Sprites/Sorts/Attack12.png");
+         setImgSpell(2, "Sprites/Sorts/Meteor.png");
+         setImgSpell(3, "Sprites/Sorts/Heal4.png");
+         setSManaCost(1, TROLL_MANA_COST1);
+         setSManaCost(2, TROLL_MANA_COST2);
+         setSManaCost(3, TROLL_MANA_COST3);
 }
 
 

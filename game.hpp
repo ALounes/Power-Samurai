@@ -14,10 +14,11 @@
 #include "player.hpp"
 #include "animationeffect.hpp"
 #include "linustorvalds.hpp"
-#include "camera.hpp"
-#include "config.hpp"
 #include "bjarnestroustrup.hpp"
 #include "alanturing.hpp"
+#include "athena.hpp"
+#include "camera.hpp"
+#include "config.hpp"
 #include "projectile.hpp"
 #include "item.hpp"
 #include "statusbar.hpp"
@@ -26,6 +27,22 @@
 #include "troll.hpp"
 #include "armor1.hpp"
 #include "reaper1.hpp"
+#include "fantome1.hpp"
+#include "fantome2.hpp"
+#include "squelette.hpp"
+#include "bat.hpp"
+#include "bee.hpp"
+#include "blueslime.hpp"
+#include "greendragon1.hpp"
+#include "greenscorpion.hpp"
+#include "greenslime.hpp"
+#include "mouse1.hpp"
+#include "naga.hpp"
+#include "reddragon1.hpp"
+#include "redeye.hpp"
+#include "redscorpion.hpp"
+
+
 
 #define EASY_DIFFICULTY 1
 #define INTERMEDIATE_DIFFICULTY 2 
@@ -69,6 +86,24 @@ public:
 	void loadTroll(Map *map, int id, int range, int coordx, int coordy);
 	void loadArmor1(Map *map, int id, int range, int coordx, int coordy);
 	void loadReaper1(Map *map, int id, int range, int coordx, int coordy);
+   void loadFantome1(Map *map, int id, int range, int coordx, int coordy);
+   void loadFantome2(Map *map, int id, int range, int coordx, int coordy);
+   void loadSquelette(Map *map, int id, int range, int coordx, int coordy);
+   
+   void loadBat(Map *map, int id, int range, int coordx, int coordy);
+   void loadBee(Map *map, int id, int range, int coordx, int coordy);
+   void loadBlueslime(Map *map, int id, int range, int coordx, int coordy);
+   void loadGreendragon1(Map *map, int id, int range, int coordx, int coordy);
+   void loadGreenscorpion(Map *map, int id, int range, int coordx, int coordy);
+   void loadGreenslime(Map *map, int id, int range, int coordx, int coordy);
+   
+   void loadMouse1(Map *map, int id, int range, int coordx, int coordy);
+   void loadNaga(Map *map, int id, int range, int coordx, int coordy);
+   void loadReddragon1(Map *map, int id, int range, int coordx, int coordy);
+   void loadRedeye(Map *map, int id, int range, int coordx, int coordy);
+   void loadRedscorpion(Map *map, int id, int range, int coordx, int coordy);
+   
+   
   
 private:
 
@@ -124,6 +159,7 @@ private:
 	Image *image_projectile;
 	Image *image_hp_item;
 	Image *image_mana_item;
+	
 	Image *image_Armor1;
 	Image *image_Devil1;
 	Image *image_Dragon1;
@@ -132,6 +168,19 @@ private:
 	Image *image_Reaper1;
 	Image *image_Squelette;
 	Image *image_Troll;
+	
+	Image *image_Bat;
+	Image *image_Bee;
+	Image *image_Blueslime;
+	Image *image_Greendragon1;
+	Image *image_Greenscorpion;
+	Image *image_Greenslime;
+	Image *image_Mouse1;
+	Image *image_Naga;
+	
+	Image *image_Reddragon1;
+	Image *image_Redeye;
+	Image *image_Redscorpion;
 };
 
 

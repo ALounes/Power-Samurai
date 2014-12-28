@@ -17,27 +17,24 @@ Reaper1::Reaper1(RenderWindow *win, Image &image, Map *myMap, int ident, int ran
 			range,
 			REAPER1_XP
 			)
-{	
-			spell_delay1 = REAPER1_DELAY1;
-			spell_delay2 = REAPER1_DELAY2;
-			spell_delay3 = REAPER1_DELAY3;
-			range1 = REAPER1_RANGE1;
-			range2 = REAPER1_RANGE2;
-			range3 = REAPER1_RANGE3;
-			dmg1 = REAPER1_DMG1;
-			dmg2 = REAPER1_DMG2;
-			dmg3 = REAPER1_DMG3;
-			v_spell1 = REAPER1_V2I1;
-			v_spell2 = REAPER1_V2I2;
-			v_spell3 = REAPER1_V2I3;
-
-         if (!Spell1->LoadFromFile("Sprites/Sorts/Attack2.png"))
-		      cout << "erreur " << endl ;
-         if (!Spell2->LoadFromFile("Sprites/Sorts/Special14.png"))
-		      cout << "erreur " << endl ;
-         if (!Spell3->LoadFromFile("Sprites/Sorts/Heal4.png"))
-		      cout << "erreur " << endl ;
-      
+{	      setSpellDelay(1, REAPER1_DELAY1);
+         setSpellDelay(2, REAPER1_DELAY2);
+         setSpellDelay(3, REAPER1_DELAY3);
+         setSRange(1, REAPER1_RANGE1);
+         setSRange(2, REAPER1_RANGE2);
+         setSRange(3, REAPER1_RANGE3);
+         setDmg(1, REAPER1_DMG1);
+         setDmg(2, REAPER1_DMG2);
+         setDmg(3, REAPER1_DMG3);
+         setVSpell(1, REAPER1_V2I1);
+         setVSpell(2, REAPER1_V2I2);
+         setVSpell(3, REAPER1_V2I3);
+         setImgSpell(1, "Sprites/Sorts/Attack2.png");
+         setImgSpell(2, "Sprites/Sorts/Special14.png");
+         setImgSpell(3, "Sprites/Sorts/Heal4.png");
+         setSManaCost(1, REAPER1_MANA_COST1);
+         setSManaCost(2, REAPER1_MANA_COST2);
+         setSManaCost(3, REAPER1_MANA_COST3);      
 }
 
 

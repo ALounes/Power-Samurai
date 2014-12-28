@@ -17,27 +17,25 @@ GreenDragon::GreenDragon(RenderWindow *win, Image &image, Map *myMap, int ident,
 			range,
 			GREEN_DRAGON_XP
 			)
-{	
-			spell_delay1 = GREEN_DRAGON_DELAY1;
-			spell_delay2 = GREEN_DRAGON_DELAY2;
-			spell_delay3 = GREEN_DRAGON_DELAY3;
-			range1 = GREEN_DRAGON_RANGE1;
-			range2 = GREEN_DRAGON_RANGE2;
-			range3 = GREEN_DRAGON_RANGE3;
-			dmg1 = GREEN_DRAGON_DMG1;
-			dmg2 = GREEN_DRAGON_DMG2;
-			dmg3 = GREEN_DRAGON_DMG3;
-			v_spell1 = GREEN_DRAGON_V2I1;
-			v_spell2 = GREEN_DRAGON_V2I2;
-			v_spell3 = GREEN_DRAGON_V2I3;
-
-         if (!Spell1->LoadFromFile("Sprites/Sorts/Attack101.png"))
-		      cout << "erreur " << endl ;
-         if (!Spell2->LoadFromFile("Sprites/Sorts/Special12.png"))
-		      cout << "erreur " << endl ;
-         if (!Spell3->LoadFromFile("Sprites/Sorts/Gun2.png"))
-		      cout << "erreur " << endl ;
-      
+{	      
+         setSpellDelay(1, GREEN_DRAGON_DELAY1);
+         setSpellDelay(2, GREEN_DRAGON_DELAY2);
+         setSpellDelay(3, GREEN_DRAGON_DELAY3);
+         setSRange(1, GREEN_DRAGON_RANGE1);
+         setSRange(2, GREEN_DRAGON_RANGE2);
+         setSRange(3, GREEN_DRAGON_RANGE3);
+         setDmg(1, GREEN_DRAGON_DMG1);
+         setDmg(2, GREEN_DRAGON_DMG2);
+         setDmg(3, GREEN_DRAGON_DMG3);
+         setVSpell(1, GREEN_DRAGON_V2I1);
+         setVSpell(2, GREEN_DRAGON_V2I2);
+         setVSpell(3, GREEN_DRAGON_V2I3);
+         setImgSpell(1, "Sprites/Sorts/Attack101.png");
+         setImgSpell(2, "Sprites/Sorts/Special12.png");
+         setImgSpell(3, "Sprites/Sorts/Gun2.png");
+         setSManaCost(1, GREEN_DRAGON_MANA_COST1);
+         setSManaCost(2, GREEN_DRAGON_MANA_COST2);
+         setSManaCost(3, GREEN_DRAGON_MANA_COST3);
 }
 
 

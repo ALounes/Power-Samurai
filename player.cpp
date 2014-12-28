@@ -12,14 +12,9 @@ Player::Player(RenderWindow *win, Image &image, const Vector2i nbrOfAnim, String
 ,power_(power)
 ,attack_damage(att_dmg)
 {
-   
+   portrait_ = new Image();
+   sprt_ = new Sprite();
 	play();
-	timer1 = new Clock();
-   timer2 = new Clock();
-   timer3 = new Clock();
-   Spell1 = new Image();
-   Spell2 = new Image();
-   Spell3 = new Image();
    movingSoundB_ = new SoundBuffer;
    movingSound_ = new Sound;
    setMovingSoundB("Musique/Move.ogg");
@@ -37,16 +32,12 @@ Player::Player(RenderWindow *win, Image &image, const Vector2i nbrOfAnim, String
 
 Player::~Player()
 {
-   delete timer1;
-	delete timer2;
-	delete timer3;
-	delete Spell1;
-	delete Spell2;
-	delete Spell3;
 	delete movingSoundB_;
    delete movingSound_;
    delete projectileSoundB_;
    delete projectileSound_;
+   delete portrait_;
+   delete sprt_;
    cout << "DESTRUCTEUR Player()" << endl;
 }
 
@@ -395,5 +386,14 @@ Sound * Player::getProjectileSound() const {
    return projectileSound_;
 }
    
+Sprite* Player::getSpritePortrait() const {
+   return sprt_;
+}
+
+void Player::setImgSpritePortrait(string s) {
+   if (!portrait_->LoadFromFile(s))
+		      cout << "erreur " << endl ;
+   sprt_->SetImage(*portrait_);
+}
    
 
