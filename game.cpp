@@ -752,6 +752,7 @@ void Game::RunGame()
 						if(s->getDistance() < joueur->getSRange(1)) 
 						{
 							s->lifePenalty(joueur->getDmg(1));
+							launchBloodEffect(s);
 							if (!s->isAlive())
 							{
 								entitys.remove(s);
@@ -797,6 +798,7 @@ void Game::RunGame()
 						if(s->getDistance() < joueur->getSRange(2)) 
 						{
 							s->lifePenalty(joueur->getDmg(2));
+							launchBloodEffect(s);
 							if (!s->isAlive())
 							{
 								entitys.remove(s);
@@ -841,6 +843,7 @@ void Game::RunGame()
 						if(s->getDistance() < joueur->getSRange(3)) 
 						{
 							s->lifePenalty(joueur->getDmg(3));
+							launchBloodEffect(s);
 							if (!s->isAlive())
 							{
 								entitys.remove(s);
@@ -919,7 +922,7 @@ void Game::RunGame()
       if (lancer_dialogue == 2)
       {
          //string Intro = joueur->getName();
-         launchStartDialogue("LES TENEBRES ONT ENVAHIT LE ROYAUME D'OBLIVION.\n\n   APRES AVOIR SEME LA TERREUR DANS LE ROYAUME,\nLE DEMON USURPATEUR A FAIT UNE HALTE DANS CES\nCONTREES.\nIL SE REPAIT MAINTENANT DES AMES DECHUES \nDANS LE DONJON DE LA LICHE...", 0, 0);
+         launchStartDialogue("LES TENEBRES ONT ENVAHIT LE ROYAUME D'OBLIVION.\n\n   APRES AVOIR SEME LA TERREUR DANS LE ROYAUME,\nLE DEMON USURPATEUR A FAIT UNE HALTE DANS CES\nCONTREES.\n   IL SE REPAIT MAINTENANT DES AMES DECHUES DANS\nLE DONJON DE LA LICHE...", 0, 0);
          //launchStartDialogue("BONJOUR, MON AMI.\nTOUT VA BIEN?", 0, 0);
          lancer_dialogue = 3;
       }
@@ -1216,6 +1219,7 @@ Game::displayEntity(Clock &time)
          {
             
             cout << "Bot touché" << endl;
+            launchBloodEffect(c);
             // Pour éviter la triche, quand un monstre est touché par un projectile, il se met en poursuite, quelque soit sa distance.
             c->inPursuit();
             projectiles.remove(s);
@@ -1553,16 +1557,19 @@ void Game::loadItem() {
    loadMana(31,3, map_4);
 }    
 
-/*void Game::loadSpell() {
-         Vector2i test_effect(5,6);
-         if (!effect_003.LoadFromFile("Sprites/Sorts/Special15.png"))
-		      cout << "erreur " << endl ;
-		   FolowingAnimation *effect = new FolowingAnimation(mainWindow_, effect_003, test_effect, joueur);
-		   effect->setManaCost(30);
-} */
+void Game::launchBloodEffect(LivingEntity * e) { 
+         Vector2i blood_effect(4,4);
+         
+		   FolowingAnimation *effect = new FolowingAnimation(mainWindow_, *image_degats, blood_effect, e);
+         effect->play();            
+			e->spells.push_front(effect);
+} 
 
 void Game::loadImages() 
 {
+   if (!image_degats->LoadFromFile("Sprites/Sorts/blood10.png"))
+		      cout << "erreur " << endl ;
+		      
    if (!image_hp_item->LoadFromFile("Sprites/Items/hp.png"))
 		      cout << "erreur " << endl ;
 

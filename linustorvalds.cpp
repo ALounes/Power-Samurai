@@ -25,7 +25,7 @@ LinusTorvalds::LinusTorvalds(RenderWindow *win, Image &image, Map *myMap,float a
          setVSpell(1, LINUS_TORVALDS_V2I1);
          setVSpell(2, LINUS_TORVALDS_V2I2);
          setVSpell(3, LINUS_TORVALDS_V2I3);
-         setImgSpell(1, "Sprites/Sorts/Special15.png");
+         setImgSpell(1, "Sprites/Sorts/blood10.png");
          setImgSpell(2, "Sprites/Sorts/Special12.png");
          setImgSpell(3, "Sprites/Sorts/Gun2.png");
          setSManaCost(1, LINUS_TORVALDS_MANA_COST1);

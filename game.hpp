@@ -113,9 +113,12 @@ public:
 	void loadItem();
 	void loadHP(int coordx, int coordy, Map *map);
 	void loadMana(int coordx, int coordy, Map *map);
-	void loadSpell();
+	
+	void launchBloodEffect(LivingEntity * e);
+	
 	void loadImages();
 	void launchingDeath();
+	
 	void loadDragon(Map *map, int id, int range, int coordx, int coordy);
 	void loadTroll(Map *map, int id, int range, int coordx, int coordy);
 	void loadArmor1(Map *map, int id, int range, int coordx, int coordy);
@@ -190,6 +193,7 @@ private:
    Clock * Timer_Spell;
 	
 
+   Image *image_degats;
 	Image *image_projectile;
 	Image *image_hp_item;
 	Image *image_mana_item;
