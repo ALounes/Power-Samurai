@@ -477,8 +477,13 @@ bool Bot::getPursuit() {
 }
 
 void Bot::drawRect() {
-
-   Rect =  Shape::Rectangle(0, 0, 30 *((float) getLife() /(float) getLifeMax()), 3, Color::Red);
-   Rect.SetPosition(getCenter().x - 15, getCenter().y - 22);
-   win_->Draw(Rect);
+   if (getLife() == getLifeMax())
+   {
+      
+   }
+   else {
+      Rect =  Shape::Rectangle(0, 0, 30 *((float) getLife() /(float) getLifeMax()), 3, Color::Red);
+      Rect.SetPosition(getCenter().x - 15, getCenter().y - 22);
+      win_->Draw(Rect);
+   }
 }
