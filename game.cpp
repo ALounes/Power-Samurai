@@ -642,6 +642,8 @@ void Game::RunGame()
 
    // Exécution de la boucle principale
    bool fin_de_boucle = false;
+   int lancer_dialogue = 0;  // 0 : non traité, 1 : en cours, 2 : traité.
+   
    const Input &input = mainWindow_->GetInput();
    while (mainWindow_->IsOpened() && !(fin_de_boucle) && *gameState_ == Playing)
    {
@@ -839,7 +841,34 @@ void Game::RunGame()
 
 		// Affichage du contenu de la fenêtre à l'écran
 		mainWindow_->Display();
-
+      //launchingPause();
+      
+      if (lancer_dialogue == 3)
+      {
+         launchStartDialogue("TUE CETTE CREATURE MALEFIQUE, ET RETABLIT LA PAIX !", 0, 0);
+         lancer_dialogue = 4;
+      }
+      if (lancer_dialogue == 2)
+      {
+         //string Intro = joueur->getName();
+         launchStartDialogue("LES TENEBRES ONT ENVAHIT LE ROYAUME D'OBLIVION.\n\n   APRES AVOIR SEME LA TERREUR DANS LE ROYAUME,\nLE DEMON USURPATEUR A FAIT UNE HALTE DANS CES\nCONTREES.\nIL SE REPAIT MAINTENANT DES AMES DECHUES \nDANS LE DONJON DE LA LICHE...", 0, 0);
+         //launchStartDialogue("BONJOUR, MON AMI.\nTOUT VA BIEN?", 0, 0);
+         lancer_dialogue = 3;
+      }
+      
+      if (lancer_dialogue == 1)
+      {
+         //string Intro = joueur->getName();
+         launchStartDialogue("BONJOUR, VAILLANT GUERRIER.", 0, 0);
+         //launchStartDialogue("BONJOUR, MON AMI.\nTOUT VA BIEN?", 0, 0);
+         lancer_dialogue = 2;
+      }
+      if (lancer_dialogue == 0)
+      {
+         lancer_dialogue = 1;
+      }
+      
+      
 		// Efface le contenu de la fenetre 
 		mainWindow_->Clear();
 		joueur->getMovingSound()->Pause();
@@ -851,6 +880,9 @@ void Game::RunGame()
 		}
    
    }
+
+   mainWindow_->Clear();
+   
    cout << "Sortie de boucle" << endl;
    mainWindow_->ShowMouseCursor(true);
 		
@@ -1753,4 +1785,63 @@ void Game::loadRedscorpion(Map *map, int id, int range, int coordx, int coordy)
 	bot->setPosition(Vector2f(BASE_SPRITE*coordx,BASE_SPRITE*coordy));
 
 	(map->Bot_list).push_front(bot);
+}
+
+void Game::launchStartDialogue(string s, int coordx, int coordy) {
+     int offset_X = 0;
+     int offset_Y = 1;
+     String * pop = new String();
+     Clock timer_dialogue;
+     
+     Shape Rect =  Shape::Rectangle(0, 0, PLAYING_WIDTH, 50, Color::Black);
+     Rect.SetPosition(camera->getPosition()->x - PLAYING_WIDTH /2, camera->getPosition()->y - PLAYING_HEIGHT /2);
+     mainWindow_->Draw(Rect);
+     
+     Font Police;
+     if (!Police.LoadFromFile("Fonts/perso.ttf"))
+	      cout << "erreur" << endl;
+   
+    
+    for (int i = 0; i <(int) s.size(); ++i)
+    {
+      while (timer_dialogue.GetElapsedTime() < 0.1) {
+      } 
+      timer_dialogue.Reset();
+      if ((s[i] == '\n'))
+      {
+         if (s[i-1] == '.')
+         {
+            while (timer_dialogue.GetElapsedTime() < 1) {
+            }
+         }
+         else {
+            // Pas de timer quand mise à la ligne, sauf après un point
+         }
+         offset_X = 0;
+          
+         timer_dialogue.Reset();
+         Shape Rect =  Shape::Rectangle(0, 50 + 30*(offset_Y - 1), PLAYING_WIDTH, 50 + 30*(offset_Y), Color::Black);
+         Rect.SetPosition(camera->getPosition()->x - PLAYING_WIDTH /2, camera->getPosition()->y - PLAYING_HEIGHT /2);
+         mainWindow_->Draw(Rect);
+         ++offset_Y;
+      }
+      else {
+         string iLetter(1,s[i]);
+         pop->SetText(iLetter);
+         pop->SetSize(20);
+         pop->SetStyle(11);
+         pop->SetColor(Color::White);
+         pop->SetFont(Police);
+         pop->SetPosition(camera->getPosition()->x - 400 + 15*offset_X + coordx, camera->getPosition()->y - 300 + 30* offset_Y + coordy);
+         mainWindow_->Draw(*pop);
+         mainWindow_->Display();
+         ++offset_X;
+      }
+
+      
+   }
+   while (timer_dialogue.GetElapsedTime() < 3) {
+   } 
+
+   
 }

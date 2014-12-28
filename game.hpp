@@ -3,6 +3,8 @@
 
 #include <SFML/Audio.hpp>
 #include <list>
+#include <sstream>
+#include <string>
 #include "stdafx.hpp"
 #include "mainMenu.hpp"
 #include "splashScreen.hpp"
@@ -135,7 +137,7 @@ public:
    void loadRedeye(Map *map, int id, int range, int coordx, int coordy);
    void loadRedscorpion(Map *map, int id, int range, int coordx, int coordy);
    
-   
+   void launchStartDialogue(string s, int coordx, int coordy);
   
 private:
 
