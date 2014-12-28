@@ -18,7 +18,7 @@ class Entity : public Animation
 
 	enum direction {DOWN = 0, LEFT, RIGHT, UP, UPLEFT, UPRIGHT, DOWNLEFT, DOWNRIGHT};
 	
-	   //enum direction {RIGHT = 0, DOWNRIGHT, DOWN, DOWNLEFT, LEFT, UPLEFT, UP, UPRIGHT};
+	//enum direction {RIGHT = 0, DOWNRIGHT, DOWN, DOWNLEFT, LEFT, UPLEFT, UP, UPRIGHT};
 
 	Entity(RenderWindow *win, Image& image,const Vector2i& nbrOfAnim, Map *myMap);
 	virtual ~Entity();
@@ -85,9 +85,6 @@ class Entity : public Animation
 	virtual void manaGain(int gain);
 	virtual bool isAlive()  const;
 	virtual bool haveMana() const;*/
-	
-	
-	
 
 	private:
 	
