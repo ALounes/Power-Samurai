@@ -1,42 +1,5 @@
 #include "game.hpp"
 
-#define GAME_WIDTH  1024
-#define GAME_HEIGHT 768
-
-#define PLAYING_WIDTH 800
-#define PLAYING_HEIGHT 600
-
-#define VIEW_WIDTH 400
-#define VIEW_HEIGHT 300
-
-
-
-#define PLAYER_X_START 25
-#define PLAYER_Y_START 23
-
-#define MAP_1_HEIGHT 27
-#define MAP_1_WIDTH 31
-
-#define MAP_2_HEIGHT 47
-#define MAP_2_WIDTH 47
-
-#define MAP_3_HEIGHT 47
-#define MAP_3_WIDTH 47
-
-#define MAP_4_HEIGHT 47
-#define MAP_4_WIDTH 47
-
-#define MAP_5_HEIGHT 29
-#define MAP_5_WIDTH 30
-
-#define FRAMERATE 30
-
-#define RATE_FIRE 0.5
-
-#define REFRESH_ITEM 60
-#define SPELL_RATE 3
-
-
 //Image effect_003;
 //Image effect_003e;
 
@@ -54,21 +17,21 @@ enum direction direction_prec;
 Game::Game ()
 {
    cout << "CONSTRUCTEUR game()" << endl;
-  mainMenu_ = new MainMenu;
+	mainMenu_ = new MainMenu;
 
-  gameState_ = new GameState;
-  *gameState_ = Uninitialized;
+	gameState_ = new GameState;
+	*gameState_ = Uninitialized;
   
   
   // On crée une fenêtre et on la centre sur l'écran.
-  mainWindow_ = new RenderWindow(VideoMode(GAME_WIDTH, GAME_HEIGHT), "Power Samurai!!!", Style::Close);
-  mainWindow_->SetPosition((VideoMode::GetDesktopMode().Width - GAME_WIDTH)/2, (VideoMode::GetDesktopMode().Height - GAME_HEIGHT)/2);
+	mainWindow_ = new RenderWindow(VideoMode(GAME_WIDTH, GAME_HEIGHT), "Power Samurai!!!", Style::Close);
+	mainWindow_->SetPosition((VideoMode::GetDesktopMode().Width - GAME_WIDTH)/2, (VideoMode::GetDesktopMode().Height - GAME_HEIGHT)/2);
 
-  map_1 = new Map();
-  map_2 = new Map();
-  map_3 = new Map();
-  map_4 = new Map();
-  map_5 = new Map();
+	map_1 = new Map();
+	map_2 = new Map();
+	map_3 = new Map();
+	map_4 = new Map();
+	map_5 = new Map();
   
    map_courante = new Map();
    player_choice = new p_choice;
@@ -461,7 +424,6 @@ void Game::Start(void)
 	
 	*gameState_ = Game::ShowingSplash;
 	
-
 	while(!IsExiting())
 	{
 		GameLoop();
@@ -879,85 +841,85 @@ void Game::RunGame()
    }
    cout << "Sortie de boucle" << endl;
    mainWindow_->ShowMouseCursor(true);
+		
+	map_courante->getMusic()->Stop();
+	joueur->getMovingSound()->Stop();
+	entitys = map_courante->Bot_list;
+	items = map_courante->Item_list;
 
-map_courante->getMusic()->Stop();
-joueur->getMovingSound()->Stop();
-entitys = map_courante->Bot_list;
-items = map_courante->Item_list;
+	while (!(map_1->Bot_list).empty()) 
+	{ 
+		delete (map_1->Bot_list).back(); 
+		(map_1->Bot_list).pop_back(); 
+	}
 
-while (!(map_1->Bot_list).empty()) 
-{ 
-	delete (map_1->Bot_list).back(); 
-	(map_1->Bot_list).pop_back(); 
-}
+	while (!(map_2->Bot_list).empty()) 
+	{ 
+		delete (map_2->Bot_list).back(); 
+		(map_2->Bot_list).pop_back(); 
+	}
 
-while (!(map_2->Bot_list).empty()) 
-{ 
-	delete (map_2->Bot_list).back(); 
-	(map_2->Bot_list).pop_back(); 
-}
+	while (!(map_3->Bot_list).empty()) 
+	{ 
+		delete (map_3->Bot_list).back(); 
+		(map_3->Bot_list).pop_back(); 
+	}
 
-while (!(map_3->Bot_list).empty()) 
-{ 
-	delete (map_3->Bot_list).back(); 
-	(map_3->Bot_list).pop_back(); 
-}
+	while (!(map_4->Bot_list).empty()) 
+	{ 
+		delete (map_4->Bot_list).back(); 
+		(map_4->Bot_list).pop_back(); 
+	}
 
-while (!(map_4->Bot_list).empty()) 
-{ 
-	delete (map_4->Bot_list).back(); 
-	(map_4->Bot_list).pop_back(); 
-}
+	while (!(map_5->Bot_list).empty()) 
+	{ 
+		delete (map_5->Bot_list).back(); 
+		(map_5->Bot_list).pop_back(); 
+	}
 
-while (!(map_5->Bot_list).empty()) 
-{ 
-	delete (map_5->Bot_list).back(); 
-	(map_5->Bot_list).pop_back(); 
-}
+	entitys.clear();
 
-entitys.clear();
+	while (!(map_1->Item_list).empty()) 
+	{ 
+		delete (map_1->Item_list).back(); 
+		(map_1->Item_list).pop_back(); 
+	}
 
-while (!(map_1->Item_list).empty()) 
-{ 
-	delete (map_1->Item_list).back(); 
-	(map_1->Item_list).pop_back(); 
-}
+	while (!(map_2->Item_list).empty()) 
+	{
+	 	delete (map_2->Item_list).back(); 
+		(map_2->Item_list).pop_back(); 
+	}
 
-while (!(map_2->Item_list).empty()) 
-{
- 	delete (map_2->Item_list).back(); 
-	(map_2->Item_list).pop_back(); 
-}
+	while (!(map_3->Item_list).empty()) 
+	{ 
+		delete (map_3->Item_list).back(); 
+		(map_3->Item_list).pop_back(); 
+	}
 
-while (!(map_3->Item_list).empty()) 
-{ 
-	delete (map_3->Item_list).back(); 
-	(map_3->Item_list).pop_back(); 
-}
+	while (!(map_4->Item_list).empty()) 
+	{ 
+		delete (map_4->Item_list).back(); 
+		(map_4->Item_list).pop_back(); 
+	}
 
-while (!(map_4->Item_list).empty()) 
-{ 
-	delete (map_4->Item_list).back(); 
-	(map_4->Item_list).pop_back(); 
-}
+	while (!(map_5->Item_list).empty()) 
+	{ 
+		delete (map_5->Item_list).back(); 
+		(map_5->Item_list).pop_back(); 
+	}
 
-while (!(map_5->Item_list).empty()) 
-{ 
-	delete (map_5->Item_list).back(); 
-	(map_5->Item_list).pop_back(); 
-}
+	while (!effects.empty()) 
+	{ 
+		delete effects.back(); 
+		effects.pop_back(); 
+	}
 
-while (!effects.empty()) 
-{ 
-	delete effects.back(); 
-	effects.pop_back(); 
-}
-
-while (!projectiles.empty())
-{ 
-	delete projectiles.back(); 
-	projectiles.pop_back(); 
-}
+	while (!projectiles.empty())
+	{ 
+		delete projectiles.back(); 
+		projectiles.pop_back(); 
+	}
 
 	delete view;
 
@@ -1507,7 +1469,7 @@ void Game::loadImages()
 void Game::loadHP(int coordx, int coordy, Map *map) 
 {
    Item *hp = new Item(mainWindow_,
-							  _hp_item,map,
+							  image_hp_item,map,
 							  coordx, 
 							  coordy,
 							  Item::HP);
