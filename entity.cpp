@@ -371,8 +371,25 @@ Entity::moveRight()
 void 
 Entity::moveUpRight()
 {
-	if(legalDeplacement(getCenter().x + getAnimationWidth()  / 3 + getSpeed(),getCenter().y + getAnimationHeight()  / 3 - getSpeed()) && legalDeplacement(getCenter().x  - getAnimationWidth()  / 3 + getSpeed() ,getCenter().y - getAnimationHeight()  / 3 - getSpeed()) && legalDeplacement(getCenter().x + getAnimationWidth()  / 3 + getSpeed(),getCenter().y - getAnimationHeight()  / 3 - getSpeed())){
-
+	if(legalDeplacement(getCenter().x + 
+			getAnimationWidth() / 3 + 
+			getSpeed(),
+			getCenter().y + 
+			getAnimationHeight() / 3 - 
+			getSpeed()) && 
+		legalDeplacement(getCenter().x  - 
+			getAnimationWidth() / 3 + 
+			getSpeed(),
+			getCenter().y - 
+			getAnimationHeight() / 3 - 
+			getSpeed()) && 
+		legalDeplacement(getCenter().x + 
+			getAnimationWidth() / 3 + 
+			getSpeed(),
+			getCenter().y - 
+			getAnimationHeight() / 3 - 
+			getSpeed()) )
+	{
 		mySprite_->Move(getSpeed(),-getSpeed());
 		setAnimationY(RIGHT);
 	}
@@ -381,18 +398,36 @@ Entity::moveUpRight()
 	   {
 	      return;
 	   }
-	   if(legalDeplacement(getCenter().x + getAnimationWidth()  / 3 + getSpeed(),getCenter().y + getAnimationHeight()  / 3) && legalDeplacement(getCenter().x  + getAnimationWidth()  / 3 + getSpeed(),getCenter().y - getAnimationHeight()  / 3)){ // RIGHT
-
+	   if(legalDeplacement(getCenter().x + 
+				getAnimationWidth() / 3 + 
+				getSpeed(),getCenter().y + 
+				getAnimationHeight() / 3) && 
+			legalDeplacement(getCenter().x  + 
+				getAnimationWidth() / 3 + 
+				getSpeed(),
+				getCenter().y - 
+				getAnimationHeight() / 3))
+		{ // RIGHT
 		   mySprite_->Move(getSpeed(),ZERO);
 		   setAnimationY(RIGHT);
 	   }
-	   else {
-	      if(legalDeplacement(getCenter().x + getAnimationWidth()/3,getCenter().y - getAnimationHeight()/3 - getSpeed()) &&  legalDeplacement(getCenter().x - getAnimationWidth()/3 ,getCenter().y - getAnimationHeight()/3 - getSpeed())){
-
-		   mySprite_->Move(ZERO,-getSpeed());
-		   setAnimationY(UP);
-	      }
-	   }
+	   else 
+		{
+	      if(legalDeplacement(getCenter().x + 
+				getAnimationWidth() / 3,
+					getCenter().y - 
+					getAnimationHeight() / 3 - 
+					getSpeed()) &&  
+				legalDeplacement(getCenter().x - 
+					getAnimationWidth() / 3 ,
+					getCenter().y - 
+					getAnimationHeight() / 3 - 
+					getSpeed()))
+			{
+				mySprite_->Move(ZERO,-getSpeed());
+				setAnimationY(UP);
+			}
+		}
 	}
 }
 
