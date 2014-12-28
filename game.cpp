@@ -1421,6 +1421,22 @@ void Game::loadBot() {
 
    // MAP 1
 
+   loadMouse1(map_1, -1, 4, 28, 18);
+   loadMouse1(map_1, -1, 7, 10, 4);
+   loadMouse1(map_1, -1, 3, 13, 14);
+   
+   loadRedeye(map_1, -1, 3, 12, 19); 
+   loadRedeye(map_1, -1, 4, 6, 8);
+   loadRedeye(map_1, -1, 4, 21, 16);
+   
+   loadGreenscorpion(map_1, -1, 3, 6, 18);
+   loadGreenscorpion(map_1, -1, 5, 10, 8);
+   loadGreenscorpion(map_1, -1, 3, 14, 17);
+   
+   loadFantome1(map_1,-1, 6, 2, 13);
+   loadFantome1(map_1,-1, 5, 21, 9);
+   loadFantome1(map_1,-1, 7, 21, 5);
+   
   //loadReaper1(map_1, -1, 10, 7, 3);
 
   //loadTroll(map_1, -1, 20, 20,20);
@@ -1428,7 +1444,7 @@ void Game::loadBot() {
   // MAP 2
   
   // MAP 5
-  //loadBee(map_5, -5, 2 ,15, 23);
+
   loadBee(map_5, -5, 8, 25, 16);
   loadBee(map_5, -5, 9, 3, 6);
   loadBlueslime(map_5, -1, 2, 11, 22);
@@ -1442,6 +1458,7 @@ void Game::loadBot() {
   loadNaga(map_5, -3, 2, 3, 21);
   loadNaga(map_5, -3, 5, 2, 9);
 
+   
   
   //loadArmor1(map_5, -5, 8, 20, 3);
   /*
@@ -1458,12 +1475,17 @@ void Game::loadItem() {
    loadHP(28,17, map_5);
    loadHP(17,26, map_5);
    loadHP(9,8, map_5);
+   
    loadMana(27,5, map_5);
    loadMana(3,9, map_5);
    
    // MAP 1
-   loadHP(7,3, map_1);
-   loadMana(9,3, map_1);
+   loadHP(29,17, map_1);
+   loadHP(11,10, map_1);
+   loadHP(4,14, map_1);
+   loadHP(29,5, map_1);
+   loadMana(19,11, map_1);
+   loadMana(4,15, map_1);
    
    // MAP 2   
    loadHP(2,24, map_2);
