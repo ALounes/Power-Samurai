@@ -885,26 +885,79 @@ joueur->getMovingSound()->Stop();
 entitys = map_courante->Bot_list;
 items = map_courante->Item_list;
 
-while (!(map_1->Bot_list).empty()) { delete (map_1->Bot_list).back(); (map_1->Bot_list).pop_back(); }
+while (!(map_1->Bot_list).empty()) 
+{ 
+	delete (map_1->Bot_list).back(); 
+	(map_1->Bot_list).pop_back(); 
+}
 
-while (!(map_2->Bot_list).empty()) { delete (map_2->Bot_list).back(); (map_2->Bot_list).pop_back(); }
-while (!(map_3->Bot_list).empty()) { delete (map_3->Bot_list).back(); (map_3->Bot_list).pop_back(); }
-while (!(map_4->Bot_list).empty()) { delete (map_4->Bot_list).back(); (map_4->Bot_list).pop_back(); }
-while (!(map_5->Bot_list).empty()) { delete (map_5->Bot_list).back(); (map_5->Bot_list).pop_back(); }
+while (!(map_2->Bot_list).empty()) 
+{ 
+	delete (map_2->Bot_list).back(); 
+	(map_2->Bot_list).pop_back(); 
+}
+
+while (!(map_3->Bot_list).empty()) 
+{ 
+	delete (map_3->Bot_list).back(); 
+	(map_3->Bot_list).pop_back(); 
+}
+
+while (!(map_4->Bot_list).empty()) 
+{ 
+	delete (map_4->Bot_list).back(); 
+	(map_4->Bot_list).pop_back(); 
+}
+
+while (!(map_5->Bot_list).empty()) 
+{ 
+	delete (map_5->Bot_list).back(); 
+	(map_5->Bot_list).pop_back(); 
+}
 
 entitys.clear();
 
-while (!(map_1->Item_list).empty()) { delete (map_1->Item_list).back(); (map_1->Item_list).pop_back(); }
-while (!(map_2->Item_list).empty()) { delete (map_2->Item_list).back(); (map_2->Item_list).pop_back(); }
-while (!(map_3->Item_list).empty()) { delete (map_3->Item_list).back(); (map_3->Item_list).pop_back(); }
-while (!(map_4->Item_list).empty()) { delete (map_4->Item_list).back(); (map_4->Item_list).pop_back(); }
-while (!(map_5->Item_list).empty()) { delete (map_5->Item_list).back(); (map_5->Item_list).pop_back(); }
+while (!(map_1->Item_list).empty()) 
+{ 
+	delete (map_1->Item_list).back(); 
+	(map_1->Item_list).pop_back(); 
+}
 
+while (!(map_2->Item_list).empty()) 
+{
+ 	delete (map_2->Item_list).back(); 
+	(map_2->Item_list).pop_back(); 
+}
 
-while (!effects.empty()) { delete effects.back(); effects.pop_back(); }
+while (!(map_3->Item_list).empty()) 
+{ 
+	delete (map_3->Item_list).back(); 
+	(map_3->Item_list).pop_back(); 
+}
 
+while (!(map_4->Item_list).empty()) 
+{ 
+	delete (map_4->Item_list).back(); 
+	(map_4->Item_list).pop_back(); 
+}
 
-while (!projectiles.empty()) { delete projectiles.back(); projectiles.pop_back(); }
+while (!(map_5->Item_list).empty()) 
+{ 
+	delete (map_5->Item_list).back(); 
+	(map_5->Item_list).pop_back(); 
+}
+
+while (!effects.empty()) 
+{ 
+	delete effects.back(); 
+	effects.pop_back(); 
+}
+
+while (!projectiles.empty())
+{ 
+	delete projectiles.back(); 
+	projectiles.pop_back(); 
+}
 
 	delete view;
 
