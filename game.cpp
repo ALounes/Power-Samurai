@@ -583,7 +583,7 @@ void Game::ShowDifficultyMenu()
 
 	case DifficultyMenu::Intermediate:
 		ResultDifficulty = INTERMEDIATE_DIFFICULTY;
-		*gameState_ = Game::ShowingMainMenu;-
+		*gameState_ = Game::ShowingMainMenu;
 		break;
 
 	case DifficultyMenu::Hard:
@@ -1355,7 +1355,8 @@ void Game::launchingPause()
    }
 }
 
-void Game::launchingDeath() {
+void Game::launchingDeath() 
+{
    Clock death_timer;
    Image game_over;
    Sprite s_over;
@@ -1376,15 +1377,18 @@ void Game::launchingDeath() {
    Event event2;
    bool inboucle = true;
      
-     while ((mainWindow_->GetEvent(event2) || death_timer.GetElapsedTime() <= 18) && inboucle == true)
-		{
-	   texte = String (to_string (18 - (int) death_timer.GetElapsedTime() ), Font::GetDefaultFont(), 40.f);
+	while ((mainWindow_->GetEvent(event2) || death_timer.GetElapsedTime() <= 18) && inboucle == true)
+	{
+	   texte = String (to_string (18 - (int) death_timer.GetElapsedTime() ),
+										   Font::GetDefaultFont(), 40.f);
       texte.SetStyle(11);
 	   texte.SetColor(Color::White);
-	   texte.SetPosition(camera->position_->x - 30, camera->position_->y + PLAYING_HEIGHT /4);
+	   texte.SetPosition(camera->position_->x - 30,
+							   camera->position_->y + PLAYING_HEIGHT /4);
       mainWindow_->Draw(s_over);
       mainWindow_->Draw(texte);
-      mainWindow_->Display(); 
+      mainWindow_->Display();
+ 
 		switch (event2.Type)
 		{
 			case Event::KeyPressed :

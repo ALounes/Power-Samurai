@@ -397,8 +397,8 @@ SoundBuffer* Player::getProjectileSoundB() const
    return projectileSoundB_;
 }
 
-void Player::setProjectileSoundB(string s
-
+void Player::setProjectileSoundB(string s)
+{
 	if (!projectileSoundB_->LoadFromFile(s))
 		cout << "erreur " << endl ;
 
