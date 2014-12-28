@@ -330,8 +330,8 @@ void Player::increaseNbManaPot()
    }
    else 
       ++nb_Mana_Pot;
-
 }
+
 void Player::consumeHpPot() 
 {
    if (nb_Hp_Pot <= 0)
@@ -351,6 +351,7 @@ void Player::consumeHpPot()
       }
    }
 }
+
 void Player::consumeManaPot() 
 {
    if (nb_Mana_Pot <= 0)
@@ -376,6 +377,7 @@ SoundBuffer* Player::getMovingSoundB() const
 { 
    return movingSoundB_;
 }
+
 void Player::setMovingSoundB(string s) 
 {
 	if (!movingSoundB_->LoadFromFile(s))
@@ -394,6 +396,7 @@ SoundBuffer* Player::getProjectileSoundB() const
 { 
    return projectileSoundB_;
 }
+
 void Player::setProjectileSoundB(string s
 
 	if (!projectileSoundB_->LoadFromFile(s))
