@@ -295,12 +295,13 @@ void Game::Map_Load(void)
   
   
 	
-   for (int x=0; x < MAP_3_HEIGHT; x++) {
-    for (int y=0; y < MAP_3_WIDTH; y++) {
-
-      map_3->set_tableau(x, y, staticmap_3[x][y]);
-    }
-  }
+   for (int x=0; x < MAP_3_HEIGHT; x++) 
+	{
+		for (int y=0; y < MAP_3_WIDTH; y++) 
+		{
+		map_3->set_tableau(x, y, staticmap_3[x][y]);
+		}
+	}
   
    map_3->image_map_->LoadFromFile("images/Maps/R2.png");
 	map_3->sprite_map_->SetImage(*(map_3->image_map_));
@@ -360,12 +361,14 @@ void Game::Map_Load(void)
   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
   
   };
-	for (int x=0; x < MAP_4_HEIGHT; x++) {
-    for (int y=0; y < MAP_4_WIDTH; y++) {
 
-      map_4->set_tableau(x, y, staticmap_4[x][y]);
-    }
-  }
+	for (int x=0; x < MAP_4_HEIGHT; x++) 
+	{
+		for (int y=0; y < MAP_4_WIDTH; y++) 
+		{
+		map_4->set_tableau(x, y, staticmap_4[x][y]);
+		}
+	}
   
    map_4->image_map_->LoadFromFile("images/Maps/R3.png");
 	map_4->sprite_map_->SetImage(*(map_4->image_map_));
@@ -409,12 +412,13 @@ void Game::Map_Load(void)
   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
   };
   
-  for (int x=0; x < MAP_5_HEIGHT; x++) {
-    for (int y=0; y < MAP_5_WIDTH; y++) {
-
-      map_5->set_tableau(x, y, staticmap_5[x][y]);
-    }
-  }
+	for (int x=0; x < MAP_5_HEIGHT; x++) 
+	{
+		for (int y=0; y < MAP_5_WIDTH; y++) 
+		{
+			map_5->set_tableau(x, y, staticmap_5[x][y]);
+		}
+	}
   
    map_5->image_map_->LoadFromFile("images/Maps/Depart.png");
 	map_5->sprite_map_->SetImage(*(map_5->image_map_));
@@ -429,7 +433,8 @@ void Game::Map_Load(void)
 
 void Game::Start(void)
 {
-	if(*gameState_ != Uninitialized) {
+	if(*gameState_ != Uninitialized) 
+	{
 	   cout << "Bug, jeu déjà initialisé" << endl;
 		return;
 	}
@@ -491,15 +496,25 @@ void Game::GameLoop()
             delete mainWindow_;  
             // On détruit et on recrée une nouvelle fenêtre aux dimensions du jeu.
             
-            mainWindow_ = new RenderWindow(VideoMode(PLAYING_WIDTH, PLAYING_HEIGHT), "     Kill them all, and get the BOSS", Style::Close);
-            mainWindow_->SetPosition((VideoMode::GetDesktopMode().Width - PLAYING_WIDTH)/2, (VideoMode::GetDesktopMode().Height - PLAYING_HEIGHT)/2);
+            mainWindow_ = new RenderWindow(VideoMode(PLAYING_WIDTH,
+														 PLAYING_HEIGHT), 
+														 "     Kill them all, and get the BOSS",
+														 Style::Close);
+
+            mainWindow_->SetPosition((VideoMode::GetDesktopMode().Width - PLAYING_WIDTH)/2,
+												 (VideoMode::GetDesktopMode().Height - PLAYING_HEIGHT)/2);
+
             mainWindow_->Clear();
             
             RunGame();
             
             delete mainWindow_;
-            mainWindow_ = new RenderWindow(VideoMode(GAME_WIDTH, GAME_HEIGHT), "  Power Samurai!!!",Style::Close);
-            mainWindow_->SetPosition((VideoMode::GetDesktopMode().Width - GAME_WIDTH)/2, (VideoMode::GetDesktopMode().Height - GAME_HEIGHT)/2);
+            mainWindow_ = new RenderWindow(VideoMode(GAME_WIDTH, GAME_HEIGHT),
+														 "  Power Samurai!!!",Style::Close);
+
+            mainWindow_->SetPosition((VideoMode::GetDesktopMode().Width - GAME_WIDTH)/2,
+												 (VideoMode::GetDesktopMode().Height - GAME_HEIGHT)/2);
+
             mainMenu_ = new MainMenu();
 				break;
 			}
@@ -524,23 +539,27 @@ void Game::ShowMainMenu()
 {
    mainMenu_->Load(mainWindow_);
 	MainMenu::MenuResult result = mainMenu_->Show(mainWindow_);
+
 	switch(result)
 	{
+
 	case MainMenu::Exit:
 			*gameState_ = Game::Exiting;
-			cout << "result = Exit" << endl;
-			
+			cout << "result = Exit" << endl;			
 			break;
+
 	case MainMenu::Play:
 			*gameState_ = Game::Playing;
 			break;
+
 	case MainMenu::Difficulty:
 			*gameState_ = Game::ShowingDifficultyMenu;
-			
 			break;
+
 	case MainMenu::Players:
 			*gameState_ = Game::ShowingPlayersMenu;
 			break;
+
 	default:
 			break;	
 	}
@@ -554,28 +573,27 @@ void Game::ShowDifficultyMenu()
 	switch(resultat)
 	{
 	case DifficultyMenu::Escape:
-			*gameState_ = Game::ShowingMainMenu;
+		*gameState_ = Game::ShowingMainMenu;
+		break;
 
-			break;
-	case DifficultyMenu::Easy:
-	      
-	      ResultDifficulty = EASY_DIFFICULTY;          // Sauvegarde le niveau de difficulté
-			*gameState_ = Game::ShowingMainMenu;
+	case DifficultyMenu::Easy:	      
+		ResultDifficulty = EASY_DIFFICULTY;          // Sauvegarde le niveau de difficulté
+		*gameState_ = Game::ShowingMainMenu;
+		break;
 
-			break;
 	case DifficultyMenu::Intermediate:
-	      ResultDifficulty = INTERMEDIATE_DIFFICULTY;
-			*gameState_ = Game::ShowingMainMenu;
+		ResultDifficulty = INTERMEDIATE_DIFFICULTY;
+		*gameState_ = Game::ShowingMainMenu;
+		break;
 
-			break;
 	case DifficultyMenu::Hard:
-	      ResultDifficulty = HARD_DIFFICULTY;
-			*gameState_ = Game::ShowingMainMenu;
+		ResultDifficulty = HARD_DIFFICULTY;
+		*gameState_ = Game::ShowingMainMenu;
+		break;
 
-			break;
 	default:    
-	      ResultDifficulty = EASY_DIFFICULTY;
-			break;	
+		ResultDifficulty = EASY_DIFFICULTY;
+		break;	
 	}
 	
 }
@@ -602,7 +620,7 @@ void Game::ShowPlayersMenu()
 	 // Sauvegarde le choix du personnage
 	 *player_choice = (p_choice) *(playersMenu_->getposition());
 
-  mainWindow_->ShowMouseCursor(true);
+	mainWindow_->ShowMouseCursor(true);
 
 }
 
@@ -645,74 +663,101 @@ void Game::RunGame()
    int lancer_dialogue = 0;  // 0 : non traité, 1 : en cours, 2 : traité.
    
    const Input &input = mainWindow_->GetInput();
+
    while (mainWindow_->IsOpened() && !(fin_de_boucle) && *gameState_ == Playing)
    {
       effects = joueur->spells;
       mainWindow_->SetFramerateLimit(FRAMERATE);
-      camera->setCameraXY(*(map_courante->get_Largeur()) * BASE_SPRITE,*(map_courante->get_Hauteur()) * BASE_SPRITE);
+
+      camera->setCameraXY(*(map_courante->get_Largeur()) * BASE_SPRITE,
+								  *(map_courante->get_Hauteur()) * BASE_SPRITE);
+
 		mainWindow_->Draw(*(map_courante->sprite_map_));
 			
-      if (input.IsKeyDown(Key::Z) ||input.IsKeyDown(Key::Q) || input.IsKeyDown(Key::D) || input.IsKeyDown(Key::S)) {
-   
-				joueur->soclePosition();
-				joueur->actionKey(map_courante);
+      if (input.IsKeyDown(Key::Z) ||
+			 input.IsKeyDown(Key::Q) || 
+			 input.IsKeyDown(Key::D) || 
+			 input.IsKeyDown(Key::S)) 
+		{   
+			joueur->soclePosition();
+			joueur->actionKey(map_courante);
 				
-				if (joueur->isMapChanged() != NOCHANGE) {
-				   map_courante->getMusic()->Stop();
-				   map_courante->Item_list = items;
-				   map_courante->Bot_list = entitys;
-				   map_courante = joueur->getMap();
-				   joueur->setMapChanged(NOCHANGE);
-				   entitys = map_courante->Bot_list;
-				   items = map_courante->Item_list;
-				   map_courante->getMusic()->Play();
-				}
+			if (joueur->isMapChanged() != NOCHANGE) 
+			{
+			   map_courante->getMusic()->Stop();
+			   map_courante->Item_list = items;
+			   map_courante->Bot_list = entitys;
+			   map_courante = joueur->getMap();
+			   joueur->setMapChanged(NOCHANGE);
+			   entitys = map_courante->Bot_list;
+			   items = map_courante->Item_list;
+			   map_courante->getMusic()->Play();
+			}
 
 		}
 		
-		if ( input.IsKeyDown(Key::Space)) {
+		if ( input.IsKeyDown(Key::Space)) 
+		{
 		   bool refresh = false;
-	         if (Timer_Projectile->GetElapsedTime() > RATE_FIRE) 
-	   	   refresh = true;
+			if (Timer_Projectile->GetElapsedTime() > RATE_FIRE) 
+			refresh = true;
 
-            if (refresh) {
-        
-                  Vector2i vfeux(4,4);
+			if (refresh) 
+			{        
+				Vector2i vfeux(4,4);
+				Projectile *projectile = new Projectile(mainWindow_,
+																	 image_projectile ,
+																	 vfeux,
+																	 joueur,
+																	 16,
+																	 05);
 
-	               Projectile *projectile = new Projectile(mainWindow_,image_projectile ,vfeux,joueur,16,5);
-	               projectile->setDirection( joueur->getCurrentDirection() );
-	               projectile->preset();
-		            projectiles.push_front(projectile);
-		            Timer_Projectile->Reset();
-		            joueur->getProjectileSound()->Play();
-		         
-		      }
+				projectile->setDirection( joueur->getCurrentDirection() );
+				projectile->preset();
+				projectiles.push_front(projectile);
+				Timer_Projectile->Reset();
+				joueur->getProjectileSound()->Play();		         
+			}
       }
       
-      if ( input.IsKeyDown(Key::E)) { 
-            if ( joueur->getTimer(1)->GetElapsedTime() > joueur->getSpellDelay(1) ) {
-		         FolowingAnimation *effect1 = new FolowingAnimation(mainWindow_, *(joueur->getImgSpell(1)), joueur->getVSpell(1), joueur);
-               effect1->play();
-               effect1->setId(1);
-               effect1->setManaCost(joueur->getSManaCost(1));               
-               joueur->spells.push_front(effect1);              
-            }
+		if ( input.IsKeyDown(Key::E)) 
+		{ 
+			if ( joueur->getTimer(1)->GetElapsedTime() > joueur->getSpellDelay(1) ) 
+			{
+				FolowingAnimation *effect1 = new FolowingAnimation(mainWindow_,
+																				 *(joueur->getImgSpell(1)), 
+																					joueur->getVSpell(1),
+																					joueur);
+
+				effect1->play();
+				effect1->setId(1);
+				effect1->setManaCost(joueur->getSManaCost(1));               
+				joueur->spells.push_front(effect1);              
+			}
             
-            for(auto s : joueur->spells){
-               if (joueur->getMana() < s->getManaCost() || s->getId() != 1 || joueur->getTimer(1)->GetElapsedTime() <= joueur->getSpellDelay(1))
-               {
-               }
-               else {
-                  joueur->manaPenalty(s->getManaCost());
-                  for(auto s : entitys){
-		               if(s->getDistance() < joueur->getSRange(1)) {
-		                  s->lifePenalty(joueur->getDmg(1));
-	                     if (!s->isAlive())
-	                     {
-	                        entitys.remove(s);
-	                        (map_courante->Bot_list).remove(s);
-	                        delete s;
-	                     }
+			for(auto s : joueur->spells)
+			{
+				if (joueur->getMana() <
+					 s->getManaCost()  || 
+					 s->getId() != 1   || 
+					 joueur->getTimer(1)->GetElapsedTime() <= 
+					 joueur->getSpellDelay(1))
+				{
+				}
+				else 
+				{
+					joueur->manaPenalty(s->getManaCost());
+					for(auto s : entitys)
+					{
+						if(s->getDistance() < joueur->getSRange(1)) 
+						{
+							s->lifePenalty(joueur->getDmg(1));
+							if (!s->isAlive())
+							{
+								entitys.remove(s);
+								(map_courante->Bot_list).remove(s);
+								delete s;
+							}
 		                  break; 
 		               }
                   }
@@ -721,30 +766,43 @@ void Game::RunGame()
 	         }
       }
       
-      if ( input.IsKeyDown(Key::R)) { 
-            if ( joueur->getTimer(2)->GetElapsedTime() > joueur->getSpellDelay(2) ) {
-		         FolowingAnimation *effect2 = new FolowingAnimation(mainWindow_, *(joueur->getImgSpell(2)), joueur->getVSpell(2), joueur);
-               effect2->play();
-               effect2->setId(2);
-               effect2->setManaCost(joueur->getSManaCost(2));               
-               joueur->spells.push_front(effect2);              
-            }
+		if ( input.IsKeyDown(Key::R)) 
+		{ 
+			if (joueur->getTimer(2)->GetElapsedTime() >
+				joueur->getSpellDelay(2) ) 
+			{
+				FolowingAnimation *effect2 = new FolowingAnimation(mainWindow_,
+																				 *(joueur->getImgSpell(2)), 
+																					joueur->getVSpell(2), 
+																					joueur);
+
+				effect2->play();
+				effect2->setId(2);
+				effect2->setManaCost(joueur->getSManaCost(2));               
+				joueur->spells.push_front(effect2);              
+			}
             
-            for(auto s : joueur->spells){
-               if (joueur->getMana() < s->getManaCost() || s->getId() != 2 || joueur->getTimer(2)->GetElapsedTime() <= joueur->getSpellDelay(2))
-               {
-               }
-               else {
-                  joueur->manaPenalty(s->getManaCost());
-                  for(auto s : entitys){
-		               if(s->getDistance() < joueur->getSRange(2)) {
-		                  s->lifePenalty(joueur->getDmg(2));
-	                     if (!s->isAlive())
-	                     {
-	                        entitys.remove(s);
-	                        (map_courante->Bot_list).remove(s);
-	                        delete s;
-	                     }
+			for(auto s : joueur->spells)
+			{
+				if (joueur->getMana() < 
+					 s->getManaCost()  || 
+					 s->getId() != 2   || 
+					 joueur->getTimer(2)->GetElapsedTime() <= 
+					 joueur->getSpellDelay(2))
+				{
+				}
+				else {
+					joueur->manaPenalty(s->getManaCost());
+					for(auto s : entitys){
+						if(s->getDistance() < joueur->getSRange(2)) 
+						{
+							s->lifePenalty(joueur->getDmg(2));
+							if (!s->isAlive())
+							{
+								entitys.remove(s);
+								(map_courante->Bot_list).remove(s);
+								delete s;
+							}
 		                  break; 
 		               }
                   }
@@ -754,52 +812,63 @@ void Game::RunGame()
       }
       
       if ( input.IsKeyDown(Key::T)) { 
-            if ( joueur->getTimer(3)->GetElapsedTime() > joueur->getSpellDelay(3) ) {
-		         FolowingAnimation *effect3 = new FolowingAnimation(mainWindow_, *(joueur->getImgSpell(3)), joueur->getVSpell(3), joueur);
-               effect3->play();
-               effect3->setId(3);
-               effect3->setManaCost(joueur->getSManaCost(3));               
-               joueur->spells.push_front(effect3);              
-            }
+			if (joueur->getTimer(3)->GetElapsedTime() > 
+				 joueur->getSpellDelay(3) ) 
+			{
+	         FolowingAnimation *effect3 = new FolowingAnimation(mainWindow_, 
+																				 *(joueur->getImgSpell(3)),
+																				  joueur->getVSpell(3), 
+																				  joueur);
+				effect3->play();
+				effect3->setId(3);
+				effect3->setManaCost(joueur->getSManaCost(3));               
+				joueur->spells.push_front(effect3);              
+			}
             
-            for(auto s : joueur->spells){
-               if (joueur->getMana() < s->getManaCost() || s->getId() != 3 || joueur->getTimer(3)->GetElapsedTime() <= joueur->getSpellDelay(3))
-               {
-               }
-               else {
-                  joueur->manaPenalty(s->getManaCost());
-                  for(auto s : entitys){
-		               if(s->getDistance() < joueur->getSRange(3)) {
-		                  s->lifePenalty(joueur->getDmg(3));
-	                     if (!s->isAlive())
-	                     {
-	                        entitys.remove(s);
-	                        (map_courante->Bot_list).remove(s);
-	                        delete s;
-	                     }
-		                  break; 
-		               }
-                  }
-                  joueur->getTimer(3)->Reset();
-               }
-	         }
-      }
+			for(auto s : joueur->spells){
+				if (joueur->getMana() < 
+					 s->getManaCost()  || 
+					 s->getId() != 3   || 
+					 joueur->getTimer(3)->GetElapsedTime() <= 
+					 joueur->getSpellDelay(3))
+				{
+				}
+				else 
+				{
+					joueur->manaPenalty(s->getManaCost());
+					for(auto s : entitys)
+					{
+						if(s->getDistance() < joueur->getSRange(3)) 
+						{
+							s->lifePenalty(joueur->getDmg(3));
+							if (!s->isAlive())
+							{
+								entitys.remove(s);
+								(map_courante->Bot_list).remove(s);
+								delete s;
+							}
+							break; 
+						}
+					}
+					joueur->getTimer(3)->Reset();
+				}
+			}
+		}
       
-      
-
-      for(auto s : entitys){
-         s->update_path(map_courante, joueur);
-         s->setDistance( (s->GetPath()).size() );
+		for(auto s : entitys)
+		{
+			s->update_path(map_courante, joueur);
+			s->setDistance( (s->GetPath()).size() );
          
-         if (s->getDistance() > s->getRange() && !s->getPursuit())
-         {  
+			if (s->getDistance() > s->getRange() && !s->getPursuit())
+			{  
             // Cas SURPLACE
-         }
-         else {
-            s->inPursuit();
-		      s->follow_path(map_courante, joueur);
-		   }
-	   }
+			}
+			else {
+				s->inPursuit();
+				s->follow_path(map_courante, joueur);
+			}
+		}
 	   
 		while (mainWindow_->GetEvent(event) )
 		{
@@ -821,8 +890,7 @@ void Game::RunGame()
 
 			default: 
 				break;
-		}
-			
+		}	
 		}
 
 		view->SetHalfSize(VIEW_WIDTH, VIEW_HEIGHT);
@@ -1121,20 +1189,30 @@ Game::displayEntity(Clock &time)
    for(auto s : projectiles){
       
 	   if ( !s->getStuck())
-	      {
-
-	      s->update();
-	      s->draw();
-	   }
-	   else {
+		{
+			s->update();
+			s->draw();
+		}
+	   else 
+		{
 	      projectiles.remove(s);
 	      delete s;
 		   break;
 	   }
-	   for(auto c : entitys){
-
-
-         if ( s->getCenter().x < c->getCenter().x + c->getAnimationWidth() && s->getCenter().x > c->getCenter().x - c->getAnimationWidth() && s->getCenter().y < c->getCenter().y + c->getAnimationHeight() && s->getCenter().y > c->getCenter().y - c->getAnimationHeight())
+	   for(auto c : entitys)
+		{
+			if ( s->getCenter().x < 
+				c->getCenter().x   + 
+				c->getAnimationWidth() && 
+				s->getCenter().x > 
+				c->getCenter().x - 
+				c->getAnimationWidth() && 
+				s->getCenter().y < 
+				c->getCenter().y + 
+				c->getAnimationHeight() && 
+				s->getCenter().y > 
+				c->getCenter().y - 
+				c->getAnimationHeight())
          {
             
             cout << "Bot touché" << endl;
@@ -1184,9 +1262,12 @@ Game::displayEffect(Clock &time)
 }
 
 
-void Game::setPlayer(RenderWindow  * mainwin) {
+void Game::setPlayer(RenderWindow  * mainwin) 
+{
    entitys.clear();
-   switch(*player_choice) {
+
+   switch(*player_choice) 
+	{
       case P1 : 
 
       {
@@ -1243,23 +1324,34 @@ void Game::setPlayer(RenderWindow  * mainwin) {
 }
 
 
-void Game::launchingPause() {
+void Game::launchingPause() 
+{
    bool Ispause = true;
    
-   Shape grey_screen   = Shape::Rectangle(0,0,PLAYING_WIDTH,PLAYING_HEIGHT,Color(0,0,0));
-   grey_screen.SetPosition(camera->position_->x - PLAYING_WIDTH /2, camera->position_->y - PLAYING_HEIGHT /2);
-   
-	String texte = String ("               Le jeu est en pause.\n\n(P) : Continuer    (Q) : Menu principal", Font::GetDefaultFont(), 40.f);
+   Shape grey_screen   = Shape::Rectangle(0,
+														0,
+														PLAYING_WIDTH,
+														PLAYING_HEIGHT,
+														Color(0,0,0));
 
-	texte.SetPosition( camera->position_->x - 320, camera->position_->y - 100);
+   grey_screen.SetPosition(camera->position_->x - PLAYING_WIDTH  /2,
+								   camera->position_->y - PLAYING_HEIGHT /2);
+   
+	String texte = String ("               Le jeu est en pause.\n\n(P) : Continuer    (Q) : Menu principal",
+								  Font::GetDefaultFont(), 40.f);
+
+	texte.SetPosition(camera->position_->x - 320, 
+							camera->position_->y - 100);
+
 	texte.SetStyle(11);
 	texte.SetColor(Color::White);
 
    mainWindow_->Draw(grey_screen);
    mainWindow_->Draw(texte);
    mainWindow_->Display();
-   while (Ispause == true) {
 
+	while (Ispause == true) 
+	{
      Event event2;
      
      while (mainWindow_->GetEvent(event2))
@@ -1269,19 +1361,20 @@ void Game::launchingPause() {
 		{
 			case Event::KeyPressed :
      
-            switch (event2.Key.Code) {
-               case  Key::Escape :
-                  Ispause = false;
-		            break;
+				switch (event2.Key.Code) {
+					case  Key::Escape :
+						Ispause = false;
+						break;
+
                case  Key::P :
                   Ispause = false;
-		
 	               break; 
+
                case  Key::Q :
                   *gameState_ = ShowingMainMenu;
-                  Ispause = false;
-		
+                  Ispause = false;		
 	        	      break;
+
 	            default :
 	               break;
 	         }
@@ -1294,7 +1387,8 @@ void Game::launchingPause() {
    }
 }
 
-void Game::launchingDeath() {
+void Game::launchingDeath() 
+{
    Clock death_timer;
    Image game_over;
    Sprite s_over;
@@ -1315,15 +1409,18 @@ void Game::launchingDeath() {
    Event event2;
    bool inboucle = true;
      
-     while ((mainWindow_->GetEvent(event2) || death_timer.GetElapsedTime() <= 18) && inboucle == true)
-		{
-	   texte = String (to_string (18 - (int) death_timer.GetElapsedTime() ), Font::GetDefaultFont(), 40.f);
+	while ((mainWindow_->GetEvent(event2) || death_timer.GetElapsedTime() <= 18) && inboucle == true)
+	{
+	   texte = String (to_string (18 - (int) death_timer.GetElapsedTime() ),
+										   Font::GetDefaultFont(), 40.f);
       texte.SetStyle(11);
 	   texte.SetColor(Color::White);
-	   texte.SetPosition(camera->position_->x - 30, camera->position_->y + PLAYING_HEIGHT /4);
+	   texte.SetPosition(camera->position_->x - 30,
+							   camera->position_->y + PLAYING_HEIGHT /4);
       mainWindow_->Draw(s_over);
       mainWindow_->Draw(texte);
-      mainWindow_->Display(); 
+      mainWindow_->Display();
+ 
 		switch (event2.Type)
 		{
 			case Event::KeyPressed :
