@@ -86,7 +86,7 @@ Map* Map::getLink(int i) const {
          {
             return link_map_2_;
             break;
-         }
+;         }
       case 3 :
          {
             return link_map_3_;
