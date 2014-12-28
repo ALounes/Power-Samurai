@@ -322,7 +322,8 @@ void Player::increaseNbHpPot()
       ++nb_Hp_Pot;
 }
 
-void Player::increaseNbManaPot() {
+void Player::increaseNbManaPot() 
+{
    if (nb_Mana_Pot >= MAX_MANA_POT)
    {
       nb_Mana_Pot = MAX_MANA_POT;
@@ -331,7 +332,8 @@ void Player::increaseNbManaPot() {
       ++nb_Mana_Pot;
 
 }
-void Player::consumeHpPot() {
+void Player::consumeHpPot() 
+{
    if (nb_Hp_Pot <= 0)
    {
       nb_Hp_Pot = 0;
