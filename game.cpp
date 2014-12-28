@@ -1157,20 +1157,30 @@ Game::displayEntity(Clock &time)
    for(auto s : projectiles){
       
 	   if ( !s->getStuck())
-	      {
-
-	      s->update();
-	      s->draw();
-	   }
-	   else {
+		{
+			s->update();
+			s->draw();
+		}
+	   else 
+		{
 	      projectiles.remove(s);
 	      delete s;
 		   break;
 	   }
-	   for(auto c : entitys){
-
-
-         if ( s->getCenter().x < c->getCenter().x + c->getAnimationWidth() && s->getCenter().x > c->getCenter().x - c->getAnimationWidth() && s->getCenter().y < c->getCenter().y + c->getAnimationHeight() && s->getCenter().y > c->getCenter().y - c->getAnimationHeight())
+	   for(auto c : entitys)
+		{
+			if ( s->getCenter().x < 
+				c->getCenter().x   + 
+				c->getAnimationWidth() && 
+				s->getCenter().x > 
+				c->getCenter().x - 
+				c->getAnimationWidth() && 
+				s->getCenter().y < 
+				c->getCenter().y + 
+				c->getAnimationHeight() && 
+				s->getCenter().y > 
+				c->getCenter().y - 
+				c->getAnimationHeight())
          {
             
             cout << "Bot touché" << endl;
@@ -1220,9 +1230,12 @@ Game::displayEffect(Clock &time)
 }
 
 
-void Game::setPlayer(RenderWindow  * mainwin) {
+void Game::setPlayer(RenderWindow  * mainwin) 
+{
    entitys.clear();
-   switch(*player_choice) {
+
+   switch(*player_choice) 
+	{
       case P1 : 
 
       {
@@ -1279,23 +1292,34 @@ void Game::setPlayer(RenderWindow  * mainwin) {
 }
 
 
-void Game::launchingPause() {
+void Game::launchingPause() 
+{
    bool Ispause = true;
    
-   Shape grey_screen   = Shape::Rectangle(0,0,PLAYING_WIDTH,PLAYING_HEIGHT,Color(0,0,0));
-   grey_screen.SetPosition(camera->position_->x - PLAYING_WIDTH /2, camera->position_->y - PLAYING_HEIGHT /2);
-   
-	String texte = String ("               Le jeu est en pause.\n\n(P) : Continuer    (Q) : Menu principal", Font::GetDefaultFont(), 40.f);
+   Shape grey_screen   = Shape::Rectangle(0,
+														0,
+														PLAYING_WIDTH,
+														PLAYING_HEIGHT,
+														Color(0,0,0));
 
-	texte.SetPosition( camera->position_->x - 320, camera->position_->y - 100);
+   grey_screen.SetPosition(camera->position_->x - PLAYING_WIDTH  /2,
+								   camera->position_->y - PLAYING_HEIGHT /2);
+   
+	String texte = String ("               Le jeu est en pause.\n\n(P) : Continuer    (Q) : Menu principal",
+								  Font::GetDefaultFont(), 40.f);
+
+	texte.SetPosition(camera->position_->x - 320, 
+							camera->position_->y - 100);
+
 	texte.SetStyle(11);
 	texte.SetColor(Color::White);
 
    mainWindow_->Draw(grey_screen);
    mainWindow_->Draw(texte);
    mainWindow_->Display();
-   while (Ispause == true) {
 
+	while (Ispause == true) 
+	{
      Event event2;
      
      while (mainWindow_->GetEvent(event2))
@@ -1305,19 +1329,20 @@ void Game::launchingPause() {
 		{
 			case Event::KeyPressed :
      
-            switch (event2.Key.Code) {
-               case  Key::Escape :
-                  Ispause = false;
-		            break;
+				switch (event2.Key.Code) {
+					case  Key::Escape :
+						Ispause = false;
+						break;
+
                case  Key::P :
                   Ispause = false;
-		
 	               break; 
+
                case  Key::Q :
                   *gameState_ = ShowingMainMenu;
-                  Ispause = false;
-		
+                  Ispause = false;		
 	        	      break;
+
 	            default :
 	               break;
 	         }
