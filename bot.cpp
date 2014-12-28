@@ -30,14 +30,13 @@ Bot::Bot(RenderWindow *win, Image& image, const Vector2i nbrOfAnim, String name,
 
 Bot::~Bot()
 {
-	
 	cout << "DESTRUCTEUR BOT" << endl;
-
 }
 
 void
 Bot::move()
-{	
+{
+	// A FAIRE
 }
 
 void
@@ -46,22 +45,28 @@ Bot::SetRange(int range)
 	range_ = range;
 }
 
-int Bot::GetRange() const{
+int Bot::GetRange() const
+{
    return range_;
 }
-void Bot::SetSpeed(int speed) {
+
+void Bot::SetSpeed(int speed) 
+{
    speed_ = speed;
 }
 
-int Bot::GetSpeed()  const{
+int Bot::GetSpeed() const
+{
    return speed_;
 }
 
-void Bot::SetPlayer(Player * player){
+void Bot::SetPlayer(Player * player)
+{
    player_ = player;
 }
 
-Player * Bot::GetPlayer()  const{
+Player * Bot::GetPlayer() const
+{
    return player_;
 }
 
@@ -188,11 +193,21 @@ string Bot::pathFind( const int & xStart, const int & yStart,
     return ""; // pas de route trouvée
 }
 
-void Bot::update_path(Map * map, Player * player) {
-   path = pathFind(getCenter().x / getAnimationWidth(), getCenter().y / getAnimationWidth(), player->getCenter().x / getAnimationWidth(), player->getCenter().y / getAnimationWidth(), map);
+void Bot::update_path(Map * map, Player * player) 
+{
+   path = pathFind(getCenter().x / 
+			 			 getAnimationWidth(),
+						 getCenter().y /
+						 getAnimationWidth(),
+						 player->getCenter().x /
+						 getAnimationWidth(),
+						 player->getCenter().y /
+						 getAnimationWidth(),
+						 map);
 }
 
-string Bot::GetPath() const {
+string Bot::GetPath() const 
+{
    return path;
 }
 
@@ -301,18 +316,24 @@ Bot::update()
 	}
 }
 
-void Bot::setRange(int x){
+void Bot::setRange(int x)
+{
    range_ = x;
 }
-int Bot::getRange() {
+
+int Bot::getRange() 
+{
    return range_;
 }
 
 
-void Bot::setDistance(int x){
+void Bot::setDistance(int x)
+{
    distance = x;
 }
-int Bot::getDistance() {
+
+int Bot::getDistance() 
+{
    return distance;
 }
 
@@ -446,33 +467,43 @@ Bot::bonusManaMax(int mana)
 	manaMax_ += mana;
 }
 
-void Bot::setAttackDelay(float ad) {
+void Bot::setAttackDelay(float ad) 
+{
    attack_delay = ad;
 }
 
-float Bot::getAttackDelay() {
+float Bot::getAttackDelay() 
+{
    return attack_delay;
 }
 
-void Bot::setAttackDamage(float ad) {
+void Bot::setAttackDamage(float ad) 
+{
    attack_damage_ = ad;
 }
 
-float Bot::getAttackDamage() {
+float Bot::getAttackDamage() 
+{
    return attack_damage_;
 }
 
-void Bot::setXp(int xp) {
+void Bot::setXp(int xp) 
+{
    xp_ = xp;
 }
-int Bot::getXp() const {
+
+int Bot::getXp() const 
+{
    return xp_;
 }
 
-void Bot::inPursuit() {
+void Bot::inPursuit() 
+{
    in_pursuit = true;
 }
-bool Bot::getPursuit() {
+
+bool Bot::getPursuit() 
+{
    return in_pursuit;
 }
 

@@ -50,9 +50,9 @@ Camera::run()
 	position_->y = entityFocused_->getSprite()->GetPosition().y 
 					 + entityFocused_->getAnimationHeight();
 
-	if(position_->x < (win_->GetWidth()/2))
+	if(position_->x < (win_->GetWidth() / 2))
 		position_->x = CAM_WIDTH ;
-	if(position_->y < (win_->GetHeight()/2))
+	if(position_->y < (win_->GetHeight() / 2))
 		position_->y = CAM_HEIGHT ;
 	if(position_->x > *Camera_X - CAM_WIDTH)
 		position_->x = *Camera_X - CAM_WIDTH;

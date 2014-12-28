@@ -48,7 +48,39 @@
 #define INTERMEDIATE_DIFFICULTY 2 
 #define HARD_DIFFICULTY 3
 
+#define GAME_WIDTH  1024
+#define GAME_HEIGHT 768
 
+#define PLAYING_WIDTH 800
+#define PLAYING_HEIGHT 600
+
+#define VIEW_WIDTH 400
+#define VIEW_HEIGHT 300
+
+#define PLAYER_X_START 25
+#define PLAYER_Y_START 23
+
+#define MAP_1_HEIGHT 27
+#define MAP_1_WIDTH 31
+
+#define MAP_2_HEIGHT 47
+#define MAP_2_WIDTH 47
+
+#define MAP_3_HEIGHT 47
+#define MAP_3_WIDTH 47
+
+#define MAP_4_HEIGHT 47
+#define MAP_4_WIDTH 47
+
+#define MAP_5_HEIGHT 29
+#define MAP_5_WIDTH 30
+
+#define FRAMERATE 30
+
+#define RATE_FIRE 0.5
+
+#define REFRESH_ITEM 60
+#define SPELL_RATE 3
 
 enum direction {DOWN,LEFT,RIGHT,UP};
 enum p_choice {P1,P2,P3,P4};

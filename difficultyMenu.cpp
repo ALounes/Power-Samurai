@@ -128,15 +128,16 @@ DifficultyMenu::DifficultyResult  DifficultyMenu::GetDifficultyResponse(sf::Rend
 			{
 				return HandleClick(difficultyEvent.MouseButton.X,difficultyEvent.MouseButton.Y);
 			}
+
 			if(difficultyEvent.Type == sf::Event::KeyPressed)
 			{
-						if(difficultyEvent.Key.Code == sf::Key::Escape) 
-						return Escape;
+				if(difficultyEvent.Key.Code == sf::Key::Escape) 
+				return Escape;
 			}
 			
 			if(difficultyEvent.Type == sf::Event::MouseMoved) 
 			{
-			  HandleMove(difficultyEvent.MouseMove.X,difficultyEvent.MouseMove.Y,window);
+				HandleMove(difficultyEvent.MouseMove.X,difficultyEvent.MouseMove.Y,window);
 			}
 			
 		}
@@ -146,11 +147,13 @@ DifficultyMenu::DifficultyResult  DifficultyMenu::GetDifficultyResponse(sf::Rend
 
 DifficultyMenu::DifficultyResult DifficultyMenu::HandleClick(int x, int y)
 {
-	for (auto b : *difficultyItems_) {
-    if (b.rect.Contains(x, y)) {
-      return b.action;  
-    }
-  }
+	for (auto b : *difficultyItems_) 
+	{
+		if (b.rect.Contains(x, y)) 
+		{
+      	return b.action;  
+		}
+	}
 
 	return Nothing;
 }
@@ -159,21 +162,24 @@ void DifficultyMenu::HandleMove(int x, int y, sf::RenderWindow *window)
 {	
 	bool on_button = false;
 	
-	for (auto b : *difficultyItems_) {
-    if (b.rect.Contains(x, y)) {
-      on_button = true;
-      window->Clear(sf::Color::White);
-	    window->Draw(*sprite_main_difficulty_);
-	    window->Draw( b.sprite);
-    }
-  }
+	for (auto b : *difficultyItems_) 
+	{
+		if (b.rect.Contains(x, y)) 
+		{
+			on_button = true;
+			window->Clear(sf::Color::White);
+			window->Draw(*sprite_main_difficulty_);
+			window->Draw( b.sprite);
+		}
+	}
 	
-	if (!on_button) {
-		    window->Clear(sf::Color::White);
-	      window->Draw(*sprite_main_difficulty_);
-  }
+	if (!on_button) 
+	{
+		window->Clear(sf::Color::White);
+		window->Draw(*sprite_main_difficulty_);
+	}
   
-  window->Display();
+	window->Display();
 }
 
 

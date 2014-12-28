@@ -95,7 +95,6 @@ class Player : public LivingEntity
 	SoundBuffer * projectileSoundB_;
 	Sound * projectileSound_;
 	
-
 };
 
 #endif
