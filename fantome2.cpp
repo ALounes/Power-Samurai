@@ -1,7 +1,7 @@
 #include "fantome2.hpp"
 
 Fantome2::Fantome2(RenderWindow *win, Image &image, Map *myMap, int ident, int range)
-:Bot( win,
+:Bot(win,
 			image, 
 			Vector2i(FANTOME2_X,FANTOME2_Y), 
 			String("Armor"),
@@ -16,7 +16,8 @@ Fantome2::Fantome2(RenderWindow *win, Image &image, Map *myMap, int ident, int r
 			range,
 			FANTOME2_XP
 			)
-{	      setSpellDelay(1, FANTOME2_DELAY1);
+{	      
+			setSpellDelay(1, FANTOME2_DELAY1);
          setSpellDelay(2, FANTOME2_DELAY2);
          setSpellDelay(3, FANTOME2_DELAY3);
          setSRange(1, FANTOME2_RANGE1);

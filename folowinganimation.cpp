@@ -1,7 +1,8 @@
 #include "folowinganimation.hpp"
 
 
-FolowingAnimation::FolowingAnimation(RenderWindow *win, Image& image, const Vector2i nbrOfAnim, Entity *entity)
+FolowingAnimation::FolowingAnimation(RenderWindow *win, Image& image, 
+												 const Vector2i nbrOfAnim, Entity *entity)
 	: AnimationEffect(win,image,nbrOfAnim)
 	, entity_(entity)
 {}

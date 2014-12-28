@@ -31,10 +31,14 @@ int Item::getLifeBonus() const {
 }*/
 
 
-void Item::setMapRef(Map* map) {
+void 
+Item::setMapRef(Map* map) 
+{
    map_ref = map;
 }
-Map* Item::getMapRef() const {
+Map* 
+Item::getMapRef() const 
+{
    return map_ref;
 }
 
@@ -49,49 +53,77 @@ Item::getCenter() const
 	return new_position;
 }
 
-int Item::getAnimationWidth() const {
+int 
+Item::getAnimationWidth() const 
+{
    return image_->GetWidth();
 }
 
-int Item::getAnimationHeight() const {
+int 
+Item::getAnimationHeight() const 
+{
    return image_->GetHeight();
 }
 
-void Item::setIsShown(bool b) {
+void 
+Item::setIsShown(bool b) 
+{
    isShown = b;
 }
-bool Item::getIsShown() const {
+
+bool 
+Item::getIsShown() const 
+{
    return isShown;
 }
 
 
-void Item::setX(int x) {
+void 
+Item::setX(int x) 
+{
    x_ = x;
 }
-int Item::getX() const {
+
+int 
+Item::getX() const 
+{
    return x_;
 }
 
-void Item::setY(int y) {
+void 
+Item::setY(int y) 
+{
    y_ = y;
 }
-int Item::getY() const {
+
+int 
+Item::getY() const 
+{
    return y_;
 }
 
-void Item::setIt(Item::item_type y) {
+void 
+Item::setIt(Item::item_type y) 
+{
    it_ = y;
 }
-Item::item_type Item::getIt() const {
+
+Item::item_type 
+Item::getIt() const 
+{
    return it_;
 }
 
 
-Clock * Item::getTimer() const {
+Clock * 
+Item::getTimer() const 
+{
    return Timer_Item;
 }
 
-void Item::resetTimer() {
+void 
+Item::resetTimer() 
+{
    Timer_Item->Reset();
 }
 

@@ -24,8 +24,12 @@ Game::Game ()
   
   
   // On crée une fenêtre et on la centre sur l'écran.
-	mainWindow_ = new RenderWindow(VideoMode(GAME_WIDTH, GAME_HEIGHT), "Power Samurai!!!", Style::Close);
-	mainWindow_->SetPosition((VideoMode::GetDesktopMode().Width - GAME_WIDTH)/2, (VideoMode::GetDesktopMode().Height - GAME_HEIGHT)/2);
+	mainWindow_ = new RenderWindow(VideoMode(GAME_WIDTH, GAME_HEIGHT), 
+											 "Power Samurai!!!", 
+											 Style::Close);
+
+	mainWindow_->SetPosition((VideoMode::GetDesktopMode().Width - GAME_WIDTH)/2,
+									 (VideoMode::GetDesktopMode().Height - GAME_HEIGHT)/2);
 
 	map_1 = new Map();
 	map_2 = new Map();
@@ -33,34 +37,34 @@ Game::Game ()
 	map_4 = new Map();
 	map_5 = new Map();
   
-   map_courante = new Map();
+   map_courante  = new Map();
    player_choice = new p_choice;
-   image_joueur = new Image;
+   image_joueur  = new Image;
    image_projectile = new Image();
-   image_hp_item = new Image();
-   image_mana_item = new Image();
+   image_hp_item    = new Image();
+   image_mana_item  = new Image();
   
-   image_Armor1 = new Image();
-   image_Devil1 = new Image();
-	image_Dragon1 = new Image();
-	image_Fantome1 = new Image();
-	image_Fantome2 = new Image();
-	image_Reaper1 = new Image();
-	image_Squelette = new Image();
-	image_Troll = new Image();
+   image_Armor1     = new Image();
+   image_Devil1     = new Image();
+	image_Dragon1    = new Image();
+	image_Fantome1   = new Image();
+	image_Fantome2   = new Image();
+	image_Reaper1    = new Image();
+	image_Squelette  = new Image();
+	image_Troll      = new Image();
    
    image_Bat = new Image();
 	image_Bee = new Image();
-	image_Blueslime = new Image();
-	image_Greendragon1 = new Image();
+	image_Blueslime     = new Image();
+	image_Greendragon1  = new Image();
 	image_Greenscorpion = new Image();
-	image_Greenslime = new Image();
-	image_Mouse1 = new Image();
-	image_Naga = new Image();
+	image_Greenslime    = new Image();
+	image_Mouse1        = new Image();
+	image_Naga          = new Image();
 	
-	image_Reddragon1 = new Image();
-	image_Redeye = new Image();
-	image_Redscorpion = new Image();
+	image_Reddragon1    = new Image();
+	image_Redeye        = new Image();
+	image_Redscorpion   = new Image();
 
   
   cout << "game() terminé" << endl;
@@ -113,7 +117,10 @@ void Game::Map_Load(void)
   // Creation map 1
   
   map_1->map_create(MAP_1_HEIGHT,MAP_1_WIDTH);
-  // Comme nous ne pouvons pas initialiser facilement de tableau dynamique, nous avons recours à un tableau statique
+
+  /* Comme nous ne pouvons pas initialiser facilement de
+	 tableau dynamique, nous avons recours à un tableau statique */
+
   int staticmap_1[MAP_1_HEIGHT][MAP_1_WIDTH] = 
 { {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -144,23 +151,28 @@ void Game::Map_Load(void)
   {0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
   };
 
-  for (int x = 0; x < MAP_1_HEIGHT; x++) {
-    for (int y = 0; y < MAP_1_WIDTH; y++) {
-      map_1->set_tableau(x, y, staticmap_1[x][y]);
-    }
-  }
+	for (int x = 0; x < MAP_1_HEIGHT; x++) 
+	{
+		for (int y = 0; y < MAP_1_WIDTH; y++) {
+			map_1->set_tableau(x, y, staticmap_1[x][y]);
+		}
+	}
    
   map_1->image_map_->LoadFromFile("images/Maps/Entree.png");
   map_1->sprite_map_->SetImage(*(map_1->image_map_));
   
-  // On link la carte 1 à la carte 2. Le passage de la carte 1 à la 2 se fait via les cases "2"
+  /* On link la carte 1 à la carte 2. Le passage de 
+		la carte 1 à la 2 se fait via les cases "2" */
+
   map_1->set_links(map_2,NULL,map_5);
-  // On rentre alors les coordonnées d'arrivées dans la nouvelle carte (45,23)
+
+  /* On rentre alors les coordonnées d'arrivées 
+		dans la nouvelle carte (45,23) */
+
   map_1->set_tpPoints(45,23,0,0,1,8);
   
   map_1->setMusic("Musique/Dungeon6.ogg");
    
-	
 	// Creation map 2
   
   map_2->map_create(MAP_2_HEIGHT,MAP_2_WIDTH);
