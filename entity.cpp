@@ -153,31 +153,64 @@ Entity::moveUp() //Okay
 {
    if (getId() == PROJECTILE)
 	{
-	   if(legalDeplacement(getCenter().x + getAnimationWidth()/3,getCenter().y - getAnimationHeight()/3 - getSpeed()- getAnimationHeight()) &&  legalDeplacement(getCenter().x - getAnimationWidth()/3 ,getCenter().y - getAnimationHeight()/3 - getSpeed()- getAnimationHeight())){
-		   mySprite_->Move(ZERO,-getSpeed());
-		   setAnimationY(UP);
+		if(legalDeplacement(getCenter().x + 
+				getAnimationWidth() / 3,
+				getCenter().y - 
+				getAnimationHeight() / 3 - 
+				getSpeed() - 
+				getAnimationHeight()) &&  
+			legalDeplacement(getCenter().x - 
+				getAnimationWidth() / 3 ,
+				getCenter().y - 
+				getAnimationHeight() / 3 - 
+				getSpeed()- 
+				getAnimationHeight()))
+		{
+			mySprite_->Move(ZERO,-getSpeed());
+			setAnimationY(UP);
 	   }
 	   return;
 	}
-	else {
-   
-	   if(legalDeplacement(getCenter().x + getAnimationWidth()/3,getCenter().y - getAnimationHeight()/3 - getSpeed()) &&  legalDeplacement(getCenter().x - getAnimationWidth()/3 ,getCenter().y - getAnimationHeight()/3 - getSpeed())){
-		   mySprite_->Move(ZERO,-getSpeed());
-		   setAnimationY(UP);
+	else 
+	{
+		if(legalDeplacement(getCenter().x + 
+				getAnimationWidth() / 3,
+				getCenter().y - 
+				getAnimationHeight() / 3 - 
+				getSpeed()) &&  
+			legalDeplacement(getCenter().x - 
+				getAnimationWidth() / 3 ,
+				getCenter().y - 
+				getAnimationHeight() / 3 - 
+				getSpeed()))
+		{
+			mySprite_->Move(ZERO,-getSpeed());
+			setAnimationY(UP);
 	   }
-	   else {
-	      if(legalDeplacement(getCenter().x + getAnimationWidth()/3, getCenter().y - getAnimationHeight()/3 - getSpeed())  ){
-
-		      mySprite_->Move(getSpeed(),ZERO);
-		      setAnimationY(RIGHT); // Glisser à droite
-	      }
-	      else {
-	          if(legalDeplacement(getCenter().x - getAnimationWidth()  / 3,getCenter().y - getAnimationHeight()  / 3 - getSpeed()) ){
-		         mySprite_->Move(-getSpeed(),ZERO);
-		         setAnimationY(LEFT); // Glisser à gauche
-	          }
-	      }
-	   }
+		else 
+		{
+			if(legalDeplacement(getCenter().x + 
+				getAnimationWidth() / 3, 
+				getCenter().y - 
+				getAnimationHeight() / 3 - 
+				getSpeed()))
+			{
+				mySprite_->Move(getSpeed(),ZERO);
+				setAnimationY(RIGHT); // Glisser à droite
+			}
+			else 
+			{
+				if(legalDeplacement(getCenter().x - 
+						getAnimationWidth() / 3,
+						getCenter().y - 
+						getAnimationHeight() / 3 - 
+						getSpeed()) )
+				{
+					mySprite_->Move(-getSpeed(),ZERO);
+					setAnimationY(LEFT); // Glisser à gauche
+				}
+			}
+		}
 	}
 }
 
