@@ -29,7 +29,7 @@ Redscorpion::Redscorpion(RenderWindow *win, Image &image, Map *myMap, int ident,
          setVSpell(1, REDSCORPION_V2I1);
          setVSpell(2, REDSCORPION_V2I2);
          setVSpell(3, REDSCORPION_V2I3);
-         setImgSpell(1, "Sprites/Sorts/Attack12.png");
+         setImgSpell(1, "Sprites/Sorts/Attack9.png");
          setImgSpell(2, "Sprites/Sorts/Meteor.png");
          setImgSpell(3, "Sprites/Sorts/Heal4.png");
          setSManaCost(1, REDSCORPION_MANA_COST1);

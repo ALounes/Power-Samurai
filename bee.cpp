@@ -29,7 +29,7 @@ Bee::Bee(RenderWindow *win, Image &image, Map *myMap, int ident, int range)
          setVSpell(1, BEE_V2I1);
          setVSpell(2, BEE_V2I2);
          setVSpell(3, BEE_V2I3);
-         setImgSpell(1, "Sprites/Sorts/Attack12.png");
+         setImgSpell(1, "Sprites/Sorts/Attack5.png");
          setImgSpell(2, "Sprites/Sorts/Meteor.png");
          setImgSpell(3, "Sprites/Sorts/Heal4.png");
          setSManaCost(1, BEE_MANA_COST1);

@@ -423,4 +423,10 @@ void Player::setImgSpritePortrait(string s)
    sprt_->SetImage(*portrait_);
 }
    
+bool Player::getIsDamaged() const {
+   return isDamaged_;
+}
+void Player::setIsDamaged(bool b) {
+   isDamaged_ = b;
+}
 

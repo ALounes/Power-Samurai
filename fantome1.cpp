@@ -29,7 +29,7 @@ Fantome1::Fantome1(RenderWindow *win, Image &image, Map *myMap, int ident, int r
          setVSpell(1, FANTOME1_V2I1);
          setVSpell(2, FANTOME1_V2I2);
          setVSpell(3, FANTOME1_V2I3);
-         setImgSpell(1, "Sprites/Sorts/Attack2.png");
+         setImgSpell(1, "Sprites/Sorts/Attack3.png");
          setImgSpell(2, "Sprites/Sorts/Special14.png");
          setImgSpell(3, "Sprites/Sorts/Heal4.png");
          setSManaCost(1, FANTOME1_MANA_COST1);

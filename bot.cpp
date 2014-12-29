@@ -218,6 +218,7 @@ void Bot::follow_path(Map * map, Player * player) {
    if ( getTimer(1)->GetElapsedTime() > getSpellDelay(1) && (int)path.size() <= getSRange(1) ) {
          cout << "SORT 1 Créé" << endl;
          player->lifePenalty(getDmg(1));
+         player->setIsDamaged(true);
 		      
 		   FolowingAnimation *effect1 = new FolowingAnimation(win_, *getImgSpell(1), getVSpell(1), player);
          effect1->play();
@@ -227,6 +228,7 @@ void Bot::follow_path(Map * map, Player * player) {
    if ( getTimer(2)->GetElapsedTime() > getSpellDelay(2) && (int) path.size() <= getSRange(2) ) {
          cout << "SORT 2 Créé" << endl;
          player->lifePenalty(getDmg(2));
+         player->setIsDamaged(true);
 		      
 		   FolowingAnimation *effect2 = new FolowingAnimation(win_, *getImgSpell(2), getVSpell(2), player);
          effect2->play();
@@ -237,6 +239,7 @@ void Bot::follow_path(Map * map, Player * player) {
    if ( getTimer(3)->GetElapsedTime() >  getSpellDelay(3) && ( (int) path.size() <= getSRange(3)) ) {
          cout << "SORT 3 Créé : " << endl;
          player->lifePenalty(getDmg(3));
+         player->setIsDamaged(true);
           
 		      
 		   FolowingAnimation *effect3 = new FolowingAnimation(win_, *getImgSpell(3), getVSpell(3), player);

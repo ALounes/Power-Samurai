@@ -30,7 +30,7 @@ GreenDragon::GreenDragon(RenderWindow *win, Image &image, Map *myMap, int ident,
          setVSpell(1, GREEN_DRAGON_V2I1);
          setVSpell(2, GREEN_DRAGON_V2I2);
          setVSpell(3, GREEN_DRAGON_V2I3);
-         setImgSpell(1, "Sprites/Sorts/Attack101.png");
+         setImgSpell(1, "Sprites/Sorts/Attack2.png");
          setImgSpell(2, "Sprites/Sorts/Special12.png");
          setImgSpell(3, "Sprites/Sorts/Gun2.png");
          setSManaCost(1, GREEN_DRAGON_MANA_COST1);

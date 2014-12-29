@@ -28,7 +28,7 @@ Squelette::Squelette(RenderWindow *win, Image &image, Map *myMap, int ident, int
          setVSpell(1, SQUELETTE_V2I1);
          setVSpell(2, SQUELETTE_V2I2);
          setVSpell(3, SQUELETTE_V2I3);
-         setImgSpell(1, "Sprites/Sorts/Attack1.png");
+         setImgSpell(1, "Sprites/Sorts/Attack10.png");
          setImgSpell(2, "Sprites/Sorts/Light1.png");
          setImgSpell(3, "Sprites/Sorts/Heal4.png"); 
          setSManaCost(1, SQUELETTE_MANA_COST1);

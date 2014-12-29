@@ -65,6 +65,7 @@ Game::Game ()
 	image_Reddragon1    = new Image();
 	image_Redeye        = new Image();
 	image_Redscorpion   = new Image();
+	image_degats = new Image();
 
   
   cout << "game() terminé" << endl;
@@ -105,6 +106,7 @@ Game::~Game ()
 	delete image_Greenslime;
 	delete image_Mouse1;
 	delete image_Naga;
+	delete image_degats;
 	
 	delete image_Reddragon1;
 	delete image_Redeye;
@@ -1117,6 +1119,11 @@ Game::displayEntity(Clock &time)
       joueur->update();
    }
    joueur->draw();
+   if (joueur->getIsDamaged())
+   {
+      launchBloodEffect(joueur);
+      joueur->setIsDamaged(false);
+   }
    
    if(refresh)
 		time.Reset();
@@ -1127,6 +1134,8 @@ Game::displayEntity(Clock &time)
 	   if(refresh ){
 		   s->update();
 	   }
+	   s->draw();
+	   s->drawRect();
 	   for (auto c : s->spells)
 	      {
 	         if(c->isPlaying()){
@@ -1142,8 +1151,7 @@ Game::displayEntity(Clock &time)
             break;
 	      }
 	   
-	   s->draw();
-	   s->drawRect();
+	   
    }
    // Gestion des effets
    for(auto s : effects){
@@ -1558,7 +1566,7 @@ void Game::loadItem() {
 }    
 
 void Game::launchBloodEffect(LivingEntity * e) { 
-         Vector2i blood_effect(4,4);
+         Vector2i blood_effect(8,3);
          
 		   FolowingAnimation *effect = new FolowingAnimation(mainWindow_, *image_degats, blood_effect, e);
          effect->play();            
@@ -1567,7 +1575,7 @@ void Game::launchBloodEffect(LivingEntity * e) {
 
 void Game::loadImages() 
 {
-   if (!image_degats->LoadFromFile("Sprites/Sorts/blood10.png"))
+   if (!image_degats->LoadFromFile("Sprites/Sorts/Blood2.png"))
 		      cout << "erreur " << endl ;
 		      
    if (!image_hp_item->LoadFromFile("Sprites/Items/hp.png"))

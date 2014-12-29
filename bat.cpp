@@ -29,7 +29,7 @@ Bat::Bat(RenderWindow *win, Image &image, Map *myMap, int ident, int range)
          setVSpell(1, BAT_V2I1);
          setVSpell(2, BAT_V2I2);
          setVSpell(3, BAT_V2I3);
-         setImgSpell(1, "Sprites/Sorts/Attack12.png");
+         setImgSpell(1, "Sprites/Sorts/Attack1.png");
          setImgSpell(2, "Sprites/Sorts/Meteor.png");
          setImgSpell(3, "Sprites/Sorts/Heal4.png");
          setSManaCost(1, BAT_MANA_COST1);

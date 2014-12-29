@@ -73,6 +73,9 @@ class Player : public LivingEntity
 	Sprite* getSpritePortrait() const;
 	void setImgSpritePortrait(string s);
 	
+	bool getIsDamaged() const;
+	void setIsDamaged(bool);
+	
 	private:
 	
 	String name_;
@@ -85,6 +88,8 @@ class Player : public LivingEntity
 	float attack_damage;
 	int nb_Hp_Pot = 0;
 	int nb_Mana_Pot = 0;
+	
+	bool isDamaged_ = false;
 	
 	Image* portrait_;
 	Sprite* sprt_;

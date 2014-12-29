@@ -29,7 +29,7 @@ Reaper1::Reaper1(RenderWindow *win, Image &image, Map *myMap, int ident, int ran
          setVSpell(1, REAPER1_V2I1);
          setVSpell(2, REAPER1_V2I2);
          setVSpell(3, REAPER1_V2I3);
-         setImgSpell(1, "Sprites/Sorts/Attack2.png");
+         setImgSpell(1, "Sprites/Sorts/Attack9.png");
          setImgSpell(2, "Sprites/Sorts/Special14.png");
          setImgSpell(3, "Sprites/Sorts/Heal4.png");
          setSManaCost(1, REAPER1_MANA_COST1);
