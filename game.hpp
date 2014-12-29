@@ -14,6 +14,7 @@
 #include "entity.hpp"
 #include "bot.hpp"
 #include "player.hpp"
+#include "images_animation.hpp"
 #include "animationeffect.hpp"
 #include "linustorvalds.hpp"
 #include "bjarnestroustrup.hpp"
@@ -25,6 +26,7 @@
 #include "item.hpp"
 #include "statusbar.hpp"
 #include "folowinganimation.hpp"
+#include "staticanimation.hpp"
 #include "greendragon.hpp"
 #include "troll.hpp"
 #include "armor1.hpp"
@@ -115,6 +117,7 @@ public:
 	void loadMana(int coordx, int coordy, Map *map);
 	
 	void launchBloodEffect(LivingEntity * e);
+	void launchDeathEffect(LivingEntity * e);
 	
 	void loadImages();
 	void launchingDeath();
@@ -166,11 +169,13 @@ private:
    
 	list<Bot*> entitys;
 	list<AnimationEffect*> effects;
+	list<StaticAnimation*> static_effects;
 	list<Projectile*> projectiles;
 	list<Item*> items;
 	 
 	Player *joueur;
 	Image  *image_joueur;
+	Image  *image_death_joueur;
 	
 	RenderWindow  *mainWindow_;
 	Camera *camera;
@@ -185,14 +190,12 @@ private:
    Map    *map_4;
    Map    *map_5;
    Map    *map_courante;
-   
-   //Music *music_courante_;
   
    Clock * Timer_Projectile;	
    Clock * Timer_Items;
    Clock * Timer_Spell;
 	
-
+   Image *image_Death;
    Image *image_degats;
 	Image *image_projectile;
 	Image *image_hp_item;

@@ -36,6 +36,8 @@ class LivingEntity : public Entity
    list<AnimationEffect*> spells;
 	list<AnimationEffect*> appliedeffects;
 	
+	
+	
 	private:
 	
 	Clock * timer1_;
@@ -46,9 +48,7 @@ class LivingEntity : public Entity
 	int spell_delay2_;
    int spell_delay3_;	
 	
-	Image* Spell1_;
-	Image* Spell2_;
-	Image* Spell3_;
+	
 	int range1_;
 	int range2_;
 	int range3_;
@@ -61,6 +61,10 @@ class LivingEntity : public Entity
 	int mana_cost1_;
 	int mana_cost2_;
 	int mana_cost3_;
+	
+	Image* Spell1_;
+   Image* Spell2_;
+	Image* Spell3_;
 	
 };
 

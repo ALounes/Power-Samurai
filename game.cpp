@@ -10,14 +10,13 @@ bool moving = false;
 int pos_x ,pos_y;
 
 
-
-
 enum direction direction_prec;
 
 Game::Game ()
 {
    cout << "CONSTRUCTEUR game()" << endl;
 	mainMenu_ = new MainMenu;
+	
 
 	gameState_ = new GameState;
 	*gameState_ = Uninitialized;
@@ -66,6 +65,8 @@ Game::Game ()
 	image_Redeye        = new Image();
 	image_Redscorpion   = new Image();
 	image_degats = new Image();
+	image_Death = new Image();
+	image_death_joueur = new Image();
 
   
   cout << "game() terminé" << endl;
@@ -89,6 +90,7 @@ Game::~Game ()
    delete image_projectile;
    delete image_hp_item;
    delete image_mana_item;
+   
    delete image_Armor1;
    delete image_Devil1;
    delete image_Dragon1;
@@ -97,7 +99,6 @@ Game::~Game ()
 	delete image_Reaper1;
 	delete image_Squelette;
 	delete image_Troll;
-
    delete image_Bat;
 	delete image_Bee;
 	delete image_Blueslime;
@@ -105,12 +106,14 @@ Game::~Game ()
 	delete image_Greenscorpion;
 	delete image_Greenslime;
 	delete image_Mouse1;
-	delete image_Naga;
-	delete image_degats;
-	
+	delete image_Naga;	
 	delete image_Reddragon1;
 	delete image_Redeye;
 	delete image_Redscorpion;
+	
+	delete image_degats;
+	delete image_Death;
+	delete image_death_joueur;
   
 }
 void Game::Map_Load(void)
@@ -471,7 +474,18 @@ void Game::GameLoop()
 			}
 		case Game::ShowingMainMenu:
 			{
-				ShowMainMenu();
+			   //Music music_;
+			   
+	         //music_.OpenFromFile("Musique/SplashScreen.ogg");
+            //music_.SetLoop(true);
+            mainMenu_->getMusic()->Play();
+            ShowMainMenu();
+	         if (*gameState_ == Game::Exiting || *gameState_ == Game::Playing)
+	         {
+	            mainMenu_->getMusic()->Pause();
+	         }
+	         
+				
 				break;
 			}
 		case Game::ShowingDifficultyMenu:
@@ -530,8 +544,12 @@ void Game::GameLoop()
 void Game::ShowSplashScreen()
 {
 	SplashScreen *splashScreen_ = new SplashScreen();
+	Music music_;
+	music_.OpenFromFile("Musique/SplashScreen.ogg");
+   music_.SetLoop(true);
+   music_.Play();
 	splashScreen_->Show(mainWindow_);
-	
+	music_.Stop();
 	*gameState_ = Game::ShowingMainMenu;
 	
 	delete splashScreen_;
@@ -643,6 +661,8 @@ void Game::RunGame()
 	 	
  	// Suivant le résultat de PlayersMenu, on crée un personnage
  	setPlayer(mainWindow_);
+ 	
+ 	//loadImagesAnimation();
  	
  	loadImages();
  	loadBot();
@@ -757,6 +777,7 @@ void Game::RunGame()
 							launchBloodEffect(s);
 							if (!s->isAlive())
 							{
+							   launchDeathEffect(s);
 								entitys.remove(s);
 								(map_courante->Bot_list).remove(s);
 								delete s;
@@ -803,6 +824,7 @@ void Game::RunGame()
 							launchBloodEffect(s);
 							if (!s->isAlive())
 							{
+							   launchDeathEffect(s);
 								entitys.remove(s);
 								(map_courante->Bot_list).remove(s);
 								delete s;
@@ -848,6 +870,8 @@ void Game::RunGame()
 							launchBloodEffect(s);
 							if (!s->isAlive())
 							{
+							   launchDeathEffect(s);
+							   
 								entitys.remove(s);
 								(map_courante->Bot_list).remove(s);
 								delete s;
@@ -943,14 +967,46 @@ void Game::RunGame()
       
       
 		// Efface le contenu de la fenetre 
-		mainWindow_->Clear();
 		joueur->getMovingSound()->Pause();
+		
 		if (!joueur->isAlive())
 		{
 		   map_courante->getMusic()->Stop();
-		   cout << "Perso Mort" << endl;
+		   
+		   Clock death_timer;
+		   Vector2i eff = Vector2i(3,10);
+	      StaticAnimation *mort = new StaticAnimation(mainWindow_, *image_death_joueur, eff, joueur->getCenter());
+	      mort->play();
+	      
+	      
+         int i = 0;
+         while (mort->isPlaying())
+         {
+          if (i == 25)
+          {
+             while (death_timer.GetElapsedTime() < 3)
+             {
+                
+             }
+             death_timer.Reset();
+             
+          }
+          
+          mainWindow_->Clear();
+          mainWindow_->Draw(*(map_courante->sprite_map_));
+
+          mort->run();  
+          ++i;
+          mainWindow_->Display(); 
+         }
+		   delete mort;
+		   
 		   launchingDeath();
 		}
+		
+		mainWindow_->Clear();
+		
+		
    
    }
 
@@ -1030,6 +1086,11 @@ void Game::RunGame()
 	{ 
 		delete effects.back(); 
 		effects.pop_back(); 
+	}
+	while (!static_effects.empty()) 
+	{ 
+		delete static_effects.back(); 
+		static_effects.pop_back(); 
 	}
 
 	while (!projectiles.empty())
@@ -1155,6 +1216,13 @@ Game::displayEntity(Clock &time)
    }
    // Gestion des effets
    for(auto s : effects){
+
+      if(s->isPlaying()){
+      s->run();
+      }
+   }
+   for(auto s : static_effects){
+
       if(s->isPlaying()){
       s->run();
       }
@@ -1234,16 +1302,10 @@ Game::displayEntity(Clock &time)
 	         delete s ;
 	         c->lifePenalty(joueur->getAttackDamage());
 	         if (!c->isAlive())
-	         {
+	         {  
+	            launchDeathEffect(c);
 	            entitys.remove(c);
                (map_courante->Bot_list).remove(c);
-					// TEST ANIMATION
-					//Image *dieImage_  = new Image();
-					//dieImage_->LoadFromFile("images/Sprite_bot/DieImage.png");
-					//AnimationEffect *dieAnimation_ = new AnimationEffect(mainWindow_, *dieImage_, Vector2i(4,4),c);
-					//dieAnimation_->play();
-					//dieAnimation_->run();
-
 			      delete c;
 					
 	         }
@@ -1285,6 +1347,8 @@ void Game::setPlayer(RenderWindow  * mainwin)
       {
         if(!image_joueur->LoadFromFile("Sprites/Personnages/P1.png"))
 		      cout << "erreur " << endl ; 
+		  if(!image_death_joueur->LoadFromFile("Sprites/Personnages/Damage1.png"))
+		      cout << "erreur " << endl ;
         
         joueur = new LinusTorvalds(mainwin,*image_joueur,map_courante,250);
         joueur->setPosition(Vector2f(PLAYER_X_START*BASE_SPRITE ,PLAYER_Y_START*BASE_SPRITE));
@@ -1294,6 +1358,8 @@ void Game::setPlayer(RenderWindow  * mainwin)
       case P2 : 
       {
         if(!image_joueur->LoadFromFile("Sprites/Personnages/P2.png"))
+		      cout << "erreur " << endl ;
+		  if(!image_death_joueur->LoadFromFile("Sprites/Personnages/Damage1.png"))
 		      cout << "erreur " << endl ; 
         joueur = new BjarneStroustrup(mainwin,*image_joueur,map_courante,300);
         joueur->setPosition(Vector2f(PLAYER_X_START*BASE_SPRITE ,PLAYER_Y_START*BASE_SPRITE));
@@ -1304,7 +1370,8 @@ void Game::setPlayer(RenderWindow  * mainwin)
       {
         if(!image_joueur->LoadFromFile("Sprites/Personnages/P3.png"))
 		      cout << "erreur " << endl ; 
-        
+        if(!image_death_joueur->LoadFromFile("Sprites/Personnages/Damage1.png"))
+		      cout << "erreur " << endl ;
         joueur = new AlanTuring(mainwin,*image_joueur,map_courante,100);
         joueur->setPosition(Vector2f(PLAYER_X_START*BASE_SPRITE ,PLAYER_Y_START*BASE_SPRITE));
         break;
@@ -1315,8 +1382,9 @@ void Game::setPlayer(RenderWindow  * mainwin)
       {
 
         if(!image_joueur->LoadFromFile("Sprites/Personnages/P4.png"))
-
 		      cout << "erreur " << endl ; 
+		  if(!image_death_joueur->LoadFromFile("Sprites/Personnages/Damage1.png"))
+		      cout << "erreur " << endl ;
         joueur = new Athena(mainwin,*image_joueur,map_courante,250);
         joueur->setPosition(Vector2f(PLAYER_X_START*BASE_SPRITE ,PLAYER_Y_START*BASE_SPRITE));
         break;
@@ -1326,6 +1394,8 @@ void Game::setPlayer(RenderWindow  * mainwin)
       {
         if(!image_joueur->LoadFromFile("Sprites/Personnages/P1.png"))
 		      cout << "erreur " << endl ; 
+		  if(!image_death_joueur->LoadFromFile("Sprites/Personnages/Damage1.png"))
+		      cout << "erreur " << endl ;
         joueur = new LinusTorvalds(mainwin,*image_joueur,map_courante,150);
         joueur->setPosition(Vector2f(PLAYER_X_START*BASE_SPRITE ,PLAYER_Y_START*BASE_SPRITE));
         break;
@@ -1405,6 +1475,8 @@ void Game::launchingDeath()
    Image game_over;
    Sprite s_over;
    String texte;
+   
+   
   
    Music gameover;
    if(!gameover.OpenFromFile("Musique/Gameover2.ogg"))
@@ -1415,6 +1487,10 @@ void Game::launchingDeath()
       cout << "erreur " << endl ;
    s_over.SetImage(game_over);
    s_over.SetPosition( camera->position_->x - PLAYING_WIDTH/2, camera->position_->y - PLAYING_HEIGHT/2);
+   
+   
+   
+   
    
    mainWindow_->Clear();
    
@@ -1566,15 +1642,24 @@ void Game::loadItem() {
 }    
 
 void Game::launchBloodEffect(LivingEntity * e) { 
-         Vector2i blood_effect(8,3);
-         
-		   FolowingAnimation *effect = new FolowingAnimation(mainWindow_, *image_degats, blood_effect, e);
-         effect->play();            
-			e->spells.push_front(effect);
+   Vector2i blood_effect(8,3);        
+   FolowingAnimation *effect = new FolowingAnimation(mainWindow_, *image_degats, blood_effect, e);
+   effect->play();            
+	e->spells.push_front(effect);
+} 
+
+void Game::launchDeathEffect(LivingEntity * e) { 	
+   Vector2i eff = Vector2i(5,5);
+	StaticAnimation *ble = new StaticAnimation(mainWindow_, *image_Death, eff, e->getCenter());
+	ble->play();
+	static_effects.push_front( ble);
 } 
 
 void Game::loadImages() 
 {
+   if (!image_Death->LoadFromFile("Sprites/Sorts/Death1.png"))
+		      cout << "erreur " << endl ;
+		      
    if (!image_degats->LoadFromFile("Sprites/Sorts/Blood2.png"))
 		      cout << "erreur " << endl ;
 		      
@@ -1639,7 +1724,9 @@ void Game::loadImages()
 		      cout << "erreur " << endl ;
 
 	if (!image_Redscorpion->LoadFromFile("Sprites/Ennemis/Redscorpion.png"))
-		      cout << "erreur " << endl ;	  
+		      cout << "erreur " << endl ;	
+   
+     
 }
      
      

@@ -1,6 +1,6 @@
 #include "staticanimation.hpp"
 
-StaticAnimation ::StaticAnimation (RenderWindow *win, Image& image, const Vector2i nbrOfAnim, Vector2f position)
+StaticAnimation::StaticAnimation (RenderWindow *win, Image& image, const Vector2i nbrOfAnim, Vector2f position)
 	: AnimationEffect(win,image,nbrOfAnim)
 	, position_(position)
 {}

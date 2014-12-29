@@ -24,6 +24,9 @@ public:
 	// Afficher l'image principale
 	void Load(RenderWindow *window);
 	MenuResult Show(RenderWindow *window);
+	
+	Music* getMusic() const;
+   void setMusic(string s);
 
 private:
 	MenuResult GetMenuResponse(RenderWindow *window);
@@ -39,6 +42,8 @@ private:
 	sf::Image *image_players_;
 	
 	int on_button = 0;
+	
+	Music* music_;
 	
 	sf::Sprite *sprite_main_all_; 
 };

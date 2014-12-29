@@ -29,6 +29,8 @@ MainMenu::MainMenu ()
 	//Chargement des images effectués dès le constructeur en raison de leur coût en ressource
 	
 	//cout << "CONSTRUCTEUR MainMenu()" << endl;
+	music_ = new Music();
+	setMusic("Musique/MainMenu.ogg");
 	
 	image_main_ = new sf::Image();
 	image_main_->LoadFromFile("images/MainMenu/MainMenu.png");
@@ -54,7 +56,7 @@ MainMenu::MainMenu ()
 		cout << "erreur " << endl ;
 	Sprite sprite_players;
 	sprite_players.SetImage(*image_players_);
-
+   
 	//Setup clickable regions
 	
 	//Nothing menu item
@@ -129,6 +131,7 @@ MainMenu::~MainMenu ()
 	delete image_exit_;
 	delete image_difficulty_;
 	delete image_players_;
+	delete music_;
 }
 
 // Afficher l'image principale
@@ -215,6 +218,17 @@ void MainMenu::HandleMove(int x, int y, RenderWindow *window)
   }
   
   window->Display();
+}
+
+
+Music* MainMenu::getMusic() const {
+   return music_;
+}
+
+
+void MainMenu::setMusic(string s) {
+   music_->OpenFromFile(s);
+   music_->SetLoop(true);
 }
 
 
