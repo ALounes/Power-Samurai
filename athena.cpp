@@ -1,6 +1,6 @@
 #include "athena.hpp"
 
-Athena::Athena(RenderWindow *win, Image &image, Map *myMap,float att_dmg)
+Athena::Athena(RenderWindow *win, Image &image, Map *myMap,float att_dmg, Image* image1, Image* image2, Image* image3)
 :Player( win,
 			image, 
 			Vector2i(ATHENA_X,ATHENA_Y), 
@@ -24,9 +24,9 @@ Athena::Athena(RenderWindow *win, Image &image, Map *myMap,float att_dmg)
          setVSpell(1, ATHENA_V2I1);
          setVSpell(2, ATHENA_V2I2);
          setVSpell(3, ATHENA_V2I3);
-         setImgSpell(1, "Sprites/Sorts/Special15.png");
-         setImgSpell(2, "Sprites/Sorts/Special12.png");
-         setImgSpell(3, "Sprites/Sorts/Gun2.png");
+         setImgSpell(1, image1);
+         setImgSpell(2, image2);
+         setImgSpell(3, image3);
          setSManaCost(1, ATHENA_MANA_COST1);
          setSManaCost(2, ATHENA_MANA_COST2);
          setSManaCost(3, ATHENA_MANA_COST3);

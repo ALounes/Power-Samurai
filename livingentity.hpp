@@ -19,7 +19,7 @@ class LivingEntity : public Entity
 	void setSpellDelay(int i, int sd);
 	
 	Image* getImgSpell(int) const;
-	void setImgSpell(int i, string s);
+	void setImgSpell(int i, Image*);
 	
 	int getSRange(int) const;
 	void setSRange(int i, int r);

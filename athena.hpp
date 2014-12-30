@@ -33,7 +33,7 @@ class Athena : public Player
 {
 	public :
 
-	Athena(RenderWindow *win, Image &image, Map *myMap,float att_dmg);
+	Athena(RenderWindow *win, Image &image, Map *myMap,float att_dmg, Image* image1, Image* image2, Image* image3);
 	~Athena();
 
 	private:

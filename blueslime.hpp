@@ -34,7 +34,7 @@ class Blueslime : public Bot
 {
 	public :
 
-	Blueslime(RenderWindow *win, Image &image, Map *myMap, int ident, int range);
+	Blueslime(RenderWindow *win, Image &image, Map *myMap, int ident, int range, Image* image1, Image* image2, Image* image3);
 
 	~Blueslime();
 

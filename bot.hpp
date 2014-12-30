@@ -20,7 +20,7 @@ class Bot: public LivingEntity
 {
 	public :
 	
-	Bot(RenderWindow *win, Image &image, const Vector2i nbrOfAnim, String name, int life, int mana, enum power power, Map *myMap, float att_dmg, float att_delay, float ResultDiff, int ident, int rangebot, int xp);
+	Bot(RenderWindow *win, Image &image, const Vector2i nbrOfAnim, String name, int life, int mana, enum power power, Map *myMap, float att_dmg, float att_delay, float ResultDiff, int ident, int rangebot, int xp, Image* image1, Image* image2, Image* image3);
 		
 	virtual ~Bot();
 

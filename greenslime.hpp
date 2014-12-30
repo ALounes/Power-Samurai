@@ -34,7 +34,7 @@ class Greenslime : public Bot
 {
 	public :
 
-	Greenslime(RenderWindow *win, Image &image, Map *myMap, int ident, int range);
+	Greenslime(RenderWindow *win, Image &image, Map *myMap, int ident, int range, Image* image1, Image* image2, Image* image3);
 
 	~Greenslime();
 

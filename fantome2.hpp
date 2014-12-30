@@ -34,7 +34,7 @@ class Fantome2 : public Bot
 {
 	public :
 
-	Fantome2(RenderWindow *win, Image &image, Map *myMap, int ident, int range);
+	Fantome2(RenderWindow *win, Image &image, Map *myMap, int ident, int range, Image* image1, Image* image2, Image* image3);
 
 	~Fantome2();
 

@@ -34,7 +34,7 @@ class Troll : public Bot
 {
 	public :
 
-	Troll(RenderWindow *win, Image &image, Map *myMap, int ident, int range);
+	Troll(RenderWindow *win, Image &image, Map *myMap, int ident, int range, Image* image1, Image* image2, Image* image3);
 
 	~Troll();
 

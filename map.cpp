@@ -62,9 +62,9 @@ Map::map_create(int hauteur, int largeur)
 void 
 Map::set_links(Map * map_1, Map * map_2, Map * map_3) 
 {
-   link_map_1_ = new Map();
-   link_map_2_ = new Map();
-   link_map_3_ = new Map();
+   //link_map_1_ = new Map();
+   //link_map_2_ = new Map();
+   //link_map_3_ = new Map();
    
    link_map_1_ = map_1;
    link_map_2_ = map_2;

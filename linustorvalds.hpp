@@ -34,7 +34,7 @@ class LinusTorvalds : public Player
 {
 	public :
 
-	LinusTorvalds(RenderWindow *win, Image &image, Map *myMap,float att_dmg);
+	LinusTorvalds(RenderWindow *win, Image &image, Map *myMap,float att_dmg, Image* image1, Image* image2, Image* image3);
 
 	~LinusTorvalds();
 

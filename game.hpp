@@ -14,7 +14,7 @@
 #include "entity.hpp"
 #include "bot.hpp"
 #include "player.hpp"
-//#include "images_animation.hpp"
+#include "images_animation.hpp"
 #include "animationeffect.hpp"
 #include "linustorvalds.hpp"
 #include "bjarnestroustrup.hpp"
@@ -172,6 +172,8 @@ private:
 	list<StaticAnimation*> static_effects;
 	list<Projectile*> projectiles;
 	list<Item*> items;
+	
+	Images all_images;
 	 
 	Player *joueur;
 	Image  *image_joueur;
@@ -201,27 +203,6 @@ private:
 	Image *image_hp_item;
 	Image *image_mana_item;
 	
-	Image *image_Armor1;
-	Image *image_Devil1;
-	Image *image_Dragon1;
-	Image *image_Fantome1;
-	Image *image_Fantome2;
-	Image *image_Reaper1;
-	Image *image_Squelette;
-	Image *image_Troll;
-	
-	Image *image_Bat;
-	Image *image_Bee;
-	Image *image_Blueslime;
-	Image *image_Greendragon1;
-	Image *image_Greenscorpion;
-	Image *image_Greenslime;
-	Image *image_Mouse1;
-	Image *image_Naga;
-	
-	Image *image_Reddragon1;
-	Image *image_Redeye;
-	Image *image_Redscorpion;
 };
 
 

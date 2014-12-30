@@ -1,7 +1,7 @@
 #include "bat.hpp"
 
 
-Bat::Bat(RenderWindow *win, Image &image, Map *myMap, int ident, int range)
+Bat::Bat(RenderWindow *win, Image &image, Map *myMap, int ident, int range, Image* image1, Image* image2, Image* image3)
 :Bot( win,
 			image, 
 			Vector2i(BAT_X,BAT_Y), 
@@ -15,7 +15,7 @@ Bat::Bat(RenderWindow *win, Image &image, Map *myMap, int ident, int range)
 			BAT_SPEED,
 			ident,
 			range,
-			BAT_XP
+			BAT_XP, image1, image2, image3
 			)
 {	      setSpellDelay(1, BAT_DELAY1);
          setSpellDelay(2, BAT_DELAY2);
@@ -29,9 +29,9 @@ Bat::Bat(RenderWindow *win, Image &image, Map *myMap, int ident, int range)
          setVSpell(1, BAT_V2I1);
          setVSpell(2, BAT_V2I2);
          setVSpell(3, BAT_V2I3);
-         setImgSpell(1, "Sprites/Sorts/Attack1.png");
-         setImgSpell(2, "Sprites/Sorts/Meteor.png");
-         setImgSpell(3, "Sprites/Sorts/Heal4.png");
+         setImgSpell(1, image1);
+         setImgSpell(2, image2);
+         setImgSpell(3, image3);
          setSManaCost(1, BAT_MANA_COST1);
          setSManaCost(2, BAT_MANA_COST2);
          setSManaCost(3, BAT_MANA_COST3);

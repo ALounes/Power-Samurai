@@ -33,7 +33,7 @@ class AlanTuring : public Player
 {
 	public :
 
-	AlanTuring(RenderWindow *win, Image &image, Map *myMap,float att_dmg);
+	AlanTuring(RenderWindow *win, Image &image, Map *myMap,float att_dmg, Image* image1, Image* image2, Image* image3);
 	~AlanTuring();
 
 	private:

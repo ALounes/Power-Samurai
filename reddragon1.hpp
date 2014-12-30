@@ -34,7 +34,7 @@ class Reddragon1 : public Bot
 {
 	public :
 
-	Reddragon1(RenderWindow *win, Image &image, Map *myMap, int ident, int range);
+	Reddragon1(RenderWindow *win, Image &image, Map *myMap, int ident, int range, Image* image1, Image* image2, Image* image3);
 
 	~Reddragon1();
 

@@ -7,9 +7,9 @@ LivingEntity::LivingEntity(RenderWindow *win, Image& image,const Vector2i& nbrOf
    timer1_ = new Clock();
    timer2_ = new Clock();
    timer3_ = new Clock();
-   Spell1_ = new Image();
-   Spell2_ = new Image();
-   Spell3_ = new Image();
+   //Spell1_ = new Image();
+   //Spell2_ = new Image();
+   //Spell3_ = new Image();
 }
 
 LivingEntity::~LivingEntity()
@@ -17,9 +17,9 @@ LivingEntity::~LivingEntity()
    delete timer1_;
 	delete timer2_;
 	delete timer3_;
-	delete Spell1_;
-	delete Spell2_;
-	delete Spell3_;
+	//delete Spell1_;
+	//delete Spell2_;
+	//delete Spell3_;
 //while (!spells.empty()) { delete spells.back(); spells.pop_back(); }
 //while (!appliedeffects.empty()) { delete appliedeffects.back(); appliedeffects.pop_back(); }
 cout << "DESTRUCTEUR LivingEntity()" << endl;
@@ -112,26 +112,24 @@ Image* LivingEntity::getImgSpell(int i) const {
          break;
 	}
 }
-void LivingEntity::setImgSpell(int i, string s) {
+void LivingEntity::setImgSpell(int i, Image* img) {
    switch (i)
 	{
       case  1 : {
-         if (!Spell1_->LoadFromFile(s))
-		      cout << "erreur " << endl ;
+         Spell1_ = img;
          break;
       }
       case  2 : {
-         if (!Spell2_->LoadFromFile(s))
-		      cout << "erreur " << endl ;
+         Spell2_ = img;
+
          break; 
       }
       case  3 :
-         if (!Spell3_->LoadFromFile(s))
-		      cout << "erreur " << endl ;
+         Spell2_ = img;
+
   	      break;
       default :
-         if (!Spell1_->LoadFromFile(s))
-		      cout << "erreur " << endl ;
+         Spell1_ = img;
          break;
 	}
 }

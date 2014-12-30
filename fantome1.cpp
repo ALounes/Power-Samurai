@@ -1,7 +1,7 @@
 #include "fantome1.hpp"
 
 
-Fantome1::Fantome1(RenderWindow *win, Image &image, Map *myMap, int ident, int range)
+Fantome1::Fantome1(RenderWindow *win, Image &image, Map *myMap, int ident, int range, Image* image1, Image* image2, Image* image3)
 :Bot( win,
 			image, 
 			Vector2i(FANTOME1_X,FANTOME1_Y), 
@@ -15,7 +15,7 @@ Fantome1::Fantome1(RenderWindow *win, Image &image, Map *myMap, int ident, int r
 			FANTOME1_SPEED,
 			ident,
 			range,
-			FANTOME1_XP
+			FANTOME1_XP, image1, image2, image3
 			)
 {	      setSpellDelay(1, FANTOME1_DELAY1);
          setSpellDelay(2, FANTOME1_DELAY2);
@@ -29,9 +29,9 @@ Fantome1::Fantome1(RenderWindow *win, Image &image, Map *myMap, int ident, int r
          setVSpell(1, FANTOME1_V2I1);
          setVSpell(2, FANTOME1_V2I2);
          setVSpell(3, FANTOME1_V2I3);
-         setImgSpell(1, "Sprites/Sorts/Attack3.png");
-         setImgSpell(2, "Sprites/Sorts/Special14.png");
-         setImgSpell(3, "Sprites/Sorts/Heal4.png");
+         setImgSpell(1, image1);
+         setImgSpell(2, image2);
+         setImgSpell(3, image3);
          setSManaCost(1, FANTOME1_MANA_COST1);
          setSManaCost(2, FANTOME1_MANA_COST2);
          setSManaCost(3, FANTOME1_MANA_COST3);      

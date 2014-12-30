@@ -9,7 +9,7 @@ bool operator<(const Node & a, const Node & b)
 }
 
 Bot::Bot(RenderWindow *win, Image& image, const Vector2i nbrOfAnim, String name,
-			int life, int mana, enum power power, Map *myMap, float att_dmg, float att_delay, float bot_speed, int ident, int rangebot, int xp)
+			int life, int mana, enum power power, Map *myMap, float att_dmg, float att_delay, float bot_speed, int ident, int rangebot, int xp, Image* image1, Image* image2, Image* image3)
 :LivingEntity(win,image,nbrOfAnim,myMap)
 ,range_(rangebot)
 ,name_(name)

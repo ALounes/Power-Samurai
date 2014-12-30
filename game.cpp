@@ -36,14 +36,13 @@ Game::Game ()
 	map_4 = new Map();
 	map_5 = new Map();
   
-   map_courante  = new Map();
    player_choice = new p_choice;
    image_joueur  = new Image;
    image_projectile = new Image();
    image_hp_item    = new Image();
    image_mana_item  = new Image();
   
-   image_Armor1     = new Image();
+   /*image_Armor1     = new Image();
    image_Devil1     = new Image();
 	image_Dragon1    = new Image();
 	image_Fantome1   = new Image();
@@ -64,6 +63,7 @@ Game::Game ()
 	image_Reddragon1    = new Image();
 	image_Redeye        = new Image();
 	image_Redscorpion   = new Image();
+	*/
 	image_degats = new Image();
 	image_Death = new Image();
 	image_death_joueur = new Image();
@@ -91,26 +91,6 @@ Game::~Game ()
    delete image_hp_item;
    delete image_mana_item;
    
-   delete image_Armor1;
-   delete image_Devil1;
-   delete image_Dragon1;
-	delete image_Fantome1;
-	delete image_Fantome2;
-	delete image_Reaper1;
-	delete image_Squelette;
-	delete image_Troll;
-   delete image_Bat;
-	delete image_Bee;
-	delete image_Blueslime;
-	delete image_Greendragon1;
-	delete image_Greenscorpion;
-	delete image_Greenslime;
-	delete image_Mouse1;
-	delete image_Naga;	
-	delete image_Reddragon1;
-	delete image_Redeye;
-	delete image_Redscorpion;
-	
 	delete image_degats;
 	delete image_Death;
 	delete image_death_joueur;
@@ -685,7 +665,14 @@ void Game::RunGame()
    int lancer_dialogue = 0;  // 0 : non traité, 1 : en cours, 2 : traité.
    
    const Input &input = mainWindow_->GetInput();
-
+   /*Sprite sese = Sprite(*(all_images.image_Attack5));
+   mainWindow_->Draw(sese);
+   mainWindow_->Display();
+   while (3!=2)
+   {
+      
+   }*/
+   
    while (mainWindow_->IsOpened() && !(fin_de_boucle) && *gameState_ == Playing)
    {
       effects = joueur->spells;
@@ -1350,7 +1337,7 @@ void Game::setPlayer(RenderWindow  * mainwin)
 		  if(!image_death_joueur->LoadFromFile("Sprites/Personnages/Damage1.png"))
 		      cout << "erreur " << endl ;
         
-        joueur = new LinusTorvalds(mainwin,*image_joueur,map_courante,250);
+        joueur = new LinusTorvalds(mainwin,*image_joueur,map_courante,250,all_images.image_Light7,all_images.image_Special12,all_images.image_Gun2);
         joueur->setPosition(Vector2f(PLAYER_X_START*BASE_SPRITE ,PLAYER_Y_START*BASE_SPRITE));
         break;
       }
@@ -1361,7 +1348,7 @@ void Game::setPlayer(RenderWindow  * mainwin)
 		      cout << "erreur " << endl ;
 		  if(!image_death_joueur->LoadFromFile("Sprites/Personnages/Damage1.png"))
 		      cout << "erreur " << endl ; 
-        joueur = new BjarneStroustrup(mainwin,*image_joueur,map_courante,300);
+        joueur = new BjarneStroustrup(mainwin,*image_joueur,map_courante,300,all_images.image_Special15,all_images.image_Special12,all_images.image_Gun2);
         joueur->setPosition(Vector2f(PLAYER_X_START*BASE_SPRITE ,PLAYER_Y_START*BASE_SPRITE));
         break;
       }
@@ -1372,7 +1359,7 @@ void Game::setPlayer(RenderWindow  * mainwin)
 		      cout << "erreur " << endl ; 
         if(!image_death_joueur->LoadFromFile("Sprites/Personnages/Damage1.png"))
 		      cout << "erreur " << endl ;
-        joueur = new AlanTuring(mainwin,*image_joueur,map_courante,100);
+        joueur = new AlanTuring(mainwin,*image_joueur,map_courante,100,all_images.image_Light7,all_images.image_Special12,all_images.image_Gun2);
         joueur->setPosition(Vector2f(PLAYER_X_START*BASE_SPRITE ,PLAYER_Y_START*BASE_SPRITE));
         break;
       }
@@ -1385,7 +1372,7 @@ void Game::setPlayer(RenderWindow  * mainwin)
 		      cout << "erreur " << endl ; 
 		  if(!image_death_joueur->LoadFromFile("Sprites/Personnages/Damage1.png"))
 		      cout << "erreur " << endl ;
-        joueur = new Athena(mainwin,*image_joueur,map_courante,250);
+        joueur = new Athena(mainwin,*image_joueur,map_courante,250,all_images.image_Light7,all_images.image_Special12,all_images.image_Gun2);
         joueur->setPosition(Vector2f(PLAYER_X_START*BASE_SPRITE ,PLAYER_Y_START*BASE_SPRITE));
         break;
       }
@@ -1396,7 +1383,7 @@ void Game::setPlayer(RenderWindow  * mainwin)
 		      cout << "erreur " << endl ; 
 		  if(!image_death_joueur->LoadFromFile("Sprites/Personnages/Damage1.png"))
 		      cout << "erreur " << endl ;
-        joueur = new LinusTorvalds(mainwin,*image_joueur,map_courante,150);
+        joueur = new LinusTorvalds(mainwin,*image_joueur,map_courante,150,all_images.image_Light7,all_images.image_Special12,all_images.image_Gun2);
         joueur->setPosition(Vector2f(PLAYER_X_START*BASE_SPRITE ,PLAYER_Y_START*BASE_SPRITE));
         break;
       }
@@ -1668,8 +1655,11 @@ void Game::loadImages()
 
 	if (!image_mana_item->LoadFromFile("Sprites/Items/mana.png"))
 		      cout << "erreur " << endl ;	
+   
+   if (!image_projectile->LoadFromFile("Sprites/Projectiles/Fire1.png"))
+		      cout << "erreur " << endl ;
       
-   if (!image_Armor1->LoadFromFile("Sprites/Ennemis/Armor1.png"))
+   /*if (!image_Armor1->LoadFromFile("Sprites/Ennemis/Armor1.png"))
 		      cout << "erreur " << endl ;    
   
    if (!image_Devil1->LoadFromFile("Sprites/Ennemis/Devil1.png"))
@@ -1693,8 +1683,7 @@ void Game::loadImages()
    if (!image_Fantome2->LoadFromFile("Sprites/Ennemis/Fantome2.png"))
 		      cout << "erreur " << endl ;
 
-   if (!image_projectile->LoadFromFile("Sprites/Projectiles/Fire1.png"))
-		      cout << "erreur " << endl ;
+   
 		      
    if (!image_Bee->LoadFromFile("Sprites/Ennemis/Bee.png"))
 		      cout << "erreur " << endl ; 
@@ -1725,7 +1714,7 @@ void Game::loadImages()
 
 	if (!image_Redscorpion->LoadFromFile("Sprites/Ennemis/Redscorpion.png"))
 		      cout << "erreur " << endl ;	
-   
+   */
      
 }
      
@@ -1757,10 +1746,10 @@ void Game::loadMana(int coordx, int coordy, Map *map)
 void Game::loadDragon(Map *map, int id, int range, int coordx, int coordy) 
 { 
 	GreenDragon *bot = new GreenDragon(mainWindow_,
-												  *image_Dragon1,
+												  *(all_images.image_Dragon1),
 												  map,
 												  id,
-												  range);
+												  range, all_images.image_Attack2, all_images.image_Special12, all_images.image_Gun2);
 
 	bot->setPosition(Vector2f(BASE_SPRITE*coordx,BASE_SPRITE*coordy));
 
@@ -1770,10 +1759,10 @@ void Game::loadDragon(Map *map, int id, int range, int coordx, int coordy)
 void Game::loadTroll(Map *map, int id, int range, int coordx, int coordy) 
 {
    Troll *bot = new Troll(mainWindow_,
-								  *image_Troll,
+								  *(all_images.image_Troll),
 								  map,
 								  id,
-								  range);
+								  range, all_images.image_Attack2, all_images.image_Special12, all_images.image_Gun2);
 
    bot->setPosition(Vector2f(BASE_SPRITE*coordx,BASE_SPRITE*coordy));
 
@@ -1783,10 +1772,10 @@ void Game::loadTroll(Map *map, int id, int range, int coordx, int coordy)
 void Game::loadArmor1(Map *map, int id, int range, int coordx, int coordy) 
 {
    Armor1 *bot = new Armor1(mainWindow_,
-									 *image_Armor1,
+									 *(all_images.image_Armor1),
 									 map,
 									 id,
-									 range);
+									 range, all_images.image_Attack2, all_images.image_Special12, all_images.image_Gun2);
 
    bot->setPosition(Vector2f(BASE_SPRITE*coordx,BASE_SPRITE*coordy));
 
@@ -1796,10 +1785,10 @@ void Game::loadArmor1(Map *map, int id, int range, int coordx, int coordy)
 void Game::loadReaper1(Map *map, int id, int range, int coordx, int coordy) 
 {
    Reaper1 *bot = new Reaper1(mainWindow_,
-										*image_Reaper1,
+										*(all_images.image_Reaper1),
 										map,
 										id,
-										range);
+										range, all_images.image_Attack2, all_images.image_Special12, all_images.image_Gun2);
 
    bot->setPosition(Vector2f(BASE_SPRITE*coordx,BASE_SPRITE*coordy));
 
@@ -1809,10 +1798,10 @@ void Game::loadReaper1(Map *map, int id, int range, int coordx, int coordy)
 void Game::loadFantome1(Map *map, int id, int range, int coordx, int coordy) 
 {
    Fantome1 *bot = new Fantome1(mainWindow_,
-										  *image_Fantome1,
+										  *(all_images.image_Fantome1),
 										  map,
 										  id,
-										  range);
+										  range, all_images.image_Attack2, all_images.image_Special12, all_images.image_Gun2);
 
    bot->setPosition(Vector2f(BASE_SPRITE*coordx,BASE_SPRITE*coordy));
 
@@ -1822,10 +1811,10 @@ void Game::loadFantome1(Map *map, int id, int range, int coordx, int coordy)
 void Game::loadFantome2(Map *map, int id, int range, int coordx, int coordy) 
 {
    Fantome2 *bot = new Fantome2(mainWindow_,
-										  *image_Fantome2,
+										  *(all_images.image_Fantome2),
 										  map,
 										  id,
-										  range);
+										  range, all_images.image_Attack2, all_images.image_Special12, all_images.image_Gun2);
 
    bot->setPosition(Vector2f(BASE_SPRITE*coordx,BASE_SPRITE*coordy));
 
@@ -1835,10 +1824,10 @@ void Game::loadFantome2(Map *map, int id, int range, int coordx, int coordy)
 void Game::loadSquelette(Map *map, int id, int range, int coordx, int coordy) 
 {
    Squelette *bot = new Squelette(mainWindow_,
-											 *image_Squelette,
+											 *(all_images.image_Squelette),
 											 map,
 											 id,
-											 range);
+											 range, all_images.image_Attack2, all_images.image_Special12, all_images.image_Gun2);
 
    bot->setPosition(Vector2f(BASE_SPRITE*coordx,BASE_SPRITE*coordy));
 
@@ -1848,10 +1837,10 @@ void Game::loadSquelette(Map *map, int id, int range, int coordx, int coordy)
 void Game::loadBat(Map *map, int id, int range, int coordx, int coordy) 
 	{
    Bat *bot = new Bat(mainWindow_,
-							 *image_Bat,
+							 *(all_images.image_Bat),
 							 map,
 							 id,
-							 range);
+							 range, all_images.image_Attack2, all_images.image_Special12, all_images.image_Gun2);
 
    bot->setPosition(Vector2f(BASE_SPRITE*coordx,BASE_SPRITE*coordy));
 
@@ -1861,10 +1850,10 @@ void Game::loadBat(Map *map, int id, int range, int coordx, int coordy)
 void Game::loadBee(Map *map, int id, int range, int coordx, int coordy) 
 {
    Bee *bot = new Bee(mainWindow_,
-							 *image_Bee,
+							 *(all_images.image_Bee),
 							 map,
 							 id,
-							 range);
+							 range, all_images.image_Attack2, all_images.image_Special12, all_images.image_Gun2);
 
    bot->setPosition(Vector2f(BASE_SPRITE*coordx,BASE_SPRITE*coordy));
 
@@ -1874,10 +1863,10 @@ void Game::loadBee(Map *map, int id, int range, int coordx, int coordy)
 void Game::loadBlueslime(Map *map, int id, int range, int coordx, int coordy) 
 {
    Blueslime *bot = new Blueslime(mainWindow_,
-											 *image_Blueslime,
+											 *(all_images.image_Blueslime),
 											 map,
 											 id,
-											 range);
+											 range, all_images.image_Attack2, all_images.image_Special12, all_images.image_Gun2);
 
    bot->setPosition(Vector2f(BASE_SPRITE*coordx,BASE_SPRITE*coordy));
 
@@ -1885,10 +1874,10 @@ void Game::loadBlueslime(Map *map, int id, int range, int coordx, int coordy)
 }
 void Game::loadGreendragon1(Map *map, int id, int range, int coordx, int coordy) {
    Greendragon1 *bot = new Greendragon1(mainWindow_,
-													 *image_Greendragon1,
+													 *(all_images.image_Greendragon1),
 													 map,
 													 id,
-													 range);
+													 range, all_images.image_Attack2, all_images.image_Special12, all_images.image_Gun2);
 
    bot->setPosition(Vector2f(BASE_SPRITE*coordx,BASE_SPRITE*coordy));
 
@@ -1898,10 +1887,10 @@ void Game::loadGreendragon1(Map *map, int id, int range, int coordx, int coordy)
 void Game::loadGreenscorpion(Map *map, int id, int range, int coordx, int coordy) 
 {
    Greenscorpion *bot = new Greenscorpion(mainWindow_,
-														*image_Greenscorpion,
+														*(all_images.image_Greenscorpion),
 														map,
 														id,
-														range);
+														range, all_images.image_Attack2, all_images.image_Special12, all_images.image_Gun2);
 
    bot->setPosition(Vector2f(BASE_SPRITE*coordx,BASE_SPRITE*coordy));
 
@@ -1911,10 +1900,10 @@ void Game::loadGreenscorpion(Map *map, int id, int range, int coordx, int coordy
 void Game::loadGreenslime(Map *map, int id, int range, int coordx, int coordy) 
 {
    Greenslime *bot = new Greenslime(mainWindow_,
-												*image_Greenslime,
+												*(all_images.image_Greenslime),
 												map,
 												id,
-												range);
+												range, all_images.image_Attack2, all_images.image_Special12, all_images.image_Gun2);
 	
    bot->setPosition(Vector2f(BASE_SPRITE*coordx,BASE_SPRITE*coordy));
 
@@ -1924,10 +1913,10 @@ void Game::loadGreenslime(Map *map, int id, int range, int coordx, int coordy)
 void Game::loadMouse1(Map *map, int id, int range, int coordx, int coordy) 
 {
 	Mouse1 *bot = new Mouse1(mainWindow_,
-									 *image_Mouse1,
+									 *(all_images.image_Mouse1),
 									 map,
 									 id,
-									 range);
+									 range, all_images.image_Attack2, all_images.image_Special12, all_images.image_Gun2);
 
 	bot->setPosition(Vector2f(BASE_SPRITE*coordx,BASE_SPRITE*coordy));
 
@@ -1937,10 +1926,10 @@ void Game::loadMouse1(Map *map, int id, int range, int coordx, int coordy)
 void Game::loadNaga(Map *map, int id, int range, int coordx, int coordy) 
 {
 	Naga *bot = new Naga(mainWindow_,
-								*image_Naga,
+								*(all_images.image_Naga),
 								map,
 								id,
-								range);
+								range, all_images.image_Attack2, all_images.image_Special12, all_images.image_Gun2);
 
 	bot->setPosition(Vector2f(BASE_SPRITE*coordx,BASE_SPRITE*coordy));
 
@@ -1950,10 +1939,10 @@ void Game::loadNaga(Map *map, int id, int range, int coordx, int coordy)
 void Game::loadReddragon1(Map *map, int id, int range, int coordx, int coordy) 
 {
 	Reddragon1 *bot = new Reddragon1(mainWindow_,
-												*image_Reddragon1,
+												*(all_images.image_Reddragon1),
 												map,
 												id,
-												range);
+												range, all_images.image_Attack2, all_images.image_Special12, all_images.image_Gun2);
 
 	bot->setPosition(Vector2f(BASE_SPRITE*coordx,BASE_SPRITE*coordy));
 
@@ -1963,10 +1952,10 @@ void Game::loadReddragon1(Map *map, int id, int range, int coordx, int coordy)
 void Game::loadRedeye(Map *map, int id, int range, int coordx, int coordy) 
 {
 	Redeye *bot = new Redeye(mainWindow_,
-									 *image_Redeye,
+									 *(all_images.image_Redeye),
 									 map,
 									 id,
-									 range);
+									 range, all_images.image_Attack2, all_images.image_Special12, all_images.image_Gun2);
 
 	bot->setPosition(Vector2f(BASE_SPRITE*coordx,BASE_SPRITE*coordy));
 
@@ -1976,10 +1965,10 @@ void Game::loadRedeye(Map *map, int id, int range, int coordx, int coordy)
 void Game::loadRedscorpion(Map *map, int id, int range, int coordx, int coordy) 
 {
 	Redscorpion *bot = new Redscorpion(mainWindow_,
-												  *image_Redscorpion,
+												  *(all_images.image_Redscorpion),
 												  map,
 												  id,
-												  range);
+												  range, all_images.image_Attack2, all_images.image_Special12, all_images.image_Gun2);
 
 	bot->setPosition(Vector2f(BASE_SPRITE*coordx,BASE_SPRITE*coordy));
 

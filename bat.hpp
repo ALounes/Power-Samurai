@@ -34,7 +34,7 @@ class Bat : public Bot
 {
 	public :
 
-	Bat(RenderWindow *win, Image &image, Map *myMap, int ident, int range);
+	Bat(RenderWindow *win, Image &image, Map *myMap, int ident, int range, Image* image1, Image* image2, Image* image3);
 
 	~Bat();
 

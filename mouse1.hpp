@@ -34,7 +34,7 @@ class Mouse1 : public Bot
 {
 	public :
 
-	Mouse1(RenderWindow *win, Image &image, Map *myMap, int ident, int range);
+	Mouse1(RenderWindow *win, Image &image, Map *myMap, int ident, int range, Image* image1, Image* image2, Image* image3);
 
 	~Mouse1();
 

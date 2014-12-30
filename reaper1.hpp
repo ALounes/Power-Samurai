@@ -34,7 +34,7 @@ class Reaper1 : public Bot
 {
 	public :
 
-	Reaper1(RenderWindow *win, Image &image, Map *myMap, int ident, int range);
+	Reaper1(RenderWindow *win, Image &image, Map *myMap, int ident, int range, Image* image1, Image* image2, Image* image3);
 
 	~Reaper1();
 

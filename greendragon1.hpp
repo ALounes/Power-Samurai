@@ -34,7 +34,7 @@ class Greendragon1 : public Bot
 {
 	public :
 
-	Greendragon1(RenderWindow *win, Image &image, Map *myMap, int ident, int range);
+	Greendragon1(RenderWindow *win, Image &image, Map *myMap, int ident, int range, Image* image1, Image* image2, Image* image3);
 
 	~Greendragon1();
 
