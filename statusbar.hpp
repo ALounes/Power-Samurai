@@ -28,6 +28,43 @@
 #define MANA_POSITION_X position_->x - 307
 #define MANA_POSITION_Y position_->y + 234
 
+#define CD1_POSITION_X position_->x - 65
+#define CD1_POSITION_Y position_->y + 267
+
+#define CD2_POSITION_X position_->x + 11
+#define CD2_POSITION_Y position_->y + 267
+
+#define CD3_POSITION_X position_->x + 84
+#define CD3_POSITION_Y position_->y + 267
+
+#define DMG1_POSITION_X position_->x - 65
+#define DMG1_POSITION_Y position_->y + 150
+
+#define DMG2_POSITION_X position_->x + 11
+#define DMG2_POSITION_Y position_->y + 150
+
+#define DMG3_POSITION_X position_->x + 84
+#define DMG3_POSITION_Y position_->y + 150
+
+#define MANA1_POSITION_X position_->x - 65
+#define MANA1_POSITION_Y position_->y + 170
+
+#define MANA2_POSITION_X position_->x + 11
+#define MANA2_POSITION_Y position_->y + 170
+
+#define MANA3_POSITION_X position_->x + 84
+#define MANA3_POSITION_Y position_->y + 170
+
+#define SPELL1_POSITION_X position_->x - 107
+#define SPELL1_POSITION_Y position_->y + 170
+
+#define SPELL2_POSITION_X position_->x - 33
+#define SPELL2_POSITION_Y position_->y + 170
+
+#define SPELL3_POSITION_X position_->x + 41
+#define SPELL3_POSITION_Y position_->y + 170
+
+
 #define LIFE_X1 0
 #define LIFE_Y1 0
 #define LIFE_X2 118
@@ -70,6 +107,9 @@ public:
 	Sprite   getSprite()   const;
 	Image*    getImage()    const;
 	Vector2f* getPosition() const;
+	
+	int getCD(int i) const;
+	int getDMG(int i) const;
 
 private:
    Player *player_;
@@ -79,6 +119,15 @@ private:
 	String *Level_;
 	String *HP_Pot_Nb_;
 	String *MANA_Pot_Nb_;
+	String *CD1_;
+	String *CD2_;
+	String *CD3_;
+	String *DMG1_;
+	String *DMG2_;
+	String *DMG3_;
+	String *MANA1_;
+	String *MANA2_;
+	String *MANA3_;
 	
 	
 	Camera *camera_;
@@ -87,10 +136,17 @@ private:
 	Sprite statuLife_;
 	Sprite statuMana_;
 	Sprite statusBar_;
+	Sprite spriteSpell1_;
+	Sprite spriteSpell2_;
+	Sprite spriteSpell3_;
 	
 	Image *Life_;
 	Image *Mana_;
 	Image *StatusBar_;
+	
+	Image *FirstSpell_ ;
+	Image *SecondSpell_ ;
+	Image *ThirdSpell_ ;
 	
 	Font *Perso_;
 	};	

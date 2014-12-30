@@ -632,7 +632,7 @@ void Game::RunGame()
    mainWindow_->ShowMouseCursor(false);
 	Event event;
 	Clock time;
-	Clock clock2;
+	Clock clock_regen;
 	Vector2f position(mainWindow_->GetWidth()/2,mainWindow_->GetHeight()/2);
 	Clock clock;
 	
@@ -675,6 +675,14 @@ void Game::RunGame()
    
    while (mainWindow_->IsOpened() && !(fin_de_boucle) && *gameState_ == Playing)
    {
+      
+      if (clock_regen.GetElapsedTime() >= 1)
+      {
+         joueur->lifeGain( PERCENTAGE_REGENERATION * joueur->getLifeMax());
+         joueur->manaGain( PERCENTAGE_REGENERATION * joueur->getManaMax());
+         clock_regen.Reset();
+      }
+      
       effects = joueur->spells;
       mainWindow_->SetFramerateLimit(FRAMERATE);
 
@@ -765,11 +773,13 @@ void Game::RunGame()
 							if (!s->isAlive())
 							{
 							   launchDeathEffect(s);
+							   upgrade();
 								entitys.remove(s);
 								(map_courante->Bot_list).remove(s);
 								delete s;
+								break;
 							}
-		                  break; 
+		                   
 		               }
                   }
                   joueur->getTimer(1)->Reset();
@@ -812,11 +822,13 @@ void Game::RunGame()
 							if (!s->isAlive())
 							{
 							   launchDeathEffect(s);
+							   upgrade();
 								entitys.remove(s);
 								(map_courante->Bot_list).remove(s);
 								delete s;
+								break; 
 							}
-		                  break; 
+		                  
 		               }
                   }
                   joueur->getTimer(2)->Reset();
@@ -828,14 +840,18 @@ void Game::RunGame()
 			if (joueur->getTimer(3)->GetElapsedTime() > 
 				 joueur->getSpellDelay(3) ) 
 			{
+			   
 	         FolowingAnimation *effect3 = new FolowingAnimation(mainWindow_, 
 																				 *(joueur->getImgSpell(3)),
 																				  joueur->getVSpell(3), 
 																				  joueur);
+		      cout << "t" << endl;
 				effect3->play();
 				effect3->setId(3);
+				cout << "t" << endl;
 				effect3->setManaCost(joueur->getSManaCost(3));               
-				joueur->spells.push_front(effect3);              
+				joueur->spells.push_front(effect3);   
+				cout << "t1" << endl;           
 			}
             
 			for(auto s : joueur->spells){
@@ -858,12 +874,13 @@ void Game::RunGame()
 							if (!s->isAlive())
 							{
 							   launchDeathEffect(s);
-							   
+							   upgrade();
 								entitys.remove(s);
 								(map_courante->Bot_list).remove(s);
 								delete s;
+								break;
 							}
-							break; 
+							 
 						}
 					}
 					joueur->getTimer(3)->Reset();
@@ -926,7 +943,7 @@ void Game::RunGame()
 		// Affichage du contenu de la fenêtre à l'écran
 		mainWindow_->Display();
       //launchingPause();
-      
+      /*
       if (lancer_dialogue == 3)
       {
          launchStartDialogue("TUE CETTE CREATURE MALEFIQUE, ET RETABLIT LA PAIX !", 0, 0);
@@ -951,7 +968,7 @@ void Game::RunGame()
       {
          lancer_dialogue = 1;
       }
-      
+      */
       
 		// Efface le contenu de la fenetre 
 		joueur->getMovingSound()->Pause();
@@ -1290,6 +1307,7 @@ Game::displayEntity(Clock &time)
 	         c->lifePenalty(joueur->getAttackDamage());
 	         if (!c->isAlive())
 	         {  
+	            upgrade();
 	            launchDeathEffect(c);
 	            entitys.remove(c);
                (map_courante->Bot_list).remove(c);
@@ -1657,65 +1675,7 @@ void Game::loadImages()
 		      cout << "erreur " << endl ;	
    
    if (!image_projectile->LoadFromFile("Sprites/Projectiles/Fire1.png"))
-		      cout << "erreur " << endl ;
-      
-   /*if (!image_Armor1->LoadFromFile("Sprites/Ennemis/Armor1.png"))
-		      cout << "erreur " << endl ;    
-  
-   if (!image_Devil1->LoadFromFile("Sprites/Ennemis/Devil1.png"))
-		      cout << "erreur " << endl ;	     
- 
-   if (!image_Dragon1->LoadFromFile("Sprites/Ennemis/Dragon1.png"))
-		      cout << "erreur " << endl ;
-
-   if (!image_Fantome1->LoadFromFile("Sprites/Ennemis/Fantome1.png"))
-		      cout << "erreur " << endl ;
-
-   if (!image_Reaper1->LoadFromFile("Sprites/Ennemis/Reaper1.png"))
-		      cout << "erreur " << endl ;
-
-   if (!image_Squelette->LoadFromFile("Sprites/Ennemis/Squelette.png"))
-		      cout << "erreur " << endl ;	      
-
-   if (!image_Troll->LoadFromFile("Sprites/Ennemis/Troll.png"))
-		      cout << "erreur " << endl ;
-
-   if (!image_Fantome2->LoadFromFile("Sprites/Ennemis/Fantome2.png"))
-		      cout << "erreur " << endl ;
-
-   
-		      
-   if (!image_Bee->LoadFromFile("Sprites/Ennemis/Bee.png"))
-		      cout << "erreur " << endl ; 
-
-	if (!image_Blueslime->LoadFromFile("Sprites/Ennemis/Blueslime.png"))
-		      cout << "erreur " << endl ;
-
-	if (!image_Greendragon1->LoadFromFile("Sprites/Ennemis/Greendragon1.png"))
-		      cout << "erreur " << endl ;
-
-	if (!image_Greenscorpion->LoadFromFile("Sprites/Ennemis/Greenscorpion.png"))
-		      cout << "erreur " << endl ;
-
-	if (!image_Greenslime->LoadFromFile("Sprites/Ennemis/Greenslime.png"))
-		      cout << "erreur " << endl ;	      	      	            
-
-	if (!image_Mouse1->LoadFromFile("Sprites/Ennemis/Mouse1.png"))
-		      cout << "erreur " << endl ;
-
-	if (!image_Naga->LoadFromFile("Sprites/Ennemis/Naga.png"))
-		      cout << "erreur " << endl ;
-
-	if (!image_Reddragon1->LoadFromFile("Sprites/Ennemis/Reddragon1.png"))
-		      cout << "erreur " << endl ;
-
-	if (!image_Redeye->LoadFromFile("Sprites/Ennemis/Redeye.png"))
-		      cout << "erreur " << endl ;
-
-	if (!image_Redscorpion->LoadFromFile("Sprites/Ennemis/Redscorpion.png"))
-		      cout << "erreur " << endl ;	
-   */
-     
+		      cout << "erreur " << endl ;     
 }
      
      
@@ -1866,7 +1826,7 @@ void Game::loadBlueslime(Map *map, int id, int range, int coordx, int coordy)
 											 *(all_images.image_Blueslime),
 											 map,
 											 id,
-											 range, all_images.image_Attack2, all_images.image_Special12, all_images.image_Gun2);
+											 range, all_images.image_Attack1, all_images.image_Special12, all_images.image_Gun2);
 
    bot->setPosition(Vector2f(BASE_SPRITE*coordx,BASE_SPRITE*coordy));
 
@@ -1929,7 +1889,7 @@ void Game::loadNaga(Map *map, int id, int range, int coordx, int coordy)
 								*(all_images.image_Naga),
 								map,
 								id,
-								range, all_images.image_Attack2, all_images.image_Special12, all_images.image_Gun2);
+								range, all_images.image_Attack7, all_images.image_Special12, all_images.image_Gun2);
 
 	bot->setPosition(Vector2f(BASE_SPRITE*coordx,BASE_SPRITE*coordy));
 
@@ -2032,4 +1992,21 @@ void Game::launchStartDialogue(string s, int coordx, int coordy) {
    } 
 
    
+}
+
+void Game::upgrade() {
+   joueur->bonusLifeMax( PERCENTAGE_UPGRADE * joueur->getLifeMax());
+   joueur->bonusManaMax( PERCENTAGE_UPGRADE * joueur->getManaMax());
+   
+   joueur->setDmg(1,joueur->getDmg(1) * (1 + PERCENTAGE_UPGRADE));
+   joueur->setDmg(2,joueur->getDmg(2) * (1 + PERCENTAGE_UPGRADE));
+   joueur->setDmg(3,joueur->getDmg(3) * (1 + PERCENTAGE_UPGRADE));
+   joueur->setAttackDamage(joueur->getAttackDamage() * (1 + PERCENTAGE_UPGRADE));
+   
+	joueur->setSManaCost(1, joueur->getSManaCost(1) * (1 + PERCENTAGE_UPGRADE));
+	joueur->setSManaCost(2, joueur->getSManaCost(2) * (1 + PERCENTAGE_UPGRADE));
+	joueur->setSManaCost(3, joueur->getSManaCost(3) * (1 + PERCENTAGE_UPGRADE));
+	//void setDmg(int i, int d);
+   //bonusLifeMax(int life);
+	//void bonusManaMax(int mana);
 }

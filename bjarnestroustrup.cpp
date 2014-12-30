@@ -9,7 +9,7 @@ BjarneStroustrup::BjarneStroustrup(RenderWindow *win, Image &image, Map *myMap,f
 			BJARNE_STROUSTRUP_MANA, 
 			BJARNE_STROUSTRUP_POWER,
 			myMap,
-			att_dmg
+			BJARNE_STROUSTRUP_DMG
 			)
 {
          setSpellDelay(1, BJARNE_STROUSTRUP_DELAY1);
@@ -31,6 +31,7 @@ BjarneStroustrup::BjarneStroustrup(RenderWindow *win, Image &image, Map *myMap,f
          setSManaCost(2, BJARNE_STROUSTRUP_MANA_COST2);
          setSManaCost(3, BJARNE_STROUSTRUP_MANA_COST3);
          setImgSpritePortrait("Sprites/Personnages/Portrait2.png");
+         setSpeed(BJARNE_STROUSTRUP_SPEED);
 }
 
 

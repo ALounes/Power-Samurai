@@ -8,10 +8,10 @@
 #define ARMOR1_X 3
 #define ARMOR1_Y 4
 #define ARMOR1_LIFE 1000
-#define ARMOR1_MANA  500
+#define ARMOR1_MANA 0
 #define ARMOR1_POWER None
-#define ARMOR1_DMG 100
-#define ARMOR1_ATK_DELAY 5
+#define ARMOR1_DMG 0
+#define ARMOR1_ATK_DELAY 0
 #define ARMOR1_XP 10
 #define ARMOR1_SPEED 1.5
 #define ARMOR1_RANGE1 1

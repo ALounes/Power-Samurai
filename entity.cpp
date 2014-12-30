@@ -737,7 +737,7 @@ Entity::update()
 int* 
 Entity::soclePosition() const
 {
-	int *tab = new int[4];
+	int tab[4];
 	Vector2f socle = getCenter();
 
 	tab[0] = (socle.x - ELEM_WIDTH/2) / ELEM_WIDTH;
@@ -751,7 +751,7 @@ Entity::soclePosition() const
 int* 
 Entity::getSocle(int x, int y) const
 {	
-	int *tab = new int[4];
+	int tab[4];
 
 	tab[0] = x / ELEM_WIDTH;
 	tab[1] = x / ELEM_WIDTH;

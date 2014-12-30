@@ -15,8 +15,8 @@ class LivingEntity : public Entity
 	Clock * getTimer(int) const;
 	void setTimer(int i, Clock* t);
 	
-	int getSpellDelay(int) const;
-	void setSpellDelay(int i, int sd);
+	float getSpellDelay(int) const;
+	void setSpellDelay(int i, float sd);
 	
 	Image* getImgSpell(int) const;
 	void setImgSpell(int i, Image*);
@@ -44,9 +44,9 @@ class LivingEntity : public Entity
 	Clock * timer2_;
 	Clock * timer3_;
 	
-	int spell_delay1_;
-	int spell_delay2_;
-   int spell_delay3_;	
+	float spell_delay1_;
+	float spell_delay2_;
+   float spell_delay3_;	
 	
 	
 	int range1_;

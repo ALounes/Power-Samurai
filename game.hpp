@@ -86,6 +86,9 @@
 #define REFRESH_ITEM 60
 #define SPELL_RATE 3
 
+#define PERCENTAGE_UPGRADE 0.03
+#define PERCENTAGE_REGENERATION 0.007
+
 enum direction {DOWN,LEFT,RIGHT,UP};
 enum p_choice {P1,P2,P3,P4};
 
@@ -121,6 +124,7 @@ public:
 	
 	void loadImages();
 	void launchingDeath();
+	void upgrade();
 	
 	void loadDragon(Map *map, int id, int range, int coordx, int coordy);
 	void loadTroll(Map *map, int id, int range, int coordx, int coordy);

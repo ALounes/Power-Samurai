@@ -15,12 +15,12 @@
 #define NAGA_XP 10
 #define NAGA_SPEED 1.5
 #define NAGA_RANGE1 1
-#define NAGA_RANGE2 2
+#define NAGA_RANGE2 -1
 #define NAGA_RANGE3 -1
-#define NAGA_DELAY1 1
+#define NAGA_DELAY1 2
 #define NAGA_DELAY2 7
 #define NAGA_DELAY3 10
-#define NAGA_DMG1 50
+#define NAGA_DMG1 300
 #define NAGA_DMG2 100
 #define NAGA_DMG3 200
 #define NAGA_V2I1 Vector2i(5,3)

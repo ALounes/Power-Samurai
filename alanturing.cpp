@@ -31,7 +31,7 @@ AlanTuring::AlanTuring(RenderWindow *win, Image &image, Map *myMap,float att_dmg
          setSManaCost(2, ALAN_TURING_MANA_COST2);
          setSManaCost(3, ALAN_TURING_MANA_COST3);
          setImgSpritePortrait("Sprites/Personnages/Portrait3.png");
-         cout << " CONSTRUCTEUR AlanTuring()" << endl;
+         setSpeed(ALAN_TURING_SPEED);
 }
 
 

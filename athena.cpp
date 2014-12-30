@@ -9,7 +9,7 @@ Athena::Athena(RenderWindow *win, Image &image, Map *myMap,float att_dmg, Image*
 			ATHENA_MANA, 
 			ATHENA_POWER,
 			myMap,
-			att_dmg
+			ATHENA_DMG
 			)
 {
          setSpellDelay(1, ATHENA_DELAY1);
@@ -31,6 +31,7 @@ Athena::Athena(RenderWindow *win, Image &image, Map *myMap,float att_dmg, Image*
          setSManaCost(2, ATHENA_MANA_COST2);
          setSManaCost(3, ATHENA_MANA_COST3);
          setImgSpritePortrait("Sprites/Personnages/Portrait4.png");
+         setSpeed(ATHENA_SPEED);
 }
 
 

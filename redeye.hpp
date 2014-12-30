@@ -7,7 +7,7 @@
 
 #define REDEYE_X 3
 #define REDEYE_Y 4
-#define REDEYE_LIFE 1000
+#define REDEYE_LIFE 2000
 #define REDEYE_MANA  500
 #define REDEYE_POWER None
 #define REDEYE_DMG 100
@@ -20,8 +20,8 @@
 #define REDEYE_DELAY1 1
 #define REDEYE_DELAY2 7
 #define REDEYE_DELAY3 10
-#define REDEYE_DMG1 50
-#define REDEYE_DMG2 100
+#define REDEYE_DMG1 100
+#define REDEYE_DMG2 200
 #define REDEYE_DMG3 200
 #define REDEYE_V2I1 Vector2i(5,3)
 #define REDEYE_V2I2 Vector2i(5,5)

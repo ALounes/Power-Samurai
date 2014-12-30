@@ -60,7 +60,7 @@ void LivingEntity::setTimer(int i, Clock* t) {
 	}
 }
 
-int LivingEntity::getSpellDelay(int i) const {
+float LivingEntity::getSpellDelay(int i) const {
    switch (i)
 	{
       case  1 :
@@ -77,7 +77,7 @@ int LivingEntity::getSpellDelay(int i) const {
          break;
 	}
 }
-void LivingEntity::setSpellDelay(int i, int sd) {
+void LivingEntity::setSpellDelay(int i, float sd) {
    switch (i)
 	{
       case  1 :
@@ -125,7 +125,7 @@ void LivingEntity::setImgSpell(int i, Image* img) {
          break; 
       }
       case  3 :
-         Spell2_ = img;
+         Spell3_ = img;
 
   	      break;
       default :

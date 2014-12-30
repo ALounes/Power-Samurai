@@ -10,7 +10,7 @@ LinusTorvalds::LinusTorvalds(RenderWindow *win, Image &image, Map *myMap,float a
 			LINUS_TORVALDS_MANA, 
 			LINUS_TORVALDS_POWER,
 			myMap,
-			att_dmg
+			LINUS_TORVALDS_DMG
 			)
 {        
          setSpellDelay(1, LINUS_TORVALDS_DELAY1);
@@ -32,6 +32,7 @@ LinusTorvalds::LinusTorvalds(RenderWindow *win, Image &image, Map *myMap,float a
          setSManaCost(2, LINUS_TORVALDS_MANA_COST2);
          setSManaCost(3, LINUS_TORVALDS_MANA_COST3);
          setImgSpritePortrait("Sprites/Personnages/Portrait1.png");
+         setSpeed(LINUS_TORVALDS_SPEED);
 }
 
 
