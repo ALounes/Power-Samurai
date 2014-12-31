@@ -1,6 +1,6 @@
 #include "alanturing.hpp"
 
-AlanTuring::AlanTuring(RenderWindow *win, Image &image, Map *myMap,float att_dmg, Image* image1, Image* image2, Image* image3)
+AlanTuring::AlanTuring(RenderWindow *win, Image &image, Map *myMap, Image* image1, Image* image2, Image* image3)
 :Player( win,
 			image, 
 			Vector2i(ALAN_TURING_X,ALAN_TURING_Y), 
@@ -9,7 +9,7 @@ AlanTuring::AlanTuring(RenderWindow *win, Image &image, Map *myMap,float att_dmg
 			ALAN_TURING_MANA, 
 			ALAN_TURING_POWER,
 			myMap,
-			att_dmg
+			ALAN_TURING_DMG
 			)
 {
          setSpellDelay(1, ALAN_TURING_DELAY1);

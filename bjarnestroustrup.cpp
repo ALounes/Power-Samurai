@@ -1,6 +1,6 @@
 #include "bjarnestroustrup.hpp"
 
-BjarneStroustrup::BjarneStroustrup(RenderWindow *win, Image &image, Map *myMap,float att_dmg, Image* image1, Image* image2, Image* image3)
+BjarneStroustrup::BjarneStroustrup(RenderWindow *win, Image &image, Map *myMap, Image* image1, Image* image2, Image* image3)
 :Player( win,
 			image, 
 			Vector2i(BJARNE_STROUSTRUP_X,BJARNE_STROUSTRUP_Y), 

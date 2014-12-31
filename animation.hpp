@@ -27,9 +27,6 @@ class Animation
 	int  getAnimationHeight() const;
 	int  getAnimationWidth () const;
 	
-	//Clock * getTimer() const;
-	//void resetTimer();
-	
 	Vector2f getPosition() const;	
 	Vector2f getCenter()   const;	
 	Sprite*  getSprite()   const;

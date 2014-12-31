@@ -16,14 +16,14 @@
 #define ATHENA_RANGE1 4
 #define ATHENA_RANGE2 4
 #define ATHENA_RANGE3 4
-#define ATHENA_DELAY1 1
+#define ATHENA_DELAY1 0.5
 #define ATHENA_DELAY2 4
 #define ATHENA_DELAY3 20
-#define ATHENA_DMG1 150
+#define ATHENA_DMG1 250
 #define ATHENA_DMG2 450
 #define ATHENA_DMG3 1000
 #define ATHENA_V2I1 Vector2i(5,6)
-#define ATHENA_V2I2 Vector2i(5,5)
+#define ATHENA_V2I2 Vector2i(5,3)
 #define ATHENA_V2I3 Vector2i(5,5)
 #define ATHENA_MANA_COST1 30
 #define ATHENA_MANA_COST2 70
@@ -33,7 +33,7 @@ class Athena : public Player
 {
 	public :
 
-	Athena(RenderWindow *win, Image &image, Map *myMap,float att_dmg, Image* image1, Image* image2, Image* image3);
+	Athena(RenderWindow *win, Image &image, Map *myMap, Image* image1, Image* image2, Image* image3);
 	~Athena();
 
 	private:

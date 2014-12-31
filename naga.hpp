@@ -20,7 +20,7 @@
 #define NAGA_DELAY1 2
 #define NAGA_DELAY2 7
 #define NAGA_DELAY3 10
-#define NAGA_DMG1 300
+#define NAGA_DMG1 200
 #define NAGA_DMG2 100
 #define NAGA_DMG3 200
 #define NAGA_V2I1 Vector2i(5,3)

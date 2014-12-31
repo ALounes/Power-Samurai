@@ -22,9 +22,9 @@
 #define BJARNE_STROUSTRUP_DMG1 100
 #define BJARNE_STROUSTRUP_DMG2 200
 #define BJARNE_STROUSTRUP_DMG3 500
-#define BJARNE_STROUSTRUP_V2I1 Vector2i(5,6)
-#define BJARNE_STROUSTRUP_V2I2 Vector2i(5,5)
-#define BJARNE_STROUSTRUP_V2I3 Vector2i(5,5)
+#define BJARNE_STROUSTRUP_V2I1 Vector2i(5,3)
+#define BJARNE_STROUSTRUP_V2I2 Vector2i(5,6)
+#define BJARNE_STROUSTRUP_V2I3 Vector2i(5,6)
 #define BJARNE_STROUSTRUP_MANA_COST1 30
 #define BJARNE_STROUSTRUP_MANA_COST2 60
 #define BJARNE_STROUSTRUP_MANA_COST3 100
@@ -32,7 +32,7 @@
 class BjarneStroustrup : public Player
 {
 	public :
-	BjarneStroustrup(RenderWindow *win, Image &image, Map *myMap,float att_dmg, Image* image1, Image* image2, Image* image3);
+	BjarneStroustrup(RenderWindow *win, Image &image, Map *myMap, Image* image1, Image* image2, Image* image3);
 	~BjarneStroustrup();
 
 	private:

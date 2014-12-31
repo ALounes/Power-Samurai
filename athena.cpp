@@ -1,6 +1,6 @@
 #include "athena.hpp"
 
-Athena::Athena(RenderWindow *win, Image &image, Map *myMap,float att_dmg, Image* image1, Image* image2, Image* image3)
+Athena::Athena(RenderWindow *win, Image &image, Map *myMap, Image* image1, Image* image2, Image* image3)
 :Player( win,
 			image, 
 			Vector2i(ATHENA_X,ATHENA_Y), 

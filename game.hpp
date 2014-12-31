@@ -5,6 +5,7 @@
 #include <list>
 #include <sstream>
 #include <string>
+#include <time.h> 
 #include "stdafx.hpp"
 #include "mainMenu.hpp"
 #include "splashScreen.hpp"
@@ -88,6 +89,7 @@
 
 #define PERCENTAGE_UPGRADE 0.03
 #define PERCENTAGE_REGENERATION 0.007
+#define DROP_CHANCE 3*100
 
 enum direction {DOWN,LEFT,RIGHT,UP};
 enum p_choice {P1,P2,P3,P4};
@@ -148,6 +150,8 @@ public:
    void loadRedscorpion(Map *map, int id, int range, int coordx, int coordy);
    
    void launchStartDialogue(string s, int coordx, int coordy);
+   
+   void randomDrop(int x, int y);
   
 private:
 

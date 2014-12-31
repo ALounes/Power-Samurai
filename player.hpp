@@ -21,7 +21,7 @@ class Player : public LivingEntity
 
 	void actionKey(Map * map);
 
-	String getName() const;
+	/*String getName() const;
 	void setName(String name);
 	
 	int getLifeMax() const;
@@ -43,6 +43,9 @@ class Player : public LivingEntity
 	bool isAlive()  const;
 	bool haveMana() const;
 	
+	void setAttackDamage(float);
+	float getAttackDamage();*/
+	
 	int getNbHP() const;
 	void setNbHP(int);
 	
@@ -59,8 +62,7 @@ class Player : public LivingEntity
 	int getCurrentDirection();
 	void setCurrentDirection(int);
 	
-	void setAttackDamage(float);
-	float getAttackDamage();
+	
 	
 	SoundBuffer * getMovingSoundB() const;
 	void setMovingSoundB(string s);
@@ -78,14 +80,16 @@ class Player : public LivingEntity
 	
 	private:
 	
-	String name_;
+	/*String name_;
 	int life_;
 	int mana_;
 	int lifeMax_;
 	int manaMax_;
 	enum power power_;
+	
+	float attack_damage;*/
+	
 	int current_direction;
-	float attack_damage;
 	int nb_Hp_Pot = 0;
 	int nb_Mana_Pot = 0;
 	

@@ -775,6 +775,9 @@ void Game::RunGame()
 							   launchDeathEffect(s);
 							   upgrade();
 								entitys.remove(s);
+
+								randomDrop(s->getCenter().x, s->getCenter().y);
+																
 								(map_courante->Bot_list).remove(s);
 								delete s;
 								break;
@@ -825,6 +828,7 @@ void Game::RunGame()
 							   upgrade();
 								entitys.remove(s);
 								(map_courante->Bot_list).remove(s);
+								randomDrop(s->getCenter().x, s->getCenter().y);
 								delete s;
 								break; 
 							}
@@ -877,6 +881,7 @@ void Game::RunGame()
 							   upgrade();
 								entitys.remove(s);
 								(map_courante->Bot_list).remove(s);
+								randomDrop(s->getCenter().x, s->getCenter().y);
 								delete s;
 								break;
 							}
@@ -942,8 +947,8 @@ void Game::RunGame()
 
 		// Affichage du contenu de la fenêtre à l'écran
 		mainWindow_->Display();
-      //launchingPause();
-      /*
+
+      
       if (lancer_dialogue == 3)
       {
          launchStartDialogue("TUE CETTE CREATURE MALEFIQUE, ET RETABLIT LA PAIX !", 0, 0);
@@ -968,7 +973,7 @@ void Game::RunGame()
       {
          lancer_dialogue = 1;
       }
-      */
+      
       
 		// Efface le contenu de la fenetre 
 		joueur->getMovingSound()->Pause();
@@ -1311,6 +1316,7 @@ Game::displayEntity(Clock &time)
 	            launchDeathEffect(c);
 	            entitys.remove(c);
                (map_courante->Bot_list).remove(c);
+               randomDrop(c->getCenter().x, c->getCenter().y);
 			      delete c;
 					
 	         }
@@ -1355,7 +1361,7 @@ void Game::setPlayer(RenderWindow  * mainwin)
 		  if(!image_death_joueur->LoadFromFile("Sprites/Personnages/Damage1.png"))
 		      cout << "erreur " << endl ;
         
-        joueur = new LinusTorvalds(mainwin,*image_joueur,map_courante,250,all_images.image_Light7,all_images.image_Special12,all_images.image_Gun2);
+        joueur = new LinusTorvalds(mainwin,*image_joueur,map_courante,all_images.image_Special15,all_images.image_Special12,all_images.image_Gun2);
         joueur->setPosition(Vector2f(PLAYER_X_START*BASE_SPRITE ,PLAYER_Y_START*BASE_SPRITE));
         break;
       }
@@ -1366,7 +1372,7 @@ void Game::setPlayer(RenderWindow  * mainwin)
 		      cout << "erreur " << endl ;
 		  if(!image_death_joueur->LoadFromFile("Sprites/Personnages/Damage1.png"))
 		      cout << "erreur " << endl ; 
-        joueur = new BjarneStroustrup(mainwin,*image_joueur,map_courante,300,all_images.image_Special15,all_images.image_Special12,all_images.image_Gun2);
+        joueur = new BjarneStroustrup(mainwin,*image_joueur,map_courante,all_images.image_Heal5,all_images.image_Heal3,all_images.image_Light7);
         joueur->setPosition(Vector2f(PLAYER_X_START*BASE_SPRITE ,PLAYER_Y_START*BASE_SPRITE));
         break;
       }
@@ -1377,7 +1383,7 @@ void Game::setPlayer(RenderWindow  * mainwin)
 		      cout << "erreur " << endl ; 
         if(!image_death_joueur->LoadFromFile("Sprites/Personnages/Damage1.png"))
 		      cout << "erreur " << endl ;
-        joueur = new AlanTuring(mainwin,*image_joueur,map_courante,100,all_images.image_Light7,all_images.image_Special12,all_images.image_Gun2);
+        joueur = new AlanTuring(mainwin,*image_joueur,map_courante,all_images.image_Wind1,all_images.image_Fire3,all_images.image_Gun1);
         joueur->setPosition(Vector2f(PLAYER_X_START*BASE_SPRITE ,PLAYER_Y_START*BASE_SPRITE));
         break;
       }
@@ -1390,7 +1396,7 @@ void Game::setPlayer(RenderWindow  * mainwin)
 		      cout << "erreur " << endl ; 
 		  if(!image_death_joueur->LoadFromFile("Sprites/Personnages/Damage1.png"))
 		      cout << "erreur " << endl ;
-        joueur = new Athena(mainwin,*image_joueur,map_courante,250,all_images.image_Light7,all_images.image_Special12,all_images.image_Gun2);
+        joueur = new Athena(mainwin,*image_joueur,map_courante,all_images.image_Special17,all_images.image_Special2,all_images.image_Special14);
         joueur->setPosition(Vector2f(PLAYER_X_START*BASE_SPRITE ,PLAYER_Y_START*BASE_SPRITE));
         break;
       }
@@ -1401,7 +1407,7 @@ void Game::setPlayer(RenderWindow  * mainwin)
 		      cout << "erreur " << endl ; 
 		  if(!image_death_joueur->LoadFromFile("Sprites/Personnages/Damage1.png"))
 		      cout << "erreur " << endl ;
-        joueur = new LinusTorvalds(mainwin,*image_joueur,map_courante,150,all_images.image_Light7,all_images.image_Special12,all_images.image_Gun2);
+        joueur = new LinusTorvalds(mainwin,*image_joueur,map_courante,all_images.image_Special15,all_images.image_Special12,all_images.image_Gun2);
         joueur->setPosition(Vector2f(PLAYER_X_START*BASE_SPRITE ,PLAYER_Y_START*BASE_SPRITE));
         break;
       }
@@ -2006,7 +2012,23 @@ void Game::upgrade() {
 	joueur->setSManaCost(1, joueur->getSManaCost(1) * (1 + PERCENTAGE_UPGRADE));
 	joueur->setSManaCost(2, joueur->getSManaCost(2) * (1 + PERCENTAGE_UPGRADE));
 	joueur->setSManaCost(3, joueur->getSManaCost(3) * (1 + PERCENTAGE_UPGRADE));
-	//void setDmg(int i, int d);
-   //bonusLifeMax(int life);
-	//void bonusManaMax(int mana);
 }
+
+void Game::randomDrop(int x, int y) {
+
+   int i = rand() % DROP_CHANCE + 1;
+   int j = rand() % 100 + 1;
+   
+ 
+   if (i <= 100) {
+      if (j <= 50)
+      {
+         loadHP(x/BASE_SPRITE,y/BASE_SPRITE, map_courante);
+      }
+      else {
+         loadMana(x/BASE_SPRITE,y/BASE_SPRITE, map_courante);
+      }
+      items = map_courante->Item_list;
+   }
+}
+

@@ -59,16 +59,10 @@ Entity::pause()
 bool 
 Entity::legalDeplacement(int x, int y) 
 {	   
-   //SoundBuffer buffer_son;
-	//if (!buffer_son.LoadFromFile("Musique/BinB.ogg"))
-		//cout << "erreur " << endl ;
-	//son.SetBuffer(buffer_son);
-	//son.SetLoop(true)
-
 	int *socle = getSocle(y,x); // CAR HAUTEUR DU TABLEAU = X !!!
 	int i = socle[0];
 	int j = socle[2];
-	
+	delete socle;
 	if (!isMoving())
 		return false;
 	else {
@@ -737,7 +731,7 @@ Entity::update()
 int* 
 Entity::soclePosition() const
 {
-	int tab[4];
+	int* tab = new int;
 	Vector2f socle = getCenter();
 
 	tab[0] = (socle.x - ELEM_WIDTH/2) / ELEM_WIDTH;
@@ -751,7 +745,7 @@ Entity::soclePosition() const
 int* 
 Entity::getSocle(int x, int y) const
 {	
-	int tab[4];
+	int* tab = new int;
 
 	tab[0] = x / ELEM_WIDTH;
 	tab[1] = x / ELEM_WIDTH;

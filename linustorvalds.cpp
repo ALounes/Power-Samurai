@@ -1,7 +1,7 @@
 #include "linustorvalds.hpp"
 
 
-LinusTorvalds::LinusTorvalds(RenderWindow *win, Image &image, Map *myMap,float att_dmg, Image* image1, Image* image2, Image* image3)
+LinusTorvalds::LinusTorvalds(RenderWindow *win, Image &image, Map *myMap, Image* image1, Image* image2, Image* image3)
 :Player( win,
 			image, 
 			Vector2i(LINUS_TORVALDS_X,LINUS_TORVALDS_Y), 

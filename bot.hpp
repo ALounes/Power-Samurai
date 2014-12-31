@@ -52,7 +52,7 @@ class Bot: public LivingEntity
 	void setDistance(int);
 	int getDistance();
 	
-	String getName() const;
+	/*String getName() const;
 	void setName(String name);
 	
 	int getLifeMax() const;
@@ -74,23 +74,21 @@ class Bot: public LivingEntity
 	bool isAlive()  const;
 	bool haveMana() const;
 	
-   void setAttackDelay(float);
-	float getAttackDelay();
-	
 	void setAttackDamage(float);
 	float getAttackDamage();
-	
+	*/
 	void setXp(int);
 	int getXp() const;
+	
+   void setAttackDelay(float);
+	float getAttackDelay();
 	
 	void inPursuit();
 	bool getPursuit();
 	
-	//protected :
-	Shape Rect ;//= Shape::Rectangle(0, 0, 30, 3, Color::Red);
+	Shape Rect ;
 	
 	
-
 	private:
 	
 	string path;
@@ -100,16 +98,17 @@ class Bot: public LivingEntity
 	int speed_;
 	int distance;
 	
-	String &name_;
+	/*String name_;
 	int life_;
 	int mana_;
 	int lifeMax_;
 	int manaMax_;
 	enum power power_;
 	int current_direction;
-	float attack_damage_;
+	float attack_damage_;*/
 	float attack_delay;
 	int xp_;
+	
 	bool in_pursuit = false;
 	//uniform_int_distribution<int> distribution(random_minimum,random_maximum);
 	//defalut_random_engine generateur;

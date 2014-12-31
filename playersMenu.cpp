@@ -55,7 +55,7 @@ PlayersMenu::PlayersMenu ()
 	PlayersItem player1;
 	player1.action = p1;
 	player1.sprite = sprite_p1;
-	player1.texte = String ("Name : Athena\nHP : 100\nMana : 200", Font::GetDefaultFont(), 20.f);
+	player1.texte = String ("Name : Linus Torvalds\nChevalier\nHP : 1500\nMana : 500\n\n", Font::GetDefaultFont(), 20.f);
 	player1.texte.SetStyle(11);
 	player1.texte.SetColor(Color::White);
 	player1.texte.SetPosition(12*32 - 10,12*32 + 40);
@@ -63,7 +63,7 @@ PlayersMenu::PlayersMenu ()
 	PlayersItem player2;
 	player2.action = p2;
 	player2.sprite = sprite_p2;
-	player2.texte = String ("Name : Fartas\nHP : 200\nMana : 100", Font::GetDefaultFont(), 20.f);
+	player2.texte = String ("Name : Bjarne Stroustrup\nPaladin\nHP : 2000\nMana : 500", Font::GetDefaultFont(), 20.f);
 	player2.texte.SetPosition(12*32 - 10,12*32 + 40);
 	player2.texte.SetStyle(11);
 	player2.texte.SetColor(Color::White);
@@ -71,7 +71,7 @@ PlayersMenu::PlayersMenu ()
 	PlayersItem player3;
 	player3.action = p3;
 	player3.sprite = sprite_p3;
-	player3.texte = String ("Name : Bjarne\nHP : 150\nMana : 150", Font::GetDefaultFont(), 20.f);
+	player3.texte = String ("Name : Alan Turing\nMage\nHP : 1000\nMana : 1000", Font::GetDefaultFont(), 20.f);
 	player3.texte.SetPosition(12*32 - 10,12*32 + 40);
 	player3.texte.SetStyle(11);
 	player3.texte.SetColor(Color::White);
@@ -79,7 +79,7 @@ PlayersMenu::PlayersMenu ()
 	PlayersItem player4;
 	player4.action = p4;
 	player4.sprite = sprite_p4;
-	player4.texte = String ("Name : Linus\nHP : 100\nMana : 200", Font::GetDefaultFont(), 20.f);
+	player4.texte = String ("Name : Athena\nInvocatrice\nHP : 1000\nMana : 1000", Font::GetDefaultFont(), 20.f);
 	player4.texte.SetPosition(12*32 - 10,12*32 + 40);
 	player4.texte.SetStyle(11);
 	player4.texte.SetColor(Color::White);

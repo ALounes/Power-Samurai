@@ -12,15 +12,16 @@ Bot::Bot(RenderWindow *win, Image& image, const Vector2i nbrOfAnim, String name,
 			int life, int mana, enum power power, Map *myMap, float att_dmg, float att_delay, float bot_speed, int ident, int rangebot, int xp, Image* image1, Image* image2, Image* image3)
 :LivingEntity(win,image,nbrOfAnim,myMap)
 ,range_(rangebot)
-,name_(name)
-,life_(life)
-,mana_(mana)
-,lifeMax_(life)
-,power_(power)
-,attack_damage_(att_dmg)
 ,attack_delay(att_delay)
 ,xp_(xp)
 {
+
+   setName(name);
+   setLife(life);
+   setLifeMax(life);
+   setMana(mana);
+   setManaMax(mana);
+   setAttackDamage(att_dmg);
    setSpeed(bot_speed);
    setId(ident);
    play();
@@ -340,7 +341,7 @@ int Bot::getDistance()
    return distance;
 }
 
-String 
+/*String 
 Bot::getName() const
 {
 	return name_;
@@ -470,15 +471,7 @@ Bot::bonusManaMax(int mana)
 	manaMax_ += mana;
 }
 
-void Bot::setAttackDelay(float ad) 
-{
-   attack_delay = ad;
-}
 
-float Bot::getAttackDelay() 
-{
-   return attack_delay;
-}
 
 void Bot::setAttackDamage(float ad) 
 {
@@ -488,6 +481,16 @@ void Bot::setAttackDamage(float ad)
 float Bot::getAttackDamage() 
 {
    return attack_damage_;
+}*/
+
+void Bot::setAttackDelay(float ad) 
+{
+   attack_delay = ad;
+}
+
+float Bot::getAttackDelay() 
+{
+   return attack_delay;
 }
 
 void Bot::setXp(int xp) 

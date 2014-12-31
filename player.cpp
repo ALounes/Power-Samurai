@@ -4,14 +4,20 @@
 Player::Player(RenderWindow *win, Image &image, const Vector2i nbrOfAnim, String name,
 					int life, int mana, enum power power, Map *myMap, float att_dmg)
 :LivingEntity(win,image,nbrOfAnim,myMap)
-,name_(name)
+/*,name_(name)
 ,life_(life)
 ,mana_(mana)
 ,lifeMax_(life)
 ,manaMax_(mana)
-,power_(power)
-,attack_damage(att_dmg)
+,attack_damage(att_dmg)*/
 {
+
+   setName(name);
+   setLife(life);
+   setLifeMax(life);
+   setMana(mana);
+   setManaMax(mana);
+   setAttackDamage(att_dmg);
    portrait_ = new Image();
    sprt_ = new Sprite();
 	play();
@@ -143,7 +149,7 @@ Player::update()
 	}
 }
 
-String 
+/*String 
 Player::getName() const
 {
 	return name_;
@@ -272,15 +278,7 @@ Player::bonusManaMax(int mana)
 	manaMax_ += mana;
 }
 
-int Player::getCurrentDirection() 
-{
-   return current_direction;
-}
 
-void Player::setCurrentDirection(int x) 
-{
-   current_direction = x;
-}
 
 void Player::setAttackDamage(float ad) 
 {
@@ -290,6 +288,17 @@ void Player::setAttackDamage(float ad)
 float Player::getAttackDamage() 
 {
    return attack_damage;
+}*/
+
+
+int Player::getCurrentDirection() 
+{
+   return current_direction;
+}
+
+void Player::setCurrentDirection(int x) 
+{
+   current_direction = x;
 }
 
 int Player::getNbHP() const 
@@ -340,10 +349,10 @@ void Player::consumeHpPot()
    }
    else 
 	{
-      if (life_ != lifeMax_)
+      if (getLife() != getLifeMax())
       {
          --nb_Hp_Pot;
-         lifeGain( (int) (HP_POT_PERCENTAGE * lifeMax_) );
+         lifeGain( (int) (HP_POT_PERCENTAGE * getLifeMax()) );
       }
       else 
 		{
@@ -360,10 +369,10 @@ void Player::consumeManaPot()
    }
    else 
 	{
-      if (mana_ != manaMax_)
+      if (getMana() != getManaMax())
       {
 			--nb_Mana_Pot;
-			manaGain( (int) (MANA_POT_PERCENTAGE * manaMax_) );
+			manaGain( (int) (MANA_POT_PERCENTAGE * getManaMax()) );
       }
       else 
 		{
