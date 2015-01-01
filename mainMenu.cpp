@@ -20,6 +20,10 @@
 #define PLAYERSLEFT 25
 #define PLAYERSRIGHT 330
 
+#define HELPTOP 19
+#define HELPBOTTOM 65
+#define HELPLEFT 24
+#define HELPRIGHT 50
 
 MainMenu::MainMenu ()
 {
@@ -50,6 +54,11 @@ MainMenu::MainMenu ()
 	image_difficulty_->LoadFromFile("images/MainMenu/Difficulty.png");
 	Sprite sprite_difficulty;
 	sprite_difficulty.SetImage(*image_difficulty_);
+	
+	image_help_ = new sf::Image();
+	image_help_->LoadFromFile("images/MainMenu/Help.png");
+	Sprite sprite_help;
+	sprite_help.SetImage(*image_help_);
 	
 	image_players_ = new sf::Image();
 	if (!image_players_->LoadFromFile("images/MainMenu/Players.png"))
@@ -108,29 +117,40 @@ MainMenu::MainMenu ()
 	playersButton.action = Players;
 	
 	playersButton.sprite = sprite_players;
+	
+	//Difficulty menu item coordinates
+   MenuItem helpButton;
+	
+	helpButton.rect.Top= HELPTOP;
+	helpButton.rect.Bottom = HELPBOTTOM;
+	helpButton.rect.Left = HELPLEFT;
+	helpButton.rect.Right = HELPRIGHT;
+	
+	helpButton.action = Help;
+	
+	helpButton.sprite = sprite_help;
   
-
+   // Ajout
 	menuItems_->push_back(playButton);
 	menuItems_->push_back(exitButton);
 	menuItems_->push_back(difficultyButton);
 	menuItems_->push_back(playersButton);
-   cout << "CONSTRUCTEUR MainMenu()" << endl;
-
+	menuItems_->push_back(helpButton);
 }
 
 
 MainMenu::~MainMenu ()
 {
-  cout << "DESTRUCTEUR MainMenu()" << endl;
-  menuItems_->clear();
-  delete menuItems_;
-  delete sprite_main_all_;
+   menuItems_->clear();
+   delete menuItems_;
+   delete sprite_main_all_;
 
 	delete image_main_;
 	delete image_play_;
 	delete image_exit_;
 	delete image_difficulty_;
 	delete image_players_;
+	delete image_help_;
 	delete music_;
 }
 

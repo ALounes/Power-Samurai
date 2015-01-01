@@ -14,7 +14,6 @@ enum direction direction_prec;
 
 Game::Game ()
 {
-   cout << "CONSTRUCTEUR game()" << endl;
 	mainMenu_ = new MainMenu;
 	
 
@@ -389,8 +388,6 @@ void Game::Map_Load(void)
 	map_5->set_tpPoints(25,8,0,0,0,0);
 	map_5->setMusic("Musique/Airship.ogg");
 	map_5->setId(1);
-	cout << "Map chargées" << endl;
-	
 }
 
 void Game::Start(void)
@@ -519,7 +516,6 @@ void Game::ShowMainMenu()
 
 	case MainMenu::Exit:
 			*gameState_ = Game::Exiting;
-			cout << "result = Exit" << endl;			
 			break;
 
 	case MainMenu::Play:
@@ -533,7 +529,37 @@ void Game::ShowMainMenu()
 	case MainMenu::Players:
 			*gameState_ = Game::ShowingPlayersMenu;
 			break;
-
+	case MainMenu::Help: {
+	      Image img_help;
+         Sprite s_help;
+         if(!img_help.LoadFromFile("images/MainMenu/Instructions.png"))
+            cout << "erreur " << endl ;
+         s_help.SetImage(img_help);
+ 
+         mainWindow_->Draw(s_help);
+         mainWindow_->Display();
+         int Ishelp = true;
+	      while (Ishelp == true) 
+	      {
+           Event event2;
+           
+           while (mainWindow_->GetEvent(event2))
+		     {
+			      // Gestion des evenements 
+		         switch (event2.Type)
+		         {
+			         case Event::KeyPressed :
+				         Ishelp = false;
+	                  break;
+	                  
+	               default :
+	                  break;
+	            }
+           }
+        }
+        *gameState_ = Game::ShowingMainMenu;
+		  break;
+   }
 	default:
 			break;	
 	}
@@ -757,12 +783,12 @@ void Game::RunGame()
 							      game_victory = true;
 							      Timer_Victory->Reset();
 							   }
-							   launchDeathEffect(s);
-							   upgrade();
+							   else {
+							      launchDeathEffect(s);
+							      upgrade();
+								   randomDrop(s->getCenter().x, s->getCenter().y);
+								}
 								entitys.remove(s);
-
-								randomDrop(s->getCenter().x, s->getCenter().y);
-																
 								(map_courante->Bot_list).remove(s);
 								delete s;
 								break;
@@ -810,8 +836,22 @@ void Game::RunGame()
 							s->lifePenalty(joueur->getDmg(2));
 							launchBloodEffect(s);
 							if (!s->isAlive())
-							{
+							{  
 							   if (s->getId() == -30 )// Boss final)
+							   {
+							      game_victory = true;
+							      Timer_Victory->Reset();
+							   }
+							   else {
+							      launchDeathEffect(s);
+							      upgrade();
+								   randomDrop(s->getCenter().x, s->getCenter().y);
+								}
+								entitys.remove(s);
+								(map_courante->Bot_list).remove(s);
+								delete s;
+							   break;
+							  /* if (s->getId() == -30 )// Boss final)
 							   {
 							      game_victory = true;
 							      Timer_Victory->Reset();
@@ -822,7 +862,7 @@ void Game::RunGame()
 								(map_courante->Bot_list).remove(s);
 								randomDrop(s->getCenter().x, s->getCenter().y);
 								delete s;
-								break; 
+								break; */
 							}
 		                  
 		               }
@@ -874,11 +914,13 @@ void Game::RunGame()
 							      game_victory = true;
 							      Timer_Victory->Reset();
 							   }
-							   launchDeathEffect(s);
-							   upgrade();
+							   else {
+							      launchDeathEffect(s);
+							      upgrade();
+								   randomDrop(s->getCenter().x, s->getCenter().y);
+								}
 								entitys.remove(s);
 								(map_courante->Bot_list).remove(s);
-								randomDrop(s->getCenter().x, s->getCenter().y);
 								delete s;
 								break;
 							}
@@ -935,7 +977,7 @@ void Game::RunGame()
 		mainWindow_->Display();
       // Gestion du dialogue d'introduction
       if (lancer_dialogue == 4)
-      {  cout << "LANCER dialogue" << endl;
+      {   
           launchStartDialogue("JE SENS SA PRESENCE... TUE CE DEMON !!",0,0);
           lancer_dialogue = -1;
       }   
@@ -969,14 +1011,17 @@ void Game::RunGame()
       joueur->getMovingSound()->Pause();
       if (game_victory)    // Gestion de la victoire
       {  // On a tué le boss Final
-         
-         if (Timer_Victory->GetElapsedTime() > 2)
+         map_courante->getMusic()->Stop();
+         mainWindow_->Clear();
+         mainWindow_->Draw(*(map_courante->sprite_map_));
+         joueur->update();
+         joueur->draw(); 
+         mainWindow_->Display();
+         while (Timer_Victory->GetElapsedTime() < 1)
          {
-            map_courante->getMusic()->Stop();
-            launchingVictory();
+            
          }
-         
-         
+         launchingVictory();         
       }
       			
 		if (!joueur->isAlive())
@@ -1205,7 +1250,6 @@ Game::displayEntity(Clock &time)
 	   for (auto c : s->spells)
 	      {
 	         if(c->isPlaying()){
-	         cout << ":( " << endl;
              c->run();
             }
             
@@ -1322,8 +1366,6 @@ Game::displayEntity(Clock &time)
 				c->getCenter().y - 
 				c->getAnimationHeight())
          {
-            
-            cout << "Bot touché" << endl;
             launchBloodEffect(c);
             // Pour éviter la triche, quand un monstre est touché par un projectile, il se met en poursuite, quelque soit sa distance.
             c->inPursuit();
@@ -1338,12 +1380,14 @@ Game::displayEntity(Clock &time)
 				      game_victory = true;
 				      Timer_Victory->Reset();
 				   }
-	            launchDeathEffect(c);
-	            entitys.remove(c);
-               (map_courante->Bot_list).remove(c);
-               randomDrop(c->getCenter().x, c->getCenter().y);
-			      delete c;
-					
+				   else {
+				      launchDeathEffect(c);
+				      upgrade();
+					   randomDrop(c->getCenter().x, c->getCenter().y);
+					}
+					entitys.remove(c);
+					(map_courante->Bot_list).remove(c);
+					delete c;
 	         }
 	         
 		      return;
@@ -1395,7 +1439,7 @@ void Game::setPlayer(RenderWindow  * mainwin)
       {
         if(!image_joueur->LoadFromFile("Sprites/Personnages/P2.png"))
 		      cout << "erreur " << endl ;
-		  if(!image_death_joueur->LoadFromFile("Sprites/Personnages/Damage1.png"))
+		  if(!image_death_joueur->LoadFromFile("Sprites/Personnages/Damage2.png"))
 		      cout << "erreur " << endl ; 
         joueur = new BjarneStroustrup(mainwin,*image_joueur,map_courante,all_images.image_Heal5,all_images.image_Heal3,all_images.image_Light7);
         joueur->setPosition(Vector2f(PLAYER_X_START*BASE_SPRITE ,PLAYER_Y_START*BASE_SPRITE));
@@ -1406,7 +1450,7 @@ void Game::setPlayer(RenderWindow  * mainwin)
       {
         if(!image_joueur->LoadFromFile("Sprites/Personnages/P3.png"))
 		      cout << "erreur " << endl ; 
-        if(!image_death_joueur->LoadFromFile("Sprites/Personnages/Damage1.png"))
+        if(!image_death_joueur->LoadFromFile("Sprites/Personnages/Damage3.png"))
 		      cout << "erreur " << endl ;
         joueur = new AlanTuring(mainwin,*image_joueur,map_courante,all_images.image_Wind1,all_images.image_Fire3,all_images.image_Gun1);
         joueur->setPosition(Vector2f(PLAYER_X_START*BASE_SPRITE ,PLAYER_Y_START*BASE_SPRITE));
@@ -1635,12 +1679,6 @@ void Game::loadBot() {
       c->setDmg(3,c->getDmg(3) * ResultDifficulty);
    }
 
-  for(auto c : map_5->Bot_list)
-  {
-     c->setDmg(1,c->getDmg(1) * ResultDifficulty);
-     c->setDmg(2,c->getDmg(2) * ResultDifficulty);
-     c->setDmg(3,c->getDmg(3) * ResultDifficulty);
-  }
 }
 
 
@@ -2086,57 +2124,67 @@ void Game::randomDrop(int x, int y) {
 
 void Game::launchingVictory() 
 {
-   Clock death_timer;
-   Image game_over;
-   Sprite s_over;
-   String texte;
+   Clock Wait_For;
+   Image img_victory;
+   Sprite s_victory;
+   Timer_Victory->Reset();
+   Music victory;
    
-   Music gameover;
-   if(!gameover.OpenFromFile("Musique/Victoire.ogg"))
+   if(!victory.OpenFromFile("Musique/Victoire.ogg"))
       cout << "erreur " << endl ;
-   gameover.Play();
+   victory.Play();
    
-   if(!game_over.LoadFromFile("images/Gameover/Gameover.png"))
+   if(!img_victory.LoadFromFile("images/Victory/victory.png"))
       cout << "erreur " << endl ;
-   s_over.SetImage(game_over);
-   s_over.SetPosition( camera->position_->x - PLAYING_WIDTH/2, camera->position_->y - PLAYING_HEIGHT/2);
-
-   mainWindow_->Clear();
+   s_victory.SetImage(img_victory);
+   s_victory.SetPosition( camera->position_->x - PLAYING_WIDTH/2, camera->position_->y - PLAYING_HEIGHT/2);
+   while (Timer_Victory->GetElapsedTime() < 3)
+   {
+            
+   }
+   Wait_For.Reset();
    
-   Event event2;
-   bool inboucle = true;
-     
-	while ((mainWindow_->GetEvent(event2) || death_timer.GetElapsedTime() <= 18) && inboucle == true)
-	{
-	   texte = String (to_string (18 - (int) death_timer.GetElapsedTime() ),
-										   Font::GetDefaultFont(), 40.f);
-      texte.SetStyle(11);
-	   texte.SetColor(Color::White);
-	   texte.SetPosition(camera->position_->x - 30,
-							   camera->position_->y + PLAYING_HEIGHT /4);
-      mainWindow_->Draw(s_over);
-      mainWindow_->Draw(texte);
+   while (Wait_For.GetElapsedTime() < 1)
+   {
+      mainWindow_->Draw(s_victory);
       mainWindow_->Display();
- 
-		switch (event2.Type)
-		{
-			case Event::KeyPressed :
+   }
+   String text_ ;
+	text_.SetText(" Press [Esc] to exit to MainMenu");	 
+	text_.SetSize(20);
+	text_.SetStyle(11);
+	text_.SetColor(Color::White);
+	text_.SetFont(Font::GetDefaultFont());
+	text_.SetPosition( camera->position_->x - PLAYING_WIDTH/2, camera->position_->y - PLAYING_HEIGHT/2);
+	mainWindow_->Draw(text_);
+	mainWindow_->Display();
+	bool inboucle = true;
+	Event event2;
+   while ( (mainWindow_->GetEvent(event2) || Wait_For.GetElapsedTime() < 60) && inboucle == true)
+   {     
+	   switch (event2.Type)
+	   {
+		   case Event::KeyPressed : {
      
             switch (event2.Key.Code) {
                case  Key::Escape : {
                   *gameState_ = ShowingMainMenu;
                   inboucle = false;
-		            break;
-               }
-	            default :
+                  cout << "Aze" << endl;
 	               break;
-	         }
-	         
-	         break;
-	      default :
-	         break;
-	   }
-    }
+               }
+               default :
+                  break;
+            }
+            
+            break;
+         }
+         default :
+            break;
+      }
+   }
+   victory.Stop(); 
+   mainWindow_->Clear();
    *gameState_ = ShowingMainMenu;
-   gameover.Stop(); 
+   
 }

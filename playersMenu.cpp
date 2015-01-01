@@ -92,7 +92,6 @@ PlayersMenu::PlayersMenu ()
 
 PlayersMenu::~PlayersMenu () 
 {
-  cout << "Destructeur PlayersMenu()" << endl;
   playersItems_->clear();
    
   delete playersItems_;
@@ -111,7 +110,6 @@ PlayersMenu::~PlayersMenu ()
 void PlayersMenu::Load(sf::RenderWindow *window)
 { 
    //On gère le déplacement de la flèche 
-cout << "Load Players menu" << endl;
    window->Clear(Color::White);
 	window->Draw(*sprite_main_players_);
 	sprite_arrow_->SetPosition(12*32 - 20 + (*position_fleche_)*64, 5 + 12*32);
@@ -129,7 +127,6 @@ cout << "Load Players menu" << endl;
 
 PlayersMenu::PlayersResult PlayersMenu::Show(sf::RenderWindow *window)
 {
-    cout << "Show" << endl;
 	return GetPlayersResponse(window);
 }
 

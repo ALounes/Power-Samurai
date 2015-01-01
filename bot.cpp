@@ -57,13 +57,10 @@ Bot::Bot(RenderWindow *win, Image& image, const Vector2i nbrOfAnim, String name,
    setSpeed(bot_speed);
    setId(ident);
    play();
-   
-   cout << "CONSTRUCTEUR BOT" << endl;
 }
 
 Bot::~Bot()
 {
-	cout << "DESTRUCTEUR BOT" << endl;
 }
 
 void

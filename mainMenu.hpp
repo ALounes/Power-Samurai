@@ -12,7 +12,7 @@ public:
   MainMenu ();
   ~MainMenu ();
 
-	enum MenuResult { Nothing, Exit, Play, Difficulty, Players};	
+	enum MenuResult { Nothing, Exit, Play, Difficulty, Players, Help};	
 	
 	struct MenuItem
 		{
@@ -40,6 +40,7 @@ private:
 	sf::Image *image_exit_;
 	sf::Image *image_difficulty_;
 	sf::Image *image_players_;
+	sf::Image *image_help_;
 	
 	int on_button = 0;
 	

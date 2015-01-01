@@ -26,8 +26,6 @@ Map::~Map()
    }
    delete[] Vector_map_;
 
-   cout << "Vector_map deleted" << endl;
-
    delete sprite_map_;
    delete image_map_;
    
