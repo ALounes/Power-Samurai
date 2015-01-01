@@ -175,9 +175,7 @@ StatusBar::~StatusBar()
 
 void 
 StatusBar::update()
-{
-	//statuLife_.SetScaleX(0.5);
-   
+{   
    NamePlayer_->SetPosition(PLAYER_POSITION_X, PLAYER_POSITION_Y);
    Level_->SetPosition(LVL_POSITION_X, LVL_POSITION_Y);
    
@@ -190,10 +188,7 @@ StatusBar::update()
    MANA_Pot_Nb_->SetText(to_string(player_->getNbMANA()));	 
    MANA_Pot_Nb_->SetPosition(NBMANA_POSITION_X, NBMANA_POSITION_Y);
    
-
-
-
-   
+   // CD TEXT UPDATE  
    if (getCD(1) >= 10)
    {
       CD1_->SetPosition(CD1_POSITION_X - 5, CD1_POSITION_Y);

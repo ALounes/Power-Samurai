@@ -49,9 +49,9 @@
 
 
 
-#define EASY_DIFFICULTY 1
-#define INTERMEDIATE_DIFFICULTY 2 
-#define HARD_DIFFICULTY 3
+#define EASY_DIFFICULTY 0.5
+#define INTERMEDIATE_DIFFICULTY 1
+#define HARD_DIFFICULTY 1.5
 
 #define GAME_WIDTH  1024
 #define GAME_HEIGHT 768
@@ -89,7 +89,7 @@
 
 #define PERCENTAGE_UPGRADE 0.03
 #define PERCENTAGE_REGENERATION 0.007
-#define DROP_CHANCE 3*100
+#define DROP_CHANCE 2*100
 
 enum direction {DOWN,LEFT,RIGHT,UP};
 enum p_choice {P1,P2,P3,P4};
@@ -105,30 +105,31 @@ public:
    void Map_Load();
 	void Start();
 
-	void addEntity(Bot *entity);
+	void addEntity(Bot *entity);        //Ajoute/supprime un bot à la liste de monstres
 	void removeEntity(Bot *entity);		
-	void displayEntity(Clock &time);
+	void displayEntity(Clock &time);    // Gère l'affichage des entités
 
-	void addEffect(AnimationEffect *effect);
+	void addEffect(AnimationEffect *effect);     // Ajoute/supprime/affiche les effets
 	void removeEffect(AnimationEffect *effect);		
 	void displayEffect(Clock &time);
 
-	void eventManagement(Event &event);
-	void keyPressedManagement (Key::Code keyPressed);
-	void launchingPause();
-	void loadBot();
-	void loadItem();
-	void loadHP(int coordx, int coordy, Map *map);
-	void loadMana(int coordx, int coordy, Map *map);
+	void eventManagement(Event &event);          // Gère les événements sur la fenêtre
+	void keyPressedManagement (Key::Code keyPressed);  // Gère la gestion de l'appui des touches
+	void launchingPause();                             // Lance la pause. Elle a été implémenté pour mettre en pause tout le jeu à l'aide d'une boucle while
+	void loadBot();                           // Charge les monstres
+	void loadItem();                          // Charge les items
+	void loadHP(int coordx, int coordy, Map *map);     // Permet d'ajouter une potion de vie sur une map
+	void loadMana(int coordx, int coordy, Map *map);   // Permet d'ajouter une potion de mana sur une map
 	
-	void launchBloodEffect(LivingEntity * e);
-	void launchDeathEffect(LivingEntity * e);
+	void launchBloodEffect(LivingEntity * e);    // Lance une animation de sang
+	void launchDeathEffect(LivingEntity * e);    // Lance une animation de mort d'un monstre
 	
-	void loadImages();
-	void launchingDeath();
-	void upgrade();
+	void loadImages();         // Charge toutes les images d'un coup, afin de gagner en performances
+	void launchingDeath();     // Gère la mort du joueur
+	void launchingVictory();   // Gère la victoire
+	void upgrade();            // Chaque fois qu'un monstre meurt, on améliore le personnage
 	
-	void loadDragon(Map *map, int id, int range, int coordx, int coordy);
+	void loadDragon(Map *map, int id, int range, int coordx, int coordy);      // Construction des monstres
 	void loadTroll(Map *map, int id, int range, int coordx, int coordy);
 	void loadArmor1(Map *map, int id, int range, int coordx, int coordy);
 	void loadReaper1(Map *map, int id, int range, int coordx, int coordy);
@@ -149,39 +150,42 @@ public:
    void loadRedeye(Map *map, int id, int range, int coordx, int coordy);
    void loadRedscorpion(Map *map, int id, int range, int coordx, int coordy);
    
-   void launchStartDialogue(string s, int coordx, int coordy);
+   void launchStartDialogue(string s, int coordx, int coordy);             // Gère l'affichage d'un dialogue
    
-   void randomDrop(int x, int y);
+   void randomDrop(int x, int y);         // Gère le drop d'items lorsqu'un monstre meurt
   
 private:
 
-	bool IsExiting();
-	void GameLoop();
+   // Le jeu a plusieurs états. Chaque Menu en a un, puis nous avons un état Pause, Playing, et Exiting. Suivant cet état, on lance différentes fonction
+
+	bool IsExiting();    // Permet de signaler que le jeu doit quitter.
+	void GameLoop();     // Boucle de jeu 
 	
-	void ShowSplashScreen();
-	void ShowPlayersMenu();
-	void ShowDifficultyMenu();
-	void ShowMainMenu();
-	void RunGame();
-	void setPlayer(RenderWindow  * mainwin);
-	void setDifficulty();
+	void ShowSplashScreen();   // Lance le SplashScreen
+	void ShowPlayersMenu();    // Lance le Menu de choix du perso
+	void ShowDifficultyMenu(); // Lance le Menu de difficultés
+	void ShowMainMenu();       // Lance le Menu principal
+	void RunGame();            // Lance le jeu
+	void setPlayer(RenderWindow  * mainwin);  // Permet de sauvegarder le choix du perso 
+	void setDifficulty();                     // Permet de sauvegarder le choix de difficulté
 
 
    enum GameState { Uninitialized, ShowingSplash, Paused, 
 					ShowingMainMenu, ShowingPlayersMenu, ShowingDifficultyMenu, Playing, Exiting };
 
-	GameState *gameState_;
+
+	GameState *gameState_;     // Variable de status de jeu
    MainMenu  *mainMenu_;
    DifficultyMenu *difficultyMenu_;
    PlayersMenu    *playersMenu_;
    
-	list<Bot*> entitys;
-	list<AnimationEffect*> effects;
-	list<StaticAnimation*> static_effects;
-	list<Projectile*> projectiles;
-	list<Item*> items;
+	list<Bot*> entitys;              // Liste des bots
+	list<AnimationEffect*> effects;  // Liste des Animations dynamiques
+	list<StaticAnimation*> static_effects; // Liste des Animations statiques
+	list<Projectile*> projectiles;      // Liste des projectiles
+	list<Item*> items;                  // Liste des items
 	
-	Images all_images;
+	Images all_images;                  // Classe contenant toutes les images
 	 
 	Player *joueur;
 	Image  *image_joueur;
@@ -191,8 +195,8 @@ private:
 	Camera *camera;
 	View   * view;
 	 
-	p_choice *player_choice;
-	float ResultDifficulty = EASY_DIFFICULTY;
+	p_choice *player_choice;            // Enregistre la position de la flèche dans le playersMenu, permettant d'ensuite construire le personnage
+	float ResultDifficulty = EASY_DIFFICULTY; // Enregistre la difficulté
 	
    Map    *map_1;
    Map    *map_2;
@@ -204,12 +208,15 @@ private:
    Clock * Timer_Projectile;	
    Clock * Timer_Items;
    Clock * Timer_Spell;
+   Clock * Timer_Victory;
 	
    Image *image_Death;
    Image *image_degats;
 	Image *image_projectile;
 	Image *image_hp_item;
 	Image *image_mana_item;
+	
+	bool game_victory = false;
 	
 };
 

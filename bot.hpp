@@ -14,102 +14,101 @@
 
 using namespace std;
 
-
+/*!
+*\class Bot
+*\brief Classe représentant les monstres
+*
+*La classe gère le déplacement des monstres à l'aide de l'algorithme A*
+*/
 
 class Bot: public LivingEntity
 {
 	public :
 	
+	/*!
+     *  \brief Constructeur
+     *
+     *  Constructeur de la classe Bot
+     *
+     *  \param listSongs : liste initial des morceaux
+     */
+	
 	Bot(RenderWindow *win, Image &image, const Vector2i nbrOfAnim, String name, int life, int mana, enum power power, Map *myMap, float att_dmg, float att_delay, float ResultDiff, int ident, int rangebot, int xp, Image* image1, Image* image2, Image* image3);
 		
 	virtual ~Bot();
 
+   //Inutilisé
 	void move();
 	
+	// Permet d'assigner et de récupérer la range de détection 
 	void SetRange(int range);
 	int GetRange() const;
+	// Permet d'assigner et de récupérer la vitesse de déplacement
 	void SetSpeed(int speed);
 	int GetSpeed() const;
 	
-	void drawRect();
 	
+	// Permet d'assigner et de récupérer le pointeur sur le joueur de référence.
 	void SetPlayer(Player * player);
 	Player * GetPlayer() const;
 	
+	// Permet de récupérer le chemin entre le monstre et le joueur
 	string GetPath() const ;
 	
-	string pathFind( const int & xStart, const int & yStart, const int & xFinish, const int & yFinish, Map * map_);
-	
-	void update_path(Map * map,Player * player);
-	
-	void follow_path(Map *map, Player * player);
-	
-	void update();
-	
+
+	// Permet d'assigner et de récupérer la range de détection du monstre
 	void setRange(int);
 	int getRange();
 	
+	// Permet d'assigner et de récupérer la distance entre le joueur et le monstre
 	void setDistance(int);
 	int getDistance();
 	
-	/*String getName() const;
-	void setName(String name);
-	
-	int getLifeMax() const;
-	int getManaMax() const;
-	int getLife() const;
-	int getMana() const;
-
-	void setLife(int life);
-	void setMana(int mana);
-	void setLifeMax(int life);
-	void setManaMax(int mana);
-	void bonusLifeMax(int life);
-	void bonusManaMax(int mana);
-
-	void lifePenalty(int penalty);
-	void lifeGain(int gain);
-	void manaPenalty(int penalty);
-	void manaGain(int gain);
-	bool isAlive()  const;
-	bool haveMana() const;
-	
-	void setAttackDamage(float);
-	float getAttackDamage();
-	*/
+	// Permet d'assigner et de récupérer l'xp 
 	void setXp(int);
 	int getXp() const;
 	
+	// Permet d'assigner et de récupérer le délai d'attaque
    void setAttackDelay(float);
 	float getAttackDelay();
 	
+	// Permet d'assigner et de récupérer le champ in_pursuit. Une fois à "true". Il ne peut que passer de l'état false à true
 	void inPursuit();
 	bool getPursuit();
+	
+		// drawRect permet de construire la barre de vie des monstres et de la dessiner dans la fenêtre
+	void drawRect();
+	
+	// Inspiré de l'algorithme A star (A*), retourne le plus court chemin, en prenant en compte les obstacles, sous la forme d'une chaîne de caractère représentant les directions à suivre.
+	string pathFind( const int & xStart, const int & yStart, const int & xFinish, const int & yFinish, Map * map_);
+	
+	
+	// Permet de mettre à jour le chemin du bot avec les coordonnées du bot et du joueur.
+	void update_path(Map * map,Player * player);
+	
+	//follow_path gère la création des sorts suivant si la distance au joueur est plus petite que la distance de lancer du sort, ainsi que le déplacement du joueur suivant le chemin le plus court.
+	void follow_path(Map *map, Player * player);
+	
+	//Met à jour le sprite suivant le déplacement.
+	void update(); 
 	
 	Shape Rect ;
 	
 	
 	private:
 	
-	string path;
-	Player * player_;
+	string path;      /*!< Chemin entre le monstre et le joueur*/
+	Player * player_; /*!< Pointeur sur le joueur de référence*/
 	
-	int range_ = DEFAULT_RANGE;
-	int speed_;
-	int distance;
-	
-	/*String name_;
-	int life_;
-	int mana_;
-	int lifeMax_;
-	int manaMax_;
-	enum power power_;
-	int current_direction;
-	float attack_damage_;*/
+	int range_ = DEFAULT_RANGE; /*!< Rayon de détection du Bot*/
+	int speed_;/*!<Vitesse du bot*/
+	int distance; /*!< Donne la distance entre le joueur et le Bot*/
+
 	float attack_delay;
-	int xp_;
+	int xp_;          /*!< Xp que rapporte le Bot à sa mort.*/
 	
-	bool in_pursuit = false;
+	bool in_pursuit = false;   /*!< Etat du Bot. Une fois en poursuite, il poursuit le joueur jusqu'à sa mort ou celle du joueur.*/
+	
 	//uniform_int_distribution<int> distribution(random_minimum,random_maximum);
 	//defalut_random_engine generateur;
 };

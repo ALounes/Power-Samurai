@@ -56,6 +56,8 @@ Entity::pause()
 	moving_ = false;
 }
 
+
+// Fonction principale de la gestion des déplacements. On fait ici une liaison entre où est l'entité et ce qu'il y a sur la carte. En fonction de cette lecture, on effectue des actions. 
 bool 
 Entity::legalDeplacement(int x, int y) 
 {	   
@@ -69,7 +71,7 @@ Entity::legalDeplacement(int x, int y)
 	   switch ( myMap_->getSocleMap(i,j) ) {
 	  
 	      case DECOR :
-            is_stuck = true;
+            is_stuck = true; //Permet de dire que l'entité est bloquée. Cela est surtout utilisé pour les projectiles, afin de gérer leur destruction quand ils touchent le décor.
 	         return false;
 	         break;
 
@@ -80,7 +82,7 @@ Entity::legalDeplacement(int x, int y)
 
 	      case LINK_MAP_1 :
 
-	         //linkmap1
+	         //linkmap1. Permet de changer de map (actualise la map pour le joueur), et de téléporter celui-ci dans les coordonnées données par "get_tpPoints" précisées par la map (gestion de la transition entre les maps).
             if ( getMap()->getLink(1) && getId() != PROJECTILE ) 
 				{	         
 		         setPosition(Vector2f(getMap()->get_tpPoints(1),
@@ -134,13 +136,18 @@ Entity::legalDeplacement(int x, int y)
 	}
 	
 	return true;
-	/*if (myMap_->getSocleMap(i,j) == 0)
-		return false;
-	else 
-		return true;*/
-
 }
 
+
+/* La gestion du déplacement est assez ardue. Pour résumer, les projectiles sont bloqués dès qu'ils touchent un obstacle, ce qui rajoute un filtrage au début de chaque sous-fonction. Par contre, pour les entités, nous avons implémenté un "lissage" des déplacements. En effet, pour qu'une entité puisse aller à droite, il doit vérifier que le côté en haut à droite et en bas à droite ne rencontrent pas de collision. Pour aller en diagonale Haut-droite, il doit vérifier que tous ses coins sauf celui du bas gauche ne rencontrent pas de collision. Cela donne dans ce cas trois cas à traiter. Le lissage se fait alors après. Imaginons nous voulons aller à droite, mais que le coin bas droite a une collision, alors que le coin haut droite n'en a pas. Nous allons alors bouger aller vers le haut afin de débloquer le coin. Un example visuel lorsque nous avons un ordre d'aller à droite en reprenant l'example précédent 
+                           +-+
+              +-+          | |-->
+              | |-->       +-+
+              +-+ +---        +---      
+                  |           |
+                  |           |
+
+*/
 void 
 Entity::moveUp() //Okay
 {
@@ -780,12 +787,12 @@ void Entity::setMapChanged(map_number x)
 
 int Entity::getId() const 
 {
-   return id;
+   return id_;
 }
 
-void Entity::setId(int x) 
+void Entity::setId(int id) 
 {
-   id = x;
+   id_ = id;
 }
 
 bool Entity::getStuck() const 

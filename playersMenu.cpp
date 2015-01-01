@@ -6,7 +6,7 @@
 	
 PlayersMenu::PlayersMenu () 
 {
-
+  // On initialise le menu, en ajoutant les différents personnages
   playersItems_ = new std::list<PlayersItem>;
   position_fleche_ = new int;
   *position_fleche_ = 0;
@@ -110,8 +110,9 @@ PlayersMenu::~PlayersMenu ()
 }
 void PlayersMenu::Load(sf::RenderWindow *window)
 { 
+   //On gère le déplacement de la flèche 
 cout << "Load Players menu" << endl;
-  window->Clear(Color::White);
+   window->Clear(Color::White);
 	window->Draw(*sprite_main_players_);
 	sprite_arrow_->SetPosition(12*32 - 20 + (*position_fleche_)*64, 5 + 12*32);
 	
@@ -135,7 +136,7 @@ PlayersMenu::PlayersResult PlayersMenu::Show(sf::RenderWindow *window)
 PlayersMenu::PlayersResult  PlayersMenu::GetPlayersResponse(sf::RenderWindow *window)
 {
 	sf::Event playersEvent;
-
+   // Gère la gestion de l'appui sur les touches directionnelles pour bouger la flèche 
 	while(42 != 43)
 	{
 
@@ -164,6 +165,7 @@ PlayersMenu::PlayersResult  PlayersMenu::GetPlayersResponse(sf::RenderWindow *wi
 
 PlayersMenu::PlayersResult PlayersMenu::HandleKey(int position, sf::RenderWindow *window)
 {
+  // Déplacement de la flèche
   if (position == -1) {
      if (*position_fleche_ == 0) {
       *position_fleche_ = NB_PERSO - 1;
@@ -181,8 +183,6 @@ PlayersMenu::PlayersResult PlayersMenu::HandleKey(int position, sf::RenderWindow
       ++(*position_fleche_);
      }
   }
- 
-  cout << *position_fleche_ << endl;
   
   sprite_arrow_->SetPosition(12*32 - 20 + (*position_fleche_)*64, 5 + 12*32);
 
@@ -207,12 +207,8 @@ PlayersMenu::PlayersResult PlayersMenu::HandleKey(int position, sf::RenderWindow
 
    window->Draw(iter->texte);
    
-   cout << *position_fleche_ << endl;
-   
-   
    window->Draw(*sprite_arrow_);
    window->Display();
-   cout << "finHandleKey" << endl;
 	return Nothing;
 }
 

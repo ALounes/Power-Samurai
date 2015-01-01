@@ -61,30 +61,6 @@ class Entity : public Animation
 	bool getStuck() const;
 	void setStuck(bool);
 	
-	
-	//void setMovingSound(string s);
-	
-	/*virtual String getName() const;
-	virtual void setName(String name);
-	
-	virtual int getLifeMax() const;
-	virtual int getManaMax() const;
-	virtual int getLife() const;
-	virtual int getMana() const;
-
-	virtual void setLife(int life);
-	virtual void setMana(int mana);
-	virtual void setLifeMax(int life);
-	virtual void setManaMax(int mana);
-	virtual void bonusLifeMax(int life);
-	virtual void bonusManaMax(int mana);
-
-	virtual void lifePenalty(int penalty);
-	virtual void lifeGain(int gain);
-	virtual void manaPenalty(int penalty);
-	virtual void manaGain(int gain);
-	virtual bool isAlive()  const;
-	virtual bool haveMana() const;*/
 
 	private:
 	
@@ -93,7 +69,7 @@ class Entity : public Animation
 	Map  *myMap_;
 	
 	map_number map_changed = NOCHANGE;
-	int id;
+	int id_;
 	bool is_stuck = false;
 	
 };

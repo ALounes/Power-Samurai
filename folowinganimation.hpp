@@ -12,8 +12,8 @@ class FolowingAnimation : public AnimationEffect
 	FolowingAnimation(RenderWindow *win, Image& image, const Vector2i nbrOfAnim, Entity *entity);
 	~FolowingAnimation();
 
-	void loop();
-	void run ();
+	void loop();   //Boucle l'animation
+	void run ();   //Gère le déroulement de l'animation et fait en sorte de bien suivre l'entité passée en paramètre
 
 	private:
 

@@ -1,16 +1,13 @@
 #ifndef IMAGES_ANIMATION_HPP
 #define IMAGES_ANIMATION_HPP
 
-//void loadImagesAnimation();
 
-//void deleteImagesAnimation();
 #include "stdafx.hpp"
 
+
+// Classe permettant de charger la majeure partie des ressources friandes en mémoire
 class Images
 {
-
-
-
 public:
 
    Images();

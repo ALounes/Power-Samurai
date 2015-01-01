@@ -48,6 +48,7 @@ class LivingEntity : public Entity
 	void bonusLifeMax(int life);
 	void bonusManaMax(int mana);
 
+   //Pour les gains/pertes de mana, on vérifie que l'on est bien dans les bornes.
 	void lifePenalty(int penalty);
 	void lifeGain(int gain);
 	void manaPenalty(int penalty);
@@ -58,46 +59,46 @@ class LivingEntity : public Entity
 	void setAttackDamage(float);
 	float getAttackDamage();
    
-   list<AnimationEffect*> spells;
-	list<AnimationEffect*> appliedeffects;
+   list<AnimationEffect*> spells;      //Sorts lancés par l'entité
+	list<AnimationEffect*> appliedeffects; // Sorts appliqués à l'entité
 	
 	
 	
 	private:
 	
 	String name_;
-	int life_;
-	int mana_;
-	int lifeMax_;
-	int manaMax_;
+	int life_;  //Vie de l'entité
+	int mana_;  //Mana
+	int lifeMax_;  //Vie Max
+	int manaMax_;  //Mana Max
 	enum power power_;
-	float attack_damage;
+	float attack_damage; //Dégats
 	
-	Clock * timer1_;
+	Clock * timer1_;  //Timers associés aux sorts
 	Clock * timer2_;
 	Clock * timer3_;
 	
-	float spell_delay1_;
+	float spell_delay1_; //Cooldown des sorts
 	float spell_delay2_;
    float spell_delay3_;	
 	
 	
-	int range1_;
+	int range1_;      //Portée des sorts
 	int range2_;
 	int range3_;
-	float dmg1_;
+	float dmg1_;     //Dégats des sorts
 	float dmg2_;
 	float dmg3_;
-	Vector2i v_spell1_;
+	Vector2i v_spell1_;  //Vecteurs du nombre de sous sprites dans les images
 	Vector2i v_spell2_;
 	Vector2i v_spell3_;
-	float mana_cost1_;
+	float mana_cost1_;   //Cout en mana des sorts
 	float mana_cost2_;
 	float mana_cost3_;
 	
-	Image* Spell1_;
-   Image* Spell2_;
-	Image* Spell3_;
+	Image* Spell1_;   //Image du premier sort
+   Image* Spell2_;   //Image du second sort
+	Image* Spell3_;   //Image du troisième sort
 	
 };
 

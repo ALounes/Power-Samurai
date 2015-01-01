@@ -20,31 +20,6 @@ class Player : public LivingEntity
 	~Player();
 
 	void actionKey(Map * map);
-
-	/*String getName() const;
-	void setName(String name);
-	
-	int getLifeMax() const;
-	int getManaMax() const;
-	int getLife() const;
-	int getMana() const;
-
-	void setLife(int life);
-	void setMana(int mana);
-	void setLifeMax(int life);
-	void setManaMax(int mana);
-	void bonusLifeMax(int life);
-	void bonusManaMax(int mana);
-
-	void lifePenalty(int penalty);
-	void lifeGain(int gain);
-	void manaPenalty(int penalty);
-	void manaGain(int gain);
-	bool isAlive()  const;
-	bool haveMana() const;
-	
-	void setAttackDamage(float);
-	float getAttackDamage();*/
 	
 	int getNbHP() const;
 	void setNbHP(int);
@@ -79,15 +54,6 @@ class Player : public LivingEntity
 	void setIsDamaged(bool);
 	
 	private:
-	
-	/*String name_;
-	int life_;
-	int mana_;
-	int lifeMax_;
-	int manaMax_;
-	enum power power_;
-	
-	float attack_damage;*/
 	
 	int current_direction;
 	int nb_Hp_Pot = 0;

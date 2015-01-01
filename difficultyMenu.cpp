@@ -114,6 +114,7 @@ DifficultyMenu::DifficultyResult DifficultyMenu::Show(sf::RenderWindow *window)
 	return GetDifficultyResponse(window);
 }
 
+//Suivant les actions effectuées dans la fenêtre, affiche les sprites des boutons colorés ou renvoie le résultat du bouton associé à l'endroit cliqué 
 DifficultyMenu::DifficultyResult  DifficultyMenu::GetDifficultyResponse(sf::RenderWindow *window)
 {
 	sf::Event difficultyEvent;
@@ -158,6 +159,7 @@ DifficultyMenu::DifficultyResult DifficultyMenu::HandleClick(int x, int y)
 	return Nothing;
 }
 
+// Si la souris est sur un bouton, on afiche son sprite coloré
 void DifficultyMenu::HandleMove(int x, int y, sf::RenderWindow *window)
 {	
 	bool on_button = false;

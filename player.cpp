@@ -4,25 +4,21 @@
 Player::Player(RenderWindow *win, Image &image, const Vector2i nbrOfAnim, String name,
 					int life, int mana, enum power power, Map *myMap, float att_dmg)
 :LivingEntity(win,image,nbrOfAnim,myMap)
-/*,name_(name)
-,life_(life)
-,mana_(mana)
-,lifeMax_(life)
-,manaMax_(mana)
-,attack_damage(att_dmg)*/
 {
-
+   // On construit le joueur
+   
    setName(name);
    setLife(life);
    setLifeMax(life);
    setMana(mana);
    setManaMax(mana);
    setAttackDamage(att_dmg);
+   
    portrait_ = new Image();
    sprt_ = new Sprite();
 	play();
-   movingSoundB_ = new SoundBuffer;
-   movingSound_ = new Sound;
+   movingSoundB_ = new SoundBuffer();
+   movingSound_ = new Sound();
    setMovingSoundB("Musique/Move.ogg");
    movingSound_->SetPitch(2);
    movingSound_->SetVolume(60);
@@ -30,9 +26,9 @@ Player::Player(RenderWindow *win, Image &image, const Vector2i nbrOfAnim, String
    
    projectileSoundB_ = new SoundBuffer;
    projectileSound_ = new Sound;
-   setProjectileSoundB("Musique/Blow7.ogg");
+   setProjectileSoundB("Musique/Fireball.ogg");
    projectileSound_->SetPitch(2);
-   projectileSound_->SetVolume(60);
+   projectileSound_->SetVolume(100);
    projectileSound_->SetLoop(false);
 }
 
@@ -50,6 +46,7 @@ Player::~Player()
 void
 Player::actionKey(Map * map)
 {  
+   //Gère le déplacement ainsi que la gestion du son des pas.
 	const sf::Input &input = win_->GetInput();
 	int compteur_deplacement = 0;
 	
@@ -127,12 +124,10 @@ Player::actionKey(Map * map)
 		(getMovingSound()->GetStatus() == Sound::Stopped || 
 		 getMovingSound()->GetStatus() == Sound::Paused) )
 	{
-	   cout << "SON joué" << endl;
 	   getMovingSound()->Play();
 	}
 	if (compteur_deplacement == 0)
 	{
-	   cout<< "Pause" << endl;
 	   getMovingSound()->Pause();
 	}
 
@@ -148,148 +143,6 @@ Player::update()
 		stopMove();
 	}
 }
-
-/*String 
-Player::getName() const
-{
-	return name_;
-}
-
-int 
-Player::getLife() const
-{
-	return life_;
-}
-
-int 
-Player::getMana() const
-{
-	return mana_;
-}
-
-void 
-Player::setName(String name)
-{
-	name_ = name;
-}
-
-void 
-Player::setLife(int life)
-{
-	life_ = life;
-}
-
-void 
-Player::setMana(int mana)
-{
-	mana_ = mana;
-}
-
-void 
-Player::lifePenalty(int penalty)
-{
-	life_ -= penalty;
-
-	if(life_ < ZERO)
-	{
-		life_ = ZERO;
-	}
-}
-
-void 
-Player::lifeGain(int gain)
-{
- 	life_ += gain;
-
-	if(life_ > lifeMax_)
-	{
-		life_ = lifeMax_;
-	}
-}
-
-void 
-Player::manaPenalty(int penalty)
-{
-	mana_ -= penalty;
-
-	if(mana_ < ZERO)
-	{
-		mana_ = ZERO;
-	}
-}
-
-void 
-Player::manaGain(int gain)
-{
- 	mana_ += gain;
-
-	if(mana_ > manaMax_)
-	{
-		mana_ = manaMax_;
-	}
-}
-
-bool 
-Player::isAlive() const
-{
-	return (life_ > ZERO);
-}
-
-bool 
-Player::haveMana() const
-{
-	return (mana_ > ZERO);
-}
-
-int  
-Player::getLifeMax() const
-{
-	return lifeMax_;
-}
-
-int  
-Player::getManaMax() const
-{
-	return manaMax_;
-}
-
-void  
-Player::setLifeMax(int life)
-{
-	lifeMax_ = life;
-}
-
-void  
-Player::setManaMax(int mana)
-{
-	manaMax_ = mana;
-}
-
-
-void 
-Player::bonusLifeMax(int life)
-{
-	lifeMax_ += life;
-}
-
-void 
-Player::bonusManaMax(int mana)
-{
-	manaMax_ += mana;
-}
-
-
-
-void Player::setAttackDamage(float ad) 
-{
-   attack_damage = ad;
-}
-
-float Player::getAttackDamage() 
-{
-   return attack_damage;
-}*/
-
 
 int Player::getCurrentDirection() 
 {

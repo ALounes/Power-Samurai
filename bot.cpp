@@ -2,12 +2,44 @@
 #include "bot_algorithm.hpp"
 
 
-Image effect_1;
+//Image effect_1;
+
+/*!
+*\file bot.hpp
+*\brief Monstre (Bots)
+*/
+
+
+/*!
+*\brief Surcharge de l'opérateur de comparaison afin de pouvoir comparer deux noeuds suivant la priorité
+*/
 bool operator<(const Node & a, const Node & b)
 {
   return a.getPriority() > b.getPriority();
 }
 
+/*!
+*\brief Constructeur
+*
+*Constructeur de la classe Bot
+*
+*\param win : fenêtre où sera affichée les Bots
+*\param image : Référence de l'image du Bot.
+*\param nbrOfAnim : Vecteur définissant le nombre d'animations en Hauteur et Largeur dans l'image. 
+*\param name : Nom du Bot
+*\param life : Vie du Bot
+*\param mana : Mana du Bot
+*\param myMap : Map de référence pour (entre autres) le calcul du plus court chemin
+*\param att_dmg : Dégats du Monstre
+*\param att_delay : Vitesse d'attaque
+*\param bot_speed : Vitesse de déplacement
+*\param ident : Numéro d'identification 
+*\param rangebot : Rayon de détection du Bot
+*\param xp : Xp donnée à la mort du Bot
+*\param image1 : Image du premier sort
+*\param image2 : Image du second sort
+*\param image3 : Image du troisième sort
+*/
 Bot::Bot(RenderWindow *win, Image& image, const Vector2i nbrOfAnim, String name,
 			int life, int mana, enum power power, Map *myMap, float att_dmg, float att_delay, float bot_speed, int ident, int rangebot, int xp, Image* image1, Image* image2, Image* image3)
 :LivingEntity(win,image,nbrOfAnim,myMap)
@@ -37,7 +69,7 @@ Bot::~Bot()
 void
 Bot::move()
 {
-	// A FAIRE
+
 }
 
 void
@@ -71,6 +103,8 @@ Player * Bot::GetPlayer() const
    return player_;
 }
 
+
+//Algorithme inspiré de A Star
 string Bot::pathFind( const int & xStart, const int & yStart, 
                  const int & xFinish, const int & yFinish, Map * map_)
 {
@@ -216,45 +250,56 @@ void Bot::follow_path(Map * map, Player * player) {
    int j;
    char c;
 	      
+	//Les monstres ont trois sorts. Chacun a un timer, un délai (le cooldown), une range, une quantité de dégats. Si le sort n'est plus en cooldown, et que le joueur est bien dans la range du sort, il se caste. On initialise et lance alors l'effet, que l'on place dans la liste des sorts, puis on met le sort en cooldown. 
    if ( getTimer(1)->GetElapsedTime() > getSpellDelay(1) && (int)path.size() <= getSRange(1) ) {
-         cout << "SORT 1 Créé" << endl;
          player->lifePenalty(getDmg(1));
          player->setIsDamaged(true);
 		      
 		   FolowingAnimation *effect1 = new FolowingAnimation(win_, *getImgSpell(1), getVSpell(1), player);
+		   
+		   
+		   effect1->setSoundB("Musique/Bite.ogg");
+         effect1->getSound()->SetLoop(false);
+	      effect1->getSound()->Play();
          effect1->play();
          spells.push_front(effect1);
          getTimer(1)->Reset();
    }
    if ( getTimer(2)->GetElapsedTime() > getSpellDelay(2) && (int) path.size() <= getSRange(2) ) {
-         cout << "SORT 2 Créé" << endl;
          player->lifePenalty(getDmg(2));
          player->setIsDamaged(true);
 		      
 		   FolowingAnimation *effect2 = new FolowingAnimation(win_, *getImgSpell(2), getVSpell(2), player);
+		   effect2->setSoundB("Musique/Ice10.ogg");
+         effect2->getSound()->SetLoop(false);
+	      effect2->getSound()->Play();
+		   
          effect2->play();
          spells.push_front(effect2);
          getTimer(2)->Reset();
    }
    
    if ( getTimer(3)->GetElapsedTime() >  getSpellDelay(3) && ( (int) path.size() <= getSRange(3)) ) {
-         cout << "SORT 3 Créé : " << endl;
          player->lifePenalty(getDmg(3));
          player->setIsDamaged(true);
           
 		      
 		   FolowingAnimation *effect3 = new FolowingAnimation(win_, *getImgSpell(3), getVSpell(3), player);
+		   effect3->setSoundB("Musique/Fire9.ogg");
+         effect3->getSound()->SetLoop(false);
+	      effect3->getSound()->Play();
          effect3->play();
          spells.push_front(effect3);
          getTimer(3)->Reset();
    }
 	      
+	//Puis, on suit le chemin donné par l'algorithme A*. L'ayant sous la forme d'une chaîne de caractères, on lit celle la, et on déplace le bot suivant le résultat.      
+	      
    if (path == "")
    {
-
+   
    }
    else {
-      
       c = path.at(0);
       //cout << "Direction bot : " << c << endl;
       j = atoi(&c);
@@ -263,7 +308,7 @@ void Bot::follow_path(Map * map, Player * player) {
       {
          //cout << "Premiere case du chemin : " << path.at(0);
          case 0 : {
-         runMove();
+            runMove();
             moveRight();
             break;
          }
@@ -341,148 +386,6 @@ int Bot::getDistance()
    return distance;
 }
 
-/*String 
-Bot::getName() const
-{
-	return name_;
-}
-
-void 
-Bot::setName(String name)
-{
-	name_ = name;
-}
-
-int 
-Bot::getLife() const
-{
-	return life_;
-}
-
-int 
-Bot::getMana() const
-{
-	return mana_;
-}
-
-void 
-Bot::setLife(int life)
-{
-	life_ = life;
-}
-
-void 
-Bot::setMana(int mana)
-{
-	mana_ = mana;
-}
-
-void 
-Bot::lifePenalty(int penalty)
-{
-	life_ -= penalty;
-
-	if(life_ < ZERO)
-	{
-		life_ = ZERO;
-	}
-}
-
-void 
-Bot::lifeGain(int gain)
-{
- 	life_ += gain;
-
-	if(life_ > lifeMax_)
-	{
-		life_ = lifeMax_;
-	}
-}
-
-void 
-Bot::manaPenalty(int penalty)
-{
-	mana_ -= penalty;
-
-	if(mana_ < ZERO)
-	{
-		mana_ = ZERO;
-	}
-}
-
-void 
-Bot::manaGain(int gain)
-{
- 	mana_ += gain;
-
-	if(mana_ > manaMax_)
-	{
-		mana_ = manaMax_;
-	}
-}
-
-bool 
-Bot::isAlive() const
-{
-	return (life_ > ZERO);
-}
-
-bool 
-Bot::haveMana() const
-{
-	return (mana_ > ZERO);
-}
-
-
-int  
-Bot::getLifeMax() const
-{
-	return lifeMax_;
-}
-
-int  
-Bot::getManaMax() const
-{
-	return manaMax_;
-}
-
-void  
-Bot::setLifeMax(int life)
-{
-	lifeMax_ = life;
-}
-
-void  
-Bot::setManaMax(int mana)
-{
-	manaMax_ = mana;
-}
-
-
-void 
-Bot::bonusLifeMax(int life)
-{
-	lifeMax_ += life;
-}
-
-void 
-Bot::bonusManaMax(int mana)
-{
-	manaMax_ += mana;
-}
-
-
-
-void Bot::setAttackDamage(float ad) 
-{
-   attack_damage_ = ad;
-}
-
-float Bot::getAttackDamage() 
-{
-   return attack_damage_;
-}*/
-
 void Bot::setAttackDelay(float ad) 
 {
    attack_delay = ad;
@@ -516,9 +419,10 @@ bool Bot::getPursuit()
 void Bot::drawRect() {
    if (getLife() == getLifeMax())
    {
-      
+      // Dans un soucis d'esthétique, quand le monstre a toute sa vie, on n'affiche pas sa barre de vie.
    }
    else {
+      //Sinon, on affiche la barre de vie.
       Rect =  Shape::Rectangle(0, 0, 30 *((float) getLife() /(float) getLifeMax()), 3, Color::Red);
       Rect.SetPosition(getCenter().x - 15, getCenter().y - 22);
       win_->Draw(Rect);

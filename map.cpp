@@ -61,11 +61,7 @@ Map::map_create(int hauteur, int largeur)
 
 void 
 Map::set_links(Map * map_1, Map * map_2, Map * map_3) 
-{
-   //link_map_1_ = new Map();
-   //link_map_2_ = new Map();
-   //link_map_3_ = new Map();
-   
+{  
    link_map_1_ = map_1;
    link_map_2_ = map_2;
    link_map_3_ = map_3;
@@ -154,29 +150,29 @@ int Map::get_tpPoints(int pos) {
    
       case 0 : {
          
-         return *x_link_1 * 32;
+         return *x_link_1 * BASE_SPRITE;
          break;
          }
       case 1 : {
-         return *y_link_1 * 32;
+         return *y_link_1 * BASE_SPRITE;
          break;
          }
       case 2 : {
          //linkmap1
-         return *x_link_2 * 32;
+         return *x_link_2 * BASE_SPRITE;
          break;
          }
       case 3 : {
          //linkmap2
-         return *y_link_2 * 32;
+         return *y_link_2 * BASE_SPRITE;
          break;
         } 
       case 4 : {
-         return *x_link_3 * 32;
+         return *x_link_3 * BASE_SPRITE;
          break;
       }
       case 5 : {
-         return *y_link_3 * 32;
+         return *y_link_3 * BASE_SPRITE;
          break;
       }
       default :
@@ -193,4 +189,12 @@ Music* Map::getMusic() const {
 void Map::setMusic(string s) {
    music_->OpenFromFile(s);
    music_->SetLoop(true);
+}
+
+void Map::setId(int id) {
+   id_ = id;
+}
+
+int Map::getId() const {
+   return id_;
 }

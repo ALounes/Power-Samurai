@@ -42,35 +42,11 @@ Game::Game ()
    image_hp_item    = new Image();
    image_mana_item  = new Image();
   
-   /*image_Armor1     = new Image();
-   image_Devil1     = new Image();
-	image_Dragon1    = new Image();
-	image_Fantome1   = new Image();
-	image_Fantome2   = new Image();
-	image_Reaper1    = new Image();
-	image_Squelette  = new Image();
-	image_Troll      = new Image();
-   
-   image_Bat = new Image();
-	image_Bee = new Image();
-	image_Blueslime     = new Image();
-	image_Greendragon1  = new Image();
-	image_Greenscorpion = new Image();
-	image_Greenslime    = new Image();
-	image_Mouse1        = new Image();
-	image_Naga          = new Image();
-	
-	image_Reddragon1    = new Image();
-	image_Redeye        = new Image();
-	image_Redscorpion   = new Image();
-	*/
 	image_degats = new Image();
 	image_Death = new Image();
 	image_death_joueur = new Image();
-
-  
-  cout << "game() terminé" << endl;
-}
+	Timer_Victory = new  Clock();
+ }
 
 
 Game::~Game ()
@@ -94,11 +70,11 @@ Game::~Game ()
 	delete image_degats;
 	delete image_Death;
 	delete image_death_joueur;
+	delete Timer_Victory;
   
 }
 void Game::Map_Load(void)
 {
-  cout << "Map_load()" << endl;
   // Creation map 1
   
   map_1->map_create(MAP_1_HEIGHT,MAP_1_WIDTH);
@@ -157,7 +133,7 @@ void Game::Map_Load(void)
   map_1->set_tpPoints(45,23,0,0,1,8);
   
   map_1->setMusic("Musique/Dungeon6.ogg");
-   
+  map_1->setId(2);      // numéro de carte dans le jeu
 	// Creation map 2
   
   map_2->map_create(MAP_2_HEIGHT,MAP_2_WIDTH);
@@ -224,7 +200,7 @@ void Game::Map_Load(void)
 	map_2->set_links(map_3,map_1,NULL);
 	map_2->set_tpPoints(3,37,8,14,0,0);
 	map_2->setMusic("Musique/Battle3.ogg");
-	
+	map_2->setId(3);
 	// MAP 3
 	
 	map_3->map_create(MAP_3_HEIGHT,MAP_3_WIDTH);
@@ -293,6 +269,7 @@ void Game::Map_Load(void)
 	
 	map_3->set_links(map_2,map_4,NULL);
 	map_3->set_tpPoints(3,37,41,27,0,0);
+	map_3->setId(4);
 	
 	//MAP 4
 	map_4->map_create(MAP_4_HEIGHT,MAP_4_WIDTH);
@@ -360,7 +337,7 @@ void Game::Map_Load(void)
 	
 	map_4->set_links(map_3,NULL,NULL);
 	map_4->set_tpPoints(41,25,0,0,0,0);
-	
+	map_4->setId(5);
 	// MAP 5
 	
 	map_5->map_create(MAP_5_HEIGHT,MAP_5_WIDTH);
@@ -411,13 +388,14 @@ void Game::Map_Load(void)
 	map_5->set_links(map_1,NULL,NULL);
 	map_5->set_tpPoints(25,8,0,0,0,0);
 	map_5->setMusic("Musique/Airship.ogg");
-	
+	map_5->setId(1);
 	cout << "Map chargées" << endl;
 	
 }
 
 void Game::Start(void)
 {
+   // On lance la boucle de jeu
 	if(*gameState_ != Uninitialized) 
 	{
 	   cout << "Bug, jeu déjà initialisé" << endl;
@@ -425,14 +403,13 @@ void Game::Start(void)
 	}
 	
 	*gameState_ = Game::ShowingSplash;
-	
+	// Si le gamestate est égal à Exiting, on quitte et on ferme la fenêtre. Le jeu est terminé
 	while(!IsExiting())
 	{
 		GameLoop();
 	}
    
 	mainWindow_->Close();
-	cout << "fermeture effectuee" << endl;
 }
 
 bool Game::IsExiting()
@@ -445,6 +422,7 @@ bool Game::IsExiting()
 
 void Game::GameLoop()
 {
+   // Suivant le résultat de GameState, on lance la fonction correspondante
 	switch(*gameState_)
 	{
 	  case Game::ShowingSplash:
@@ -454,10 +432,6 @@ void Game::GameLoop()
 			}
 		case Game::ShowingMainMenu:
 			{
-			   //Music music_;
-			   
-	         //music_.OpenFromFile("Musique/SplashScreen.ogg");
-            //music_.SetLoop(true);
             mainMenu_->getMusic()->Play();
             ShowMainMenu();
 	         if (*gameState_ == Game::Exiting || *gameState_ == Game::Playing)
@@ -662,35 +636,28 @@ void Game::RunGame()
 
    // Exécution de la boucle principale
    bool fin_de_boucle = false;
-   int lancer_dialogue = 0;  // 0 : non traité, 1 : en cours, 2 : traité.
+   int lancer_dialogue = 0;  // 0 : non traité
    
    const Input &input = mainWindow_->GetInput();
-   /*Sprite sese = Sprite(*(all_images.image_Attack5));
-   mainWindow_->Draw(sese);
-   mainWindow_->Display();
-   while (3!=2)
-   {
-      
-   }*/
    
    while (mainWindow_->IsOpened() && !(fin_de_boucle) && *gameState_ == Playing)
    {
       
       if (clock_regen.GetElapsedTime() >= 1)
-      {
+      {  // Regen de la vie et de la mana du joueur
          joueur->lifeGain( PERCENTAGE_REGENERATION * joueur->getLifeMax());
          joueur->manaGain( PERCENTAGE_REGENERATION * joueur->getManaMax());
          clock_regen.Reset();
       }
       
+      // On actualise les sorts en cours ainsi que la caméra
       effects = joueur->spells;
       mainWindow_->SetFramerateLimit(FRAMERATE);
-
       camera->setCameraXY(*(map_courante->get_Largeur()) * BASE_SPRITE,
 								  *(map_courante->get_Hauteur()) * BASE_SPRITE);
-
 		mainWindow_->Draw(*(map_courante->sprite_map_));
 			
+		// Gestion des déplancements	
       if (input.IsKeyDown(Key::Z) ||
 			 input.IsKeyDown(Key::Q) || 
 			 input.IsKeyDown(Key::D) || 
@@ -700,7 +667,8 @@ void Game::RunGame()
 			joueur->actionKey(map_courante);
 				
 			if (joueur->isMapChanged() != NOCHANGE) 
-			{
+			{  // Gestion du changement de carte
+			   
 			   map_courante->getMusic()->Stop();
 			   map_courante->Item_list = items;
 			   map_courante->Bot_list = entitys;
@@ -709,12 +677,21 @@ void Game::RunGame()
 			   entitys = map_courante->Bot_list;
 			   items = map_courante->Item_list;
 			   map_courante->getMusic()->Play();
+			   
+			   if (map_courante->getId() == 5)
+			   {
+			      //mainWindow_->Draw(*(map_courante->sprite_map_));
+			      //displayEntity(clock);	
+		         //statusbar.display();
+		         //mainWindow_->Display();
+			      lancer_dialogue = 4;
+			   }
 			}
 
 		}
 		
 		if ( input.IsKeyDown(Key::Space)) 
-		{
+		{ // Gestion des projectiles
 		   bool refresh = false;
 			if (Timer_Projectile->GetElapsedTime() > RATE_FIRE) 
 			refresh = true;
@@ -738,7 +715,7 @@ void Game::RunGame()
       }
       
 		if ( input.IsKeyDown(Key::E)) 
-		{ 
+		{ // Gestion du sort 1
 			if ( joueur->getTimer(1)->GetElapsedTime() > joueur->getSpellDelay(1) ) 
 			{
 				FolowingAnimation *effect1 = new FolowingAnimation(mainWindow_,
@@ -746,6 +723,9 @@ void Game::RunGame()
 																					joueur->getVSpell(1),
 																					joueur);
 
+            effect1->setSoundB("Musique/Blow7.ogg");
+            effect1->getSound()->SetLoop(false);
+	         effect1->getSound()->Play();
 				effect1->play();
 				effect1->setId(1);
 				effect1->setManaCost(joueur->getSManaCost(1));               
@@ -772,6 +752,11 @@ void Game::RunGame()
 							launchBloodEffect(s);
 							if (!s->isAlive())
 							{
+							   if (s->getId() == -30 )// Boss final)
+							   {
+							      game_victory = true;
+							      Timer_Victory->Reset();
+							   }
 							   launchDeathEffect(s);
 							   upgrade();
 								entitys.remove(s);
@@ -791,7 +776,7 @@ void Game::RunGame()
       }
       
 		if ( input.IsKeyDown(Key::R)) 
-		{ 
+		{ // Gestion du sort 2
 			if (joueur->getTimer(2)->GetElapsedTime() >
 				joueur->getSpellDelay(2) ) 
 			{
@@ -799,7 +784,9 @@ void Game::RunGame()
 																				 *(joueur->getImgSpell(2)), 
 																					joueur->getVSpell(2), 
 																					joueur);
-
+            effect2->setSoundB("Musique/Magic6.ogg");
+            effect2->getSound()->SetLoop(false);
+	         effect2->getSound()->Play();
 				effect2->play();
 				effect2->setId(2);
 				effect2->setManaCost(joueur->getSManaCost(2));               
@@ -824,6 +811,11 @@ void Game::RunGame()
 							launchBloodEffect(s);
 							if (!s->isAlive())
 							{
+							   if (s->getId() == -30 )// Boss final)
+							   {
+							      game_victory = true;
+							      Timer_Victory->Reset();
+							   }
 							   launchDeathEffect(s);
 							   upgrade();
 								entitys.remove(s);
@@ -840,7 +832,7 @@ void Game::RunGame()
 	         }
       }
       
-      if ( input.IsKeyDown(Key::T)) { 
+      if ( input.IsKeyDown(Key::T)) { // Gestion du sort 3
 			if (joueur->getTimer(3)->GetElapsedTime() > 
 				 joueur->getSpellDelay(3) ) 
 			{
@@ -849,13 +841,13 @@ void Game::RunGame()
 																				 *(joueur->getImgSpell(3)),
 																				  joueur->getVSpell(3), 
 																				  joueur);
-		      cout << "t" << endl;
+            effect3->setSoundB("Musique/Thunder7.ogg");
+            effect3->getSound()->SetLoop(false);
+	         effect3->getSound()->Play();
 				effect3->play();
 				effect3->setId(3);
-				cout << "t" << endl;
 				effect3->setManaCost(joueur->getSManaCost(3));               
 				joueur->spells.push_front(effect3);   
-				cout << "t1" << endl;           
 			}
             
 			for(auto s : joueur->spells){
@@ -877,6 +869,11 @@ void Game::RunGame()
 							launchBloodEffect(s);
 							if (!s->isAlive())
 							{
+							   if (s->getId() == -30 )// Boss final)
+							   {
+							      game_victory = true;
+							      Timer_Victory->Reset();
+							   }
 							   launchDeathEffect(s);
 							   upgrade();
 								entitys.remove(s);
@@ -894,15 +891,17 @@ void Game::RunGame()
 		}
       
 		for(auto s : entitys)
-		{
+		{  // Actualise le chemin des monstres
 			s->update_path(map_courante, joueur);
+			// Actualise la distance entre les monstres et le joueur
 			s->setDistance( (s->GetPath()).size() );
          
 			if (s->getDistance() > s->getRange() && !s->getPursuit())
 			{  
-            // Cas SURPLACE
+            // Cas surplace. Si le monstre est trop loin et non en poursuite, il ne bouge pas
 			}
 			else {
+			   // On passe en poursuite et on lance le déplacement du monstre
 				s->inPursuit();
 				s->follow_path(map_courante, joueur);
 			}
@@ -910,49 +909,42 @@ void Game::RunGame()
 	   
 		while (mainWindow_->GetEvent(event) )
 		{
-		
 			// Gestion des evenements 
-		switch (event.Type)
-		{
-			case Event::Closed :
-			   fin_de_boucle = true;
-				*gameState_ = Game::ShowingMainMenu;
-				break;
-
-
-			case Event::KeyPressed :
-				
-				keyPressedManagement(event.Key.Code);
-
-				break;
-
-			default: 
-				break;
-		}	
+		   switch (event.Type)
+		   {
+			   case Event::Closed :
+			      fin_de_boucle = true;
+				   *gameState_ = Game::ShowingMainMenu;
+				   break;
+			   case Event::KeyPressed :			
+				   keyPressedManagement(event.Key.Code);
+				   break;
+			   default: 
+				   break;
+		   }	
 		}
-
+      
+      // Gestion de la caméra
 		view->SetHalfSize(VIEW_WIDTH, VIEW_HEIGHT);
-      
-      
-		camera->run();	
-
-		// Mise a jour de la StatusBar et affichage
-		
-		statusbar.display();	
-		
+		camera->run();			
 		// Mise a jours des sprites et affichage
 		displayEntity(clock);
-      //effect->run();
-   	
-
+		// Mise a jour et affichage de la StatusBar		
+		statusbar.display();
 		// Affichage du contenu de la fenêtre à l'écran
 		mainWindow_->Display();
-
+      // Gestion du dialogue d'introduction
+      if (lancer_dialogue == 4)
+      {  cout << "LANCER dialogue" << endl;
+          launchStartDialogue("JE SENS SA PRESENCE... TUE CE DEMON !!",0,0);
+          lancer_dialogue = -1;
+      }   
       
+      /*
       if (lancer_dialogue == 3)
       {
          launchStartDialogue("TUE CETTE CREATURE MALEFIQUE, ET RETABLIT LA PAIX !", 0, 0);
-         lancer_dialogue = 4;
+         //lancer_dialogue = 4;
       }
       if (lancer_dialogue == 2)
       {
@@ -972,45 +964,48 @@ void Game::RunGame()
       if (lancer_dialogue == 0)
       {
          lancer_dialogue = 1;
+      }*/
+      
+      joueur->getMovingSound()->Pause();
+      if (game_victory)    // Gestion de la victoire
+      {  // On a tué le boss Final
+         
+         if (Timer_Victory->GetElapsedTime() > 2)
+         {
+            map_courante->getMusic()->Stop();
+            launchingVictory();
+         }
+         
+         
       }
-      
-      
-		// Efface le contenu de la fenetre 
-		joueur->getMovingSound()->Pause();
-		
+      			
 		if (!joueur->isAlive())
-		{
+		{  // Gestion de la mort du personnage
 		   map_courante->getMusic()->Stop();
 		   
 		   Clock death_timer;
 		   Vector2i eff = Vector2i(3,10);
 	      StaticAnimation *mort = new StaticAnimation(mainWindow_, *image_death_joueur, eff, joueur->getCenter());
-	      mort->play();
-	      
-	      
+	      mort->play();		      
          int i = 0;
          while (mort->isPlaying())
          {
-          if (i == 25)
+          if (i == 25) // Permet de faire durer plus longtemps le dernier frame de l'image
           {
              while (death_timer.GetElapsedTime() < 3)
              {
-                
+                // Ne rien faire
              }
-             death_timer.Reset();
-             
+             death_timer.Reset();            
           }
-          
           mainWindow_->Clear();
           mainWindow_->Draw(*(map_courante->sprite_map_));
-
           mort->run();  
           ++i;
           mainWindow_->Display(); 
          }
 		   delete mort;
-		   
-		   launchingDeath();
+		   launchingDeath(); // Lance l'écran de Gameover
 		}
 		
 		mainWindow_->Clear();
@@ -1018,17 +1013,19 @@ void Game::RunGame()
 		
    
    }
-
+   // Gestion de la destruction de tous les éléments construit pendant le jeu
    mainWindow_->Clear();
-   
-   cout << "Sortie de boucle" << endl;
-   mainWindow_->ShowMouseCursor(true);
-		
-	map_courante->getMusic()->Stop();
+   mainWindow_->ShowMouseCursor(true);		
 	joueur->getMovingSound()->Stop();
 	entitys = map_courante->Bot_list;
 	items = map_courante->Item_list;
-
+   game_victory = false;
+   map_1->getMusic()->Stop();
+   map_2->getMusic()->Stop();
+   map_3->getMusic()->Stop();
+   map_4->getMusic()->Stop();
+   map_5->getMusic()->Stop();
+   
 	while (!(map_1->Bot_list).empty()) 
 	{ 
 		delete (map_1->Bot_list).back(); 
@@ -1060,6 +1057,10 @@ void Game::RunGame()
 	}
 
 	entitys.clear();
+	effects.clear();
+	items.clear();
+	static_effects.clear();
+	projectiles.clear();
 
 	while (!(map_1->Item_list).empty()) 
 	{ 
@@ -1109,15 +1110,10 @@ void Game::RunGame()
 	}
 
 	delete view;
-
 	delete camera;
-
 	delete joueur;
-
 	delete Timer_Projectile;
-
 	delete Timer_Items;
-
    delete Timer_Spell;
 }
 
@@ -1172,7 +1168,7 @@ Game::removeEntity(Bot *entity)
 
 void 
 Game::displayEntity(Clock &time)
-{
+{  // Gestion de l'affichage des entités
 	bool refresh = false;
 
 	if (time.GetElapsedTime() > ENTITY_FPS_RATE) 
@@ -1198,7 +1194,7 @@ Game::displayEntity(Clock &time)
    if(refresh)
 		time.Reset();
      
-   // Gestion de l'affichage des Bot 
+   // Gestion de l'affichage des Bot ainsi que de leurs sorts
    for(auto s : entitys){
 
 	   if(refresh ){
@@ -1217,27 +1213,51 @@ Game::displayEntity(Clock &time)
             {
                s->spells.remove(c); 
                delete c;
+               break;
             }
-            break;
 	      }
 	   
 	   
    }
    // Gestion des effets
-   for(auto s : effects){
+   /*for(auto s : effects){
 
       if(s->isPlaying()){
       s->run();
       }
+      else {
+         effects.remove(s);
+         delete s;
+         break;
+      }
+   }*/
+   
+   // Gestion des sorts du joueur
+   for(auto s : joueur->spells){
+
+      if(s->isPlaying()){
+      s->run();
+      }
+      else {
+         joueur->spells.remove(s);
+         delete s;
+         break;
+      }
    }
+   // Gestion des effets statiques 
    for(auto s : static_effects){
 
       if(s->isPlaying()){
       s->run();
       }
+      else {
+         static_effects.remove(s);
+         delete s;
+         break;
+      }
    }
-   //time.Reset();
-   
+
+   // Gestion des items   
    for(auto s : items){
       refresh = false;
 
@@ -1246,23 +1266,22 @@ Game::displayEntity(Clock &time)
    
       if ( s->getIsShown()  && joueur->getCenter().x < s->getCenter().x + s->getAnimationWidth() && joueur->getCenter().x > s->getCenter().x - s->getAnimationWidth() && joueur->getCenter().y < s->getCenter().y + s->getAnimationHeight() && joueur->getCenter().y > s->getCenter().y - s->getAnimationHeight())
       {
-            cout << "Contact item" << endl;
+            // le joueur rentre en contact avec l'item alors qu'il est en état affiché. On ajoute alors l'item à l'inventaire
             s->setIsShown(false);
             s->resetTimer(); 
+            // Suivant l'identifiant de l'item, on l'ajoute
             if (s->getIt() == Item::HP)
             {
-               cout << "add" << endl;
                joueur->increaseNbHpPot();
             }
             if (s->getIt() == Item::MANA)
             {
                joueur->increaseNbManaPot();
-            }
-            
-            
+            }          
       }
       if (s->getIsShown())
       {
+         // Si l'item est en état "Affiché", on le dessine sur la fenêtre
          mainWindow_->Draw(*(s->mySprite_));
       }
       if (refresh) {
@@ -1273,22 +1292,23 @@ Game::displayEntity(Clock &time)
 
    }
 
-   
+   // Gestion des projectiles
    for(auto s : projectiles){
       
 	   if ( !s->getStuck())
-		{
+		{  // Si le projectile n'est pas coincé, il avance
 			s->update();
 			s->draw();
 		}
 	   else 
-		{
+		{  // Sinon, il est détruit
 	      projectiles.remove(s);
 	      delete s;
 		   break;
 	   }
+	   
 	   for(auto c : entitys)
-		{
+		{  // Si le projectile rentre en collision avec un monstre, on lui applique les dégats, on lance les animations de dégats, et on supprime le projectile.
 			if ( s->getCenter().x < 
 				c->getCenter().x   + 
 				c->getAnimationWidth() && 
@@ -1311,8 +1331,13 @@ Game::displayEntity(Clock &time)
 	         delete s ;
 	         c->lifePenalty(joueur->getAttackDamage());
 	         if (!c->isAlive())
-	         {  
+	         {  // Si on tue le monstre, alors on lance l'animation de mort, on lance un random drop, et on supprime le monstre
 	            upgrade();
+	            if (c->getId() == -30 )// Boss final)
+				   {
+				      game_victory = true;
+				      Timer_Victory->Reset();
+				   }
 	            launchDeathEffect(c);
 	            entitys.remove(c);
                (map_courante->Bot_list).remove(c);
@@ -1349,8 +1374,8 @@ Game::displayEffect(Clock &time)
 
 void Game::setPlayer(RenderWindow  * mainwin) 
 {
-   entitys.clear();
-
+   //entitys.clear();
+   // Suivant le choix, on construit un personnage
    switch(*player_choice) 
 	{
       case P1 : 
@@ -1418,9 +1443,8 @@ void Game::setPlayer(RenderWindow  * mainwin)
 
 
 void Game::launchingPause() 
-{
+{  // On lance la pause. La seule chose qui permet de la quitter sont la touche Q et Echap (revient au menu principal), et la touche P (qui permet de continuer le jeu)
    bool Ispause = true;
-   
    Shape grey_screen   = Shape::Rectangle(0,
 														0,
 														PLAYING_WIDTH,
@@ -1442,7 +1466,6 @@ void Game::launchingPause()
    mainWindow_->Draw(grey_screen);
    mainWindow_->Draw(texte);
    mainWindow_->Display();
-
 	while (Ispause == true) 
 	{
      Event event2;
@@ -1487,8 +1510,6 @@ void Game::launchingDeath()
    Sprite s_over;
    String texte;
    
-   
-  
    Music gameover;
    if(!gameover.OpenFromFile("Musique/Gameover2.ogg"))
       cout << "erreur " << endl ;
@@ -1498,11 +1519,7 @@ void Game::launchingDeath()
       cout << "erreur " << endl ;
    s_over.SetImage(game_over);
    s_over.SetPosition( camera->position_->x - PLAYING_WIDTH/2, camera->position_->y - PLAYING_HEIGHT/2);
-   
-   
-   
-   
-   
+
    mainWindow_->Clear();
    
    Event event2;
@@ -1539,13 +1556,7 @@ void Game::launchingDeath()
 	         break;
 	   }
     }
-   gameover.Stop();
-   
-   //while () {
-      
-   //}
-   
-   
+   gameover.Stop(); 
 }
 
 void Game::loadBot() {
@@ -1567,20 +1578,48 @@ void Game::loadBot() {
    loadFantome1(map_1,-1, 6, 2, 13);
    loadFantome1(map_1,-1, 5, 21, 9);
    loadFantome1(map_1,-1, 7, 21, 5);
-   
-  //loadReaper1(map_1, -1, 10, 7, 3);
-
-  //loadTroll(map_1, -1, 20, 20,20);
-  
+   for(auto c : map_1->Bot_list)
+   {
+      c->setDmg(1,c->getDmg(1) * ResultDifficulty);
+      c->setDmg(2,c->getDmg(2) * ResultDifficulty);
+      c->setDmg(3,c->getDmg(3) * ResultDifficulty);
+   }
   // MAP 2
   
+  
+  for(auto c : map_2->Bot_list)
+   {
+      c->setDmg(1,c->getDmg(1) * ResultDifficulty);
+      c->setDmg(2,c->getDmg(2) * ResultDifficulty);
+      c->setDmg(3,c->getDmg(3) * ResultDifficulty);
+   }
+   
+  // MAP 3
+  
+  
+  for(auto c : map_3->Bot_list)
+   {
+      c->setDmg(1,c->getDmg(1) * ResultDifficulty);
+      c->setDmg(2,c->getDmg(2) * ResultDifficulty);
+      c->setDmg(3,c->getDmg(3) * ResultDifficulty);
+   }
+   
+  // MAP 4
+  
+  
+  for(auto c : map_4->Bot_list)
+   {
+      c->setDmg(1,c->getDmg(1) * ResultDifficulty);
+      c->setDmg(2,c->getDmg(2) * ResultDifficulty);
+      c->setDmg(3,c->getDmg(3) * ResultDifficulty);
+   }
   // MAP 5
 
   loadBee(map_5, -5, 8, 25, 16);
   loadBee(map_5, -5, 9, 3, 6);
-  loadBlueslime(map_5, -1, 2, 11, 22);
-  loadBlueslime(map_5, -1, 5, 10, 9);
-  loadBlueslime(map_5, -1, 5, 25, 7);
+  loadBlueslime(map_5, -30, 2, 11, 22);
+  loadBlueslime(map_5, -30, 5, 10, 9);
+  loadBlueslime(map_5, -30, 5, 25, 7);
   loadGreenslime(map_5, -2, 3, 20, 5);
   loadGreenslime(map_5, -2, 5, 16, 11);
 
@@ -1588,16 +1627,20 @@ void Game::loadBot() {
   loadNaga(map_5, -3, 6, 18, 17);
   loadNaga(map_5, -3, 2, 3, 21);
   loadNaga(map_5, -3, 5, 2, 9);
-
-   
   
-  //loadArmor1(map_5, -5, 8, 20, 3);
-  /*
-  loadDragon(map_5, -1, 10, 6, 24);
-   
-  loadTroll(map_5, -2, 10, 12,17);
-  loadTroll(map_5, -3, 9, 25,15);
-  loadTroll(map_5, -4, 8, 10,9);*/
+  for(auto c : map_5->Bot_list)
+   {
+      c->setDmg(1,c->getDmg(1) * ResultDifficulty);
+      c->setDmg(2,c->getDmg(2) * ResultDifficulty);
+      c->setDmg(3,c->getDmg(3) * ResultDifficulty);
+   }
+
+  for(auto c : map_5->Bot_list)
+  {
+     c->setDmg(1,c->getDmg(1) * ResultDifficulty);
+     c->setDmg(2,c->getDmg(2) * ResultDifficulty);
+     c->setDmg(3,c->getDmg(3) * ResultDifficulty);
+  }
 }
 
 
@@ -1655,6 +1698,9 @@ void Game::loadItem() {
 void Game::launchBloodEffect(LivingEntity * e) { 
    Vector2i blood_effect(8,3);        
    FolowingAnimation *effect = new FolowingAnimation(mainWindow_, *image_degats, blood_effect, e);
+   effect->setSoundB("Musique/Blood_Squirt.ogg");
+   effect->getSound()->SetLoop(false);
+	effect->getSound()->Play();
    effect->play();            
 	e->spells.push_front(effect);
 } 
@@ -1662,8 +1708,11 @@ void Game::launchBloodEffect(LivingEntity * e) {
 void Game::launchDeathEffect(LivingEntity * e) { 	
    Vector2i eff = Vector2i(5,5);
 	StaticAnimation *ble = new StaticAnimation(mainWindow_, *image_Death, eff, e->getCenter());
+   ble->setSoundB("Musique/Death.ogg");
+	ble->getSound()->SetLoop(false);
+	ble->getSound()->Play();
 	ble->play();
-	static_effects.push_front( ble);
+	static_effects.push_front(ble);
 } 
 
 void Game::loadImages() 
@@ -1942,6 +1991,8 @@ void Game::loadRedscorpion(Map *map, int id, int range, int coordx, int coordy)
 }
 
 void Game::launchStartDialogue(string s, int coordx, int coordy) {
+
+     // On affiche lettre par lettre pour donner un effet dynamique, et on actualise le background noir suivant le nombre de lignes 
      int offset_X = 0;
      int offset_Y = 1;
      String * pop = new String();
@@ -2015,8 +2066,8 @@ void Game::upgrade() {
 }
 
 void Game::randomDrop(int x, int y) {
-
-   int i = rand() % DROP_CHANCE + 1;
+   // Gère la gestion des drops, suivant la difficulté
+   int i = rand() % (int)(DROP_CHANCE + (ResultDifficulty - EASY_DIFFICULTY) * 200) + 1;
    int j = rand() % 100 + 1;
    
  
@@ -2032,3 +2083,60 @@ void Game::randomDrop(int x, int y) {
    }
 }
 
+
+void Game::launchingVictory() 
+{
+   Clock death_timer;
+   Image game_over;
+   Sprite s_over;
+   String texte;
+   
+   Music gameover;
+   if(!gameover.OpenFromFile("Musique/Victoire.ogg"))
+      cout << "erreur " << endl ;
+   gameover.Play();
+   
+   if(!game_over.LoadFromFile("images/Gameover/Gameover.png"))
+      cout << "erreur " << endl ;
+   s_over.SetImage(game_over);
+   s_over.SetPosition( camera->position_->x - PLAYING_WIDTH/2, camera->position_->y - PLAYING_HEIGHT/2);
+
+   mainWindow_->Clear();
+   
+   Event event2;
+   bool inboucle = true;
+     
+	while ((mainWindow_->GetEvent(event2) || death_timer.GetElapsedTime() <= 18) && inboucle == true)
+	{
+	   texte = String (to_string (18 - (int) death_timer.GetElapsedTime() ),
+										   Font::GetDefaultFont(), 40.f);
+      texte.SetStyle(11);
+	   texte.SetColor(Color::White);
+	   texte.SetPosition(camera->position_->x - 30,
+							   camera->position_->y + PLAYING_HEIGHT /4);
+      mainWindow_->Draw(s_over);
+      mainWindow_->Draw(texte);
+      mainWindow_->Display();
+ 
+		switch (event2.Type)
+		{
+			case Event::KeyPressed :
+     
+            switch (event2.Key.Code) {
+               case  Key::Escape : {
+                  *gameState_ = ShowingMainMenu;
+                  inboucle = false;
+		            break;
+               }
+	            default :
+	               break;
+	         }
+	         
+	         break;
+	      default :
+	         break;
+	   }
+    }
+   *gameState_ = ShowingMainMenu;
+   gameover.Stop(); 
+}

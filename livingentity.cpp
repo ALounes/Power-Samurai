@@ -7,22 +7,23 @@ LivingEntity::LivingEntity(RenderWindow *win, Image& image,const Vector2i& nbrOf
    timer1_ = new Clock();
    timer2_ = new Clock();
    timer3_ = new Clock();
-   //Spell1_ = new Image();
-   //Spell2_ = new Image();
-   //Spell3_ = new Image();
 }
 
 LivingEntity::~LivingEntity()
 {
+   while (!spells.empty())
+	{ 
+		delete spells.back(); 
+		spells.pop_back(); 
+	}
+	while (!appliedeffects.empty())
+	{ 
+		delete appliedeffects.back(); 
+		appliedeffects.pop_back(); 
+	}
    delete timer1_;
 	delete timer2_;
 	delete timer3_;
-	//delete Spell1_;
-	//delete Spell2_;
-	//delete Spell3_;
-//while (!spells.empty()) { delete spells.back(); spells.pop_back(); }
-//while (!appliedeffects.empty()) { delete appliedeffects.back(); appliedeffects.pop_back(); }
-cout << "DESTRUCTEUR LivingEntity()" << endl;
 }
 
 Clock * LivingEntity::getTimer(int i) const {
@@ -311,7 +312,7 @@ LivingEntity::setMana(int mana)
 {
 	mana_ = mana;
 }
-
+//Pour les gains/pertes de mana, on vérifie que l'on est bien dans les bornes.
 void 
 LivingEntity::lifePenalty(int penalty)
 {

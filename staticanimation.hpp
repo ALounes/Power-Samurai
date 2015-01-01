@@ -13,8 +13,8 @@ class StaticAnimation : public AnimationEffect
 	~StaticAnimation();
 
 
-	void loop();
-	void run ();
+	void loop();      // Permet de faire tourner en boucle l'animation
+	void run ();      // Permet de lancer l'animation
 
 	private:
 

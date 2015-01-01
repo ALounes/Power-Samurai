@@ -22,11 +22,10 @@ class Camera
 
 	private:
 	RenderWindow *win_;
-	//Vector2f *position_;
 	View view_;
-	Entity *entityFocused_;
+	Entity *entityFocused_;    //Entité sur laquelle la caméra est centrée
 	
-	int * Camera_X;
+	int * Camera_X;      //Taille de la caméra
 	int * Camera_Y;
 	
 };

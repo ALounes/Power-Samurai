@@ -85,16 +85,18 @@
 
 class StatusBar
 {
+   // Une statusbar a une image de base, et à ceci s'ajoute les barres de vies, les sorts, les différents attributs du joueur, et les potions
+
 public:
 
 	StatusBar(RenderWindow *win, Player *player, Camera *camera);
 	~StatusBar();  
 
 	void display () ;
-	void playLifeEffect(Player *player);
-	void playManaEffect(Player *player);
+	void playLifeEffect(Player *player);   // Actualise la barre de vie
+	void playManaEffect(Player *player);   // Actualise la barre de mana
 
-	void update();
+	void update();                   // Actualise tous les sprites
 
 	void setPlayer(Player *player);
 	void setWindow(RenderWindow *win);
@@ -115,17 +117,17 @@ private:
    Player *player_;
 	RenderWindow *win_;
 
-	String *NamePlayer_;
-	String *Level_;
-	String *HP_Pot_Nb_;
+	String *NamePlayer_;       // Affiche le nom du joueur
+	String *Level_;            
+	String *HP_Pot_Nb_;        // Affiche le nombre de potions
 	String *MANA_Pot_Nb_;
-	String *CD1_;
+	String *CD1_;              // Affiche le CD des sorts
 	String *CD2_;
 	String *CD3_;
-	String *DMG1_;
+	String *DMG1_;             // Affiche les dégats des sorts
 	String *DMG2_;
 	String *DMG3_;
-	String *MANA1_;
+	String *MANA1_;            // Affiche le cout en Mana des sorts
 	String *MANA2_;
 	String *MANA3_;
 	
@@ -133,10 +135,10 @@ private:
 	Camera *camera_;
 	Vector2f *position_;
 
-	Sprite statuLife_;
-	Sprite statuMana_;
-	Sprite statusBar_;
-	Sprite spriteSpell1_;
+	Sprite statuLife_;         // Sprite de la barre de vie
+	Sprite statuMana_;         // Sprite de la barre de mana
+	Sprite statusBar_;         // Sprite de l'image de fond
+	Sprite spriteSpell1_;      // Sprite de l'apercu des sorts
 	Sprite spriteSpell2_;
 	Sprite spriteSpell3_;
 	
@@ -148,7 +150,7 @@ private:
 	Image *SecondSpell_ ;
 	Image *ThirdSpell_ ;
 	
-	Font *Perso_;
+	Font *Perso_;              // Police personnalisée 
 	};	
 
 #endif 

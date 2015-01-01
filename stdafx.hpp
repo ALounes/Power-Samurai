@@ -17,6 +17,8 @@ using namespace sf;
 
 enum map_number {NOCHANGE,MAP1,MAP2,MAP3};
 
+
+// Idée de Fonction de suppression
 struct Delete 
 { 
    template <class T> void operator ()(T*& p) const 

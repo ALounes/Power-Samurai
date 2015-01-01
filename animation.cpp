@@ -11,6 +11,11 @@ Animation::Animation(RenderWindow *win, Image &image, const Vector2i& nbrOfAnim)
    //Timer_animation = new Clock();
 	mySprite_ = new Sprite();
 	mySprite_->SetImage(image); 
+	
+	myAnimationSoundB_ = new SoundBuffer();
+	myAnimationSound_ = new Sound();
+	
+	
 
 	sizeImage_.x    = image.GetWidth(); 
 	sizeImage_.y    = image.GetHeight(); 
@@ -22,7 +27,10 @@ Animation::Animation(RenderWindow *win, Image &image, const Vector2i& nbrOfAnim)
 
 Animation::~Animation()
 {
+    myAnimationSound_->Stop();
 	 delete mySprite_;
+	 delete myAnimationSound_;
+	 delete myAnimationSoundB_;
 }
  
 Sprite* 
@@ -236,4 +244,18 @@ Animation::setDefaultSprite()
 											A_SPRITE_END_Y));
 }
 
+
+Sound * Animation::getSound() const 
+{
+   return myAnimationSound_;
+}
+
+void Animation::setSoundB(string s) 
+{
+	if (!myAnimationSoundB_->LoadFromFile(s))
+		cout << "erreur " << endl ;
+
+   myAnimationSound_->SetBuffer(*myAnimationSoundB_);
+
+}
 

@@ -30,7 +30,7 @@ private:
 	PlayersResult GetPlayersResponse(sf::RenderWindow *window);
 	PlayersResult HandleKey(int position, sf::RenderWindow *window);
 	
-	std::list<PlayersItem> *playersItems_;
+	std::list<PlayersItem> *playersItems_; // liste des différents persos
 	
 	sf::Image *image_p1_;
 	sf::Image *image_p2_;
