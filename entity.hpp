@@ -4,7 +4,7 @@
 #include "animation.hpp"
 #include "config.hpp"
 #include "map.hpp"
-#include "animationeffect.hpp"
+//#include "animationeffect.hpp"
 #include <list>
 
 

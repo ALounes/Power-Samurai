@@ -20,7 +20,7 @@
 #include "linustorvalds.hpp"
 #include "bjarnestroustrup.hpp"
 #include "alanturing.hpp"
-#include "athena.hpp"
+#include "gracehopper.hpp"
 #include "camera.hpp"
 #include "config.hpp"
 #include "projectile.hpp"
@@ -46,6 +46,7 @@
 #include "reddragon1.hpp"
 #include "redeye.hpp"
 #include "redscorpion.hpp"
+#include "devil1.hpp"
 
 
 
@@ -53,7 +54,7 @@
 #define INTERMEDIATE_DIFFICULTY 1
 #define HARD_DIFFICULTY 1.5
 
-#define GAME_WIDTH  1024
+#define GAME_WIDTH  1024   
 #define GAME_HEIGHT 768
 
 #define PLAYING_WIDTH 800
@@ -87,7 +88,7 @@
 #define REFRESH_ITEM 60
 #define SPELL_RATE 3
 
-#define PERCENTAGE_UPGRADE 0.03
+#define PERCENTAGE_UPGRADE 0.01
 #define PERCENTAGE_REGENERATION 0.007
 #define DROP_CHANCE 2*100
 
@@ -124,7 +125,6 @@ public:
 	void launchBloodEffect(LivingEntity * e);    // Lance une animation de sang
 	void launchDeathEffect(LivingEntity * e);    // Lance une animation de mort d'un monstre
 	
-	void loadImages();         // Charge toutes les images d'un coup, afin de gagner en performances
 	void launchingDeath();     // Gère la mort du joueur
 	void launchingVictory();   // Gère la victoire
 	void upgrade();            // Chaque fois qu'un monstre meurt, on améliore le personnage
@@ -145,6 +145,7 @@ public:
    void loadGreenslime(Map *map, int id, int range, int coordx, int coordy);
    
    void loadMouse1(Map *map, int id, int range, int coordx, int coordy);
+   void loadDevil(Map *map, int id, int range, int coordx, int coordy);
    void loadNaga(Map *map, int id, int range, int coordx, int coordy);
    void loadReddragon1(Map *map, int id, int range, int coordx, int coordy);
    void loadRedeye(Map *map, int id, int range, int coordx, int coordy);
@@ -209,12 +210,6 @@ private:
    Clock * Timer_Items;
    Clock * Timer_Spell;
    Clock * Timer_Victory;
-	
-   Image *image_Death;
-   Image *image_degats;
-	Image *image_projectile;
-	Image *image_hp_item;
-	Image *image_mana_item;
 	
 	bool game_victory = false;
 	

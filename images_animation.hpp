@@ -35,6 +35,7 @@ public:
 	Image *image_Redeye;
 	Image *image_Redscorpion;
 	
+	// Sorts
 	Image *image_Attack1;
 	Image *image_Attack2;
 	Image *image_Attack3;
@@ -44,8 +45,7 @@ public:
 	Image *image_Attack7;
 	Image *image_Attack8;
 	Image *image_Attack9;
-	Image *image_Attack10;
-	
+	Image *image_Attack10;	
 	Image *image_Fire3;
 	Image *image_Gun1;
 	Image *image_Gun2;
@@ -70,6 +70,12 @@ public:
 	Image *image_Wind1;
 	Image *image_Wind3;
 	
+	// Effets
+	Image *image_Death;
+	Image *image_degats;
+	Image *image_hp_item;
+	Image *image_mana_item;
+	Image *image_projectile;
 private:
 
 };

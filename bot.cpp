@@ -255,8 +255,6 @@ void Bot::follow_path(Map * map, Player * player) {
          player->setIsDamaged(true);
 		      
 		   FolowingAnimation *effect1 = new FolowingAnimation(win_, *getImgSpell(1), getVSpell(1), player);
-		   
-		   
 		   effect1->setSoundB("Musique/Bite.ogg");
          effect1->getSound()->SetLoop(false);
 	      effect1->getSound()->Play();
@@ -269,6 +267,7 @@ void Bot::follow_path(Map * map, Player * player) {
          player->setIsDamaged(true);
 		      
 		   FolowingAnimation *effect2 = new FolowingAnimation(win_, *getImgSpell(2), getVSpell(2), player);
+		   effect2->getSprite()->SetColor(Color::Black);
 		   effect2->setSoundB("Musique/Ice10.ogg");
          effect2->getSound()->SetLoop(false);
 	      effect2->getSound()->Play();
@@ -284,6 +283,7 @@ void Bot::follow_path(Map * map, Player * player) {
           
 		      
 		   FolowingAnimation *effect3 = new FolowingAnimation(win_, *getImgSpell(3), getVSpell(3), player);
+		   effect3->getSprite()->SetColor(Color::Red);
 		   effect3->setSoundB("Musique/Fire9.ogg");
          effect3->getSound()->SetLoop(false);
 	      effect3->getSound()->Play();

@@ -28,7 +28,8 @@
 MainMenu::MainMenu ()
 {
   menuItems_ = new list<MenuItem>;
-  sprite_main_all_ = new	Sprite();     
+  sprite_main_all_ = new	Sprite(); 
+  Mouse_Refresh = new Clock();    
   
 	//Chargement des images effectués dès le constructeur en raison de leur coût en ressource
 	
@@ -36,31 +37,31 @@ MainMenu::MainMenu ()
 	music_ = new Music();
 	setMusic("Musique/MainMenu.ogg");
 	
-	image_main_ = new sf::Image();
+	image_main_ = new Image();
 	image_main_->LoadFromFile("images/MainMenu/MainMenu.png");
 	sprite_main_all_->SetImage(*image_main_);		
 	
-	image_play_ = new sf::Image();
+	image_play_ = new Image();
 	image_play_->LoadFromFile("images/MainMenu/Play.png");
 	Sprite sprite_play;
 	sprite_play.SetImage(*image_play_);
 	
-	image_exit_ = new sf::Image();
+	image_exit_ = new Image();
 	image_exit_->LoadFromFile("images/MainMenu/Exit.png");
 	Sprite sprite_exit;
 	sprite_exit.SetImage(*image_exit_);
 	
-	image_difficulty_ = new sf::Image();
+	image_difficulty_ = new Image();
 	image_difficulty_->LoadFromFile("images/MainMenu/Difficulty.png");
 	Sprite sprite_difficulty;
 	sprite_difficulty.SetImage(*image_difficulty_);
 	
-	image_help_ = new sf::Image();
+	image_help_ = new Image();
 	image_help_->LoadFromFile("images/MainMenu/Help.png");
 	Sprite sprite_help;
 	sprite_help.SetImage(*image_help_);
 	
-	image_players_ = new sf::Image();
+	image_players_ = new Image();
 	if (!image_players_->LoadFromFile("images/MainMenu/Players.png"))
 		cout << "erreur " << endl ;
 	Sprite sprite_players;
@@ -152,6 +153,7 @@ MainMenu::~MainMenu ()
 	delete image_players_;
 	delete image_help_;
 	delete music_;
+	delete Mouse_Refresh;
 }
 
 // Afficher l'image principale
@@ -171,7 +173,7 @@ MainMenu::MenuResult MainMenu::Show(RenderWindow * window)
 
 MainMenu::MenuResult MainMenu::GetMenuResponse(RenderWindow * window)
 {
-	sf::Event menuEvent;
+	Event menuEvent;
 
 
 	while(42 != 43)
@@ -179,23 +181,25 @@ MainMenu::MenuResult MainMenu::GetMenuResponse(RenderWindow * window)
 
 		while(window->GetEvent(menuEvent))
 		{	
-			if(menuEvent.Type == sf::Event::MouseButtonPressed)
+			if(menuEvent.Type == Event::MouseButtonPressed)
 			{
 
 				return HandleClick(menuEvent.MouseButton.X,menuEvent.MouseButton.Y);
 			}
-			if(menuEvent.Type == sf::Event::Closed)
+			if(menuEvent.Type == Event::Closed)
 			{
 				return Exit;
 
 			}		
-			
-			if(menuEvent.Type == sf::Event::MouseMoved) 
+			if (Mouse_Refresh->GetElapsedTime() > 0.05)
 			{
-			  HandleMove(menuEvent.MouseMove.X,menuEvent.MouseMove.Y,window);
+			   if(menuEvent.Type == Event::MouseMoved) 
+			   {
+			     HandleMove(menuEvent.MouseMove.X,menuEvent.MouseMove.Y,window);
 
+			   }
+			   Mouse_Refresh->Reset();
 			}
-			
 		}
 	}
 
@@ -221,11 +225,10 @@ void MainMenu::HandleMove(int x, int y, RenderWindow *window)
 	
 	for (auto b : *menuItems_) {
     if (b.rect.Contains(x, y)) {
-      on_button = 4;
-      window->Clear(Color::White);
+      on_button = 5;
+      window->Clear();
 	    window->Draw(*sprite_main_all_);
 	    window->Draw( b.sprite );
-      
     }
     else {
       --on_button;

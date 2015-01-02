@@ -39,7 +39,7 @@ private:
 	sf::Image *image_hard_;
 	
 	sf::Sprite *sprite_main_difficulty_;
-	
+	Clock *Mouse_Refresh;
 };
 
 #endif 

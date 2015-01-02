@@ -58,7 +58,15 @@ Images::Images() {
 	image_Sword10 = new Image();
 	image_Wind1 = new Image();
 	image_Wind3 = new Image();
+	
+	image_Death = new Image();
+	image_degats = new Image();
+	image_hp_item = new Image();
+	image_mana_item = new Image();
+	image_projectile = new Image();
 
+   	     
+   	     
    	     
    if (!image_Armor1->LoadFromFile("Sprites/Ennemis/Armor1.png"))
 		      cout << "erreur " << endl ;    
@@ -186,7 +194,22 @@ Images::Images() {
    if (!image_Wind1->LoadFromFile("Sprites/Sorts/Wind1.png"))
 		      cout << "erreur " << endl ;    
    if (!image_Wind3->LoadFromFile("Sprites/Sorts/Wind3.png"))
-		      cout << "erreur " << endl ;    
+		      cout << "erreur " << endl ;   
+		      
+   if (!image_Death->LoadFromFile("Sprites/Sorts/Death1.png"))
+		      cout << "erreur " << endl ;
+		      
+   if (!image_degats->LoadFromFile("Sprites/Sorts/Blood2.png"))
+		      cout << "erreur " << endl ;
+		      
+   if (!image_hp_item->LoadFromFile("Sprites/Items/hp.png"))
+		      cout << "erreur " << endl ;
+
+	if (!image_mana_item->LoadFromFile("Sprites/Items/mana.png"))
+		      cout << "erreur " << endl ;	
+   
+   if (!image_projectile->LoadFromFile("Sprites/Projectiles/Fire1.png"))
+		      cout << "erreur " << endl ;   
    
 }
 
@@ -247,5 +270,7 @@ Images::~Images() {
 	delete image_Sword10;
 	delete image_Wind1;
 	delete image_Wind3;
+	
+	
 }
 

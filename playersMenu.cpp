@@ -79,7 +79,7 @@ PlayersMenu::PlayersMenu ()
 	PlayersItem player4;
 	player4.action = p4;
 	player4.sprite = sprite_p4;
-	player4.texte = String ("Name : Athena\nInvocatrice\nHP : 1000\nMana : 1000", Font::GetDefaultFont(), 20.f);
+	player4.texte = String ("Name : Grace Hopper\nDemoniste\nHP : 1000\nMana : 1000", Font::GetDefaultFont(), 20.f);
 	player4.texte.SetPosition(12*32 - 10,12*32 + 40);
 	player4.texte.SetStyle(11);
 	player4.texte.SetColor(Color::White);
