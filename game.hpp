@@ -88,8 +88,8 @@
 #define REFRESH_ITEM 60
 #define SPELL_RATE 3
 
-#define PERCENTAGE_UPGRADE 0.01
-#define PERCENTAGE_REGENERATION 0.007
+#define PERCENTAGE_UPGRADE 0.005 / ResultDifficulty
+#define PERCENTAGE_REGENERATION 0.005 / ResultDifficulty
 #define DROP_CHANCE 2*100
 
 enum direction {DOWN,LEFT,RIGHT,UP};
@@ -117,7 +117,7 @@ public:
 	void eventManagement(Event &event);          // Gère les événements sur la fenêtre
 	void keyPressedManagement (Key::Code keyPressed);  // Gère la gestion de l'appui des touches
 	void launchingPause();                             // Lance la pause. Elle a été implémenté pour mettre en pause tout le jeu à l'aide d'une boucle while
-	void loadBot();                           // Charge les monstres
+	void loadBot(int);                           // Charge les monstres
 	void loadItem();                          // Charge les items
 	void loadHP(int coordx, int coordy, Map *map);     // Permet d'ajouter une potion de vie sur une map
 	void loadMana(int coordx, int coordy, Map *map);   // Permet d'ajouter une potion de mana sur une map

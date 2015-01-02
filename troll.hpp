@@ -20,9 +20,9 @@
 #define TROLL_DELAY1 0.5
 #define TROLL_DELAY2 4
 #define TROLL_DELAY3 10
-#define TROLL_DMG1 500
-#define TROLL_DMG2 800
-#define TROLL_DMG3 1000
+#define TROLL_DMG1 300
+#define TROLL_DMG2 600
+#define TROLL_DMG3 8000
 #define TROLL_V2I1 Vector2i(5,3)
 #define TROLL_V2I2 Vector2i(5,5)
 #define TROLL_V2I3 Vector2i(5,5)

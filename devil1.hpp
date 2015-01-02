@@ -7,7 +7,7 @@
 
 #define DEVIL1_X 3
 #define DEVIL1_Y 4
-#define DEVIL1_LIFE 20000
+#define DEVIL1_LIFE 120000
 #define DEVIL1_MANA  500
 #define DEVIL1_POWER None
 #define DEVIL1_DMG 100
@@ -20,9 +20,9 @@
 #define DEVIL1_DELAY1 2
 #define DEVIL1_DELAY2 9
 #define DEVIL1_DELAY3 16
-#define DEVIL1_DMG1 700
-#define DEVIL1_DMG2 1500
-#define DEVIL1_DMG3 2000
+#define DEVIL1_DMG1 1400
+#define DEVIL1_DMG2 1900
+#define DEVIL1_DMG3 4000
 #define DEVIL1_V2I1 Vector2i(5,5)
 #define DEVIL1_V2I2 Vector2i(5,5)
 #define DEVIL1_V2I3 Vector2i(5,5)

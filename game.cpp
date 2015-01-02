@@ -259,6 +259,7 @@ void Game::Map_Load(void)
 	
 	map_3->set_links(map_2,map_4,NULL);
 	map_3->set_tpPoints(3,37,41,27,0,0);
+	map_3->setMusic("Musique/Scene2.ogg");
 	map_3->setId(4);
 	
 	//MAP 4
@@ -327,6 +328,7 @@ void Game::Map_Load(void)
 	
 	map_4->set_links(map_3,NULL,NULL);
 	map_4->set_tpPoints(41,25,0,0,0,0);
+	map_4->setMusic("Musique/Dungeon9.ogg");
 	map_4->setId(5);
 	// MAP 5
 	
@@ -635,7 +637,11 @@ void Game::RunGame()
  	setPlayer(mainWindow_);
  	
  	
- 	loadBot();
+ 	loadBot(1);
+ 	loadBot(2);
+ 	loadBot(3);
+ 	loadBot(4);
+ 	loadBot(5);
  	loadItem();
 	
 	entitys = map_courante->Bot_list;
@@ -661,7 +667,7 @@ void Game::RunGame()
       if (clock_regen.GetElapsedTime() >= 1)
       {  // Regen de la vie et de la mana du joueur
          joueur->lifeGain( PERCENTAGE_REGENERATION * joueur->getLifeMax());
-         joueur->manaGain( PERCENTAGE_REGENERATION * joueur->getManaMax());
+         joueur->manaGain( 1.5 * PERCENTAGE_REGENERATION * joueur->getManaMax() );
          clock_regen.Reset();
       }
       
@@ -689,20 +695,16 @@ void Game::RunGame()
 			   map_courante->Bot_list = entitys;
 			   map_courante = joueur->getMap();
 			   joueur->setMapChanged(NOCHANGE);
+			   if (map_courante->Bot_list.empty())    //Si la carte est vidée, on recharge les monstres 
+			   {
+			      loadBot(map_courante->getId());
+			   }
 			   entitys = map_courante->Bot_list;
 			   items = map_courante->Item_list;
 			   map_courante->getMusic()->Play();
 			   
 			   if (map_courante->getId() == 5)
 			   {
-			      if (lancer_dialogue == 4)
-			      {
-			         lancer_dialogue = 5;
-			      }
-			      //mainWindow_->Draw(*(map_courante->sprite_map_));
-			      //displayEntity(clock);	
-		         //statusbar.display();
-		         //mainWindow_->Display();
 			      lancer_dialogue = 4;
 			   }
 			}
@@ -733,7 +735,7 @@ void Game::RunGame()
 			}
       }
       
-		if ( input.IsKeyDown(Key::E)) 
+		if ( input.IsKeyDown(Key::Y)) 
 		{ // Gestion du sort 1
 			if ( joueur->getTimer(1)->GetElapsedTime() > joueur->getSpellDelay(1) && (joueur->getMana() >=
 					 joueur->getSManaCost(1) )) // S'il n'est pas en cooldown, et que le joueur a suffisemment de mana, on crée le sort
@@ -792,7 +794,7 @@ void Game::RunGame()
 	      // Sinon, on ne crèe rien
       }
       
-		if ( input.IsKeyDown(Key::R)) 
+		if ( input.IsKeyDown(Key::U)) 
 		{ // Gestion du sort 2
 			if (joueur->getTimer(2)->GetElapsedTime() >
 				joueur->getSpellDelay(2) && (joueur->getMana() >=
@@ -847,7 +849,7 @@ void Game::RunGame()
 	      // Sinon, ne rien faire
       }
       
-      if ( input.IsKeyDown(Key::T)) { // Gestion du sort 3
+      if ( input.IsKeyDown(Key::I)) { // Gestion du sort 3
 			if (joueur->getTimer(3)->GetElapsedTime() > joueur->getSpellDelay(3) && (joueur->getMana() >= joueur->getSManaCost(3) )) 
 			{
 			   
@@ -982,6 +984,10 @@ void Game::RunGame()
           lancer_dialogue = -1;
       }   
       
+      if (lancer_dialogue == 4)
+      {
+         lancer_dialogue = 5;
+      }
       
       if (lancer_dialogue == 3)
       {
@@ -1368,6 +1374,9 @@ Game::displayEntity(Clock &time)
          {
             launchBloodEffect(c);
             // Pour éviter la triche, quand un monstre est touché par un projectile, il se met en poursuite, quelque soit sa distance.
+            c->getTimer(1)->Reset();// Eviter le burst de trois sorts sur la tête
+			   c->getTimer(2)->Reset();
+			   c->getTimer(3)->Reset();
             c->inPursuit();
             projectiles.remove(s);
 	         delete s ;
@@ -1463,7 +1472,7 @@ void Game::setPlayer(RenderWindow  * mainwin)
 
         if(!image_joueur->LoadFromFile("Sprites/Personnages/P4.png"))
 		      cout << "erreur " << endl ; 
-		  if(!image_death_joueur->LoadFromFile("Sprites/Personnages/Damage1.png"))
+		  if(!image_death_joueur->LoadFromFile("Sprites/Personnages/Damage4.png"))
 		      cout << "erreur " << endl ;
         joueur = new GraceHopper(mainwin, *image_joueur, map_courante, all_images.image_Special17, all_images.image_Special2, all_images.image_Special14);
         joueur->setPosition(Vector2f(PLAYER_X_START*BASE_SPRITE ,PLAYER_Y_START*BASE_SPRITE));
@@ -1554,10 +1563,10 @@ void Game::launchingDeath()
    Sprite s_over;
    String texte;
    
-   Music gameover;
-   if(!gameover.OpenFromFile("Musique/Gameover2.ogg"))
+   Music *gameover = new Music();
+   if(!gameover->OpenFromFile("Musique/Gameover2.ogg"))
       cout << "erreur " << endl ;
-   gameover.Play();
+   gameover->Play();
    
    if(!game_over.LoadFromFile("images/Gameover/Gameover.png"))
       cout << "erreur " << endl ;
@@ -1600,225 +1609,244 @@ void Game::launchingDeath()
 	         break;
 	   }
     }
-   gameover.Stop(); 
+   gameover->Stop();
+   delete gameover; 
 }
 
-void Game::loadBot() {
+void Game::loadBot(int i) {
 
-   // MAP 1
+   switch (i) {
+      case 2 : {
+         // MAP 1
 
-   loadMouse1(map_1, -1, 4, 28, 18);
-   loadMouse1(map_1, -1, 7, 10, 4);
-   loadMouse1(map_1, -1, 3, 13, 14);
-   
-   loadRedeye(map_1, -1, 3, 12, 19); 
-   loadRedeye(map_1, -1, 4, 6, 8);
-   loadRedeye(map_1, -1, 4, 21, 16);
-   
-   loadGreenscorpion(map_1, -1, 3, 6, 18);
-   loadGreenscorpion(map_1, -1, 5, 10, 8);
-   loadGreenscorpion(map_1, -1, 3, 14, 17);
-   
-   loadFantome1(map_1,-1, 6, 2, 13);
-   loadFantome1(map_1,-1, 5, 21, 9);
-   loadFantome1(map_1,-1, 7, 21, 5);
-   for(auto c : map_1->Bot_list)
-   {
-      c->setDmg(1,c->getDmg(1) * ResultDifficulty);
-      c->setDmg(2,c->getDmg(2) * ResultDifficulty);
-      c->setDmg(3,c->getDmg(3) * ResultDifficulty);
-   }
-  // MAP 2
-  //loadFantome1(map_2,-1, 7, 21, 5);
-  loadBat(map_2,-1,3, 21, 37);
-  loadBat(map_2,-1,4, 6, 24);
-  loadBat(map_2,-1,4, 19, 32);
-  loadBat(map_2,-1,5, 27, 23);
-  loadBat(map_2,-1,2, 10, 14);
-  loadBat(map_2,-1,4, 9, 9);
-  loadBat(map_2,-1,5, 13, 4);
-  loadBat(map_2,-1,4, 20, 4);
-  loadBat(map_2,-1,2, 34, 5);
-  loadBat(map_2,-1,3, 34, 23);
-  loadBat(map_2,-1,3, 30, 35);
-  loadBat(map_2,-1,3, 41, 29);
-  loadBat(map_2,-1,3, 37, 7);
-  loadGreendragon1(map_2,-1,2,16,40);
-  loadGreendragon1(map_2,-1,3,4,39);
-  loadGreendragon1(map_2,-1,4,26,32);
-  loadGreendragon1(map_2,-1,7,15,23);
-  loadGreendragon1(map_2,-1,3,3,18);
-  loadGreendragon1(map_2,-1,3,3,9);
-  loadGreendragon1(map_2,-1,4,15,15);
-  loadGreendragon1(map_2,-1,5,26,10);
-  loadGreendragon1(map_2,-1,2,32,11);
-  loadGreendragon1(map_2,-1,5,37,28);
-  loadGreendragon1(map_2,-1,6,45,39);
-  loadGreendragon1(map_2,-1,2,45,24);
-  loadGreendragon1(map_2,-1,3,43,16);
-  loadFantome2(map_2,-1,5,17,38);
-  loadFantome2(map_2,-1,3,5,34);
-  loadFantome2(map_2,-1,3,11,30);
-  loadFantome2(map_2,-1,2,24,26);
-  loadFantome2(map_2,-1,4,7,17);
-  loadFantome2(map_2,-1,3,2,4);
-  loadFantome2(map_2,-1,3,14,8);
-  loadFantome2(map_2,-1,3,30,13);
-  loadFantome2(map_2,-1,4,29,4);
-  loadFantome2(map_2,-1,5,32,30);
-  loadFantome2(map_2,-1,4,34,40);
-  loadFantome2(map_2,-1,2,42,34);
-  loadFantome2(map_2,-1,4,45,6);
-  loadRedscorpion(map_2,-1,2,9,40);
-  loadRedscorpion(map_2,-1,4,6,29);
-  loadRedscorpion(map_2,-1,3,16,31);
-  loadRedscorpion(map_2,-1,5,11,23);
-  loadRedscorpion(map_2,-1,5,8,4);
-  loadRedscorpion(map_2,-1,4,19,10);
-  loadRedscorpion(map_2,-1,3,34,17);
-  loadRedscorpion(map_2,-1,2,25,4);
-  loadRedscorpion(map_2,-1,5,38,34);
-  loadRedscorpion(map_2,-1,2,29,40);
-  loadRedscorpion(map_2,-1,2,41,24);
-  loadRedscorpion(map_2,-1,2,40,11);
-  
-  
-  
-  for(auto c : map_2->Bot_list)
-   {
-      c->setDmg(1,c->getDmg(1) * ResultDifficulty);
-      c->setDmg(2,c->getDmg(2) * ResultDifficulty);
-      c->setDmg(3,c->getDmg(3) * ResultDifficulty);
-   }
-   
-  // MAP 3
-  
-  loadReddragon1(map_3,-1,4,38,15);
-  loadReddragon1(map_3,-1,3,35,30);
-  loadReddragon1(map_3,-1,4,21,35);
-  loadReddragon1(map_3,-1,3,7,24);
-  loadReddragon1(map_3,-1,5,18,20);
-  loadReddragon1(map_3,-1,3,21,10);
-  loadReddragon1(map_3,-1,8,26,34);
-  loadReddragon1(map_3,-1,5,29,13);
-  loadReddragon1(map_3,-1,6,27,21);
-  loadReddragon1(map_3,-1,6,3,8);
-  loadReddragon1(map_3,-1,8,5,18);
-  loadReddragon1(map_3,-1,7,1,40);
-  
-  loadTroll(map_3,-1,3,36,18);
-  loadTroll(map_3,-1,4,44,22);
-  loadTroll(map_3,-1,2,23,32);
-  loadTroll(map_3,-1,4,13,25);
-  loadTroll(map_3,-1,3,20,19);
-  loadTroll(map_3,-1,5,20,4);
-  loadTroll(map_3,-1,3,35,40);
-  loadTroll(map_3,-1,5,24,10);
-  loadTroll(map_3,-1,7,33,15);
-  loadTroll(map_3,-1,4,5,15);
-  loadTroll(map_3,-1,5,1,21);
-  loadTroll(map_3,-1,4,3,37);
-  
-  loadSquelette(map_3,-1,2,45,14);
-  loadSquelette(map_3,-1,3,30,29);
-  loadSquelette(map_3,-1,2,12,29);
-  loadSquelette(map_3,-1,4,8,17);
-  loadSquelette(map_3,-1,5,20,24);
-  loadSquelette(map_3,-1,4,15,4);
-  loadSquelette(map_3,-1,5,40,29);
-  loadSquelette(map_3,-1,6,25,4);
-  loadSquelette(map_3,-1,7,10,5);
-  loadSquelette(map_3,-1,4,5,4);
-  loadSquelette(map_3,-1,3,6,29);
-  loadSquelette(map_3,-1,6,15,36);
-  loadSquelette(map_3,-1,5,42,24);
-  
-  
-  
-  for(auto c : map_3->Bot_list)
-   {
-      c->setDmg(1,c->getDmg(1) * ResultDifficulty);
-      c->setDmg(2,c->getDmg(2) * ResultDifficulty);
-      c->setDmg(3,c->getDmg(3) * ResultDifficulty);
-   }
-   
-  // MAP 4
-  
-  
-  loadDragon(map_4,-1,7,32,39);
-  loadDragon(map_4,-1,5,42,39);
-  loadDragon(map_4,-1,4,28,25);
-  loadDragon(map_4,-1,7,31,13);
-  loadDragon(map_4,-1,4,35,10);
-  loadDragon(map_4,-1,5,40,18);
-  loadDragon(map_4,-1,6,40,7);
-  loadDragon(map_4,-1,5,38,23);
-  loadDragon(map_4,-1,4,10,32);
-  loadDragon(map_4,-1,5,3,29);
-  loadDragon(map_4,-1,4,4,16);
-  loadDragon(map_4,-1,4,4,6);
-  loadDragon(map_4,-1,5,13,10);
-  loadDragon(map_4,-1,5,22,34);
-  
-  loadArmor1(map_4,-1,5,28,33);
-  loadArmor1(map_4,-1,5,36,38);
-  loadArmor1(map_4,-1,4,42,30);
-  loadArmor1(map_4,-1,6,32,18);
-  loadArmor1(map_4,-1,5,34,4);
-  loadArmor1(map_4,-1,4,36,16);
-  loadArmor1(map_4,-1,5,45,7);
-  loadArmor1(map_4,-1,6,44,22);
-  loadArmor1(map_4,-1,4,15,30);
-  loadArmor1(map_4,-1,4,4,36);
-  loadArmor1(map_4,-1,5,7,21);
-  loadArmor1(map_4,-1,5,9,10);
-  loadArmor1(map_4,-1,4,15,3);
-  loadArmor1(map_4,-1,6,18,25);
-  
-  loadReaper1(map_4,-1,5,21,41);
-  loadReaper1(map_4,-1,5,43,35);
-  loadReaper1(map_4,-1,3,32,25);
-  loadReaper1(map_4,-1,6,31,9);
-  loadReaper1(map_4,-1,5,39,12);
-  loadReaper1(map_4,-1,5,44,14);
-  loadReaper1(map_4,-1,7,42,3);
-  loadReaper1(map_4,-1,10,34,34);
-  loadReaper1(map_4,-1,4,8,38);
-  loadReaper1(map_4,-1,4,1,24);
-  loadReaper1(map_4,-1,4,9,13);
-  loadReaper1(map_4,-1,4,12,5);
-  loadReaper1(map_4,-1,6,15,18);
-  loadReaper1(map_4,-1,5,24,31);
-  
-  loadDevil(map_4,-30,10,23,7);  // id = -30 : BOSS
-  for(auto c : map_4->Bot_list)
-   {
-      c->setDmg(1,c->getDmg(1) * ResultDifficulty);
-      c->setDmg(2,c->getDmg(2) * ResultDifficulty);
-      c->setDmg(3,c->getDmg(3) * ResultDifficulty);
-   }
-  // MAP 5
+         loadMouse1(map_1, -1, 4, 28, 18);
+         loadMouse1(map_1, -1, 7, 10, 4);
+         loadMouse1(map_1, -1, 3, 13, 14);
+         
+         loadRedeye(map_1, -1, 3, 12, 19); 
+         loadRedeye(map_1, -1, 4, 6, 8);
+         loadRedeye(map_1, -1, 4, 21, 16);
+         
+         loadGreenscorpion(map_1, -1, 3, 6, 18);
+         loadGreenscorpion(map_1, -1, 5, 10, 8);
+         loadGreenscorpion(map_1, -1, 3, 14, 17);
+         
+         loadFantome1(map_1,-1, 6, 2, 13);
+         loadFantome1(map_1,-1, 5, 21, 9);
+         loadFantome1(map_1,-1, 7, 21, 5);
+         for(auto c : map_1->Bot_list)
+         {
+            c->setDmg(1,c->getDmg(1) * ResultDifficulty);
+            c->setDmg(2,c->getDmg(2) * ResultDifficulty);
+            c->setDmg(3,c->getDmg(3) * ResultDifficulty);
+         }
+         break;
+     }
+     case 3 : {
+        // MAP 2
+        loadBat(map_2,-1,3, 21, 37);
+        loadBat(map_2,-1,4, 6, 24);
+        loadBat(map_2,-1,4, 19, 32);
+        loadBat(map_2,-1,5, 27, 23);
+        loadBat(map_2,-1,2, 10, 14);
+        loadBat(map_2,-1,4, 9, 9);
+        loadBat(map_2,-1,5, 13, 4);
+        loadBat(map_2,-1,4, 20, 4);
+        loadBat(map_2,-1,2, 34, 5);
+        loadBat(map_2,-1,3, 34, 23);
+        loadBat(map_2,-1,3, 30, 35);
+        loadBat(map_2,-1,3, 41, 29);
+        loadBat(map_2,-1,3, 37, 7);
+        loadGreendragon1(map_2,-1,2,16,40);
+        loadGreendragon1(map_2,-1,3,4,39);
+        loadGreendragon1(map_2,-1,4,26,32);
+        loadGreendragon1(map_2,-1,7,15,23);
+        loadGreendragon1(map_2,-1,3,3,18);
+        loadGreendragon1(map_2,-1,3,3,9);
+        loadGreendragon1(map_2,-1,4,15,15);
+        loadGreendragon1(map_2,-1,5,26,10);
+        loadGreendragon1(map_2,-1,2,32,11);
+        loadGreendragon1(map_2,-1,5,37,28);
+        loadGreendragon1(map_2,-1,6,45,39);
+        loadGreendragon1(map_2,-1,2,45,24);
+        loadGreendragon1(map_2,-1,3,43,16);
+        loadFantome2(map_2,-1,5,17,38);
+        loadFantome2(map_2,-1,3,5,34);
+        loadFantome2(map_2,-1,3,11,30);
+        loadFantome2(map_2,-1,2,24,26);
+        loadFantome2(map_2,-1,4,7,17);
+        loadFantome2(map_2,-1,3,2,4);
+        loadFantome2(map_2,-1,3,14,8);
+        loadFantome2(map_2,-1,3,30,13);
+        loadFantome2(map_2,-1,4,29,4);
+        loadFantome2(map_2,-1,5,32,30);
+        loadFantome2(map_2,-1,4,34,40);
+        loadFantome2(map_2,-1,2,42,34);
+        loadFantome2(map_2,-1,4,45,6);
+        loadRedscorpion(map_2,-1,2,9,40);
+        loadRedscorpion(map_2,-1,4,6,29);
+        loadRedscorpion(map_2,-1,3,16,31);
+        loadRedscorpion(map_2,-1,5,11,23);
+        loadRedscorpion(map_2,-1,5,8,4);
+        loadRedscorpion(map_2,-1,4,19,10);
+        loadRedscorpion(map_2,-1,3,34,17);
+        loadRedscorpion(map_2,-1,2,25,4);
+        loadRedscorpion(map_2,-1,5,38,34);
+        loadRedscorpion(map_2,-1,2,29,40);
+        loadRedscorpion(map_2,-1,2,41,24);
+        loadRedscorpion(map_2,-1,2,40,11);
+        
+        
+        
+        for(auto c : map_2->Bot_list)
+         {
+            c->setDmg(1,c->getDmg(1) * ResultDifficulty);
+            c->setDmg(2,c->getDmg(2) * ResultDifficulty);
+            c->setDmg(3,c->getDmg(3) * ResultDifficulty);
+         }
+         break;
+     } 
+     case 4 : {
+        // MAP 3
+        
+        loadReddragon1(map_3,-1,4,38,15);
+        loadReddragon1(map_3,-1,3,35,30);
+        loadReddragon1(map_3,-1,4,21,35);
+        loadReddragon1(map_3,-1,3,7,24);
+        loadReddragon1(map_3,-1,5,18,20);
+        loadReddragon1(map_3,-1,3,21,10);
+        loadReddragon1(map_3,-1,8,26,34);
+        loadReddragon1(map_3,-1,5,29,13);
+        loadReddragon1(map_3,-1,6,27,21);
+        loadReddragon1(map_3,-1,6,3,8);
+        loadReddragon1(map_3,-1,8,5,18);
+        loadReddragon1(map_3,-1,7,1,40);
+        
+        loadTroll(map_3,-1,3,36,18);
+        loadTroll(map_3,-1,4,44,22);
+        loadTroll(map_3,-1,2,23,32);
+        loadTroll(map_3,-1,4,13,25);
+        loadTroll(map_3,-1,3,20,19);
+        loadTroll(map_3,-1,5,20,4);
+        loadTroll(map_3,-1,3,35,40);
+        loadTroll(map_3,-1,5,24,10);
+        loadTroll(map_3,-1,7,33,15);
+        loadTroll(map_3,-1,4,5,15);
+        loadTroll(map_3,-1,5,1,21);
+        loadTroll(map_3,-1,4,3,37);
+        
+        loadSquelette(map_3,-1,2,44,14);
+        loadSquelette(map_3,-1,3,30,29);
+        loadSquelette(map_3,-1,2,12,29);
+        loadSquelette(map_3,-1,4,8,17);
+        loadSquelette(map_3,-1,5,20,24);
+        loadSquelette(map_3,-1,4,15,4);
+        loadSquelette(map_3,-1,5,40,29);
+        loadSquelette(map_3,-1,6,25,4);
+        loadSquelette(map_3,-1,7,10,5);
+        loadSquelette(map_3,-1,4,5,4);
+        loadSquelette(map_3,-1,3,6,29);
+        loadSquelette(map_3,-1,6,15,36);
+        loadSquelette(map_3,-1,5,42,24);
+        
+        
+        
+        for(auto c : map_3->Bot_list)
+         {
+            c->setDmg(1,c->getDmg(1) * ResultDifficulty);
+            c->setDmg(2,c->getDmg(2) * ResultDifficulty);
+            c->setDmg(3,c->getDmg(3) * ResultDifficulty);
+         }
+         break;
+     }
+     
+     case 5 : {
+     
+        // MAP 4
+        loadDragon(map_4,-1,7,32,39);
+        loadDragon(map_4,-1,5,42,39);
+        loadDragon(map_4,-1,4,28,25);
+        loadDragon(map_4,-1,7,31,13);
+        loadDragon(map_4,-1,4,35,10);
+        loadDragon(map_4,-1,5,40,18);
+        loadDragon(map_4,-1,6,40,7);
+        loadDragon(map_4,-1,5,38,23);
+        loadDragon(map_4,-1,4,10,32);
+        loadDragon(map_4,-1,5,3,29);
+        loadDragon(map_4,-1,4,4,16);
+        loadDragon(map_4,-1,4,4,6);
+        loadDragon(map_4,-1,5,13,10);
+        loadDragon(map_4,-1,5,22,34);
+        
+        loadArmor1(map_4,-1,5,28,33);
+        loadArmor1(map_4,-1,5,36,38);
+        loadArmor1(map_4,-1,4,42,30);
+        loadArmor1(map_4,-1,6,32,18);
+        loadArmor1(map_4,-1,5,34,4);
+        loadArmor1(map_4,-1,4,36,16);
+        loadArmor1(map_4,-1,5,45,7);
+        loadArmor1(map_4,-1,6,44,22);
+        loadArmor1(map_4,-1,4,15,30);
+        loadArmor1(map_4,-1,4,4,36);
+        loadArmor1(map_4,-1,5,7,21);
+        loadArmor1(map_4,-1,5,9,10);
+        loadArmor1(map_4,-1,4,15,3);
+        loadArmor1(map_4,-1,6,18,25);
+        
+        loadReaper1(map_4,-1,5,21,41);
+        loadReaper1(map_4,-1,5,43,35);
+        loadReaper1(map_4,-1,3,32,25);
+        loadReaper1(map_4,-1,6,31,9);
+        loadReaper1(map_4,-1,5,39,12);
+        loadReaper1(map_4,-1,5,44,14);
+        loadReaper1(map_4,-1,7,42,3);
+        loadReaper1(map_4,-1,10,34,34);
+        loadReaper1(map_4,-1,4,8,38);
+        loadReaper1(map_4,-1,4,1,24);
+        loadReaper1(map_4,-1,4,9,13);
+        loadReaper1(map_4,-1,4,12,5);
+        loadReaper1(map_4,-1,6,15,18);
+        loadReaper1(map_4,-1,5,24,31);
+        
+        loadDevil(map_4,-30,10,23,7);  // id = -30 : BOSS
+        for(auto c : map_4->Bot_list)
+         {
+            c->setDmg(1,c->getDmg(1) * ResultDifficulty);
+            c->setDmg(2,c->getDmg(2) * ResultDifficulty);
+            c->setDmg(3,c->getDmg(3) * ResultDifficulty);
+         }
+         break;
+     }
+     
+     case 1 : {
+        // MAP 5
 
-  loadBee(map_5, -5, 8, 25, 16);
-  loadBee(map_5, -5, 9, 3, 6);
-  loadBlueslime(map_5, -1, 2, 11, 22);
-  loadBlueslime(map_5, -1, 5, 10, 9);
-  loadBlueslime(map_5, -1, 5, 25, 7);
-  loadGreenslime(map_5, -2, 3, 20, 5);
-  loadGreenslime(map_5, -2, 5, 16, 11);
+        loadBee(map_5, -5, 8, 25, 16);
+        loadBee(map_5, -5, 9, 3, 6);
+        loadBlueslime(map_5, -1, 2, 11, 22);
+        loadBlueslime(map_5, -1, 5, 10, 9);
+        loadBlueslime(map_5, -1, 5, 25, 7);
+        loadGreenslime(map_5, -2, 3, 20, 5);
+        loadGreenslime(map_5, -2, 5, 16, 11);
 
-  loadNaga(map_5, -3, 3, 8, 3);
-  loadNaga(map_5, -3, 6, 18, 17);
-  loadNaga(map_5, -3, 2, 3, 21);
-  loadNaga(map_5, -3, 5, 2, 9);
-  
-  for(auto c : map_5->Bot_list)
-   {
-      c->setDmg(1,c->getDmg(1) * ResultDifficulty);
-      c->setDmg(2,c->getDmg(2) * ResultDifficulty);
-      c->setDmg(3,c->getDmg(3) * ResultDifficulty);
-   }
-
+        loadNaga(map_5, -3, 3, 8, 3);
+        loadNaga(map_5, -3, 6, 18, 17);
+        loadNaga(map_5, -3, 2, 3, 21);
+        loadNaga(map_5, -3, 5, 2, 9);
+        
+        for(auto c : map_5->Bot_list)
+         {
+            c->setDmg(1,c->getDmg(1) * ResultDifficulty);
+            c->setDmg(2,c->getDmg(2) * ResultDifficulty);
+            c->setDmg(3,c->getDmg(3) * ResultDifficulty);
+         }
+         break;
+      }
+      
+      default :
+         break;
+         
+   } 
 }
 
 
@@ -2262,11 +2290,11 @@ void Game::launchingVictory()
    Image img_victory;
    Sprite s_victory;
    Timer_Victory->Reset();
-   Music victory;
+   Music *victory = new Music();
    
-   if(!victory.OpenFromFile("Musique/Victoire.ogg"))
+   if(!victory->OpenFromFile("Musique/Victoire.ogg"))
       cout << "erreur " << endl ;
-   victory.Play();
+   victory->Play();
    
    if(!img_victory.LoadFromFile("images/Victory/victory.png"))
       cout << "erreur " << endl ;
@@ -2316,7 +2344,8 @@ void Game::launchingVictory()
             break;
       }
    }
-   victory.Stop(); 
+   victory->Stop(); 
+   delete victory;
    mainWindow_->Clear();
    *gameState_ = ShowingMainMenu;
    
