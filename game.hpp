@@ -1,3 +1,19 @@
+/*******************************************************************/
+/*=================================================================*/
+/************ -- PROJET : POWER SAMURAI 2D RPG -- ******************/
+/*=================================================================*/
+/*        [EI-SE4] Polytech Paris UPMC (2014-2015) (C++)           */
+/*=================================================================*/
+/*                       # Devloppeur #                            */
+/*                       ==============                            */
+/*                - lounes.achab@etu.upmc.fr                       */
+/*               - maxime.martelli@etu.upmc.fr                     */
+/*             - clement.maciejewski@etu.upmc.fr                   */
+/*=================================================================*/
+/*                    Fichier : GAME.HPP                           */
+/*=================================================================*/
+/*******************************************************************/
+
 #ifndef GAME_HPP
 #define GAME_HPP
 
@@ -15,7 +31,7 @@
 #include "entity.hpp"
 #include "bot.hpp"
 #include "player.hpp"
-//#include "images_animation.hpp"
+#include "images_animation.hpp"
 #include "animationeffect.hpp"
 #include "linustorvalds.hpp"
 #include "bjarnestroustrup.hpp"
