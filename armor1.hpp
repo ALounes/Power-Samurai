@@ -36,9 +36,9 @@
 #define ARMOR1_DELAY1 1
 #define ARMOR1_DELAY2 6
 #define ARMOR1_DELAY3 10
-#define ARMOR1_DMG1 700
-#define ARMOR1_DMG2 1200
-#define ARMOR1_DMG3 1700
+#define ARMOR1_DMG1 500
+#define ARMOR1_DMG2 1000
+#define ARMOR1_DMG3 1400
 #define ARMOR1_V2I1 Vector2i(5,3)
 #define ARMOR1_V2I2 Vector2i(5,4)
 #define ARMOR1_V2I3 Vector2i(5,6)

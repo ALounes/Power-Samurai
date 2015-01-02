@@ -34,8 +34,8 @@
 #define REAPER1_DELAY1 0.5
 #define REAPER1_DELAY2 5
 #define REAPER1_DELAY3 10
-#define REAPER1_DMG1 500
-#define REAPER1_DMG2 900
+#define REAPER1_DMG1 400
+#define REAPER1_DMG2 700
 #define REAPER1_DMG3 1200
 #define REAPER1_V2I1 Vector2i(5,3)
 #define REAPER1_V2I2 Vector2i(5,5)

@@ -1723,7 +1723,6 @@ void Game::loadBot(int i) {
      case 4 : {
         // MAP 3
         
-        loadReddragon1(map_3,-1,4,38,15);
         loadReddragon1(map_3,-1,3,35,30);
         loadReddragon1(map_3,-1,4,21,35);
         loadReddragon1(map_3,-1,3,7,24);
