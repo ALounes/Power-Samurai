@@ -84,7 +84,8 @@ Images::Images() {
    if (!image_Fantome2->LoadFromFile("Sprites/Ennemis/Fantome2.png"))
 		      cout << "erreur " << endl ;
 
-		      
+	if (!image_Bat->LoadFromFile("Sprites/Ennemis/Bat.png"))
+		      cout << "erreur " << endl ; 	      
    if (!image_Bee->LoadFromFile("Sprites/Ennemis/Bee.png"))
 		      cout << "erreur " << endl ; 
 

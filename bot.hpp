@@ -94,6 +94,8 @@ class Bot: public LivingEntity
 	
 	Shape Rect ;
 	
+	Clock* getRefresh() const;
+	
 	
 	private:
 	
@@ -102,13 +104,13 @@ class Bot: public LivingEntity
 	
 	int range_ = DEFAULT_RANGE; /*!< Rayon de détection du Bot*/
 	int speed_;/*!<Vitesse du bot*/
-	int distance; /*!< Donne la distance entre le joueur et le Bot*/
+	int distance = 100; /*!< Donne la distance entre le joueur et le Bot*/
 
 	float attack_delay;
 	int xp_;          /*!< Xp que rapporte le Bot à sa mort.*/
 	
 	bool in_pursuit = false;   /*!< Etat du Bot. Une fois en poursuite, il poursuit le joueur jusqu'à sa mort ou celle du joueur.*/
-	
+	Clock * Timer_Refresh_;
 	//uniform_int_distribution<int> distribution(random_minimum,random_maximum);
 	//defalut_random_engine generateur;
 };

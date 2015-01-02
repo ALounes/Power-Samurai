@@ -57,10 +57,12 @@ Bot::Bot(RenderWindow *win, Image& image, const Vector2i nbrOfAnim, String name,
    setSpeed(bot_speed);
    setId(ident);
    play();
+   Timer_Refresh_ = new Clock();
 }
 
 Bot::~Bot()
 {
+   delete Timer_Refresh_;
 }
 
 void
@@ -424,4 +426,8 @@ void Bot::drawRect() {
       Rect.SetPosition(getCenter().x - 15, getCenter().y - 22);
       win_->Draw(Rect);
    }
+}
+
+Clock* Bot::getRefresh() const {
+   return Timer_Refresh_;
 }

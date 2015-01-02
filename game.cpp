@@ -45,6 +45,7 @@ Game::Game ()
 	image_Death = new Image();
 	image_death_joueur = new Image();
 	Timer_Victory = new  Clock();
+	
  }
 
 
@@ -629,6 +630,7 @@ void Game::RunGame()
    Timer_Projectile = new Clock();
    Timer_Spell = new Clock();
    Timer_Items = new Clock();
+
    mainWindow_->ShowMouseCursor(false);
 	Event event;
 	Clock time;
@@ -934,16 +936,31 @@ void Game::RunGame()
       
 		for(auto s : entitys)
 		{  // Actualise le chemin des monstres
-			s->update_path(map_courante, joueur);
+			//s->update_path(map_courante, joueur);
 			// Actualise la distance entre les monstres et le joueur
-			s->setDistance( (s->GetPath()).size() );
+			//s->setDistance( (s->GetPath()).size() );
          
 			if (s->getDistance() > s->getRange() && !s->getPursuit())
 			{  
+			   if (s->getRefresh()->GetElapsedTime() > 0.2)
+			   {
+			      s->update_path(map_courante, joueur);
+			      s->setDistance( (s->GetPath()).size() );
+			      s->getRefresh()->Reset();
+			   }
             // Cas surplace. Si le monstre est trop loin et non en poursuite, il ne bouge pas
 			}
 			else {
+			   s->update_path(map_courante, joueur);
+			   s->setDistance( (s->GetPath()).size() );
 			   // On passe en poursuite et on lance le déplacement du monstre
+			   if (!s->getPursuit())
+			   {
+			      s->getTimer(1)->Reset();
+			      s->getTimer(2)->Reset();
+			      s->getTimer(3)->Reset();
+			   }
+			   
 				s->inPursuit();
 				s->follow_path(map_courante, joueur);
 			}
@@ -1629,6 +1646,59 @@ void Game::loadBot() {
       c->setDmg(3,c->getDmg(3) * ResultDifficulty);
    }
   // MAP 2
+  //loadFantome1(map_2,-1, 7, 21, 5);
+  loadBat(map_2,-1,2, 21, 37);
+  loadBat(map_2,-1,4, 6, 24);
+  loadBat(map_2,-1,4, 19, 32);
+  loadBat(map_2,-1,5, 27, 23);
+  loadBat(map_2,-1,2, 10, 14);
+  loadBat(map_2,-1,4, 9, 9);
+  loadBat(map_2,-1,5, 13, 4);
+  loadBat(map_2,-1,4, 20, 4);
+  loadBat(map_2,-1,2, 34, 5);
+  loadBat(map_2,-1,3, 34, 23);
+  loadBat(map_2,-1,3, 30, 35);
+  loadBat(map_2,-1,3, 41, 29);
+  loadBat(map_2,-1,3, 37, 7);
+  loadGreendragon1(map_2,-1,2,16,40);
+  loadGreendragon1(map_2,-1,3,4,39);
+  loadGreendragon1(map_2,-1,4,26,32);
+  loadGreendragon1(map_2,-1,7,15,23);
+  loadGreendragon1(map_2,-1,3,3,18);
+  loadGreendragon1(map_2,-1,3,3,9);
+  loadGreendragon1(map_2,-1,4,15,15);
+  loadGreendragon1(map_2,-1,5,26,10);
+  loadGreendragon1(map_2,-1,2,32,11);
+  loadGreendragon1(map_2,-1,5,37,28);
+  loadGreendragon1(map_2,-1,6,45,39);
+  loadGreendragon1(map_2,-1,2,45,24);
+  loadGreendragon1(map_2,-1,3,43,16);
+  loadFantome2(map_2,-1,5,17,38);
+  loadFantome2(map_2,-1,3,5,34);
+  loadFantome2(map_2,-1,3,11,30);
+  loadFantome2(map_2,-1,2,24,26);
+  loadFantome2(map_2,-1,4,7,17);
+  loadFantome2(map_2,-1,3,2,4);
+  loadFantome2(map_2,-1,3,14,8);
+  loadFantome2(map_2,-1,3,30,13);
+  loadFantome2(map_2,-1,4,29,4);
+  loadFantome2(map_2,-1,5,32,30);
+  loadFantome2(map_2,-1,4,34,40);
+  loadFantome2(map_2,-1,2,42,34);
+  loadFantome2(map_2,-1,4,45,6);
+  loadRedscorpion(map_2,-1,2,9,40);
+  loadRedscorpion(map_2,-1,4,6,29);
+  loadRedscorpion(map_2,-1,3,16,31);
+  loadRedscorpion(map_2,-1,5,11,23);
+  loadRedscorpion(map_2,-1,5,8,4);
+  loadRedscorpion(map_2,-1,4,19,10);
+  loadRedscorpion(map_2,-1,3,34,17);
+  loadRedscorpion(map_2,-1,2,25,4);
+  loadRedscorpion(map_2,-1,5,38,34);
+  loadRedscorpion(map_2,-1,2,29,40);
+  loadRedscorpion(map_2,-1,2,41,24);
+  loadRedscorpion(map_2,-1,2,40,11);
+  
   
   
   for(auto c : map_2->Bot_list)
@@ -2137,7 +2207,7 @@ void Game::launchingVictory()
    if(!img_victory.LoadFromFile("images/Victory/victory.png"))
       cout << "erreur " << endl ;
    s_victory.SetImage(img_victory);
-   s_victory.SetPosition( camera->position_->x - PLAYING_WIDTH/2, camera->position_->y - PLAYING_HEIGHT/2);
+   s_victory.SetPosition( camera->position_->x - PLAYING_WIDTH/2, camera->position_->y - PLAYING_HEIGHT/2 + 40);
    while (Timer_Victory->GetElapsedTime() < 3)
    {
             
@@ -2170,7 +2240,6 @@ void Game::launchingVictory()
                case  Key::Escape : {
                   *gameState_ = ShowingMainMenu;
                   inboucle = false;
-                  cout << "Aze" << endl;
 	               break;
                }
                default :
