@@ -1,6 +1,6 @@
 #include "armor1.hpp"
 
-Armor1::Armor1(RenderWindow *win, Image &image, Map *myMap, int ident, int range)
+Armor1::Armor1(RenderWindow *win, Image &image, Map *myMap, int ident, int range, Image* image1, Image* image2, Image* image3)
 :Bot( win,
 			image, 
 			Vector2i(ARMOR1_X,ARMOR1_Y), 
@@ -14,7 +14,7 @@ Armor1::Armor1(RenderWindow *win, Image &image, Map *myMap, int ident, int range
 			ARMOR1_SPEED,
 			ident,
 			range,
-			ARMOR1_XP
+			ARMOR1_XP, image1, image2, image3
 			)
 {	      setSpellDelay(1, ARMOR1_DELAY1);
          setSpellDelay(2, ARMOR1_DELAY2);
@@ -28,9 +28,10 @@ Armor1::Armor1(RenderWindow *win, Image &image, Map *myMap, int ident, int range
          setVSpell(1, ARMOR1_V2I1);
          setVSpell(2, ARMOR1_V2I2);
          setVSpell(3, ARMOR1_V2I3);
-         setImgSpell(1, "Sprites/Sorts/Attack1.png");
-         setImgSpell(2, "Sprites/Sorts/Light1.png");
-         setImgSpell(3, "Sprites/Sorts/Heal4.png"); 
+         setImgSpell(1, image1);
+         setImgSpell(2, image2);
+         setImgSpell(3, image3); 
+         
          setSManaCost(1, ARMOR1_MANA_COST1);
          setSManaCost(2, ARMOR1_MANA_COST2);
          setSManaCost(3, ARMOR1_MANA_COST3);    

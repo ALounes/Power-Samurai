@@ -1,6 +1,6 @@
 #include "alanturing.hpp"
 
-AlanTuring::AlanTuring(RenderWindow *win, Image &image, Map *myMap,float att_dmg)
+AlanTuring::AlanTuring(RenderWindow *win, Image &image, Map *myMap, Image* image1, Image* image2, Image* image3)
 :Player( win,
 			image, 
 			Vector2i(ALAN_TURING_X,ALAN_TURING_Y), 
@@ -9,7 +9,7 @@ AlanTuring::AlanTuring(RenderWindow *win, Image &image, Map *myMap,float att_dmg
 			ALAN_TURING_MANA, 
 			ALAN_TURING_POWER,
 			myMap,
-			att_dmg
+			ALAN_TURING_DMG
 			)
 {
          setSpellDelay(1, ALAN_TURING_DELAY1);
@@ -24,14 +24,14 @@ AlanTuring::AlanTuring(RenderWindow *win, Image &image, Map *myMap,float att_dmg
          setVSpell(1, ALAN_TURING_V2I1);
          setVSpell(2, ALAN_TURING_V2I2);
          setVSpell(3, ALAN_TURING_V2I3);
-         setImgSpell(1, "Sprites/Sorts/Special15.png");
-         setImgSpell(2, "Sprites/Sorts/Special12.png");
-         setImgSpell(3, "Sprites/Sorts/Gun2.png");
+         setImgSpell(1, image1);
+         setImgSpell(2, image2);
+         setImgSpell(3, image3);
          setSManaCost(1, ALAN_TURING_MANA_COST1);
          setSManaCost(2, ALAN_TURING_MANA_COST2);
          setSManaCost(3, ALAN_TURING_MANA_COST3);
          setImgSpritePortrait("Sprites/Personnages/Portrait3.png");
-         cout << " CONSTRUCTEUR AlanTuring()" << endl;
+         setSpeed(ALAN_TURING_SPEED);
 }
 
 

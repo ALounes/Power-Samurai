@@ -13,11 +13,11 @@
 #define BEE_DMG 100
 #define BEE_ATK_DELAY 5
 #define BEE_XP 10
-#define BEE_SPEED 1.5
+#define BEE_SPEED 2
 #define BEE_RANGE1 1
 #define BEE_RANGE2 -1
 #define BEE_RANGE3 -1
-#define BEE_DELAY1 1
+#define BEE_DELAY1 0.5
 #define BEE_DELAY2 7
 #define BEE_DELAY3 10
 #define BEE_DMG1 50
@@ -34,7 +34,7 @@ class Bee : public Bot
 {
 	public :
 
-	Bee(RenderWindow *win, Image &image, Map *myMap, int ident, int range);
+	Bee(RenderWindow *win, Image &image, Map *myMap, int ident, int range, Image* image1, Image* image2, Image* image3);
 
 	~Bee();
 

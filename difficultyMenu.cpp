@@ -17,29 +17,29 @@
 	
 DifficultyMenu::DifficultyMenu () 
 {
-
-  difficultyItems_ = new std::list<DifficultyItem>;
-  sprite_main_difficulty_ = new	sf::Sprite;
+   Mouse_Refresh = new Clock();
+   difficultyItems_ = new list<DifficultyItem>;
+   sprite_main_difficulty_ = new	Sprite();
 
 	//Load images from files
 	
-	image_main_ = new sf::Image();
+	image_main_ = new Image();
 	image_main_->LoadFromFile("images/DifficultyMenu/DifficultyMenu.png");
 	sprite_main_difficulty_->SetImage(*image_main_);
 	
-	image_easy_ = new sf::Image();
+	image_easy_ = new Image();
 	image_easy_->LoadFromFile("images/DifficultyMenu/Easy.png");
-	sf::Sprite sprite_easy;
+	Sprite sprite_easy;
 	sprite_easy.SetImage(*image_easy_);
 	
-	image_intermediate_ = new sf::Image();
+	image_intermediate_ = new Image();
 	image_intermediate_->LoadFromFile("images/DifficultyMenu/Intermediate.png");
-	sf::Sprite sprite_intermediate;
+	Sprite sprite_intermediate;
 	sprite_intermediate.SetImage(*image_intermediate_);
 	
-	image_hard_ = new sf::Image();
+	image_hard_ = new Image();
 	image_hard_->LoadFromFile("images/DifficultyMenu/Hard.png");
-	sf::Sprite sprite_hard;
+	Sprite sprite_hard;
 	sprite_hard.SetImage(*image_hard_);
 
 	//Setup clickable regions
@@ -84,8 +84,6 @@ DifficultyMenu::DifficultyMenu ()
 	difficultyItems_->push_back(easyButton);
 	difficultyItems_->push_back(intermediateButton);
 	difficultyItems_->push_back(hardButton);
-	
-	cout << "CONSTRUCTEUR Difficulty Menu" << endl;
 }
 
 DifficultyMenu::~DifficultyMenu () 
@@ -99,24 +97,25 @@ DifficultyMenu::~DifficultyMenu ()
 	delete image_easy_;
 	delete image_intermediate_;
 	delete image_hard_;
-	cout << "DESTRUCTEUR Difficulty Menu" << endl;
+	delete Mouse_Refresh;
 }
-void DifficultyMenu::Load(sf::RenderWindow *window)
+void DifficultyMenu::Load(RenderWindow *window)
 { 
 
-   window->Clear(sf::Color::White);
+   window->Clear(Color::White);
 	window->Draw(*sprite_main_difficulty_);
 	window->Display();
 }
 
-DifficultyMenu::DifficultyResult DifficultyMenu::Show(sf::RenderWindow *window)
+DifficultyMenu::DifficultyResult DifficultyMenu::Show(RenderWindow *window)
 {
 	return GetDifficultyResponse(window);
 }
 
-DifficultyMenu::DifficultyResult  DifficultyMenu::GetDifficultyResponse(sf::RenderWindow *window)
+//Suivant les actions effectuées dans la fenêtre, affiche les sprites des boutons colorés ou renvoie le résultat du bouton associé à l'endroit cliqué 
+DifficultyMenu::DifficultyResult  DifficultyMenu::GetDifficultyResponse(RenderWindow *window)
 {
-	sf::Event difficultyEvent;
+	Event difficultyEvent;
 
 	while(42 != 43)
 	{
@@ -124,22 +123,23 @@ DifficultyMenu::DifficultyResult  DifficultyMenu::GetDifficultyResponse(sf::Rend
 		while(window->GetEvent(difficultyEvent))
 		{	    
 	
-			if(difficultyEvent.Type == sf::Event::MouseButtonPressed)
+			if(difficultyEvent.Type == Event::MouseButtonPressed)
 			{
 				return HandleClick(difficultyEvent.MouseButton.X,difficultyEvent.MouseButton.Y);
 			}
 
-			if(difficultyEvent.Type == sf::Event::KeyPressed)
+			if(difficultyEvent.Type == Event::KeyPressed)
 			{
-				if(difficultyEvent.Key.Code == sf::Key::Escape) 
+				if(difficultyEvent.Key.Code == Key::Escape) 
 				return Escape;
 			}
-			
-			if(difficultyEvent.Type == sf::Event::MouseMoved) 
+			if (Mouse_Refresh->GetElapsedTime() > 0.05)
 			{
-				HandleMove(difficultyEvent.MouseMove.X,difficultyEvent.MouseMove.Y,window);
+			   if(difficultyEvent.Type == Event::MouseMoved) 
+			   {
+				   HandleMove(difficultyEvent.MouseMove.X,difficultyEvent.MouseMove.Y,window);
+			   }
 			}
-			
 		}
 	}
 }
@@ -158,7 +158,8 @@ DifficultyMenu::DifficultyResult DifficultyMenu::HandleClick(int x, int y)
 	return Nothing;
 }
 
-void DifficultyMenu::HandleMove(int x, int y, sf::RenderWindow *window)
+// Si la souris est sur un bouton, on afiche son sprite coloré
+void DifficultyMenu::HandleMove(int x, int y, RenderWindow *window)
 {	
 	bool on_button = false;
 	
@@ -167,7 +168,7 @@ void DifficultyMenu::HandleMove(int x, int y, sf::RenderWindow *window)
 		if (b.rect.Contains(x, y)) 
 		{
 			on_button = true;
-			window->Clear(sf::Color::White);
+			window->Clear(Color::White);
 			window->Draw(*sprite_main_difficulty_);
 			window->Draw( b.sprite);
 		}
@@ -175,7 +176,7 @@ void DifficultyMenu::HandleMove(int x, int y, sf::RenderWindow *window)
 	
 	if (!on_button) 
 	{
-		window->Clear(sf::Color::White);
+		window->Clear(Color::White);
 		window->Draw(*sprite_main_difficulty_);
 	}
   

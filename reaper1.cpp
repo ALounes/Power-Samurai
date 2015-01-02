@@ -1,7 +1,7 @@
 #include "reaper1.hpp"
 
 
-Reaper1::Reaper1(RenderWindow *win, Image &image, Map *myMap, int ident, int range)
+Reaper1::Reaper1(RenderWindow *win, Image &image, Map *myMap, int ident, int range, Image* image1, Image* image2, Image* image3)
 :Bot( win,
 			image, 
 			Vector2i(REAPER1_X,REAPER1_Y), 
@@ -15,7 +15,7 @@ Reaper1::Reaper1(RenderWindow *win, Image &image, Map *myMap, int ident, int ran
 			REAPER1_SPEED,
 			ident,
 			range,
-			REAPER1_XP
+			REAPER1_XP, image1, image2, image3
 			)
 {	      setSpellDelay(1, REAPER1_DELAY1);
          setSpellDelay(2, REAPER1_DELAY2);
@@ -29,9 +29,9 @@ Reaper1::Reaper1(RenderWindow *win, Image &image, Map *myMap, int ident, int ran
          setVSpell(1, REAPER1_V2I1);
          setVSpell(2, REAPER1_V2I2);
          setVSpell(3, REAPER1_V2I3);
-         setImgSpell(1, "Sprites/Sorts/Attack9.png");
-         setImgSpell(2, "Sprites/Sorts/Special14.png");
-         setImgSpell(3, "Sprites/Sorts/Heal4.png");
+         setImgSpell(1, image1);
+         setImgSpell(2, image2);
+         setImgSpell(3, image3);
          setSManaCost(1, REAPER1_MANA_COST1);
          setSManaCost(2, REAPER1_MANA_COST2);
          setSManaCost(3, REAPER1_MANA_COST3);      

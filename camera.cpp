@@ -42,6 +42,7 @@ Camera::getPosition() const
 	return position_;
 }
 
+// Permet de centrer la caméra sur le joueur, Sauf lorsque nous sommes en bord de carte. Pour cela, on fait des tests sur la distance du joueur au bords sachant la taille de la caméra.
 void
 Camera::run()
 {

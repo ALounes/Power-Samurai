@@ -1,7 +1,7 @@
 #include "mouse1.hpp"
 
 
-Mouse1::Mouse1(RenderWindow *win, Image &image, Map *myMap, int ident, int range)
+Mouse1::Mouse1(RenderWindow *win, Image &image, Map *myMap, int ident, int range, Image* image1, Image* image2, Image* image3)
 :Bot( win,
 			image, 
 			Vector2i(MOUSE1_X,MOUSE1_Y), 
@@ -15,7 +15,7 @@ Mouse1::Mouse1(RenderWindow *win, Image &image, Map *myMap, int ident, int range
 			MOUSE1_SPEED,
 			ident,
 			range,
-			MOUSE1_XP
+			MOUSE1_XP, image1, image2, image3
 			)
 {	      setSpellDelay(1, MOUSE1_DELAY1);
          setSpellDelay(2, MOUSE1_DELAY2);
@@ -29,9 +29,9 @@ Mouse1::Mouse1(RenderWindow *win, Image &image, Map *myMap, int ident, int range
          setVSpell(1, MOUSE1_V2I1);
          setVSpell(2, MOUSE1_V2I2);
          setVSpell(3, MOUSE1_V2I3);
-         setImgSpell(1, "Sprites/Sorts/Attack8.png");
-         setImgSpell(2, "Sprites/Sorts/Meteor.png");
-         setImgSpell(3, "Sprites/Sorts/Heal4.png");
+         setImgSpell(1, image1);
+         setImgSpell(2, image2);
+         setImgSpell(3, image3);
          setSManaCost(1, MOUSE1_MANA_COST1);
          setSManaCost(2, MOUSE1_MANA_COST2);
          setSManaCost(3, MOUSE1_MANA_COST3);

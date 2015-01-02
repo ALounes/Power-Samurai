@@ -10,6 +10,8 @@ FolowingAnimation::FolowingAnimation(RenderWindow *win, Image& image,
 FolowingAnimation::
 ~FolowingAnimation() {}
 
+
+// Gère le déroulement de l'animation, et fait bien en sorte que celle ci suive l'entité passée en pointeur.
 void 
 FolowingAnimation::run() 
 {
@@ -30,6 +32,7 @@ FolowingAnimation::run()
 	}
 }
 
+// Permet de boucler l'animation
 void 
 FolowingAnimation::loop() 
 {

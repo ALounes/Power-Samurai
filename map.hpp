@@ -57,8 +57,11 @@ public:
    Image*  getImage() const;  
    Sprite* getSprite() const;
    
+   // Renvoie la valeur du socle aux coordonnées (x,y)
    int getSocleMap(int x,int y) const;
    
+   void setId(int id);
+   int getId() const;
 
    Image  *image_map_;
 	Sprite *sprite_map_; 
@@ -87,6 +90,7 @@ private:
    int *Hauteur_;
    int *Largeur_;
    Music* music_;
+   int id_;
 
    
 };

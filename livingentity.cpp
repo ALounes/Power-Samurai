@@ -7,22 +7,23 @@ LivingEntity::LivingEntity(RenderWindow *win, Image& image,const Vector2i& nbrOf
    timer1_ = new Clock();
    timer2_ = new Clock();
    timer3_ = new Clock();
-   Spell1_ = new Image();
-   Spell2_ = new Image();
-   Spell3_ = new Image();
 }
 
 LivingEntity::~LivingEntity()
 {
+   while (!spells.empty())
+	{ 
+		delete spells.back(); 
+		spells.pop_back(); 
+	}
+	while (!appliedeffects.empty())
+	{ 
+		delete appliedeffects.back(); 
+		appliedeffects.pop_back(); 
+	}
    delete timer1_;
 	delete timer2_;
 	delete timer3_;
-	delete Spell1_;
-	delete Spell2_;
-	delete Spell3_;
-//while (!spells.empty()) { delete spells.back(); spells.pop_back(); }
-//while (!appliedeffects.empty()) { delete appliedeffects.back(); appliedeffects.pop_back(); }
-cout << "DESTRUCTEUR LivingEntity()" << endl;
 }
 
 Clock * LivingEntity::getTimer(int i) const {
@@ -60,7 +61,7 @@ void LivingEntity::setTimer(int i, Clock* t) {
 	}
 }
 
-int LivingEntity::getSpellDelay(int i) const {
+float LivingEntity::getSpellDelay(int i) const {
    switch (i)
 	{
       case  1 :
@@ -77,7 +78,7 @@ int LivingEntity::getSpellDelay(int i) const {
          break;
 	}
 }
-void LivingEntity::setSpellDelay(int i, int sd) {
+void LivingEntity::setSpellDelay(int i, float sd) {
    switch (i)
 	{
       case  1 :
@@ -112,26 +113,24 @@ Image* LivingEntity::getImgSpell(int i) const {
          break;
 	}
 }
-void LivingEntity::setImgSpell(int i, string s) {
+void LivingEntity::setImgSpell(int i, Image* img) {
    switch (i)
 	{
       case  1 : {
-         if (!Spell1_->LoadFromFile(s))
-		      cout << "erreur " << endl ;
+         Spell1_ = img;
          break;
       }
       case  2 : {
-         if (!Spell2_->LoadFromFile(s))
-		      cout << "erreur " << endl ;
+         Spell2_ = img;
+
          break; 
       }
       case  3 :
-         if (!Spell3_->LoadFromFile(s))
-		      cout << "erreur " << endl ;
+         Spell3_ = img;
+
   	      break;
       default :
-         if (!Spell1_->LoadFromFile(s))
-		      cout << "erreur " << endl ;
+         Spell1_ = img;
          break;
 	}
 }
@@ -172,7 +171,7 @@ void LivingEntity::setSRange(int i, int r) {
 	}
 }
 
-int LivingEntity::getDmg(int i) const {
+float LivingEntity::getDmg(int i) const {
    switch (i)
 	{
       case  1 :
@@ -189,7 +188,7 @@ int LivingEntity::getDmg(int i) const {
          break;
 	}
 }
-void LivingEntity::setDmg(int i, int d) {
+void LivingEntity::setDmg(int i, float d) {
    switch (i)
 	{
       case  1 :
@@ -242,7 +241,7 @@ void LivingEntity::setVSpell(int i, Vector2i v) {
 	}
 }
 
-int LivingEntity::getSManaCost(int i) const {
+float LivingEntity::getSManaCost(int i) const {
    switch (i)
 	{
       case  1 :
@@ -260,7 +259,7 @@ int LivingEntity::getSManaCost(int i) const {
 	}
 }
 
-void LivingEntity::setSManaCost(int i, int mc) {
+void LivingEntity::setSManaCost(int i, float mc) {
    switch (i)
 	{
       case  1 :
@@ -276,4 +275,145 @@ void LivingEntity::setSManaCost(int i, int mc) {
          mana_cost1_ = mc;
          break;
 	}
+}
+
+String 
+LivingEntity::getName() const
+{
+	return name_;
+}
+
+int 
+LivingEntity::getLife() const
+{
+	return life_;
+}
+
+int 
+LivingEntity::getMana() const
+{
+	return mana_;
+}
+
+void 
+LivingEntity::setName(String name)
+{
+	name_ = name;
+}
+
+void 
+LivingEntity::setLife(int life)
+{
+	life_ = life;
+}
+
+void 
+LivingEntity::setMana(int mana)
+{
+	mana_ = mana;
+}
+//Pour les gains/pertes de mana, on vérifie que l'on est bien dans les bornes.
+void 
+LivingEntity::lifePenalty(int penalty)
+{
+	life_ -= penalty;
+
+	if(life_ < ZERO)
+	{
+		life_ = ZERO;
+	}
+}
+
+void 
+LivingEntity::lifeGain(int gain)
+{
+ 	life_ += gain;
+
+	if(life_ > lifeMax_)
+	{
+		life_ = lifeMax_;
+	}
+}
+
+void 
+LivingEntity::manaPenalty(int penalty)
+{
+	mana_ -= penalty;
+
+	if(mana_ < ZERO)
+	{
+		mana_ = ZERO;
+	}
+}
+
+void 
+LivingEntity::manaGain(int gain)
+{
+ 	mana_ += gain;
+
+	if(mana_ > manaMax_)
+	{
+		mana_ = manaMax_;
+	}
+}
+
+bool 
+LivingEntity::isAlive() const
+{
+	return (life_ > ZERO);
+}
+
+bool 
+LivingEntity::haveMana() const
+{
+	return (mana_ > ZERO);
+}
+
+int  
+LivingEntity::getLifeMax() const
+{
+	return lifeMax_;
+}
+
+int  
+LivingEntity::getManaMax() const
+{
+	return manaMax_;
+}
+
+void  
+LivingEntity::setLifeMax(int life)
+{
+	lifeMax_ = life;
+}
+
+void  
+LivingEntity::setManaMax(int mana)
+{
+	manaMax_ = mana;
+}
+
+
+void 
+LivingEntity::bonusLifeMax(int life)
+{
+	lifeMax_ += life;
+}
+
+void 
+LivingEntity::bonusManaMax(int mana)
+{
+	manaMax_ += mana;
+}
+
+
+
+void LivingEntity::setAttackDamage(float ad) 
+{
+   attack_damage = ad;
+}
+
+float LivingEntity::getAttackDamage() 
+{
+   return attack_damage;
 }

@@ -19,8 +19,8 @@ class Projectile : public Entity
 
 	private:
 
-	int direction_;
-	int  iAnim_;
+	int direction_;      // Correspond à la direction du projectile
+	int  iAnim_;         // Reflète le numéro de la sous-image ou on est
 	const int numberOfEffect_;
 };
 

@@ -1,7 +1,7 @@
 #include "linustorvalds.hpp"
 
 
-LinusTorvalds::LinusTorvalds(RenderWindow *win, Image &image, Map *myMap,float att_dmg)
+LinusTorvalds::LinusTorvalds(RenderWindow *win, Image &image, Map *myMap, Image* image1, Image* image2, Image* image3)
 :Player( win,
 			image, 
 			Vector2i(LINUS_TORVALDS_X,LINUS_TORVALDS_Y), 
@@ -10,7 +10,7 @@ LinusTorvalds::LinusTorvalds(RenderWindow *win, Image &image, Map *myMap,float a
 			LINUS_TORVALDS_MANA, 
 			LINUS_TORVALDS_POWER,
 			myMap,
-			att_dmg
+			LINUS_TORVALDS_DMG
 			)
 {        
          setSpellDelay(1, LINUS_TORVALDS_DELAY1);
@@ -25,13 +25,14 @@ LinusTorvalds::LinusTorvalds(RenderWindow *win, Image &image, Map *myMap,float a
          setVSpell(1, LINUS_TORVALDS_V2I1);
          setVSpell(2, LINUS_TORVALDS_V2I2);
          setVSpell(3, LINUS_TORVALDS_V2I3);
-         setImgSpell(1, "Sprites/Sorts/Light7.png");
-         setImgSpell(2, "Sprites/Sorts/Special12.png");
-         setImgSpell(3, "Sprites/Sorts/Gun2.png");
+         setImgSpell(1, image1);
+         setImgSpell(2, image2);
+         setImgSpell(3, image3);
          setSManaCost(1, LINUS_TORVALDS_MANA_COST1);
          setSManaCost(2, LINUS_TORVALDS_MANA_COST2);
          setSManaCost(3, LINUS_TORVALDS_MANA_COST3);
          setImgSpritePortrait("Sprites/Personnages/Portrait1.png");
+         setSpeed(LINUS_TORVALDS_SPEED);
 }
 
 

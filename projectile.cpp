@@ -16,7 +16,6 @@ Projectile::Projectile(RenderWindow *win, Image* image, const Vector2i& nbrOfAni
 
 Projectile::~Projectile()
 {
-cout << "DESTRUCTION Projectile()" << endl;
 }
 
 int 
@@ -32,60 +31,44 @@ Projectile::setDirection(int direction)
 }
 
 void Projectile::preset() {
+   // Suivant la direction du projectile, on déplace le sprite du projectile 
    int direction = getDirection();
 	switch(direction)
 	{
 		case 2 :
-			//runMove();
-			//moveDown();
 			mySprite_->SetRotation(270);
 	      mySprite_->Move( getAnimationWidth(), getAnimationHeight());
 			
 			break;
 
 		case 4:
-
-			//moveLeft();
 			mySprite_->SetRotation(180);
 			mySprite_->Move( 0, getAnimationHeight());
 			break;
 
 		case 0:
-
-			//moveRight();
 			mySprite_->Move( getAnimationWidth(), 0);
 			break;
 
-		case 6:
-
-			//moveUp();
-			
+		case 6:		
 			mySprite_->SetRotation(90);
 			break;
 
 		case 5:
-
-			//moveUpLeft();
 			mySprite_->SetRotation(135);
 			mySprite_->Move( 0, getAnimationHeight());
 			break;
 
 		case 7:
-
-			//moveUpRight();
 			mySprite_->SetRotation(45);
 			break;
 
 		case 3:
-         
-			//moveDownLeft();  
 			mySprite_->Move( getAnimationWidth(), getAnimationHeight());
 			mySprite_->SetRotation(225);
 			break;
 
 		case 1:
-
-			//moveDownRight();
 			mySprite_->Move( getAnimationWidth(), 0);
 			mySprite_->SetRotation(315);
 			break;
@@ -101,7 +84,7 @@ Projectile::update()
 {
 	int direction = getDirection();
 	
-
+//Suivant la direction, on avance le projectile, et on actualise le sprite par la même occasion 
 	switch(direction)
 	{
 		case 2 :

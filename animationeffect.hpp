@@ -12,12 +12,12 @@ class AnimationEffect: public Animation
 	AnimationEffect(RenderWindow *win, Image& image, const Vector2i nbrOfAnim); 
 	virtual ~AnimationEffect();
 
- 	void play();
-	void stop();
-	bool isPlaying() const;
+ 	void play();      //L'animation est en cours
+	void stop();      //L'animation est arrêtée.
+	bool isPlaying() const; //Renvoie le status de l'animation
 
-	virtual void loop();
-	virtual void run ();
+	virtual void loop();    //Permet de boucler l'animation
+	virtual void run ();    //Utile pour les classes héritées
 
 	void setDefaultSprite();
 
@@ -35,7 +35,7 @@ class AnimationEffect: public Animation
 	const int numberOfEffect_;
 	int  iAnim_;
 	bool playing_;
-	int mana_cost_;
+	int mana_cost_;      //Cout de l'animation
 	int id_;
 	
 };

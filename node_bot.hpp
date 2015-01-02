@@ -7,7 +7,7 @@ using namespace std;
 
 class Node
 {
-    
+    //Chaque noeud a des coordonnées (ce sont les cases du tableau), une distance pour arriver au noeud, et une priorité, correspondant à la somme de la distance déjà parcourue pour arriver au noeud, et à la distance restante estimée. Plus la valeur est petite, plus la priorité est grande (plus court chemin)
 
     public:
         Node(int xp, int yp, int d, int p) ;
@@ -32,7 +32,7 @@ class Node
         int yPos;
         int level;      // distance totale parcourue pour arriver au noeud
                        
-        int priority;   //  priority = level+ distance restante estimée. Plus la valeur est petite, plus la priorité est grande 
+        int priority;   //  priority = level + distance restante estimée. Plus la valeur est petite, plus la priorité est grande 
         
 };
 

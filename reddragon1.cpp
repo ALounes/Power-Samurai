@@ -1,7 +1,7 @@
 #include "reddragon1.hpp"
 
 
-Reddragon1::Reddragon1(RenderWindow *win, Image &image, Map *myMap, int ident, int range)
+Reddragon1::Reddragon1(RenderWindow *win, Image &image, Map *myMap, int ident, int range, Image* image1, Image* image2, Image* image3)
 :Bot( win,
 			image, 
 			Vector2i(REDDRAGON1_X,REDDRAGON1_Y), 
@@ -15,7 +15,7 @@ Reddragon1::Reddragon1(RenderWindow *win, Image &image, Map *myMap, int ident, i
 			REDDRAGON1_SPEED,
 			ident,
 			range,
-			REDDRAGON1_XP
+			REDDRAGON1_XP, image1, image2, image3
 			)
 {	      setSpellDelay(1, REDDRAGON1_DELAY1);
          setSpellDelay(2, REDDRAGON1_DELAY2);
@@ -29,9 +29,9 @@ Reddragon1::Reddragon1(RenderWindow *win, Image &image, Map *myMap, int ident, i
          setVSpell(1, REDDRAGON1_V2I1);
          setVSpell(2, REDDRAGON1_V2I2);
          setVSpell(3, REDDRAGON1_V2I3);
-         setImgSpell(1, "Sprites/Sorts/Attack6.png");
-         setImgSpell(2, "Sprites/Sorts/Meteor.png");
-         setImgSpell(3, "Sprites/Sorts/Heal4.png");
+         setImgSpell(1, image1);
+         setImgSpell(2, image2);
+         setImgSpell(3, image3);
          setSManaCost(1, REDDRAGON1_MANA_COST1);
          setSManaCost(2, REDDRAGON1_MANA_COST2);
          setSManaCost(3, REDDRAGON1_MANA_COST3);

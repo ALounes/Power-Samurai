@@ -15,56 +15,90 @@ class LivingEntity : public Entity
 	Clock * getTimer(int) const;
 	void setTimer(int i, Clock* t);
 	
-	int getSpellDelay(int) const;
-	void setSpellDelay(int i, int sd);
+	float getSpellDelay(int) const;
+	void setSpellDelay(int i, float sd);
 	
 	Image* getImgSpell(int) const;
-	void setImgSpell(int i, string s);
+	void setImgSpell(int i, Image*);
 	
 	int getSRange(int) const;
 	void setSRange(int i, int r);
 	
-	int getDmg(int) const;
-	void setDmg(int i, int d);
+	float getDmg(int) const;
+	void setDmg(int i, float d);
 	
-	int getSManaCost(int) const;
-	void setSManaCost(int i, int mc);
+	float getSManaCost(int) const;
+	void setSManaCost(int i, float mc);
 	
 	Vector2i getVSpell(int) const;
 	void setVSpell(int, Vector2i v);
+	
+	String getName() const;
+	void setName(String name);
+	
+	int getLifeMax() const;
+	int getManaMax() const;
+	int getLife() const;
+	int getMana() const;
+
+	void setLife(int life);
+	void setMana(int mana);
+	void setLifeMax(int life);
+	void setManaMax(int mana);
+	void bonusLifeMax(int life);
+	void bonusManaMax(int mana);
+
+   //Pour les gains/pertes de mana, on vérifie que l'on est bien dans les bornes.
+	void lifePenalty(int penalty);
+	void lifeGain(int gain);
+	void manaPenalty(int penalty);
+	void manaGain(int gain);
+	bool isAlive()  const;
+	bool haveMana() const;
+	
+	void setAttackDamage(float);
+	float getAttackDamage();
    
-   list<AnimationEffect*> spells;
-	list<AnimationEffect*> appliedeffects;
+   list<AnimationEffect*> spells;      //Sorts lancés par l'entité
+	list<AnimationEffect*> appliedeffects; // Sorts appliqués à l'entité
 	
 	
 	
 	private:
 	
-	Clock * timer1_;
+	String name_;
+	int life_;  //Vie de l'entité
+	int mana_;  //Mana
+	int lifeMax_;  //Vie Max
+	int manaMax_;  //Mana Max
+	enum power power_;
+	float attack_damage; //Dégats
+	
+	Clock * timer1_;  //Timers associés aux sorts
 	Clock * timer2_;
 	Clock * timer3_;
 	
-	int spell_delay1_;
-	int spell_delay2_;
-   int spell_delay3_;	
+	float spell_delay1_; //Cooldown des sorts
+	float spell_delay2_;
+   float spell_delay3_;	
 	
 	
-	int range1_;
+	int range1_;      //Portée des sorts
 	int range2_;
 	int range3_;
-	int dmg1_;
-	int dmg2_;
-	int dmg3_;
-	Vector2i v_spell1_;
+	float dmg1_;     //Dégats des sorts
+	float dmg2_;
+	float dmg3_;
+	Vector2i v_spell1_;  //Vecteurs du nombre de sous sprites dans les images
 	Vector2i v_spell2_;
 	Vector2i v_spell3_;
-	int mana_cost1_;
-	int mana_cost2_;
-	int mana_cost3_;
+	float mana_cost1_;   //Cout en mana des sorts
+	float mana_cost2_;
+	float mana_cost3_;
 	
-	Image* Spell1_;
-   Image* Spell2_;
-	Image* Spell3_;
+	Image* Spell1_;   //Image du premier sort
+   Image* Spell2_;   //Image du second sort
+	Image* Spell3_;   //Image du troisième sort
 	
 };
 

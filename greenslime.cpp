@@ -1,7 +1,7 @@
 #include "greenslime.hpp"
 
 
-Greenslime::Greenslime(RenderWindow *win, Image &image, Map *myMap, int ident, int range)
+Greenslime::Greenslime(RenderWindow *win, Image &image, Map *myMap, int ident, int range, Image* image1, Image* image2, Image* image3)
 :Bot( win,
 			image, 
 			Vector2i(GREENSLIME_X,GREENSLIME_Y), 
@@ -15,7 +15,7 @@ Greenslime::Greenslime(RenderWindow *win, Image &image, Map *myMap, int ident, i
 			GREENSLIME_SPEED,
 			ident,
 			range,
-			GREENSLIME_XP
+			GREENSLIME_XP, image1, image2, image3
 			)
 {	      setSpellDelay(1, GREENSLIME_DELAY1);
          setSpellDelay(2, GREENSLIME_DELAY2);
@@ -29,9 +29,9 @@ Greenslime::Greenslime(RenderWindow *win, Image &image, Map *myMap, int ident, i
          setVSpell(1, GREENSLIME_V2I1);
          setVSpell(2, GREENSLIME_V2I2);
          setVSpell(3, GREENSLIME_V2I3);
-         setImgSpell(1, "Sprites/Sorts/Attack2.png");
-         setImgSpell(2, "Sprites/Sorts/Meteor.png");
-         setImgSpell(3, "Sprites/Sorts/Heal4.png");
+         setImgSpell(1, image1);
+         setImgSpell(2, image2);
+         setImgSpell(3, image3);
          setSManaCost(1, GREENSLIME_MANA_COST1);
          setSManaCost(2, GREENSLIME_MANA_COST2);
          setSManaCost(3, GREENSLIME_MANA_COST3);

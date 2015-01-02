@@ -15,12 +15,12 @@
 #define BLUESLIME_XP 10
 #define BLUESLIME_SPEED 1.5
 #define BLUESLIME_RANGE1 1
-#define BLUESLIME_RANGE2 2
+#define BLUESLIME_RANGE2 -1
 #define BLUESLIME_RANGE3 -1
 #define BLUESLIME_DELAY1 1
 #define BLUESLIME_DELAY2 7
 #define BLUESLIME_DELAY3 10
-#define BLUESLIME_DMG1 1000
+#define BLUESLIME_DMG1 50
 #define BLUESLIME_DMG2 100
 #define BLUESLIME_DMG3 200
 #define BLUESLIME_V2I1 Vector2i(5,3)
@@ -34,7 +34,7 @@ class Blueslime : public Bot
 {
 	public :
 
-	Blueslime(RenderWindow *win, Image &image, Map *myMap, int ident, int range);
+	Blueslime(RenderWindow *win, Image &image, Map *myMap, int ident, int range, Image* image1, Image* image2, Image* image3);
 
 	~Blueslime();
 

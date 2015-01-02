@@ -6,7 +6,7 @@
 	
 PlayersMenu::PlayersMenu () 
 {
-
+  // On initialise le menu, en ajoutant les différents personnages
   playersItems_ = new std::list<PlayersItem>;
   position_fleche_ = new int;
   *position_fleche_ = 0;
@@ -55,7 +55,7 @@ PlayersMenu::PlayersMenu ()
 	PlayersItem player1;
 	player1.action = p1;
 	player1.sprite = sprite_p1;
-	player1.texte = String ("Name : Athena\nHP : 100\nMana : 200", Font::GetDefaultFont(), 20.f);
+	player1.texte = String ("Name : Linus Torvalds\nChevalier\nHP : 1500\nMana : 500\n\n", Font::GetDefaultFont(), 20.f);
 	player1.texte.SetStyle(11);
 	player1.texte.SetColor(Color::White);
 	player1.texte.SetPosition(12*32 - 10,12*32 + 40);
@@ -63,7 +63,7 @@ PlayersMenu::PlayersMenu ()
 	PlayersItem player2;
 	player2.action = p2;
 	player2.sprite = sprite_p2;
-	player2.texte = String ("Name : Fartas\nHP : 200\nMana : 100", Font::GetDefaultFont(), 20.f);
+	player2.texte = String ("Name : Bjarne Stroustrup\nPaladin\nHP : 2000\nMana : 500", Font::GetDefaultFont(), 20.f);
 	player2.texte.SetPosition(12*32 - 10,12*32 + 40);
 	player2.texte.SetStyle(11);
 	player2.texte.SetColor(Color::White);
@@ -71,7 +71,7 @@ PlayersMenu::PlayersMenu ()
 	PlayersItem player3;
 	player3.action = p3;
 	player3.sprite = sprite_p3;
-	player3.texte = String ("Name : Bjarne\nHP : 150\nMana : 150", Font::GetDefaultFont(), 20.f);
+	player3.texte = String ("Name : Alan Turing\nMage\nHP : 1000\nMana : 1000", Font::GetDefaultFont(), 20.f);
 	player3.texte.SetPosition(12*32 - 10,12*32 + 40);
 	player3.texte.SetStyle(11);
 	player3.texte.SetColor(Color::White);
@@ -79,7 +79,7 @@ PlayersMenu::PlayersMenu ()
 	PlayersItem player4;
 	player4.action = p4;
 	player4.sprite = sprite_p4;
-	player4.texte = String ("Name : Linus\nHP : 100\nMana : 200", Font::GetDefaultFont(), 20.f);
+	player4.texte = String ("Name : Grace Hopper\nDemoniste\nHP : 1000\nMana : 1000", Font::GetDefaultFont(), 20.f);
 	player4.texte.SetPosition(12*32 - 10,12*32 + 40);
 	player4.texte.SetStyle(11);
 	player4.texte.SetColor(Color::White);
@@ -92,7 +92,6 @@ PlayersMenu::PlayersMenu ()
 
 PlayersMenu::~PlayersMenu () 
 {
-  cout << "Destructeur PlayersMenu()" << endl;
   playersItems_->clear();
    
   delete playersItems_;
@@ -110,8 +109,8 @@ PlayersMenu::~PlayersMenu ()
 }
 void PlayersMenu::Load(sf::RenderWindow *window)
 { 
-cout << "Load Players menu" << endl;
-  window->Clear(Color::White);
+   //On gère le déplacement de la flèche 
+   window->Clear(Color::White);
 	window->Draw(*sprite_main_players_);
 	sprite_arrow_->SetPosition(12*32 - 20 + (*position_fleche_)*64, 5 + 12*32);
 	
@@ -128,14 +127,13 @@ cout << "Load Players menu" << endl;
 
 PlayersMenu::PlayersResult PlayersMenu::Show(sf::RenderWindow *window)
 {
-    cout << "Show" << endl;
 	return GetPlayersResponse(window);
 }
 
 PlayersMenu::PlayersResult  PlayersMenu::GetPlayersResponse(sf::RenderWindow *window)
 {
 	sf::Event playersEvent;
-
+   // Gère la gestion de l'appui sur les touches directionnelles pour bouger la flèche 
 	while(42 != 43)
 	{
 
@@ -164,6 +162,7 @@ PlayersMenu::PlayersResult  PlayersMenu::GetPlayersResponse(sf::RenderWindow *wi
 
 PlayersMenu::PlayersResult PlayersMenu::HandleKey(int position, sf::RenderWindow *window)
 {
+  // Déplacement de la flèche
   if (position == -1) {
      if (*position_fleche_ == 0) {
       *position_fleche_ = NB_PERSO - 1;
@@ -181,8 +180,6 @@ PlayersMenu::PlayersResult PlayersMenu::HandleKey(int position, sf::RenderWindow
       ++(*position_fleche_);
      }
   }
- 
-  cout << *position_fleche_ << endl;
   
   sprite_arrow_->SetPosition(12*32 - 20 + (*position_fleche_)*64, 5 + 12*32);
 
@@ -207,12 +204,8 @@ PlayersMenu::PlayersResult PlayersMenu::HandleKey(int position, sf::RenderWindow
 
    window->Draw(iter->texte);
    
-   cout << *position_fleche_ << endl;
-   
-   
    window->Draw(*sprite_arrow_);
    window->Display();
-   cout << "finHandleKey" << endl;
 	return Nothing;
 }
 

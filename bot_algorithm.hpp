@@ -13,9 +13,9 @@
 
 
 
-const int n=47; // Taille horizontale de la carte 
-const int m=47; // Taille verticale de la carte
-//static int Socle_Map[n][m];
+const int n = 55; // Taille horizontale de la carte 
+const int m = 55; // Taille verticale de la carte
+
 
 static int open_Nodes_Map[n][m]; // Carte représentant les noeuds que l'on n'a pas encore testé mais scanné
 static int closed_Nodes_Map[n][m]; // Carte représentant les noeuds que l'on a déjà testé
@@ -23,6 +23,6 @@ static int dir_Map[n][m]; // Carte des directions
 const int dir=8; // Nombre de directions possibles à partir d'une case
 static int dx[dir]={1, 1, 0, -1, -1, -1, 0, 1}; // Caractérisation du déplacement
 static int dy[dir]={0, 1, 1, 1, 0, -1, -1, -1};
-
+// On commence le déplacement à zéro, correspondant à "Droite", puis on tourne dans le sens des aiguilles d'une montre
 
 #endif

@@ -20,17 +20,6 @@ Item::~Item() {
    delete Timer_Item;
 }
 
-
-
-/*void Item::setLifeBonus(int l) {
-   life_ = l;
-
-}
-int Item::getLifeBonus() const {
-   return life_;
-}*/
-
-
 void 
 Item::setMapRef(Map* map) 
 {

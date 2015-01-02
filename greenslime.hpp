@@ -15,7 +15,7 @@
 #define GREENSLIME_XP 10
 #define GREENSLIME_SPEED 1.5
 #define GREENSLIME_RANGE1 1
-#define GREENSLIME_RANGE2 2
+#define GREENSLIME_RANGE2 -1
 #define GREENSLIME_RANGE3 -1
 #define GREENSLIME_DELAY1 1
 #define GREENSLIME_DELAY2 7
@@ -34,7 +34,7 @@ class Greenslime : public Bot
 {
 	public :
 
-	Greenslime(RenderWindow *win, Image &image, Map *myMap, int ident, int range);
+	Greenslime(RenderWindow *win, Image &image, Map *myMap, int ident, int range, Image* image1, Image* image2, Image* image3);
 
 	~Greenslime();
 

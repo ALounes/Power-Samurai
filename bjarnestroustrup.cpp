@@ -1,6 +1,6 @@
 #include "bjarnestroustrup.hpp"
 
-BjarneStroustrup::BjarneStroustrup(RenderWindow *win, Image &image, Map *myMap,float att_dmg)
+BjarneStroustrup::BjarneStroustrup(RenderWindow *win, Image &image, Map *myMap, Image* image1, Image* image2, Image* image3)
 :Player( win,
 			image, 
 			Vector2i(BJARNE_STROUSTRUP_X,BJARNE_STROUSTRUP_Y), 
@@ -9,7 +9,7 @@ BjarneStroustrup::BjarneStroustrup(RenderWindow *win, Image &image, Map *myMap,f
 			BJARNE_STROUSTRUP_MANA, 
 			BJARNE_STROUSTRUP_POWER,
 			myMap,
-			att_dmg
+			BJARNE_STROUSTRUP_DMG
 			)
 {
          setSpellDelay(1, BJARNE_STROUSTRUP_DELAY1);
@@ -24,13 +24,14 @@ BjarneStroustrup::BjarneStroustrup(RenderWindow *win, Image &image, Map *myMap,f
          setVSpell(1, BJARNE_STROUSTRUP_V2I1);
          setVSpell(2, BJARNE_STROUSTRUP_V2I2);
          setVSpell(3, BJARNE_STROUSTRUP_V2I3);
-         setImgSpell(1, "Sprites/Sorts/Special15.png");
-         setImgSpell(2, "Sprites/Sorts/Special12.png");
-         setImgSpell(3, "Sprites/Sorts/Gun2.png");
+         setImgSpell(1, image1);
+         setImgSpell(2, image2);
+         setImgSpell(3, image3);
          setSManaCost(1, BJARNE_STROUSTRUP_MANA_COST1);
          setSManaCost(2, BJARNE_STROUSTRUP_MANA_COST2);
          setSManaCost(3, BJARNE_STROUSTRUP_MANA_COST3);
          setImgSpritePortrait("Sprites/Personnages/Portrait2.png");
+         setSpeed(BJARNE_STROUSTRUP_SPEED);
 }
 
 
