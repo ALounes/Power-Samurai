@@ -14,7 +14,7 @@
 #include "entity.hpp"
 #include "bot.hpp"
 #include "player.hpp"
-#include "images_animation.hpp"
+//#include "images_animation.hpp"
 #include "animationeffect.hpp"
 #include "linustorvalds.hpp"
 #include "bjarnestroustrup.hpp"
